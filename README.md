@@ -1,6 +1,8 @@
 # admin
 
-> admin
+这是一个基于vue的通用管理后台
+
+[对应后端php代码](https://github.com/jiangshanmeta/CodeIgniter)
 
 ## Build Setup
 

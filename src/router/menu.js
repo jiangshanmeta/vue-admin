@@ -10,14 +10,16 @@ export default [
                 label:'个人中心',
                 meta:{
                     privilege:[1],
+                    base_url:'/index/user',
                 },
             },
             {
                 method_name:'abc',
-                component:resolve=>require(['@/pages/index/abc'],resolve),
+                component:resolve=>require(['@/pages/index/index'],resolve),
                 label:'abcpahe',
                 meta:{
                     privilege:[1],
+                    base_url:'/index/user',
                 },
             },
         ],
