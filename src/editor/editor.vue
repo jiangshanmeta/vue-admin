@@ -2,7 +2,7 @@
     <table class="table">
         <tr v-for="row in currentFields">
             <template v-for="item in row">
-                <td>{{item.name}}</td>
+                <td>{{item.label}}</td>
                 <td :colspan="row.length===1?3:1">
                     <component 
                         :is="item.editor" 

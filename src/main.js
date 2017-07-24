@@ -32,7 +32,7 @@ axiosIns.defaults.validateStatus = function(status){
 }
 axiosIns.interceptors.request.use(function(config){
     config.headers.Accept = 'application/json';
-    config.headers.System = 'vue';
+    // config.headers.System = 'vue';
     let token = Vue.localStorage.get('token');
     if(token){
         config.headers.Token = token;

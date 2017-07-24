@@ -6,11 +6,11 @@
     </head>
     <body>
         <div id="app" style="min-height:100vh;display:flex;flex-direction:column;">
-            <top-nav ></top-nav>
+            <top-nav></top-nav>
 
             <div style="flex-grow:1;display:flex;">
-                <side-menu ></side-menu>
-                <router-view class="col"></router-view>
+                <side-menu style="flex:0 0 auto;"></side-menu>
+                <router-view style="flex:1 0 auto;"></router-view>
             </div>
 
             <bottom-footer></bottom-footer>

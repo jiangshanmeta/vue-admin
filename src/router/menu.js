@@ -10,7 +10,7 @@ export default [
                 label:'个人中心',
                 meta:{
                     privilege:[1],
-                    base_url:'/index/user',
+                    base_url:'/index/userList',
                 },
             },
             {
@@ -19,7 +19,7 @@ export default [
                 label:'abcpahe',
                 meta:{
                     privilege:[1],
-                    base_url:'/index/user',
+                    base_url:'/index/userList',
                 },
             },
         ],
