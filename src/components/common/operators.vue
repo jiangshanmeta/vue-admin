@@ -1,7 +1,6 @@
 <template>
 <div style="display:inline-block">
-    <span v-for="item in operators" @click="doOperate(item.link)">
-        {{item.label}}
+    <span v-for="item in operators" @click="doOperate(item.link)" :title="item.label" class="op-icon">
         <i :class="item.icon"></i>
     </span>
 </div>
@@ -33,3 +32,8 @@ export default{
 }
 </script>
 
+<style scoped>
+.op-icon{
+    cursor:pointer;
+}
+</style>

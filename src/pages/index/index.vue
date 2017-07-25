@@ -30,7 +30,7 @@
         </el-table-column>
         <el-table-column label="操作" v-if="data.length">
             <template scope="scope">
-                <span @click="showEditBox(scope.row._id)">编辑<i class="el-icon-edit"></i></span>
+                <a @click="showEditBox(scope.row._id)" title="编辑" style="cursor:pointer"><i class="el-icon-edit"></i></a>
                 <operators 
                     :id="scope.row._id" 
                     :operators="operators"
@@ -74,23 +74,17 @@ export default{
             base_url:'',
             filter:[],
             pagesize:20,
-            total:100,
+            total:0,
             currentPage:1,
             data:[],
             fields:[],
             sort:'',
             create_link:'',
             docreate_link:'',
-
             detail_link:'',
             edit_link:'',
             doedit_link:'',
-            // edit_fields:[],
             operators:[],
-
-            // curEditId:'',
-            // isShowCreatebox:false,
-            // isShowEditbox:false,
         }
     },
     components:{
@@ -101,9 +95,6 @@ export default{
     },
     methods:{
         showEditBox(id){
-            // this.curEditId = id;
-            // console.log(id);
-            // return
             this.$refs.edit.show(id)
         },
 
@@ -176,40 +167,32 @@ export default{
             this.curEditId = '';
             this.$refs.create.init();
             this.$refs.edit.init();
-            // this.create_fields = [];
-            // this.edit_fields = [];
 
             this.realSearch();
-            console.log(base_url);
 
         },
-        pagechange(currentPage){
-            console.log(currentPage)
-        }
     },
     created(){
         // console.log("aaaaa");
 
-        // setTimeout(()=>{
+        setTimeout(()=>{
 
-        //     this.filter = [
-        //         {editor:'field_bool',value:1,label:'是否',field:'boolField'},
-        //         {editor:'field_month',value:'',label:'月份',field:'beginTS'},
-        //         {editor:'field_day',value:'',label:'日期',field:'endTS'},
-        //         {editor:'field_enum',value:3,label:'enum',field:'enumField',candidate:[
-        //             {label:'111',value:1},
-        //             {label:'222',value:2},
-        //             {label:'333',value:3},
-        //             {label:'444',value:4},
-        //             {label:'555',value:5},
-        //         ]}
-        //     ]
-        // },3000)
+            this.filter = [
+                {editor:'field_bool',value:1,label:'是否',field:'boolField'},
+                {editor:'field_month',value:'',label:'月份',field:'beginTS'},
+                {editor:'field_day',value:'',label:'日期',field:'endTS'},
+                {editor:'field_enum',value:3,label:'enum',field:'enumField',candidate:[
+                    {label:'111',value:1},
+                    {label:'222',value:2},
+                    {label:'333',value:3},
+                    {label:'444',value:4},
+                    {label:'555',value:5},
+                ]}
+            ]
+        },1000)
     },
     beforeRouteEnter (to, from, next){
-        // console.log(1111111)
         next((vm)=>{
-            // console.log(vm.$route)
             vm.init();
         })
     }
@@ -217,8 +200,5 @@ export default{
 </script>
 
 <style >
-/*.el-table table{
-    width:100% !important;
-    max-width:100%;
-}*/
+
 </style>

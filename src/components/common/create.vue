@@ -66,7 +66,6 @@ export default{
                 this.isShowCreatebox = false;
                 this.$emit('create',json.data);
             })
-            // console.log(data)
         },
     }
 }
