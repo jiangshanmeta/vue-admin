@@ -1,43 +1,51 @@
 <template>
 <section>
     <filters :filters="filter"  @search="searchByFilter" ref="filters"></filters>
-    {{sort}}
-        <el-table
-            :data="data"
-            style="width:100%;"
-            @sort-change="searchBySort"
+
+    <create 
+        :create_link="create_link" 
+        :docreate_link="docreate_link"
+        ref="create"
+        @create="fullSearch"
+    ></create>
+
+    <el-table
+        :data="data"
+        style="width:100%;"
+        @sort-change="searchBySort"
+    >
+        <el-table-column label="序号" v-if="data.length">
+            <template scope="scope">
+                {{scope.$index+1}}
+            </template>
+        </el-table-column>
+        <el-table-column
+            v-for="item in fields"
+            :key="item.field"
+            :prop="item.field"
+            :label="item.label"
+            sortable="custom"
+            
         >
-            <el-table-column label="序号" v-if="data.length">
-                <template scope="scope">
-                    {{scope.$index+1}}
-                </template>
-            </el-table-column>
-            <el-table-column
-                v-for="item in fields"
-                :key="item.field"
-                :prop="item.field"
-                :label="item.label"
-                sortable="custom"
-                
-            >
-            </el-table-column>
-            <el-table-column label="操作" v-if="data.length">
-                <template scope="scope">
-                  {{scope.row._id}} 
-                  <template v-for="item in operators">
-                        <span 
-                            @click="doOperator(item.link + scope.row._id)"
-                        >
-                            {{item.label}}
-                            <i :class="item.icon"></i>
-                        </span>
-                  </template>
-                  <i v-for=""></i>
-                </template>
-            </el-table-column>
-        </el-table>
+        </el-table-column>
+        <el-table-column label="操作" v-if="data.length">
+            <template scope="scope">
+                <span @click="showEditBox(scope.row._id)">编辑<i class="el-icon-edit"></i></span>
+                <operators 
+                    :id="scope.row._id" 
+                    :operators="operators"
+                    @update="fullSearch"
+                ></operators>
+            </template>
+        </el-table-column>
+    </el-table>
 
-
+    <edit
+        :edit_link="edit_link"
+        :doedit_link="doedit_link"
+        ref="edit"
+        @update="fullSearch"
+    ></edit>
 
     <el-pagination
         layout="prev,pager,next"
@@ -46,12 +54,20 @@
         :total="total"
         @current-change="searchByPage"
     ></el-pagination>
+
+
+
 </section>
 
 </template>
 
 <script>
 import filters from "@/editor/filters"
+import operators from "@/components/common/operators"
+
+import create from "@/components/common/create"
+import edit from "@/components/common/edit"
+
 export default{
     data(){
         return {
@@ -65,30 +81,44 @@ export default{
             sort:'',
             create_link:'',
             docreate_link:'',
-            create_fields:[],
+
             detail_link:'',
             edit_link:'',
             doedit_link:'',
-            edit_fields:[],
+            // edit_fields:[],
             operators:[],
+
+            // curEditId:'',
+            // isShowCreatebox:false,
+            // isShowEditbox:false,
         }
     },
     components:{
-       filters 
+       filters,
+       operators,
+       create,
+       edit,
     },
     methods:{
-        doOperator(uri){
-            console.log(uri)
+        showEditBox(id){
+            // this.curEditId = id;
+            // console.log(id);
+            // return
+            this.$refs.edit.show(id)
+        },
+
+        fullSearch(){
+            let data = this.$refs.filters.getData();
+            data['page'] = this.currentPage;
+            if(this.sort){
+                data['sort'] = this.sort;
+            }
+            return this.realSearch(data);
         },
         searchBySort(obj){
-            console.log(obj)
-            let data = this.$refs.filters.getData();
             let sort = obj['order'][0] + obj['prop'];
             this.sort = sort;
-
-            data['sort'] = sort;
-            data['page'] = this.currentPage;
-            this.realSearch(data);
+            this.fullSearch();
         },
         searchByFilter(data){
             this.realSearch(data).then(()=>{
@@ -96,56 +126,29 @@ export default{
             })
         },
         searchByPage(currentPage){
-            let data = this.$refs.filters.getData();
-            data['page'] = currentPage;
-            if(this.sort){
-                data['sort'] = this.sort;
-            }
-            this.realSearch(data)
+            this.fullSearch();
         },
         realSearch(params={}){
             return this.$axios.get(this.base_url,{params:params}).then((json)=>{
                 let rst = json.data;
-
-                if(rst.pagesize){
-                    this.pagesize = rst.pagesize;
-                }
-
-                if(rst.filter){
-                    this.filter = rst.filter;
-                }
-
-                if(rst.total){
-                    this.total = rst.total;
-                }
-
-                if(rst.fields){
-                    this.fields = rst.fields;
-                }
-
-                if(rst.data){
-                    this.data = rst.data;
-                }
-
-                if(rst.create_link){
-                    this.create_link = rst.create_link;
-                }
-                if(rst.docreate_link){
-                    this.docreate_link = rst.docreate_link;
-                }
-
-                if(rst.detail_link){
-                    this.detail_link = rst.detail_link;
-                }
-                if(rst.edit_link){
-                    this.edit_link = rst.edit_link;
-                }
-                if(rst.doedit_link){
-                    this.doedit_link = rst.doedit_link;
-                }
-                if(rst.operators){
-                    this.operators = rst.operators;
-                }
+                let backendFields = [
+                    'pagesize',
+                    'filter',
+                    'total',
+                    'fields',
+                    'data',
+                    'create_link',
+                    'docreate_link',
+                    'detail_link',
+                    'edit_link',
+                    'doedit_link',
+                    'operators',
+                ];
+                backendFields.forEach(function(item){
+                    if(rst[item]){
+                        this[item] = rst[item];
+                    }
+                },this);
 
             })
         },
@@ -170,8 +173,11 @@ export default{
             this.edit_link = '';
             this.doedit_link = '';
             this.operators = [];
-            this.create_fields = [];
-            this.edit_fields = [];
+            this.curEditId = '';
+            this.$refs.create.init();
+            this.$refs.edit.init();
+            // this.create_fields = [];
+            // this.edit_fields = [];
 
             this.realSearch();
             console.log(base_url);

@@ -1,5 +1,5 @@
 <template>
-    <el-input v-model="" :placeholder="placeholder"></el-input>
+    <el-input v-model="currentValue" :placeholder="placeholder" type="password"></el-input>
 </template>
 
 <script>

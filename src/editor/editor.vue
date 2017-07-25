@@ -24,6 +24,7 @@ import field_enum from "./field_enum"
 import field_float from "./field_float"
 import field_int from "./field_int"
 import field_model from "./field_model"
+import field_pwd from "./field_pwd"
 import field_string from "./field_string"
 import field_tag from "./field_tag"
 import field_text from "./field_text"
@@ -63,6 +64,7 @@ export default{
         field_float,
         field_int,
         field_model,
+        field_pwd,
         field_string,
         field_tag,
         field_text,
