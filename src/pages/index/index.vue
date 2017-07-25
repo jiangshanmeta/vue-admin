@@ -24,6 +24,15 @@
             <el-table-column label="操作" v-if="data.length">
                 <template scope="scope">
                   {{scope.row._id}} 
+                  <template v-for="item in operators">
+                        <span 
+                            @click="doOperator(item.link + scope.row._id)"
+                        >
+                            {{item.label}}
+                            <i :class="item.icon"></i>
+                        </span>
+                  </template>
+                  <i v-for=""></i>
                 </template>
             </el-table-column>
         </el-table>
@@ -54,12 +63,23 @@ export default{
             data:[],
             fields:[],
             sort:'',
+            create_link:'',
+            docreate_link:'',
+            create_fields:[],
+            detail_link:'',
+            edit_link:'',
+            doedit_link:'',
+            edit_fields:[],
+            operators:[],
         }
     },
     components:{
        filters 
     },
     methods:{
+        doOperator(uri){
+            console.log(uri)
+        },
         searchBySort(obj){
             console.log(obj)
             let data = this.$refs.filters.getData();
@@ -107,6 +127,26 @@ export default{
                     this.data = rst.data;
                 }
 
+                if(rst.create_link){
+                    this.create_link = rst.create_link;
+                }
+                if(rst.docreate_link){
+                    this.docreate_link = rst.docreate_link;
+                }
+
+                if(rst.detail_link){
+                    this.detail_link = rst.detail_link;
+                }
+                if(rst.edit_link){
+                    this.edit_link = rst.edit_link;
+                }
+                if(rst.doedit_link){
+                    this.doedit_link = rst.doedit_link;
+                }
+                if(rst.operators){
+                    this.operators = rst.operators;
+                }
+
             })
         },
         init(){
@@ -123,12 +163,17 @@ export default{
             this.total = 0;
             this.pagesize = 0;
             this.currentPage = 1;
+            this.sort = '';
+            this.create_link = '';
+            this.docreate_link = '';
+            this.detail_link = '';
+            this.edit_link = '';
+            this.doedit_link = '';
+            this.operators = [];
+            this.create_fields = [];
+            this.edit_fields = [];
 
-            setTimeout(()=>{
-                console.log(111222)
-                this.realSearch()
-            },3000)
-            // this.realSearch();
+            this.realSearch();
             console.log(base_url);
 
         },
