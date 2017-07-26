@@ -21,13 +21,18 @@
 
 <script>
 // import field_array_model from "./field_array_model"
-import field_bool from "./field_bool"
-import field_day from './field_day'
-import field_enum from "./field_enum"
+// import field_bool from "./field_bool"
+import filter_day from './filter_day'
+
+
+import filter_enum from "./filter_enum"
+// import field_enum from "./field_enum"
+
+
 // import field_float from "./field_float"
 // import field_int from "./field_int"
 import field_model from "./field_model"
-import field_month from "./field_month"
+import filter_month from "./filter_month"
 import field_string from "./field_string"
 // import field_tag from "./field_tag"
 // import field_text from "./field_text"
@@ -80,11 +85,12 @@ export default{
         this._asyncProp('currentFilter','filters');
     },
     components:{
-        field_bool,
-        field_day,
-        field_enum,
+        // field_bool,
+        filter_day,
+        // field_enum,
+        filter_enum,
         field_model,
-        field_month,
+        filter_month,
         field_string,
     }
 }

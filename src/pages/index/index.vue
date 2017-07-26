@@ -172,25 +172,6 @@ export default{
 
         },
     },
-    created(){
-        // console.log("aaaaa");
-
-        setTimeout(()=>{
-
-            this.filter = [
-                {editor:'field_bool',value:1,label:'是否',field:'boolField'},
-                {editor:'field_month',value:'',label:'月份',field:'beginTS'},
-                {editor:'field_day',value:'',label:'日期',field:'endTS'},
-                {editor:'field_enum',value:3,label:'enum',field:'enumField',candidate:[
-                    {label:'111',value:1},
-                    {label:'222',value:2},
-                    {label:'333',value:3},
-                    {label:'444',value:4},
-                    {label:'555',value:5},
-                ]}
-            ]
-        },1000)
-    },
     beforeRouteEnter (to, from, next){
         next((vm)=>{
             vm.init();

@@ -1,7 +1,7 @@
 <template>
     <el-select v-model="currentValue" :placeholder="placeholder">
+        <el-option value="all" label="所有"></el-option>
         <el-option v-for="item in candidate" :key="item.value" :value="item.value" :label="item.label">
-
         </el-option>
     </el-select>
 </template>
@@ -17,8 +17,8 @@ export default{
     mixins:[formHelper],
     props:{
         value:{
-            type:Number,
-
+            type:[Number,String],
+            default:'all',
         },
         candidate:{
             type:Array,
