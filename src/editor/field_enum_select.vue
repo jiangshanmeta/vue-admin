@@ -17,36 +17,32 @@ export default{
     data(){
         return {
             currentValue:this.value,
-            candidate:[],
         }
     },
+    mixins:[formHelper],
     props:{
         value:{
-            // type:Number,
+            type:Number,
 
+        },
+        candidate:{
+            type:Array,
+            required:true,
         },
         placeholder:{
             default:'',
-        },
-        uri:{
-            type:String,
-            required:true,
-        },
+        }
     },
     methods:{
-        getCandidate(){
-            this.$axios.get(this.uri).then((json)=>{
-                this.candidate = json.data;
-            });
-        },
         changeHandler(newVal){
             this.$emit('change',newVal);
         },
+
     },
     created(){
         this._asyncProp('currentValue','value');
         this._notifyInput('currentValue');
-        this.getCandidate();
-    },
+    }
+
 }
 </script>

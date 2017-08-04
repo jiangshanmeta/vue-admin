@@ -4,8 +4,12 @@
         :placeholder="placeholder"
         @change="changeHandler"
     >
-        <el-option v-for="item in candidate" :key="item.value" :value="item.value" :label="item.label">
-
+        <el-option 
+            v-for="item in candidate" 
+            :key="item.value" 
+            :value="item.value" 
+            :label="item.label"
+        >
         </el-option>
     </el-select>
 </template>

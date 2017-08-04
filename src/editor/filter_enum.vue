@@ -1,5 +1,9 @@
 <template>
-    <el-select v-model="currentValue" :placeholder="placeholder">
+    <el-select 
+        v-model="currentValue" 
+        :placeholder="placeholder"
+        @change="changeHandler"
+    >
         <el-option value="all" label="所有"></el-option>
         <el-option v-for="item in candidate" :key="item.value" :value="item.value" :label="item.label">
         </el-option>
@@ -26,6 +30,11 @@ export default{
         },
         placeholder:{
             default:'',
+        }
+    },
+    methods:{
+        changeHandler(newVal){
+            this.$emit('change',newVal)
         }
     },
     created(){

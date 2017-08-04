@@ -1,13 +1,15 @@
 <template>
-    <el-select 
-        v-model="currentValue" 
-        :placeholder="placeholder"
-        @change="changeHandler"
+    <el-radio-group
+        v-model="currentValue"
     >
-        <el-option v-for="item in candidate" :key="item.value" :value="item.value" :label="item.label">
-
-        </el-option>
-    </el-select>
+        <el-radio
+            v-for="item in candidate"
+            :key="item.value"
+            :label="item.value"
+        >
+            {{item.label}}
+        </el-radio>
+    </el-radio-group>
 </template>
 
 <script>
@@ -22,11 +24,7 @@ export default{
     },
     props:{
         value:{
-            // type:Number,
 
-        },
-        placeholder:{
-            default:'',
         },
         uri:{
             type:String,
@@ -39,14 +37,11 @@ export default{
                 this.candidate = json.data;
             });
         },
-        changeHandler(newVal){
-            this.$emit('change',newVal);
-        },
     },
     created(){
         this._asyncProp('currentValue','value');
         this._notifyInput('currentValue');
         this.getCandidate();
-    },
+    }
 }
 </script>
