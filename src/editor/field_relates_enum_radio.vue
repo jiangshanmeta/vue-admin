@@ -10,20 +10,13 @@
 <script>
 import field_relates_mixin from "./field_relates_mixin.js"
 import field_enum_radio from "./field_enum_radio.vue"
+import model_mixin from "./model_mixin.js"
+
+
 export default{
-    mixins:[field_relates_mixin],
+    mixins:[field_relates_mixin,model_mixin],
     components:{
         field_enum_radio
-    },
-    computed:{
-        model:{
-            get(){
-                return this.value;
-            },
-            set(val){
-                this.$emit('input',val);
-            }
-        },
     },
     props:{
         value:{

@@ -9,21 +9,13 @@
 
 <script>
 import field_relates_mixin from "./field_relates_mixin.js"
+import model_mixin from "./model_mixin.js"
+
 import field_tag from "./field_tag.vue"
 export default{
-    mixins:[field_relates_mixin],
+    mixins:[field_relates_mixin,model_mixin],
     components:{
         field_tag,
-    },
-    computed:{
-        model:{
-            get(){
-                return this.value;
-            },
-            set(val){
-                this.$emit('input',val);
-            }
-        }
     },
     props:{
         value:{
