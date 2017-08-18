@@ -1,47 +1,29 @@
 <template>
-    <el-radio-group
-        v-model="currentValue"
-    >
-        <el-radio
-            v-for="item in candidate"
-            :key="item.value"
-            :label="item.value"
-        >
-            {{item.label}}
-        </el-radio>
-    </el-radio-group>
+    <field_enum_radio
+        v-model="model"
+        :candidate="candidate"
+        :valuefield="valuefield"
+        :labelfield="labelfield"
+    ></field_enum_radio>
 </template>
 
 <script>
-import {formHelper} from "./mixins"
-export default{
-    mixins:[formHelper],
-    data(){
-        return {
-            currentValue:this.value,
-            candidate:[],
-        }
+import model_mixin from "./model_mixin.js"
+import label_value_mixin from "./label_value_mixin.js"
+import async_candidate_mixin from "./async_candidate_mixin.js"
+
+import field_enum_radio from "./field_enum_radio.vue"
+
+
+export default {
+    mixins:[model_mixin,label_value_mixin,async_candidate_mixin],
+    components:{
+        field_enum_radio,
     },
     props:{
         value:{
-
-        },
-        uri:{
-            type:String,
             required:true,
-        },
-    },
-    methods:{
-        getCandidate(){
-            this.$axios.get(this.uri).then((json)=>{
-                this.candidate = json.data;
-            });
-        },
-    },
-    created(){
-        this._asyncProp('currentValue','value');
-        this._notifyInput('currentValue');
-        this.getCandidate();
+        }
     }
 }
 </script>

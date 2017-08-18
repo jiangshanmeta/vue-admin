@@ -1,36 +1,21 @@
 <template>
-    <el-radio-group v-model="currentValue">
+    <el-radio-group v-model="model">
         <el-radio 
             v-for="item in candidate"
-            :key="item.value"
-            :label="item.value"
+            :key="item[valuefield]"
+            :label="item[valuefield]"
         >
-            {{item.label}}
+            {{item[labelfield]}}
         </el-radio>
     </el-radio-group>
 </template>
 
 <script>
-import {formHelper} from "./mixins"
-export default{
-    mixins:[formHelper],
-    data(){
-        return {
-            currentValue:this.value,
-        }
-    },
-    props:{
-        value:{
+import field_enum_mixin from "./field_enum_mixin.js"
+import model_mixin from "./model_mixin.js"
+import label_value_mixin from "./label_value_mixin.js"
 
-        },
-        candidate:{
-            type:Array,
-            required:true,
-        },
-    },
-    created(){
-        this._asyncProp('currentValue','value');
-        this._notifyInput('currentValue');
-    }
+export default{
+    mixins:[field_enum_mixin,model_mixin,label_value_mixin],
 }
 </script>

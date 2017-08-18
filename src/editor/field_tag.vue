@@ -1,42 +1,21 @@
 <template>
-    <el-checkbox-group v-model="currentValue">
-        <el-checkbox v-for="item in candidate" :key="item.value" :label="item.value">
-            {{item.label}}
+    <el-checkbox-group v-model="model">
+        <el-checkbox 
+            v-for="item in candidate" 
+            :key="item[valuefield]" 
+            :label="item[valuefield]"
+        >
+            {{item[labelfield]}}
         </el-checkbox>
     </el-checkbox-group>
 </template>
 
 <script>
-import {formHelper} from "./mixins"
-export default{
-    data (){
-        return {
-            currentValue:this.value,
-        }
-    },
-    mixins:[formHelper],
-    props:{
-        value:{
-            type:Array,
-            required:true,
-        },
-        candidate:{
-            type:Array,
-            required:true,
-        },
-    },
-    watch:{
-        // value(newVal){
-        //     this.selected = newVal;
+import field_tag_mixin from "./field_tag_mixin.js"
+import model_mixin from "./model_mixin.js"
+import label_value_mixin from "./label_value_mixin.js"
 
-        // },
-        // selected(newVal){
-        //     this.$emit('input',newVal);
-        // }
-    },
-    created(){
-        this._asyncProp('currentValue','value');
-        this._notifyInput('currentValue');
-    }
+export default{
+    mixins:[field_tag_mixin,model_mixin,label_value_mixin],
 }
 </script>

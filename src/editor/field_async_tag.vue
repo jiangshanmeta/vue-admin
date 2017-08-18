@@ -1,63 +1,28 @@
 <template>
-    <el-checkbox-group v-model="currentValue">
-        <el-checkbox v-for="item in candidate" :key="item.value" :label="item.value">
-            {{item.label}}
-        </el-checkbox>
-        <el-button 
-            @click="selectAll"
-            size="small"
-            type="primary"
-        >
-            全选
-        </el-button>
-    </el-checkbox-group>
+    <field_tag
+        v-model="model"
+        :candidate="candidate"
+        :valuefield="valuefield"
+        :labelfield="labelfield"
+    ></field_tag>
 </template>
 
 <script>
-import {formHelper} from "./mixins"
-export default{
-    mixins:[formHelper],
-    data(){
-        return {
-            currentValue:this.value,
-            candidate:[],
-        }
+import field_tag from "./field_tag.vue"
+import async_candidate_mixin from "./async_candidate_mixin.js"
+import model_mixin from "./model_mixin.js"
+import label_value_mixin from "./label_value_mixin.js"
+
+export default {
+    components:{
+        field_tag,
     },
+    mixins:[async_candidate_mixin,model_mixin,label_value_mixin],
     props:{
         value:{
             type:Array,
-            default:function(){
-                return [];
-            },
-        },
-        uri:{
-            type:String,
             required:true,
         }
-    },
-    methods:{
-        getCandidate(){
-            this.$axios.get(this.uri).then((json)=>{
-                this.candidate = json.data;
-            })
-        },
-        selectAll(){
-            this.currentValue = this.values;
-        },
-    },
-    computed:{
-        values(){
-            return this.candidate.reduce(function(arr,item){
-                arr.push(item.value)
-                return arr;
-            },[])
-        },
-
-    },
-    created(){
-        this._asyncProp('currentValue','value');
-        this._notifyInput('currentValue');
-        this.getCandidate();
-    },
+    }
 }
 </script>

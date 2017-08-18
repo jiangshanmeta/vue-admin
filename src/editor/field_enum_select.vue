@@ -1,48 +1,24 @@
 <template>
     <el-select 
-        v-model="currentValue" 
+        v-model="model" 
         :placeholder="placeholder"
-        @change="changeHandler"
     >
-        <el-option v-for="item in candidate" :key="item.value" :value="item.value" :label="item.label">
-
+        <el-option v-for="item in candidate" :key="item[valuefield]" :value="item[valuefield]" :label="item[labelfield]">
         </el-option>
     </el-select>
 </template>
 
 <script>
-import {formHelper} from "./mixins"
+import field_enum_mixin from "./field_enum_mixin.js"
+import model_mixin from "./model_mixin.js"
+import label_value_mixin from "./label_value_mixin.js"
+
 export default{
-    mixins:[formHelper],
-    data(){
-        return {
-            currentValue:this.value,
-        }
-    },
-    mixins:[formHelper],
+    mixins:[field_enum_mixin,model_mixin,label_value_mixin],
     props:{
-        value:{
-            type:Number,
-
-        },
-        candidate:{
-            type:Array,
-            required:true,
-        },
         placeholder:{
-            default:'',
+
         }
-    },
-    methods:{
-        changeHandler(newVal){
-            this.$emit('change',newVal);
-        },
-
-    },
-    created(){
-        this._asyncProp('currentValue','value');
-        this._notifyInput('currentValue');
     }
-
 }
 </script>

@@ -1,56 +1,33 @@
 <template>
-    <el-select 
-        v-model="currentValue" 
-        :placeholder="placeholder"
-        @change="changeHandler"
-    >
-        <el-option 
-            v-for="item in candidate" 
-            :key="item.value" 
-            :value="item.value" 
-            :label="item.label"
-        >
-        </el-option>
-    </el-select>
+    <field_enum_select
+        v-model="model"
+        :candidate="candidate"
+        :valuefield="valuefield"
+        :labelfield="labelfield"
+    ></field_enum_select>
 </template>
 
 <script>
-import {formHelper} from "./mixins"
+import model_mixin from "./model_mixin.js"
+import label_value_mixin from "./label_value_mixin.js"
+import async_candidate_mixin from "./async_candidate_mixin.js"
+
+import field_enum_select from "./field_enum_select.vue"
+
 export default{
-    mixins:[formHelper],
-    data(){
-        return {
-            currentValue:this.value,
-            candidate:[],
-        }
+    mixins:[model_mixin,label_value_mixin,async_candidate_mixin],
+    components:{
+        field_enum_select,
     },
     props:{
         value:{
-            // type:Number,
-
-        },
-        placeholder:{
-            default:'',
-        },
-        uri:{
-            type:String,
             required:true,
         },
-    },
-    methods:{
-        getCandidate(){
-            this.$axios.get(this.uri).then((json)=>{
-                this.candidate = json.data;
-            });
-        },
-        changeHandler(newVal){
-            this.$emit('change',newVal);
+        placeholder:{
+
         },
     },
-    created(){
-        this._asyncProp('currentValue','value');
-        this._notifyInput('currentValue');
-        this.getCandidate();
-    },
+
+
 }
 </script>

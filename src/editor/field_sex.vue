@@ -1,41 +1,37 @@
 <template>
-    <field-enum 
-        v-model="currentValue" 
+    <field_enum_select 
+        v-model="model" 
         :candidate="candidate"
         :placeholder="placeholder"
-    ></field-enum>
+    ></field_enum_select>
 </template>
 
 <script>
-import {formHelper} from "./mixins"
-import fieldEnum from './field_enum'
+import model_mixin from "./model_mixin.js"
+import field_enum_select from './field_enum_select.vue'
+
 let sexCandidate = [
     {value:0,label:'男'},
     {value:1,label:'女'},
 ];
 export default{
-    data (){
+    mixins:[model_mixin],
+    components:{
+        field_enum_select
+    },
+    data(){
         return {
-            currentValue:this.value,
             candidate:sexCandidate,
         }
     },
-    mixins:[formHelper],
     props:{
-        value:{
+        vaule:{
             type:Number,
-            default:0,
+            required:true,
         },
         placeholder:{
-            default:'',
-        }
-    },
-    components:{
-        fieldEnum,
-    },
-    created(){
-        this._asyncProp('currentValue','value');
-        this._notifyInput('currentValue');
+
+        },
     }
 }
 </script>

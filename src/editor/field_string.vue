@@ -1,31 +1,12 @@
 <template>
-    <el-input v-model="currentValue" :placeholder="placeholder"></el-input>
+    <el-input v-model="model" :placeholder="placeholder"></el-input>
 </template>
 
 <script>
-import {formHelper} from "./mixins"
-export default{
-    data(){
-        return {
-            currentValue:this.value,
-        }
-    },
-    mixins:[formHelper],
-    props:{
-        value:{
-            // type:String,
-            default:'',
-        },
-        placeholder:{
-            default:'',
-        }
-    },
-    watch:{
+import field_string_mixin from "./field_string_mixin.js"
+import model_mixin from "./model_mixin.js"
 
-    },
-    created(){
-        this._asyncProp('currentValue','value');
-        this._notifyInput('currentValue');
-    },
+export default{
+    mixins:[field_string_mixin,model_mixin],
 }
 </script>
