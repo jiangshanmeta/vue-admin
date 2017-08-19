@@ -1,6 +1,8 @@
 export default{
     data(){
-        candidate:[],
+        return {
+            candidate:[],
+        }
     },
     props:{
         uri:{

@@ -26,6 +26,25 @@
         labelfield='name'
         :check_can_query="check_can_query"
     ></field_model>{{field_model}}
+
+    <hr>
+    <field_async_tag
+        v-model="field_async_tag"
+        uri="/test/field_async_tag"
+    ></field_async_tag>{{field_async_tag}}
+
+    <hr>
+
+    <field_async_enum_select
+        v-model="field_async_enum_select"
+        uri='/test/field_async_enum_select'
+    ></field_async_enum_select>{{field_async_enum_select}}
+    <hr>
+
+    <field_async_enum_radio
+        v-model="field_async_enum_radio"
+        uri="/test/field_async_enum_radio"
+    ></field_async_enum_radio>{{field_async_enum_radio}}
 </section>
 </template>
 
@@ -40,6 +59,12 @@ import field_bool from "@/editor/field_bool"
 import field_sex from "@/editor/field_sex"
 import field_model from "@/editor/field_model"
 
+import field_async_tag from "@/editor/field_async_tag"
+import field_async_enum_select from "@/editor/field_async_enum_select"
+import field_async_enum_radio from "@/editor/field_async_enum_radio"
+
+
+
 export default {
     components:{
         field_string,
@@ -51,6 +76,9 @@ export default {
         field_bool,
         field_sex,
         field_model,
+        field_async_tag,
+        field_async_enum_select,
+        field_async_enum_radio,
     },
     data(){
         return {
@@ -74,8 +102,10 @@ export default {
             ],
             field_bool:0,
             field_sex:1,
-            field_model:3
-
+            field_model:3,
+            field_async_tag:[5],
+            field_async_enum_select:2,
+            field_async_enum_radio:3,
         }
         
     },
