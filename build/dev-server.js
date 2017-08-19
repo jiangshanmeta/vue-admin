@@ -63,6 +63,18 @@ app.use(hotMiddleware)
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
+var mockRouter = express.Router()
+mockRouter.all("/:controller/:method",function(req,res){
+  let controller = req.params.controller;
+  let method = req.params.method.replace(/\.json$/,'');
+  let path = '../mock/'+ controller + '/' + method + '.json';
+  delete require.cache[require.resolve(path)]
+  let data = require(path);
+  res.json(data)
+})
+app.use('/mock',mockRouter);
+
+
 var uri = 'http://localhost:' + port
 
 var _resolve

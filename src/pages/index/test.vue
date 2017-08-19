@@ -18,6 +18,14 @@
 
     <field_bool v-model="field_bool"></field_bool>{{field_bool}}
     <field_sex v-model="field_sex"></field_sex>{{field_sex}}
+    <hr>
+    <field_model 
+        v-model="field_model" 
+        uri='/test/field_model' 
+        valuefield="id" 
+        labelfield='name'
+        :check_can_query="check_can_query"
+    ></field_model>{{field_model}}
 </section>
 </template>
 
@@ -30,6 +38,7 @@ import field_enum_select from "@/editor/field_enum_select"
 import field_enum_radio from "@/editor/field_enum_radio"
 import field_bool from "@/editor/field_bool"
 import field_sex from "@/editor/field_sex"
+import field_model from "@/editor/field_model"
 
 export default {
     components:{
@@ -41,6 +50,7 @@ export default {
         field_enum_radio,
         field_bool,
         field_sex,
+        field_model,
     },
     data(){
         return {
@@ -64,7 +74,7 @@ export default {
             ],
             field_bool:0,
             field_sex:1,
-
+            field_model:3
 
         }
         
@@ -82,6 +92,15 @@ export default {
 
         },2000);
         console.log(123)
+    },
+    methods:{
+        check_can_query(query){
+            console.log(query)
+            if(query.length<5){
+                return false;
+            }
+            return true
+        }
     }
 }
 

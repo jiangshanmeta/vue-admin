@@ -16,7 +16,7 @@ import axios from 'axios'
 import qs from 'qs'
 let axiosIns = axios.create({});
 if(process.env.NODE_ENV == 'development'){
-    axiosIns.defaults.baseURL = 'http://little.com/index.php'
+    axiosIns.defaults.baseURL = 'http://localhost:8080/mock'
 }else{
     // axiosIns.defaults.baseURL = 'http://mendian.zhuanchedao.com'
 }
