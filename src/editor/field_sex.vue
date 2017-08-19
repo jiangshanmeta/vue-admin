@@ -25,7 +25,7 @@ export default{
         }
     },
     props:{
-        vaule:{
+        value:{
             type:Number,
             required:true,
         },

@@ -1,6 +1,6 @@
 <template>
     <table class="table">
-        <tr v-for="row in currentFields">
+<!--         <tr v-for="row in currentFields">
             <template v-for="item in row">
                 <td>{{item.label}}</td>
                 <td :colspan="row.length===1?3:1">
@@ -13,22 +13,22 @@
                     ></component>
                 </td>
             </template>
-        </tr>
+        </tr> -->
     </table>
 </template>
 
 <script>
-import field_array_model from "./field_array_model"
-import field_bool from "./field_bool"
-import field_enum from "./field_enum"
-import field_float from "./field_float"
-import field_int from "./field_int"
-import field_model from "./field_model"
-import field_pwd from "./field_pwd"
-import field_string from "./field_string"
-import field_tag from "./field_tag"
-import field_text from "./field_text"
-import field_ts from "./field_ts"
+// import field_array_model from "./field_array_model"
+// import field_bool from "./field_bool"
+// import field_enum from "./field_enum"
+// import field_float from "./field_float"
+// import field_int from "./field_int"
+// import field_model from "./field_model"
+// import field_pwd from "./field_pwd"
+// import field_string from "./field_string"
+// import field_tag from "./field_tag"
+// import field_text from "./field_text"
+// import field_ts from "./field_ts"
 
 import {formHelper} from "./mixins"
 export default{
@@ -58,20 +58,20 @@ export default{
         }
     },
     components:{
-        field_array_model,
-        field_bool,
-        field_enum,
-        field_float,
-        field_int,
-        field_model,
-        field_pwd,
-        field_string,
-        field_tag,
-        field_text,
-        field_ts,
+        // field_array_model,
+        // field_bool,
+        // field_enum,
+        // field_float,
+        // field_int,
+        // field_model,
+        // field_pwd,
+        // field_string,
+        // field_tag,
+        // field_text,
+        // field_ts,
     },
     created(){
-        this._asyncProp('currentFields','fields');
+        // this._asyncProp('currentFields','fields');
     }
 }
 </script>
