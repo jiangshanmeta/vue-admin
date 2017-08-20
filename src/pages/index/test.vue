@@ -21,11 +21,11 @@
     <hr>
     <field_model 
         v-model="field_model" 
-        uri='/test/field_model' 
+        
         valuefield="id" 
         labelfield='name'
-        :check_can_query="check_can_query"
-    ></field_model>{{field_model}}
+        :candidate="field_model_candidate"
+    ></field_model>{{field_model}} || field_model
 
     <hr>
     <field_async_tag
@@ -45,6 +45,41 @@
         v-model="field_async_enum_radio"
         uri="/test/field_async_enum_radio"
     ></field_async_enum_radio>{{field_async_enum_radio}}
+
+    <hr>
+
+    <field_async_model
+        v-model="field_async_model"
+        uri='/test/field_async_model'
+        labelfield='name'
+        valuefield='id'
+    ></field_async_model>{{field_async_model}} || field_async_model
+
+    <hr>
+
+    <div style="width:100%;">
+    field_enum 和field_tag 对应数量较少情况下的单选和多选
+
+    field_async 的版本只是把获取枚举值异步化，防止后端不支持
+
+    field_model是数量较多的时候的单选，因为数量多 异步请求列表？？？
+    同步的话只负责筛选即可，异步的话显示名如何处理？？再实现一个labeluri用来请求？？
+
+    这里考虑只请求一次，然后本地利用autocomplete筛选？
+    field_array_model也是？？
+
+
+    所以表现形式为异步autocomplete
+    初始值的label怎么办？？
+
+    // TODO
+    field_array_model 是数量较多是的复选框，基于autocomplete+列表实现吧
+
+
+    field_relates是关联版本的单选框/复选框，关联情况下 可筛选数量应该不会太多，所以用select/radio/checkbox这种表现形式
+
+    数量再多 relates + autocomplete？？？ 关联搜索 + input筛选。。 再说吧
+    </div>
 </section>
 </template>
 
@@ -62,7 +97,7 @@ import field_model from "@/editor/field_model"
 import field_async_tag from "@/editor/field_async_tag"
 import field_async_enum_select from "@/editor/field_async_enum_select"
 import field_async_enum_radio from "@/editor/field_async_enum_radio"
-
+import field_async_model from "@/editor/field_async_model"
 
 
 export default {
@@ -79,6 +114,7 @@ export default {
         field_async_tag,
         field_async_enum_select,
         field_async_enum_radio,
+        field_async_model,
     },
     data(){
         return {
@@ -106,6 +142,15 @@ export default {
             field_async_tag:[5],
             field_async_enum_select:2,
             field_async_enum_radio:3,
+            field_model_candidate:[
+                {id:1,name:"太年轻"},
+                {id:2,name:"太天真"},
+                {id:3,name:"亦可赛艇"},
+                {id:4,name:"exciting"},
+                {id:5,name:"simple"},
+                {id:6,name:"naive"}
+            ],
+            field_async_model:2,
         }
         
     },
@@ -119,18 +164,12 @@ export default {
             this.field_enum_radio = 7;
             this.field_bool = 1;
             this.field_sex = 0;
-
+            this.field_model = 1;
         },2000);
-        console.log(123)
+        // console.log(123)
     },
     methods:{
-        check_can_query(query){
-            console.log(query)
-            if(query.length<5){
-                return false;
-            }
-            return true
-        }
+
     }
 }
 

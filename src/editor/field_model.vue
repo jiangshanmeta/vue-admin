@@ -1,76 +1,76 @@
 <template>
     <el-autocomplete
-        v-model="model"
+        :value="showValue"
         :props="{value:valuefield,label:labelfield}"
         :fetch-suggestions="queryModel"
+        @input="handleInput"
+        :placeholder="placeholder"
     ></el-autocomplete>
 </template>
 
 <script>
-import model_mixin from "./model_mixin.js"
 import label_value_mixin from "./label_value_mixin"
 
 export default{
-    mixins:[model_mixin,label_value_mixin],
+    mixins:[label_value_mixin],
     data(){
         return {
-            // candidate:[]
+            showValue:'',
         }
     },
-    props:{
-        keywordfield:{
-            type:String,
-            default:'keyword'
+    computed:{
+        valueLabelHash(){
+            let valuefield = this.valuefield;
+            let labelfield = this.labelfield;
+            return this.candidate.reduce((obj,item)=>{
+                obj[item[valuefield]] = item[labelfield];
+                return obj;
+            },{})
         },
-        uri:{
-            type:String,
+    },
+    props:{
+        candidate:{
+            type:Array,
             required:true,
         },
-        check_can_query:{
-            type:Function,
-            default:()=>{return true},
+        value:{
+            required:true
+        },
+        placeholder:{
+
         }
     },
     methods:{
-        queryModel(queryString='',cb){
-            let params = {};
-            if(!this.check_can_query(queryString)){
-                return;
+        queryModel(queryString,cb){
+            let data = queryString?this.candidate.filter((item)=>{
+                return item[this.labelfield].includes(queryString);
+            }):this.candidate;
+
+            cb(data);
+        },
+        handleInput(value){
+            if(this.valueLabelHash.hasOwnProperty(value)){
+                this.$emit('input',value)
+            }else{
+                this.setShowValue(value);
             }
-            params[this.keywordfield] = queryString;
-            this.$axios.get(this.uri,{params}).then((json)=>{
-                cb(json.data.data);
-            })
+        },
+        setShowValueByValue(){
+            let value = this.value;
+            if(this.valueLabelHash.hasOwnProperty(value)){
+                this.setShowValue(this.valueLabelHash[value]);
+            }
+        },
+        setShowValue(val){
+            this.showValue = val;
         }
     },
+    watch:{
+        value:"setShowValueByValue",
+        candidate:"setShowValueByValue"
+    },
+    created(){
+        this.setShowValueByValue();
+    }
 }
-
-
-
-// import {formHelper} from "./mixins"
-// export default{
-//     data (){
-//         return {
-//             currentValue:this.value,
-//         }
-//     },
-//     mixins:[formHelper],
-//     props:{
-//         value:{
-
-//         },
-//         candidate:{
-//             type:Array,
-//             required:true,
-//         },
-//         placeholder:{
-//             default:'',
-//         },
-
-//     },
-//     created(){
-//         this._asyncProp('currentValue','value');
-//         this._notifyInput('currentValue');
-//     },
-// }
 </script>

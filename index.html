@@ -8,9 +8,9 @@
         <div id="app" style="min-height:100vh;display:flex;flex-direction:column;">
             <top-nav></top-nav>
 
-            <div style="flex-grow:1;display:flex;">
+            <div style="flex-grow:1;display:flex;max-width:100%;">
                 <side-menu style="flex:0 0 auto;"></side-menu>
-                <router-view style="flex:1 0 auto;"></router-view>
+                <router-view style="flex:1 0 auto;max-width:100%;"></router-view>
             </div>
 
             <bottom-footer></bottom-footer>
