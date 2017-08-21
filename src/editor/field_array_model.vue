@@ -1,72 +1,77 @@
 <template>
 <section>
     <ul class="list-group">
-        <li class="list-group-item clearfix" v-for="(item,index) in currentValue">
-           {{idNameHash[item]}}<i class="el-icon-close pull-right" @click='removeItem(index)'></i>
+        <li class="list-group-item"
+            v-for="(item,index) in value"
+            :key="item"
+        >
+            {{labelValueHash.hasOwnProperty(item)?labelValueHash[item]:item}}
+            <i class="el-icon-close pull-right" @click='removeItem(index)'></i>
         </li>
     </ul>
-    <el-select v-model="selectValue"    :placeholder="placeholder" filterable>
-        <el-option v-for="item in candidate" :key="item.value" :value="item.value" :label="item.label">
-
-        </el-option>
-    </el-select>
-    <el-button type="success" @click="addItem">增加</el-button>
+    <field_model
+        v-model="selectedId"
+        :valuefield="valuefield"
+        :labelfield="labelfield"
+        :placeholder="placeholder"
+        :candidate="candidate"
+    ></field_model>
+    <el-button type="success" @click="addItem">添加</el-button>
 </section>
 </template>
 
 <script>
-import {formHelper} from "./mixins"
+import label_value_mixin from "./label_value_mixin.js"
+import model_mixin from "./model_mixin.js"
+import field_model from "./field_model.vue"
 
-export default {
-    data (){
+export default{
+    mixins:[label_value_mixin,model_mixin],
+    components:{
+        field_model,
+    },
+    props:{
+        candidate:{
+            type:Array,
+            required:true
+        },
+        placeholder:{
+
+        },
+        value:{
+            type:Array,
+            required:true,
+        }
+    },
+    data(){
         return {
-            currentValue:this.value,
-            selectValue:'',
+            selectedId:'',
         }
     },
     computed:{
-        idNameHash(){
-            return this.candidate.reduce(function(obj,item){
-                obj[item.value] = item.label;
+        labelValueHash(){
+            let valuefield = this.valuefield;
+            let labelfield = this.labelfield;
+            return this.candidate.reduce((obj,item)=>{
+                obj[item[valuefield]] = item[labelfield];
                 return obj;
-            },{});
+            },{})
         }
     },
     methods:{
         removeItem(index){
-            if(!confirm('确认删除')){
-                return;
-            }
-            this.currentValue.splice(index,1);
+            let [...value] = this.value;
+            value.splice(index,1);
+            this.model = value;
         },
         addItem(){
-            if(!this.selectValue){
-                alert('请选择');
-                return;
+            let [...value] = this.value;
+            if(value.includes(this.selectedId)){
+               return; 
             }
-            this.currentValue.push(this.selectValue);
-        }
-    },
-    mixins:[formHelper],
-    props:{
-        value:{
-            type:Array,
-            required:true,
+            value.push(this.selectedId);
+            this.model = value;
         },
-        candidate:{
-            type:Array,
-            required:true,
-        },
-        placeholder:{
-            default:'',
-        },
-
-    },
-    created(){
-        this._asyncProp('currentValue','value');
-        this._notifyInput('currentValue');
-    },
+    }
 }
-
-
 </script>

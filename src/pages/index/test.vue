@@ -57,6 +57,23 @@
 
     <hr>
 
+    <field_array_model
+        v-model="field_array_model"
+        :candidate="field_array_model_candidate"
+        labelfield="name"
+        valuefield="id"
+    ></field_array_model>{{field_array_model}} || field_array_model
+
+
+    <field_async_array_model
+        v-model="field_async_array_model"
+        uri="/test/field_async_array_model"
+        labelfield="name"
+        valuefield="id"
+    ></field_async_array_model>{{field_async_array_model}}
+
+    <hr>
+
     <div style="width:100%;">
     field_enum 和field_tag 对应数量较少情况下的单选和多选
 
@@ -99,6 +116,9 @@ import field_async_enum_select from "@/editor/field_async_enum_select"
 import field_async_enum_radio from "@/editor/field_async_enum_radio"
 import field_async_model from "@/editor/field_async_model"
 
+import field_array_model from "@/editor/field_array_model"
+import field_async_array_model from "@/editor/field_async_array_model"
+
 
 export default {
     components:{
@@ -115,6 +135,8 @@ export default {
         field_async_enum_select,
         field_async_enum_radio,
         field_async_model,
+        field_array_model,
+        field_async_array_model
     },
     data(){
         return {
@@ -151,6 +173,18 @@ export default {
                 {id:6,name:"naive"}
             ],
             field_async_model:2,
+            field_array_model:[2],
+            field_array_model_candidate:[
+                {id:1,name:"太年轻"},
+                {id:2,name:"太天真"},
+                {id:3,name:"亦可赛艇"},
+                {id:4,name:"exciting"},
+                {id:5,name:"simple"},
+                {id:6,name:"naive"}
+            ],
+            field_async_array_model:[3,4],
+
+
         }
         
     },
