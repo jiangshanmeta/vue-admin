@@ -74,6 +74,36 @@
 
     <hr>
 
+    <field_relates_enum_select
+        v-model="field_relates_enum_select"
+        :relates="field_relates_enum_relate_relates"
+        uri='/test/field_relates_enum_select'
+        labelfield="name"
+        valuefield="id"
+
+
+    ></field_relates_enum_select>{{field_relates_enum_select}}
+
+    <hr>
+
+    <field_relates_enum_radio
+        v-model="field_relates_enum_radio"
+        :relates="field_relates_enum_radio_relates"
+        uri='/test/field_relates_enum_radio'
+        labelfield="name"
+        valuefield="id"
+    ></field_relates_enum_radio>{{field_relates_enum_radio}}
+
+    <hr>
+
+    <field_relates_tag
+        v-model="field_relates_tag"
+        :relates="field_relates_tag_relates"
+        uri='/test/field_relates_tag'
+        labelfield="name"
+        valuefield="id"
+    ></field_relates_tag>{{field_relates_tag}}
+
     <div style="width:100%;">
     field_enum 和field_tag 对应数量较少情况下的单选和多选
 
@@ -119,6 +149,11 @@ import field_async_model from "@/editor/field_async_model"
 import field_array_model from "@/editor/field_array_model"
 import field_async_array_model from "@/editor/field_async_array_model"
 
+import field_relates_enum_select from "@/editor/field_relates_enum_select"
+import field_relates_enum_radio from "@/editor/field_relates_enum_radio"
+import field_relates_tag from "@/editor/field_relates_tag"
+
+import {observe_relates} from "@/editor/field_relates_helper.js"
 
 export default {
     components:{
@@ -136,7 +171,10 @@ export default {
         field_async_enum_radio,
         field_async_model,
         field_array_model,
-        field_async_array_model
+        field_async_array_model,
+        field_relates_enum_select,
+        field_relates_enum_radio,
+        field_relates_tag,
     },
     data(){
         return {
@@ -183,21 +221,55 @@ export default {
                 {id:6,name:"naive"}
             ],
             field_async_array_model:[3,4],
+            field_relates_enum_select:2,
+            field_relates_enum_relate_relates:{
+                "sex":{
+                    // field:"sex"
+                    relatefield:"field_sex",
+                    // inva
+                },
+                "kkk":{
+                    relatefield:"field_async_model"
+                }
+            },
+            field_relates_enum_radio:3,
+            field_relates_enum_radio_relates:{
+                "bool":{
+                    relatefield:"field_bool",
+                },
+                "ppp":{
+                    relatefield:"field_enum_radio"
+                }
+            },
+            field_relates_tag:[2,3],
+            field_relates_tag_relates:{
+                "sex":{
+                    relatefield:"field_sex",
+                },
+                "bool":{
+                    relatefield:"field_bool",
+                },
 
 
+            }
         }
         
     },
     created(){
+
+        observe_relates(this.field_relates_enum_relate_relates,this)
+        observe_relates(this.field_relates_enum_radio_relates,this)
+        observe_relates(this.field_relates_tag_relates,this)
+
         setTimeout(()=>{
             this.field_string = "naive";
             this.field_text = "too young too simple";
             this.field_pwd = "abc123";
             this.field_tag = [3,5];
             this.field_enum_select = 2;
-            this.field_enum_radio = 7;
-            this.field_bool = 1;
-            this.field_sex = 0;
+            // this.field_enum_radio = 7;
+            // this.field_bool = 1;
+            // this.field_sex = 0;
             this.field_model = 1;
         },2000);
         // console.log(123)

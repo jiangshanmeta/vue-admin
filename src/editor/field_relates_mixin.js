@@ -73,10 +73,12 @@ export default{
             let len = keys.length;
             let counter = 0;
             while(counter < len){
-                let relateId = this.relates[keys[counter++]]['value'];
-                if(!relateId){
+                let relateId = this.relates[keys[counter]]['value'];
+                let inValidValue = this.relates[keys[counter]]['inValidValue']
+                if(relateId === inValidValue){
                     return false;
                 }
+                counter++;
             }
 
             return true;

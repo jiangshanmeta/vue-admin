@@ -4,8 +4,8 @@
         :candidate="finalOptions"
         :valuefield="valuefield"
         :labelfield="labelfield"
+        :placeholder="placeholder"
     ></field_enum_select>
-
 </template>
 
 <script>
@@ -22,6 +22,9 @@ export default{
         value:{
             required:true,
         },
+        placeholder:{
+
+        }
     },
 }
 </script>
