@@ -69,12 +69,37 @@ export default{
             return start;
         },
         allOptions(){
-            let keys = this.cacheKeys;
-            let length = keys.length;
-            let level = 0;
-            let rst = [];
-            
 
+            let keys = this.cacheKeys;
+            let level = keys.length;
+            let counter = 0;
+
+            let levelTree = {};
+            levelTree[0] = [this.optionsCache];
+
+            while(counter < level){
+                levelTree[counter+1] = levelTree[counter].reduce((arr,item)=>{
+                    let child = Object.keys(item).map((childkey)=>{
+                        return item[childkey];
+                    });
+
+                    let newArr = [...arr,...child];
+                    return newArr;
+                },[]);
+                counter++;
+            }
+
+            let valuefield = this.valuefield;
+            let rst = levelTree[counter].reduce((obj,item)=>{
+                item.reduce((obj,item)=>{
+                    obj[item[valuefield]] = item
+                    return obj;
+                },obj)
+
+                return obj
+            },{})
+
+            return Object.values(rst);
         },
         hasValidIds(){
             let keys = this.cacheKeys;
