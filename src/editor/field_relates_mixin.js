@@ -68,6 +68,14 @@ export default{
             }
             return start;
         },
+        allOptions(){
+            let keys = this.cacheKeys;
+            let length = keys.length;
+            let level = 0;
+            let rst = [];
+            
+
+        },
         hasValidIds(){
             let keys = this.cacheKeys;
             let len = keys.length;

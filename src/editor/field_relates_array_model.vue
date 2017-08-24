@@ -1,0 +1,31 @@
+<template>
+    <field_array_model
+        v-model="model"
+        :labelfield="labelfield"
+        :valuefield="valuefield"
+        :placeholder="placeholder"
+        :candidate="finalOptions"
+    ></field_array_model>
+</template>
+
+<script>
+import field_array_model from "./field_array_model.vue"
+import model_mixin from "./model_mixin.js"
+import field_relates_mixin from "./field_relates_mixin.js"
+
+export default{
+    mixins:[field_relates_mixin,model_mixin],
+    components:{
+        field_array_model,
+    },
+    props:{
+        value:{
+            type:Array,
+            required:true,
+        },
+        placeholder:{
+
+        }
+    }
+}
+</script>

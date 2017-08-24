@@ -86,23 +86,41 @@
 
     <hr>
 
-    <field_relates_enum_radio
+<!--     <field_relates_enum_radio
         v-model="field_relates_enum_radio"
         :relates="field_relates_enum_radio_relates"
         uri='/test/field_relates_enum_radio'
         labelfield="name"
         valuefield="id"
-    ></field_relates_enum_radio>{{field_relates_enum_radio}}
+    ></field_relates_enum_radio>{{field_relates_enum_radio}} -->
 
     <hr>
 
-    <field_relates_tag
+<!--     <field_relates_tag
         v-model="field_relates_tag"
         :relates="field_relates_tag_relates"
         uri='/test/field_relates_tag'
         labelfield="name"
         valuefield="id"
-    ></field_relates_tag>{{field_relates_tag}}
+    ></field_relates_tag>{{field_relates_tag}} -->
+
+    <field_relates_model
+        v-model="field_relates_model"
+        :relates="field_relates_model_relates"
+        uri="/test/field_relates_model"
+        labelfield="name"
+        valuefield="id"
+    ></field_relates_model>{{field_relates_model}}
+
+    <hr>
+
+    <field_relates_array_model
+        v-model="field_relates_array_model"
+        :relates="field_relates_model_relates"
+        labelfield="name"
+        valuefield="id"
+        uri='/test/field_relates_array_model'
+    ></field_relates_array_model>{{field_relates_array_model}}
 
     <div style="width:100%;">
     field_enum 和field_tag 对应数量较少情况下的单选和多选
@@ -153,6 +171,9 @@ import field_relates_enum_select from "@/editor/field_relates_enum_select"
 import field_relates_enum_radio from "@/editor/field_relates_enum_radio"
 import field_relates_tag from "@/editor/field_relates_tag"
 
+import field_relates_model from "@/editor/field_relates_model.vue"
+import field_relates_array_model from "@/editor/field_relates_array_model"
+
 import {observe_relates} from "@/editor/field_relates_helper.js"
 
 export default {
@@ -175,6 +196,8 @@ export default {
         field_relates_enum_select,
         field_relates_enum_radio,
         field_relates_tag,
+        field_relates_model,
+        field_relates_array_model,
     },
     data(){
         return {
@@ -251,7 +274,22 @@ export default {
                 },
 
 
-            }
+            },
+            field_relates_model:2,
+            field_relates_model_relates:{
+                sex:{
+                    relatefield:"field_sex",
+                    inValidValue:-1,
+                },
+                bool:{
+                    relatefield:"field_bool",
+                    field:"ooo",
+                    inValidValue:-1
+                }
+            },
+            field_relates_array_model:[2,3],
+
+
         }
         
     },
@@ -260,6 +298,7 @@ export default {
         observe_relates(this.field_relates_enum_relate_relates,this)
         observe_relates(this.field_relates_enum_radio_relates,this)
         observe_relates(this.field_relates_tag_relates,this)
+        observe_relates(this.field_relates_model_relates,this)
 
         setTimeout(()=>{
             this.field_string = "naive";
