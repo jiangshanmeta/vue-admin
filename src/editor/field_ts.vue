@@ -2,41 +2,39 @@
     <el-date-picker
         type="datetime"
         :placeholder="placeholder"
-        :format="format"
+        format="yyyy-MM-dd HH:mm:ss"
         v-model="currentValue"
-        @change="selectDate"
+        @change="handleChange"
     ></el-date-picker>
 </template>
 
 <script>
-import {formHelper} from "./mixins"
 export default{
-    data (){
+    data(){
         return {
-            currentValue:this.value,
-        }
+            currentValue:'',
+        }        
     },
-    mixins:[formHelper],
     props:{
         value:{
-            type:String,
-
+            required:true,
         },
         placeholder:{
-            default:'选择日期时间',
-        },
-        format:{
-            default:'yyyy-MM-dd HH:mm:ss',
-        },
 
+        }
     },
     methods:{
-        selectDate(newVal){
-            this.$emit('input',newVal);
-        },
+        handleChange(newVal=''){
+            this.$emit('input',newVal)
+        }
     },
-    created(){
-        this._asyncProp('currentValue','value');
-    }
+    watch:{
+        value:{
+            immediate:true,
+            handler(newVal){
+                this.currentValue = newVal
+            }
+        }
+    },
 }
 </script>

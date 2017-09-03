@@ -122,6 +122,14 @@
         uri='/test/field_relates_array_model'
     ></field_relates_array_model>{{field_relates_array_model}}
 
+    <hr>
+
+    <field_ts
+        v-model="field_ts"
+        placeholder="select_ts"
+    ></field_ts> {{field_ts}}
+
+
     <div style="width:100%;">
     field_enum 和field_tag 对应数量较少情况下的单选和多选
 
@@ -174,6 +182,9 @@ import field_relates_tag from "@/editor/field_relates_tag"
 import field_relates_model from "@/editor/field_relates_model.vue"
 import field_relates_array_model from "@/editor/field_relates_array_model"
 
+import field_ts from "@/editor/field_ts"
+
+
 import {observe_relates} from "@/editor/field_relates_helper.js"
 
 export default {
@@ -198,6 +209,7 @@ export default {
         field_relates_tag,
         field_relates_model,
         field_relates_array_model,
+        field_ts,
     },
     data(){
         return {
@@ -288,7 +300,7 @@ export default {
                 }
             },
             field_relates_array_model:[2,3],
-
+            field_ts:'',
 
         }
         
@@ -310,6 +322,7 @@ export default {
             // this.field_bool = 1;
             // this.field_sex = 0;
             this.field_model = 1;
+            this.field_ts = '2018-01-01 12:34:55'
         },2000);
         // console.log(123)
     },
