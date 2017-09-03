@@ -128,7 +128,17 @@
         v-model="field_ts"
         placeholder="select_ts"
     ></field_ts> {{field_ts}}
+    <hr>
 
+    <field_year
+        v-model="field_year"
+        placeholder="ss"
+    ></field_year>{{field_year}}
+    <field_month
+        v-model="field_month"
+    ></field_month>{{field_month}}
+
+    <field_day v-model="field_day"></field_day>{{field_day}}
 
     <div style="width:100%;">
     field_enum 和field_tag 对应数量较少情况下的单选和多选
@@ -183,9 +193,13 @@ import field_relates_model from "@/editor/field_relates_model.vue"
 import field_relates_array_model from "@/editor/field_relates_array_model"
 
 import field_ts from "@/editor/field_ts"
-
+import field_year from "@/editor/field_year"
+import field_month from "@/editor/field_month"
+import field_day from "@/editor/field_day"
 
 import {observe_relates} from "@/editor/field_relates_helper.js"
+
+
 
 export default {
     components:{
@@ -210,6 +224,9 @@ export default {
         field_relates_model,
         field_relates_array_model,
         field_ts,
+        field_year,
+        field_month,
+        field_day,
     },
     data(){
         return {
@@ -301,7 +318,9 @@ export default {
             },
             field_relates_array_model:[2,3],
             field_ts:'',
-
+            field_year:'',
+            field_month:'',
+            field_day:''
         }
         
     },

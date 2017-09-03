@@ -1,6 +1,6 @@
 <template>
 <section>
-    <filters :filters="filter"  @search="searchByFilter" ref="filters"></filters>
+    <!-- <filters :filters="filter"  @search="searchByFilter" ref="filters"></filters> -->
 
     <create 
         :create_link="create_link" 
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import filters from "@/editor/filters"
+// import filters from "@/editor/filters"
 import operators from "@/components/common/operators"
 
 import create from "@/components/common/create"
@@ -88,7 +88,7 @@ export default{
         }
     },
     components:{
-       filters,
+       // filters,
        operators,
        create,
        edit,

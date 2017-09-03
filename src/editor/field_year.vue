@@ -1,10 +1,9 @@
 <template>
     <el-date-picker
-        type="datetime"
-        :placeholder="placeholder"
-        format="yyyy-MM-dd HH:mm:ss"
-        v-model="currentValue"
-        @change="handleChange"
+         type="year"
+         :placeholder="placeholder"
+         v-model="currentValue"
+         @change="handleChange"
     ></el-date-picker>
 </template>
 
