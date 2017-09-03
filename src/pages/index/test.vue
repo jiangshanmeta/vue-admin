@@ -140,6 +140,12 @@
 
     <field_day v-model="field_day"></field_day>{{field_day}}
 
+    <hr>
+
+    <field_number
+        v-model="field_number"
+    ></field_number>{{field_number}}
+
     <div style="width:100%;">
     field_enum 和field_tag 对应数量较少情况下的单选和多选
 
@@ -196,6 +202,7 @@ import field_ts from "@/editor/field_ts"
 import field_year from "@/editor/field_year"
 import field_month from "@/editor/field_month"
 import field_day from "@/editor/field_day"
+import field_number from "@/editor/field_number"
 
 import {observe_relates} from "@/editor/field_relates_helper.js"
 
@@ -227,6 +234,7 @@ export default {
         field_year,
         field_month,
         field_day,
+        field_number,
     },
     data(){
         return {
@@ -320,7 +328,8 @@ export default {
             field_ts:'',
             field_year:'',
             field_month:'',
-            field_day:''
+            field_day:'',
+            field_number:100,
         }
         
     },
