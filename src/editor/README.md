@@ -1,0 +1,19 @@
+editor目录下是基于element-ui封装的表单元素组件
+
+field_number 限定表单元素值为数字
+
+field_string、field_text限定表单元素值为字符串，两者的区别在于表现形式，前者是一个input框，后者是一个textarea
+
+field_pwd 是password形式的input框
+
+field_enum_radio、field_enum_select、field_model对应单选，三者也是表现形式不一样。候选项比较少的时候用field_enum_radio，数量略多的时候用field_enum_select，数量更多的时候用field_model，它支持输入筛选功能。
+
+field_async_enum_radio、field_async_enum_select、field_async_model与上面三个类似，但是他们的选项是异步加载的。
+
+field_relates_enum_radio、field_relates_enum_select、field_relates_model与上面三个类似，选项都是异步加载进来的，但是带查询参数，查询参数决定于其他表单元素
+
+field_sex、field_bool是特异化的field_enum_select
+
+field_tag对应多选、表现形式上对应checkbox。field_async_tag是异步加载选项对的field_tag。field_array_model是选项较多时的版本，field_array_model的异步版本是field_async_array_model。field_relates_tag和field_relates_array_model是关联查询版的多选。
+
+field_ts、field_day、field_month、field_year是关于时间的筛选框
