@@ -1,0 +1,11 @@
+{
+    "data":{
+        "fields":[
+            ["name","password"],
+            ["gender","typ"],
+            ["privilege"]
+
+        ]
+    },
+    "rstno":1
+}

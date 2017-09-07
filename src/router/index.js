@@ -8,6 +8,13 @@ let routes = [
     {
         path:"/index/test",
         component:resolve=>require(["@/pages/index/test"],resolve),
+    },
+    {
+        path:'/crm/index',
+        component:resolve=>require(["@/pages/common/list_view"],resolve),
+        meta:{
+            model:"userModel"
+        }
     }
 
 

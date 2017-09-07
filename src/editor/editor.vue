@@ -12,6 +12,7 @@
                         :uri="item.uri"
                         :valuefield="item.valuefield"
                         :labelfield="item.labelfield"
+                        :relates="item.relates"
                         :key="item.field"
                     ></component>
                 </td>
@@ -47,7 +48,13 @@ import field_text from "./field_text"
 import field_ts from "./field_ts"
 import field_year from "./field_year"
 
+import {observe_relates} from "./field_relates_helper.js"
 export default{
+    data(){
+        return {
+            proxyFields:{},
+        }
+    },
     components:{
         field_array_model,
         field_async_array_model,
@@ -76,8 +83,8 @@ export default{
         field_year
 
     },
-    methods:{
-        getData(){
+    computed:{
+        formData(){
             return this.fields.reduce((obj,item)=>{
                 item.reduce((obj,item)=>{
                     obj[item.field] = item.value;
@@ -85,6 +92,37 @@ export default{
                 },obj)
                 return obj;
             },{});
+        }
+    },
+    watch:{
+        fields:{
+            immediate:true,
+            handler(newFields){
+                this.proxyFields = {};
+                newFields.forEach((row)=>{
+                    row.forEach((item)=>{
+                        Object.defineProperty(this.proxyFields,item.field,{
+                            get(){
+                                console.log(item.field)
+                                return item.value
+                            },
+                            set(){
+
+                            },
+                            enumerable:true,
+                            configurable:true,
+                        })
+                    })
+                });
+
+                newFields.forEach((row)=>{
+                    row.forEach((item)=>{
+                        if(item.relates){
+                            observe_relates(item.relates,this.proxyFields)
+                        }
+                    })
+                });
+            }
         },
     },
     props:{
