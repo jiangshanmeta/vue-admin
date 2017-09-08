@@ -49,9 +49,14 @@ export default{
 
     },
     watch:{
-        create_editor(){
-            console.log("create_editor")
+        create_link(){
+            this.init();
         }
+
+
+        // create_editor(){
+        //     console.log("create_editor")
+        // }
     },
 
     methods:{

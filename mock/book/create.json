@@ -1,0 +1,11 @@
+{
+    "data":{
+        "fields":[
+            ["customername","totalprice"],
+            ["address"],
+            ["store","saler"]
+
+        ]
+    },
+    "rstno":1
+}

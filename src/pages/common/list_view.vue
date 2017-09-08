@@ -5,7 +5,9 @@
         :create_link="create_link"
         :docreate_link="docreate_link"
     ></create>
+    <router-link to="/crm/index">user</router-link>
 
+    <router-link to="/book/index">book</router-link>
 </section>
 </template>
 
@@ -31,6 +33,7 @@ export default{
         }
     },
     beforeRouteEnter(to, from, next){
+        console.log(to)
         next((vm)=>{
             vm.init();
             if(to.meta && to.meta.model){

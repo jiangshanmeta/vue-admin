@@ -15,8 +15,14 @@ let routes = [
         meta:{
             model:"userModel"
         }
-    }
-
+    },
+    {
+        path:'/book/index',
+        component:resolve=>require(["@/pages/common/list_view"],resolve),
+        meta:{
+            model:"bookModel"
+        }
+    },
 
     // {
     //     path:'/',
