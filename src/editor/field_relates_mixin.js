@@ -26,10 +26,10 @@ export default{
             }
 
             let keys = this.cacheKeys;
-            let query = keys.reduce(function(obj,item){
+            let query = keys.reduce((obj,item)=>{
                 obj[this.relates[item]['field']?this.relates[item]['field']:item] = this.relates[item]['value'];
                 return obj;
-            }.bind(this),{})
+            },{})
 
             this.$axios.get(this.uri,{params:query}).then((json)=>{
                 this.setCacheOptions(json.data.data);

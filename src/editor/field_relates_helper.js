@@ -9,8 +9,8 @@ export function observe_relates(relates,context){
 export function observe_item(item,context,field=item.relatefield){
     Object.defineProperty(item,'value',{
         get:function(){
-            return this[field]
-        }.bind(context),
+            return context[field]
+        },
         set:function(){
 
         },

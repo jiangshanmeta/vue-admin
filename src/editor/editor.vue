@@ -99,11 +99,11 @@ export default{
             immediate:true,
             handler(newFields){
                 this.proxyFields = {};
+
                 newFields.forEach((row)=>{
                     row.forEach((item)=>{
                         Object.defineProperty(this.proxyFields,item.field,{
                             get(){
-                                console.log(item.field)
                                 return item.value
                             },
                             set(){

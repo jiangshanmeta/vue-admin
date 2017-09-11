@@ -15,8 +15,6 @@
             <el-button @click="doCreate" type="success" v-if="docreate_link">确认创建</el-button>
         </div>
     </el-dialog>
-
-
 </section>
 </template>
 
@@ -46,25 +44,16 @@ export default{
             type:Object,
             required:true,
         },
-
     },
     watch:{
         create_link(){
             this.init();
         }
-
-
-        // create_editor(){
-        //     console.log("create_editor")
-        // }
     },
-
     methods:{
         showDialog(){
             this.isShowCreatebox = true;
         },
-
-
         init(){
             this.create_fields = [];
             this.create_editor = [];
@@ -103,6 +92,7 @@ export default{
                     let value = typeof this.field_list[field].default === 'function'?this.field_list[field].default() : this.field_list[field].default;
 
                     rowitem.push({
+                        label:this.field_list[field].label,
                         editor:this.field_list[field].editor,
                         value:value,
                         candidate:this.field_list[field].candidate,
@@ -128,9 +118,6 @@ export default{
                 })
             })
         },
-
-
-
         handleClick(){
             if(this.create_fields.length === 0){
                 this.$axios.get(this.create_link).then((json)=>{
