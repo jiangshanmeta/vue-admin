@@ -12,6 +12,7 @@
 import ts_mixin from "./ts_mixin"
 
 export default{
+    name:'field_ts',
     mixins:[ts_mixin],
 }
 </script>

@@ -26,6 +26,7 @@ import model_mixin from "./model_mixin.js"
 import field_model from "./field_model.vue"
 
 export default{
+    name:'field_array_model',
     mixins:[label_value_mixin,model_mixin],
     components:{
         field_model,

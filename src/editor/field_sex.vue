@@ -10,11 +10,12 @@
 import model_mixin from "./model_mixin.js"
 import field_enum_select from './field_enum_select.vue'
 
-let sexCandidate = [
+const sexCandidate = [
     {value:0,label:'男'},
     {value:1,label:'女'},
 ];
 export default{
+    name:'field_sex',
     mixins:[model_mixin],
     components:{
         field_enum_select

@@ -14,6 +14,7 @@ import model_mixin from "./model_mixin.js"
 import label_value_mixin from "./label_value_mixin.js"
 
 export default {
+    name:'field_async_tag',
     components:{
         field_tag,
     },

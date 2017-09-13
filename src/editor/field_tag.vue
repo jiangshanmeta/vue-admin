@@ -16,6 +16,7 @@ import model_mixin from "./model_mixin.js"
 import label_value_mixin from "./label_value_mixin.js"
 
 export default{
+    name:'field_tag',
     mixins:[field_tag_mixin,model_mixin,label_value_mixin],
 }
 </script>

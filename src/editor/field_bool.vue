@@ -17,6 +17,7 @@ let boolCandidate = [
 ];
 
 export default{
+    name:'field_bool',
     mixins:[model_mixin],
     data(){
         return {

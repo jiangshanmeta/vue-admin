@@ -14,6 +14,7 @@ import field_enum_select from "./field_enum_select.vue"
 import model_mixin from "./model_mixin.js"
 
 export default{
+    name:'field_relates_enum_select',
     mixins:[field_relates_mixin,model_mixin],
     components:{
         field_enum_select

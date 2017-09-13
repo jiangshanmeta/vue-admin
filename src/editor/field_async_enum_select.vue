@@ -15,6 +15,7 @@ import async_candidate_mixin from "./async_candidate_mixin.js"
 import field_enum_select from "./field_enum_select.vue"
 
 export default{
+    name:'field_async_enum_select',
     mixins:[model_mixin,label_value_mixin,async_candidate_mixin],
     components:{
         field_enum_select,

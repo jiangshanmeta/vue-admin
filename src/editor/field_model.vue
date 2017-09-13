@@ -12,6 +12,7 @@
 import label_value_mixin from "./label_value_mixin"
 
 export default{
+    name:'field_model',
     mixins:[label_value_mixin],
     data(){
         return {

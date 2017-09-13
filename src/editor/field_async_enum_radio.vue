@@ -16,6 +16,7 @@ import field_enum_radio from "./field_enum_radio.vue"
 
 
 export default {
+    name:'field_async_enum_radio',
     mixins:[model_mixin,label_value_mixin,async_candidate_mixin],
     components:{
         field_enum_radio,

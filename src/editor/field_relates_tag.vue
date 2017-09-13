@@ -13,6 +13,7 @@ import model_mixin from "./model_mixin.js"
 
 import field_tag from "./field_tag.vue"
 export default{
+    name:'field_relates_tag',
     mixins:[field_relates_mixin,model_mixin],
     components:{
         field_tag,

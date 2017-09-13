@@ -11,6 +11,7 @@
 <script>
 import ts_mixin from "./ts_mixin"
 export default{
+    name:'field_day',
     mixins:[ts_mixin]
 }
 </script>

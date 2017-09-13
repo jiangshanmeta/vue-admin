@@ -11,6 +11,7 @@
 import ts_mixin from "./ts_mixin"
 
 export default{
+    name:'field_year',
     mixins:[ts_mixin],
 }
 </script>

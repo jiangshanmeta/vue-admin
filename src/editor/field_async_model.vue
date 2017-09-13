@@ -15,6 +15,7 @@ import model_mixin from "./model_mixin.js"
 import async_candidate_mixin from "./async_candidate_mixin"
 
 export default{
+    name:'field_async_model',
     mixins:[label_value_mixin,model_mixin,async_candidate_mixin],
     components:{
         field_model

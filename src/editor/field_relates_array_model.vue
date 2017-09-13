@@ -14,6 +14,7 @@ import model_mixin from "./model_mixin.js"
 import field_relates_mixin from "./field_relates_mixin.js"
 
 export default{
+    name:'field_relates_array_model',
     mixins:[field_relates_mixin,model_mixin],
     components:{
         field_array_model,
