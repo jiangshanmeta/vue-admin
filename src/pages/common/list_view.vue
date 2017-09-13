@@ -13,23 +13,26 @@
 
 <script>
 import create from "@/components/common/create"
+import create_mixin from "@/mixins/common/create"
+
+
 export default{
     components:{
         create,
     },
+    mixins:[create_mixin],
     data(){
         return {
-            field_list:{},
-            create_link:'',
-            docreate_link:'',       
+            // field_list:{},
+            // create_link:'',
+            // docreate_link:'',       
         }
 
     },
     methods:{
         init(){
-            this.field_list = {};
-            this.create_link = '';
-            this.docreate_link = '';
+            this.reset_create();
+
         }
     },
     beforeRouteEnter(to, from, next){
@@ -38,15 +41,8 @@ export default{
             vm.init();
             if(to.meta && to.meta.model){
                 import("@/models/" + to.meta.model + ".js").then((rst)=>{
-                    // let default = rst.default
-                    let {
-                        field_list,
-                        create_link,
-                        docreate_link,
-                        } = rst.default;
-                    vm.field_list = field_list;
-                    vm.create_link = create_link;
-                    vm.docreate_link = docreate_link
+                    vm.init_create(rst.default);
+
                 })
             }
         })
