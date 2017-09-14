@@ -3,6 +3,7 @@
         v-model="model" 
         :placeholder="placeholder"
     >
+        <slot></slot>
         <el-option v-for="item in candidate" :key="item[valuefield]" :value="item[valuefield]" :label="item[labelfield]">
         </el-option>
     </el-select>

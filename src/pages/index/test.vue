@@ -1,5 +1,16 @@
 <template>
 <section>
+    <field_async_enum_select
+        v-model="z_field_async_enum_select"
+        uri='/test/field_async_enum_select'
+
+    >
+        <el-option value="all" label="不限"></el-option>
+
+    </field_async_enum_select>
+    {{z_field_async_enum_select}}
+    <hr>
+
     <field_string v-model="field_string"></field_string> {{field_string}}
     <field_text v-model="field_text"></field_text>{{field_text}}
     <field_pwd v-model="field_pwd"></field_pwd>{{field_pwd}}
@@ -330,6 +341,7 @@ export default {
             field_month:'',
             field_day:'',
             field_number:100,
+            z_field_async_enum_select:"all",
         }
         
     },

@@ -4,7 +4,11 @@
         :candidate="candidate"
         :valuefield="valuefield"
         :labelfield="labelfield"
-    ></field_enum_select>
+    >
+        <template v-if="$slots.default">
+            <slot></slot>
+        </template>
+    </field_enum_select>
 </template>
 
 <script>

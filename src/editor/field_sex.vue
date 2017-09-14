@@ -3,7 +3,11 @@
         v-model="model" 
         :candidate="candidate"
         :placeholder="placeholder"
-    ></field_enum_select>
+    >
+        <template v-if="$slots.default">
+            <slot></slot>
+        </template>
+    </field_enum_select>
 </template>
 
 <script>
