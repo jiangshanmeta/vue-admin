@@ -1,20 +1,23 @@
 <template>
-    <el-date-picker
-         type="year"
-         :placeholder="placeholder"
-         v-model="currentValue"
-         @change="handleChange"
-    ></el-date-picker>
+    <field_time
+        type="year"
+        :placeholder="placeholder"
+        v-model="model"
+    ></field_time>
 </template>
 
 <script>
-import ts_mixin from "./ts_mixin"
 import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
+import _computed_model_mixin from "./_computed_model_mixin.js"
+import field_time from "./_field_time.vue"
+
 export default{
-    name:'field_year',
     mixins:[
-        ts_mixin,
         _props_placeholder_mixin,
+        _computed_model_mixin
     ],
+    components:{
+        field_time
+    },
 }
 </script>
