@@ -11,11 +11,13 @@
 <script>
 import _props_label_value_mixin from "./_props_label_value_mixin"
 import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
+import _props_value_mixin from "./_props_value_mixin"
 export default{
     name:'field_model',
     mixins:[
         _props_label_value_mixin,
         _props_placeholder_mixin,
+        _props_value_mixin,
     ],
     data(){
         return {
@@ -36,9 +38,6 @@ export default{
         candidate:{
             type:Array,
             required:true,
-        },
-        value:{
-            required:true
         },
     },
     methods:{

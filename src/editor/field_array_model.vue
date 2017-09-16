@@ -24,6 +24,7 @@
 import _props_label_value_mixin from "./_props_label_value_mixin.js"
 import _computed_model_mixin from "./_computed_model_mixin.js"
 import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
+import _props_value_array_mixin from "./_props_value_array_mixin.js"
 import field_model from "./field_model.vue"
 
 export default{
@@ -32,6 +33,7 @@ export default{
         _props_label_value_mixin,
         _computed_model_mixin,
         _props_placeholder_mixin,
+        _props_value_array_mixin,
     ],
     components:{
         field_model,
@@ -41,10 +43,6 @@ export default{
             type:Array,
             required:true
         },
-        value:{
-            type:Array,
-            required:true,
-        }
     },
     data(){
         return {
