@@ -1,35 +1,42 @@
 <template>
-    <field_enum_select
+    <field_async_enum_select
         v-model="model"
         :placeholder="placeholder"
-        :candidate="candidate"
         :valuefield="valuefield"
         :labelfield="labelfield"
+        :uri="uri"
     >
-        <el-option 
+        <el-option
             :value="allvalue"
             :label="alllabel"
         ></el-option>
-    </field_enum_select>
+    </field_async_enum_select>
 </template>
 
 <script>
-import field_enum_select from "./field_enum_select"
+import field_async_enum_select from "./field_async_enum_select"
 
-import field_enum_mixin from "./field_enum_mixin.js"
 import label_value_mixin from "./label_value_mixin.js"
-import model_mixin from "./model_mixin"
+import model_mixin from "./model_mixin.js"
 import _filter_all_mixin from "./_filter_all_mixin.js"
 
 export default{
     components:{
-        field_enum_select
+        field_async_enum_select
     },
-    mixins:[field_enum_mixin,label_value_mixin,model_mixin,_filter_all_mixin],
+    mixins:[label_value_mixin,model_mixin,_filter_all_mixin],
     props:{
+        value:{
+            required:true,
+        },
         placeholder:{
 
         },
-    }
+        uri:{
+            type:String,
+            required:true,
+        },
+
+    },
 }
 </script>

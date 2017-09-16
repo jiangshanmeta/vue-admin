@@ -4,6 +4,7 @@
         :candidate="candidate"
         :valuefield="valuefield"
         :labelfield="labelfield"
+        :placeholder="placeholder"
     >
         <template v-if="$slots.default">
             <slot></slot>
@@ -32,7 +33,5 @@ export default{
 
         },
     },
-
-
 }
 </script>

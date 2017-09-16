@@ -6,9 +6,15 @@ Vue.use(Router)
 
 let routes = [
     {
-        path:"/index/test",
-        component:resolve=>require(["@/pages/index/test"],resolve),
+        path:"/test/test",
+        component:resolve=>require(["@/pages/test/test"],resolve),
     },
+    {
+        path:"/test/test2",
+        component:resolve=>require(["@/pages/test/test2"],resolve),
+    },
+
+
     {
         path:'/crm/index',
         component:resolve=>require(["@/pages/common/list_view"],resolve),

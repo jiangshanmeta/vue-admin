@@ -45,11 +45,11 @@
     ></field_async_tag>{{field_async_tag}}
 
     <hr>
-==================================================
+
     <field_async_enum_select
         v-model="field_async_enum_select"
         uri='/test/field_async_enum_select'
-    ></field_async_enum_select>{{field_async_enum_select}} ||| field_async_enum_selectddd
+    ></field_async_enum_select>{{field_async_enum_select}} || field
     <hr>
 
     <field_async_enum_radio
