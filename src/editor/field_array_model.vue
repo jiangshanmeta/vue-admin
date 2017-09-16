@@ -21,13 +21,13 @@
 </template>
 
 <script>
-import label_value_mixin from "./label_value_mixin.js"
+import _label_value_mixin from "./_label_value_mixin.js"
 import _model_mixin from "./_model_mixin.js"
 import field_model from "./field_model.vue"
 
 export default{
     name:'field_array_model',
-    mixins:[label_value_mixin,_model_mixin],
+    mixins:[_label_value_mixin,_model_mixin],
     components:{
         field_model,
     },

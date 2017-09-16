@@ -16,7 +16,7 @@
 <script>
 import field_async_enum_select from "./field_async_enum_select"
 
-import label_value_mixin from "./label_value_mixin.js"
+import _label_value_mixin from "./_label_value_mixin.js"
 import _model_mixin from "./_model_mixin.js"
 import _filter_all_mixin from "./_filter_all_mixin.js"
 
@@ -24,7 +24,7 @@ export default{
     components:{
         field_async_enum_select
     },
-    mixins:[label_value_mixin,_model_mixin,_filter_all_mixin],
+    mixins:[_label_value_mixin,_model_mixin,_filter_all_mixin],
     props:{
         value:{
             required:true,

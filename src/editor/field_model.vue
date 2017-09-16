@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import label_value_mixin from "./label_value_mixin"
+import _label_value_mixin from "./_label_value_mixin"
 
 export default{
     name:'field_model',
-    mixins:[label_value_mixin],
+    mixins:[_label_value_mixin],
     data(){
         return {
             showValue:'',

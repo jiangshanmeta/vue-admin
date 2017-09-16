@@ -17,7 +17,7 @@
 import field_enum_select from "./field_enum_select"
 
 import field_enum_mixin from "./field_enum_mixin.js"
-import label_value_mixin from "./label_value_mixin.js"
+import _label_value_mixin from "./_label_value_mixin.js"
 import _model_mixin from "./_model_mixin"
 import _filter_all_mixin from "./_filter_all_mixin.js"
 
@@ -25,7 +25,7 @@ export default{
     components:{
         field_enum_select
     },
-    mixins:[field_enum_mixin,label_value_mixin,_model_mixin,_filter_all_mixin],
+    mixins:[field_enum_mixin,_label_value_mixin,_model_mixin,_filter_all_mixin],
     props:{
         placeholder:{
 

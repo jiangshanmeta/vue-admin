@@ -10,13 +10,13 @@
 
 <script>
 import field_model from "./field_model.vue"
-import label_value_mixin from "./label_value_mixin.js"
+import _label_value_mixin from "./_label_value_mixin.js"
 import _model_mixin from "./_model_mixin.js"
 import async_candidate_mixin from "./async_candidate_mixin"
 
 export default{
     name:'field_async_model',
-    mixins:[label_value_mixin,_model_mixin,async_candidate_mixin],
+    mixins:[_label_value_mixin,_model_mixin,async_candidate_mixin],
     components:{
         field_model
     },
