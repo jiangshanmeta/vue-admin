@@ -10,7 +10,7 @@
 <script>
 import field_tag from "./field_tag.vue"
 import async_candidate_mixin from "./async_candidate_mixin.js"
-import model_mixin from "./model_mixin.js"
+import _model_mixin from "./_model_mixin.js"
 import label_value_mixin from "./label_value_mixin.js"
 
 export default {
@@ -18,7 +18,7 @@ export default {
     components:{
         field_tag,
     },
-    mixins:[async_candidate_mixin,model_mixin,label_value_mixin],
+    mixins:[async_candidate_mixin,_model_mixin,label_value_mixin],
     props:{
         value:{
             type:Array,

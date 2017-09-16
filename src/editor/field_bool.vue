@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import model_mixin from "./model_mixin.js"
+import _model_mixin from "./_model_mixin.js"
 import field_enum_select from './field_enum_select.vue'
 
 let boolCandidate = [
@@ -22,7 +22,7 @@ let boolCandidate = [
 
 export default{
     name:'field_bool',
-    mixins:[model_mixin],
+    mixins:[_model_mixin],
     data(){
         return {
             candidate:boolCandidate,

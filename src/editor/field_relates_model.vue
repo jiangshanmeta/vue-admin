@@ -10,11 +10,11 @@
 
 <script>
 import field_relates_mixin from "./field_relates_mixin.js"
-import model_mixin from "./model_mixin.js"
+import _model_mixin from "./_model_mixin.js"
 import field_model from "./field_model.vue"
 export default{
     name:'field_relates_model',
-    mixins:[field_relates_mixin,model_mixin],
+    mixins:[field_relates_mixin,_model_mixin],
     components:{
         field_model
     },

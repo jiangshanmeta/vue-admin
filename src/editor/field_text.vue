@@ -8,9 +8,9 @@
 
 <script>
 import field_string_mixin from "./field_string_mixin.js"
-import model_mixin from "./model_mixin.js"
+import _model_mixin from "./_model_mixin.js"
 export default{
     name:'field_text',
-    mixins:[field_string_mixin,model_mixin],
+    mixins:[field_string_mixin,_model_mixin],
 }
 </script>

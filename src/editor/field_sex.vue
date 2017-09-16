@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import model_mixin from "./model_mixin.js"
+import _model_mixin from "./_model_mixin.js"
 import field_enum_select from './field_enum_select.vue'
 
 const sexCandidate = [
@@ -20,7 +20,7 @@ const sexCandidate = [
 ];
 export default{
     name:'field_sex',
-    mixins:[model_mixin],
+    mixins:[_model_mixin],
     components:{
         field_enum_select
     },
