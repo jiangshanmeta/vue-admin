@@ -11,16 +11,19 @@
 </template>
 
 <script>
-import _model_mixin from "./_model_mixin.js"
+import _computed_model_mixin from "./_computed_model_mixin.js"
 import field_enum_select from './field_enum_select.vue'
-
+import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
 const sexCandidate = [
     {value:0,label:'男'},
     {value:1,label:'女'},
 ];
 export default{
     name:'field_sex',
-    mixins:[_model_mixin],
+    mixins:[
+        _computed_model_mixin,
+        _props_placeholder_mixin,
+    ],
     components:{
         field_enum_select
     },
@@ -33,9 +36,6 @@ export default{
         value:{
             type:Number,
             required:true,
-        },
-        placeholder:{
-
         },
     }
 }

@@ -10,13 +10,19 @@
 
 <script>
 import field_model from "./field_model.vue"
-import _label_value_mixin from "./_label_value_mixin.js"
-import _model_mixin from "./_model_mixin.js"
+import _props_label_value_mixin from "./_props_label_value_mixin.js"
+import _computed_model_mixin from "./_computed_model_mixin.js"
+import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
 import async_candidate_mixin from "./async_candidate_mixin"
 
 export default{
     name:'field_async_model',
-    mixins:[_label_value_mixin,_model_mixin,async_candidate_mixin],
+    mixins:[
+        _props_label_value_mixin,
+        _computed_model_mixin,
+        async_candidate_mixin,
+        _props_placeholder_mixin,
+    ],
     components:{
         field_model
     },
@@ -24,9 +30,6 @@ export default{
         value:{
             required:true,
         },
-        placeholder:{
-
-        }
     }
 }
 </script>

@@ -8,9 +8,6 @@ export default {
         value:{
             required:true,
         },
-        placeholder:{
-
-        }
     },
     methods:{
         handleChange(newVal=''){

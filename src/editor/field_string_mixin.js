@@ -3,9 +3,6 @@ export default{
         value:{
             required:true,
         },
-        placeholder:{
-            
-        },
     },
 
 }

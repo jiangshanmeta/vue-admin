@@ -16,21 +16,23 @@
 <script>
 import field_async_enum_select from "./field_async_enum_select"
 
-import _label_value_mixin from "./_label_value_mixin.js"
-import _model_mixin from "./_model_mixin.js"
+import _props_label_value_mixin from "./_props_label_value_mixin.js"
+import _computed_model_mixin from "./_computed_model_mixin.js"
 import _filter_all_mixin from "./_filter_all_mixin.js"
-
+import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
 export default{
     components:{
         field_async_enum_select
     },
-    mixins:[_label_value_mixin,_model_mixin,_filter_all_mixin],
+    mixins:[
+        _props_label_value_mixin,
+        _computed_model_mixin,
+        _filter_all_mixin,
+        _props_placeholder_mixin,
+    ],
     props:{
         value:{
             required:true,
-        },
-        placeholder:{
-
         },
         uri:{
             type:String,

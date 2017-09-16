@@ -9,11 +9,14 @@
 </template>
 
 <script>
-import _label_value_mixin from "./_label_value_mixin"
-
+import _props_label_value_mixin from "./_props_label_value_mixin"
+import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
 export default{
     name:'field_model',
-    mixins:[_label_value_mixin],
+    mixins:[
+        _props_label_value_mixin,
+        _props_placeholder_mixin,
+    ],
     data(){
         return {
             showValue:'',
@@ -37,9 +40,6 @@ export default{
         value:{
             required:true
         },
-        placeholder:{
-
-        }
     },
     methods:{
         queryModel(queryString,cb){

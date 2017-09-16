@@ -12,7 +12,8 @@
 </template>
 
 <script>
-import _model_mixin from "./_model_mixin.js"
+import _computed_model_mixin from "./_computed_model_mixin.js"
+import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
 import field_enum_select from './field_enum_select.vue'
 
 let boolCandidate = [
@@ -22,7 +23,10 @@ let boolCandidate = [
 
 export default{
     name:'field_bool',
-    mixins:[_model_mixin],
+    mixins:[
+        _computed_model_mixin,
+        _props_placeholder_mixin,
+    ],
     data(){
         return {
             candidate:boolCandidate,
@@ -36,9 +40,6 @@ export default{
             type:Number,
             required:true,
         },
-        placeholder:{
-            
-        }
     }
 }
 </script>

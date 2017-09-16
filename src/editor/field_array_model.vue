@@ -21,13 +21,18 @@
 </template>
 
 <script>
-import _label_value_mixin from "./_label_value_mixin.js"
-import _model_mixin from "./_model_mixin.js"
+import _props_label_value_mixin from "./_props_label_value_mixin.js"
+import _computed_model_mixin from "./_computed_model_mixin.js"
+import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
 import field_model from "./field_model.vue"
 
 export default{
     name:'field_array_model',
-    mixins:[_label_value_mixin,_model_mixin],
+    mixins:[
+        _props_label_value_mixin,
+        _computed_model_mixin,
+        _props_placeholder_mixin,
+    ],
     components:{
         field_model,
     },
@@ -35,9 +40,6 @@ export default{
         candidate:{
             type:Array,
             required:true
-        },
-        placeholder:{
-
         },
         value:{
             type:Array,

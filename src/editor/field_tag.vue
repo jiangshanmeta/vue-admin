@@ -12,11 +12,11 @@
 
 <script>
 import field_tag_mixin from "./field_tag_mixin.js"
-import _model_mixin from "./_model_mixin.js"
-import _label_value_mixin from "./_label_value_mixin.js"
+import _computed_model_mixin from "./_computed_model_mixin.js"
+import _props_label_value_mixin from "./_props_label_value_mixin.js"
 
 export default{
     name:'field_tag',
-    mixins:[field_tag_mixin,_model_mixin,_label_value_mixin],
+    mixins:[field_tag_mixin,_computed_model_mixin,_props_label_value_mixin],
 }
 </script>

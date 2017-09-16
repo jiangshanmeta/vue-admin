@@ -11,16 +11,20 @@
 
 <script>
 import field_enum_mixin from "./field_enum_mixin.js"
-import _model_mixin from "./_model_mixin.js"
-import _label_value_mixin from "./_label_value_mixin.js"
+import _computed_model_mixin from "./_computed_model_mixin.js"
+import _props_label_value_mixin from "./_props_label_value_mixin.js"
+import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
 
 export default{
     name:'field_enum_select',
-    mixins:[field_enum_mixin,_model_mixin,_label_value_mixin],
+    mixins:[
+        field_enum_mixin,
+        _computed_model_mixin,
+        _props_label_value_mixin,
+        _props_placeholder_mixin,
+    ],
     props:{
-        placeholder:{
 
-        }
     }
 }
 </script>
