@@ -75,7 +75,7 @@ export default{
                 {
                     label:"类型",
                     field:"typ",
-                    editor:'filter_async_enum',
+                    editor:'filter_async_model',
                     uri:'/test/field_async_enum_select',
                     allvalue:-1,
                     alllabel:"不限",

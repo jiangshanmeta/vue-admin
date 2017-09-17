@@ -42,6 +42,7 @@
 import filter_enum from "./filter_enum.vue"
 import filter_async_enum from "./filter_async_enum.vue"
 import filter_model from "./filter_model.vue"
+import filter_async_model from "./filter_async_model.vue"
 
 import field_enum_select from "./field_enum_select.vue"
 import field_async_enum_select from "./field_async_enum_select.vue"
@@ -57,6 +58,7 @@ export default{
         filter_enum,
         filter_async_enum,
         filter_model,
+        filter_async_model,
         field_enum_select,
         field_async_enum_select,
         field_model,
