@@ -9,7 +9,7 @@
 
 <script>
 import field_tag from "./field_tag.vue"
-import async_candidate_mixin from "./async_candidate_mixin.js"
+import _async_candidate_mixin from "./_async_candidate_mixin.js"
 import _computed_model_mixin from "./_computed_model_mixin.js"
 import _props_label_value_mixin from "./_props_label_value_mixin.js"
 import _props_value_array_mixin from "./_props_value_array_mixin.js"
@@ -19,7 +19,7 @@ export default {
         field_tag,
     },
     mixins:[
-        async_candidate_mixin,
+        _async_candidate_mixin,
         _computed_model_mixin,
         _props_label_value_mixin,
         _props_value_array_mixin,

@@ -1,11 +1,10 @@
 export default{
     props:{
-        value:{
+        candidate:{
             type:Array,
             required:true,
         },
-        candidate:{
-            type:Array,
+        value:{
             required:true,
         },
     },

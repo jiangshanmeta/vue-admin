@@ -3,7 +3,7 @@
         :value="showValue"
         :props="{value:valuefield,label:labelfield}"
         :fetch-suggestions="queryModel"
-        @input="handleInput"
+        @select="handleSelect"
         :placeholder="placeholder"
     ></el-autocomplete>
 </template>
@@ -45,15 +45,11 @@ export default{
             let data = queryString?this.candidate.filter((item)=>{
                 return item[this.labelfield].includes(queryString);
             }):this.candidate;
-
-            cb(data);
+            console.log(data);
         },
-        handleInput(value){
-            if(this.valueLabelHash.hasOwnProperty(value)){
-                this.$emit('input',value)
-            }else{
-                this.setShowValue(value);
-            }
+        handleSelect(item){
+            this.$emit('input',item[this.valuefield]);
+            this.setShowValueByValue()
         },
         setShowValueByValue(){
             let value = this.value;

@@ -11,12 +11,16 @@
 </template>
 
 <script>
-import field_enum_mixin from "./field_enum_mixin.js"
+import _field_enum_mixin from "./_field_enum_mixin.js"
 import _computed_model_mixin from "./_computed_model_mixin.js"
 import _props_label_value_mixin from "./_props_label_value_mixin.js"
 
 export default{
     name:'field_enum_radio',
-    mixins:[field_enum_mixin,_computed_model_mixin,_props_label_value_mixin],
+    mixins:[
+        _field_enum_mixin,
+        _computed_model_mixin,
+        _props_label_value_mixin,
+    ],
 }
 </script>
