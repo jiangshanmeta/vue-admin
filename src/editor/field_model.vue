@@ -45,7 +45,8 @@ export default{
             let data = queryString?this.candidate.filter((item)=>{
                 return item[this.labelfield].includes(queryString);
             }):this.candidate;
-            console.log(data);
+            console.log(queryString,data);
+            cb(data)
         },
         handleSelect(item){
             this.$emit('input',item[this.valuefield]);

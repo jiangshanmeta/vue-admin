@@ -101,7 +101,7 @@ export default{
                 {
                     label:"搜索",
                     field:"search",
-                    editor:"field_model",
+                    editor:"filter_model",
                     candidate:[
                         {id:9,name:"张三"},
                         {id:10,name:"张四"},
@@ -110,7 +110,8 @@ export default{
                         {id:13,name:"王五"},
                     ],
                     valuefield:'id',
-                    labelfield:'name'
+                    labelfield:'name',
+                    allvalue:"all"
                 }
 
             ],

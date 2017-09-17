@@ -39,22 +39,24 @@
 </template>
 
 <script>
-import filter_enum from "./filter_enum"
-import filter_async_enum from "./filter_async_enum"
+import filter_enum from "./filter_enum.vue"
+import filter_async_enum from "./filter_async_enum.vue"
+import filter_model from "./filter_model.vue"
 
-import field_enum_select from "./field_enum_select"
-import field_async_enum_select from "./field_async_enum_select"
-import field_model from "./field_model"
-import field_async_model from "./field_async_model"
-import field_year from "./field_year"
-import field_month from "./field_month"
-import field_day from "./field_day"
-import field_string from "./field_string"
+import field_enum_select from "./field_enum_select.vue"
+import field_async_enum_select from "./field_async_enum_select.vue"
+import field_model from "./field_model.vue"
+import field_async_model from "./field_async_model.vue"
+import field_year from "./field_year.vue"
+import field_month from "./field_month.vue"
+import field_day from "./field_day.vue"
+import field_string from "./field_string.vue"
 
 export default{
     components:{
         filter_enum,
         filter_async_enum,
+        filter_model,
         field_enum_select,
         field_async_enum_select,
         field_model,
