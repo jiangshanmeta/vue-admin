@@ -7,7 +7,6 @@
             :label="item.label"
             :key="item.field"
         >
-            {{item.value}}
             <component
                 :is="item.editor"
                 v-model="item.value"
