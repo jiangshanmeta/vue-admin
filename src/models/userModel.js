@@ -1,3 +1,5 @@
+import {getTypConfig} from "@/server/user.js"
+
 export default{
     field_list:{
         name:{
@@ -87,4 +89,18 @@ export default{
         },
 
     ],
+    baseUrl:"/user/list",
+    sortFields:['typ'],
+    async treatData(data){
+        let {data:typCfg} = await getTypConfig();
+        let genderCfg = {
+            0:"男",
+            1:"女"
+        }
+        data.forEach((item)=>{
+            item['typ'] = typCfg[item['typ']];
+            item['gender'] = genderCfg[item['gender']]
+        })
+        return data
+    }
 }

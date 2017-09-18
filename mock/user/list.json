@@ -1,0 +1,34 @@
+{
+    "data":{
+        "data":[
+            {
+                "name":"张三",
+                "gender":0,
+                "typ":1
+            },
+            {
+                "name":"李四",
+                "gender":1,
+                "typ":0
+            },
+            {
+                "name":"王五",
+                "gender":0,
+                "typ":999
+            },
+            {
+                "name":"何六",
+                "gender":1,
+                "typ":99
+            },
+            {
+                "name":"田七",
+                "gender":1,
+                "typ":2
+            }
+        ],
+        "total":233,
+        "fields":["name","gender","typ"]
+    },
+    "rstno":1
+}
