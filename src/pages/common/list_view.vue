@@ -9,6 +9,7 @@
     <filters
         :filters="filters"
         @search="handleFilterSearch"
+        ref="filters"
     ></filters>
 
     <el-table
@@ -33,7 +34,17 @@
             </template>
         </el-table-column>
     </el-table>
-
+    <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="pageIndex"
+        :page-sizes="[10, 20, 30, 40]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+        style="display:table;margin-left:auto;margin-right:auto;"
+        v-if="data.length"
+    ></el-pagination>
 
     <router-link to="/crm/index">user</router-link>
 
@@ -47,6 +58,12 @@ import create_mixin from "@/mixins/common/create.js"
 
 import filters from "@/editor/filters.vue"
 import filters_mixin from "@/mixins/common/filters"
+
+let fns = {
+    async treatData(data){
+        return data;
+    }
+}
 
 export default{
     components:{
@@ -67,6 +84,8 @@ export default{
             sortFields:[],
             baseUrl:'',
             total:0,
+            isMounted:false,
+            isModelLoaded:false,
         }
 
     },
@@ -77,6 +96,15 @@ export default{
         init(){
             this.reset_create();
             this.reset_filters();
+            this.data = [];
+            this.pageSize = 20;
+            this.pageIndex = 1;
+            this.total = 0;
+            this.sortFields = [];
+            this.sortField = '';
+            this.sortOrder = '';
+            this.baseUrl = '';
+            this.isModelLoaded = false;
         },
         handleSortChange(sortInfo){
             if(sortInfo.prop){
@@ -86,23 +114,34 @@ export default{
                 this.sortField = '';
                 this.sortOrder = '';
             }
-            // console.log(sortInfo)
-
             this.pageIndex = 1;
             this.getListInfo();
         },
         handleFilterSearch(){
             this.getListInfo();
         },
+        handleCurrentChange(){
+            this.getListInfo();
+        },
+        handleSizeChange(newPageSize){
+            this.pageSize = newPageSize;
+            this.getListInfo();
+        },
         getListInfo(){
-            if(!this.baseUrl){
-                return new Promise();
+            if(!this.baseUrl || !this.$refs.filters){
+                return new Promise((resolve,reject)=>{
+
+                });
             }
-            let params = {};
-            if(this.$refs.filters){
-                params = Object.assign(params,this.$refs.filters.formData);
+            
+            // 保证带上筛选
+            if(Object.keys(this.$refs.filters.formData).length<this.filters.length){
+                return this.$nextTick(()=>{
+                    return this.getListInfo()
+                })
             }
 
+            let params = Object.assign({},this.$refs.filters.formData);
             params['pageIndex'] = this.pageIndex;
             params['pageSize'] = this.pageSize;
             params['sortField'] = this.sortField;
@@ -116,14 +155,8 @@ export default{
                     this.total = total;
                     this.data = data;
                 });
-
-                
-                
             });
         },
-        async treatData(data){
-            return data;
-        }
     },
     beforeRouteEnter(to, from, next){
         console.log(to)
@@ -133,19 +166,36 @@ export default{
                 import("@/models/" + to.meta.model + ".js").then((rst)=>{
                     vm.init_create(rst.default);
                     vm.init_filters(rst.default);
+
                     if(rst.default.treatData && typeof rst.default.treatData === 'function'){
                         vm.treatData = rst.default.treatData.bind(vm);
+                    }else{
+                        vm.treatData = fns.treatData.bind(vm);
                     }
+
 
                     let {pageSize=20,pageIndex=1,sortFields=[],baseUrl=''} = rst.default;
                     vm.pageSize = pageSize;
                     vm.pageIndex = pageIndex;
                     vm.sortFields = sortFields;
-                    vm.baseUrl = baseUrl; 
-                    vm.getListInfo()
+                    vm.baseUrl = baseUrl;
+                    vm.isModelLoaded = true;
+                    if(vm.isMounted){
+                        vm.getListInfo()
+                    }
+                    
 
 
                 })
+            }
+        })
+    },
+    mounted(){
+        
+        this.$nextTick(()=>{
+            this.isMounted = true;
+            if(this.isModelLoaded){
+                this.getListInfo();
             }
         })
     }

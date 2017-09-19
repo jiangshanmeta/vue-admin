@@ -1,5 +1,7 @@
 import {getTypConfig} from "@/server/user.js"
+const cache = {
 
+}
 export default{
     field_list:{
         name:{
@@ -92,13 +94,17 @@ export default{
     baseUrl:"/user/list",
     sortFields:['typ'],
     async treatData(data){
-        let {data:typCfg} = await getTypConfig();
+        if(!cache['typCfg']){
+            let {data:typCfg} = await getTypConfig();
+            cache['typCfg'] = typCfg
+        }
+
         let genderCfg = {
             0:"男",
             1:"女"
         }
         data.forEach((item)=>{
-            item['typ'] = typCfg[item['typ']];
+            item['typ'] = cache['typCfg'][item['typ']];
             item['gender'] = genderCfg[item['gender']]
         })
         return data
