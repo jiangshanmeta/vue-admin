@@ -48,11 +48,8 @@ export default{
         return {
             data:[],
             pageIndex:1,
-            // pageSize:20,
             sortField:'',
             sortOrder:'',
-            // sortFields:[],
-            // baseUrl:'',
             total:0,
             isMounted:false,
             isModelLoaded:false,
@@ -101,9 +98,6 @@ export default{
             this.pageIndex = 1;
             this.getListInfo();
         },
-        // handleFilterSearch(){
-        //     this.getListInfo();
-        // },
         handleCurrentChange(){
             this.getListInfo();
         },
@@ -112,29 +106,18 @@ export default{
             this.getListInfo();
         },
         getListInfo(){
-            // console.log(this.$parent);
-            // return;
-            // console.log(this.baseUrl,this.baseUrl,this.$parent.$refs.filters)
             if(!this.baseUrl){
                 return new Promise((resolve,reject)=>{
 
                 });
             }
-            // || ( this.filters.length  &&  !this.$parent.$refs.filters)   
-            // 保证带上筛选
-            // if(Object.keys(this.$parent.$refs.filters.formData).length<this.$parent.filters.length){
-            //     return this.$nextTick(()=>{
-            //         return this.getListInfo()
-            //     })
-            // }
+
 
             let params = {};
             if(this.filters.length){
                 params = Object.assign(params,this.$parent.$refs.filters.formData);
             }
 
-
-            // let params = Object.assign({},this.$parent.$refs.filters.formData);
             params['pageIndex'] = this.pageIndex;
             params['pageSize'] = this.pageSize;
             params['sortField'] = this.sortField;
@@ -159,19 +142,8 @@ export default{
                     this.getListInfo();
                 })
             }
-            // newBaseUrl && 
         }
     },
-
-    // mounted(){
-        
-    //     this.$nextTick(()=>{
-    //         this.isMounted = true;
-    //         if(this.isModelLoaded){
-    //             this.getListInfo();
-    //         }
-    //     })
-    // }
 
 
 }

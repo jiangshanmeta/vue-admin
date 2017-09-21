@@ -1,30 +1,51 @@
+const config = {
+    baseUrl:'',
+    pageSize:20,
+    sortFields(){
+        return [];
+    },
+    field_list(){
+        return {}
+    },
+    filters(){
+        return [];
+    },
+    treatData:undefined,
+}
+
+
 export default{
     data(){
         return {
-            baseUrl:'',
-            pageSize:20,
-            sortFields:[],
-            field_list:{},
-            filters:[],
-            treatData:undefined,
+            baseUrl:config['baseUrl'],
+            pageSize:config['pageSize'],
+            sortFields:config['sortFields'](),
+            field_list:config['field_list'](),
+            filters:config['filters'](),
+            treatData:config['treatData'],
         }
     },
     methods:{
         reset_listInfo(){
-            this.baseUrl = '';
-            this.pageSize = 20;
-            this.sortFields = [];
-            this.field_list = {};
-            this.filters = [];
-            this.treatData = undefined;
+            [
+                'baseUrl',
+                'pageSize',
+                'sortFields',
+                'field_list',
+                'filters',
+                'treatData',
+            ].forEach((item)=>{
+                this[item] = typeof config[item] === 'function'? config[item]():config[item]
+            });
+
         },
-        init_listInfo(model){
+        init_listInfo(model={}){
             let {
-                baseUrl='',
-                pageSize=20,
-                sortFields=[],
-                field_list={},
-                filters=[],
+                baseUrl=config['baseUrl'],
+                pageSize=config['pageSize'],
+                sortFields=config['sortFields'](),
+                field_list=config['field_list'](),
+                filters=config['filters'](),
                 treatData,
             } = model
             this.baseUrl = baseUrl;
