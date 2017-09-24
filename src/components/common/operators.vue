@@ -1,39 +1,98 @@
 <template>
-<div style="display:inline-block">
-    <span v-for="item in operators" @click="doOperate(item.link)" :title="item.label" class="op-icon">
-        <i :class="item.icon"></i>
+    <span v-if="(!hasAsyncComponent) || (hasAsyncComponent && isComponentsLoaded)" 
+    class="operator-container">
+        <template v-for="item in operators">
+            <component
+                v-if="item.component"
+                :is="item.component"
+                :data="data"
+                :index="index"
+                @update="notifyUpdate"
+            ></component>
+            <el-button
+                v-else-if="item.function"
+                @click="handleOperatorClick(item.function)"
+                size="small"
+                :type="item.type"
+            >
+                {{item.label}}
+            </el-button>
+        </template>
     </span>
-</div>
 </template>
 
 <script>
-
 export default{
     props:{
-        id:{
-            type:String,
-            required:true,
-        },
         operators:{
             type:Array,
             required:true,
         },
+        data:{
+            type:Object,
+            required:true,
+        },
+        index:{
+            type:Number,
+            required:true,
+        }
+    },
+    data(){
+        return {
+            isComponentsLoaded:false,
+        }
+    },
+    computed:{
+        hasAsyncComponent(){
+            return this.operators.some((item)=>{
+                return item.component
+            })
+        },
     },
     methods:{
-        doOperate(uri){
-            if(!confirm('确认一下？')){
-                return;
+        importOperator(){
+            if(this.hasAsyncComponent){
+                let components = this.operators.reduce((arr,item)=>{
+                    if(item.component){
+                        arr.push(item.path)
+                    }
+                    return arr
+                },[])
+
+                Promise.all(components.map((item)=>{
+                    return import("@/"+item)
+                })).then((components)=>{
+                    components.forEach((component)=>{
+                        this.$options.components[component.name] = component;
+                    })
+                    this.isComponentsLoaded = true;
+                })
             }
-            this.$axios.post(uri+this.id).then((json)=>{
-                this.$emit('update',json.data);
-            })
+        },
+        handleOperatorClick(func){
+            func.call(this,this.data,this.index);
+            this.notifyUpdate();
+        },
+        notifyUpdate(){
+            this.$emit('update',this.index);
         }
-    }
+    },
+    watch:{
+        operators:{
+            immediate:true,
+            handler:function(){
+                this.isComponentsLoaded = false;
+                this.importOperator();
+            }
+        }
+    },
+
+
 }
 </script>
 
-<style scoped>
-.op-icon{
-    cursor:pointer;
+<style>
+.operator-container{
+    white-space: nowrap;
 }
 </style>

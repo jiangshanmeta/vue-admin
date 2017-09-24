@@ -22,44 +22,14 @@
         ref="listInfo"
     >
         <template scope="scope">
-            {{scope.index}}
+            <operators
+                :operators="operators"
+                :data="scope.data"
+                :index="scope.index"
+                @update="handleOperatorUpdate"
+            ></operators>
         </template>
     </list-info>
-
-
-<!--     <el-table
-        v-if="data.length"
-        :data="data"
-        style="width:100%;"
-        @sort-change="handleSortChange"
-    >
-        <el-table-column
-            v-for="field in fields"
-            :key="field"
-            :label="field_list[field]['label']"
-            :prop="field"
-            :sortable="sortFields.includes[field]?'custom':false"
-        ></el-table-column>
-        <el-table-column
-            label="操作"
-            v-if="data.length"
-        >
-            <template scope="scope">
-                操作 TODO
-            </template>
-        </el-table-column>
-    </el-table>
-    <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page.sync="pageIndex"
-        :page-sizes="[10, 20, 30, 40]"
-        :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="total"
-        style="display:table;margin-left:auto;margin-right:auto;"
-        v-if="data.length"
-    ></el-pagination> -->
 
     <router-link to="/crm/index">user</router-link>
 
@@ -77,16 +47,21 @@ import filters_mixin from "@/mixins/common/filters"
 import listInfo from "@/components/common/listInfo.vue"
 import listInfo_mixin from "@/mixins/common/listInfo.js"
 
+import operators from "@/components/common/operators.vue"
+import operators_mixin from "@/mixins/common/operators.js"
+
 export default{
     components:{
         create,
         filters,
         listInfo,
+        operators,
     },
     mixins:[
         create_mixin,
         filters_mixin,
         listInfo_mixin,
+        operators_mixin,
     ],
     data(){
         return {
@@ -102,8 +77,13 @@ export default{
             this.reset_create();
             this.reset_filters();
             this.reset_listInfo();
+            this.reset_operators();
         },
         handleFilterSearch(){
+            this.$refs.listInfo.getListInfo();
+        },
+        handleOperatorUpdate(){
+            // console.log("====")
             this.$refs.listInfo.getListInfo();
         },
     },
@@ -116,7 +96,7 @@ export default{
                     vm.init_create(rst.default);
                     vm.init_filters(rst.default);
                     vm.init_listInfo(rst.default);
-
+                    vm.init_operators(rst.default);
                 })
             }
         })

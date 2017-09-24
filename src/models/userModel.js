@@ -108,5 +108,20 @@ export default{
             item['gender'] = genderCfg[item['gender']]
         })
         return data
-    }
+    },
+    operators:[
+        {
+            label:"搞个大新闻",
+            type:"warning",
+            function(data){
+                console.log(data.name);
+                alert('不要总想着搞个大新闻')
+            },
+        },
+        {
+            component:"run",
+            path:"components/user/run.vue"
+        }
+
+    ],
 }

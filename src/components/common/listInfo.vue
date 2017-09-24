@@ -16,9 +16,9 @@
             <el-table-column
                 label="操作"
                 v-if="data.length"
+                style="white-space:nowrap;width:max-content;"
             >
                 <template scope="scope">
-                    操作 TODO
                     <slot :data="scope.row" :index="scope.$index"></slot>
                 </template>
             </el-table-column>
@@ -38,11 +38,6 @@
 </template>
 
 <script>
-let fns = {
-    async treatData(data){
-        return data;
-    }
-}
 export default{
     data(){
         return {
@@ -136,6 +131,10 @@ export default{
     },
     watch:{
         baseUrl(newBaseUrl){
+            this.fields = [];
+            this.total = 0;
+            this.data = [];
+
             if(newBaseUrl){
                 // 保证如果有filters，filters得到实例化
                 this.$nextTick(()=>{
