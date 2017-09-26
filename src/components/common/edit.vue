@@ -1,4 +1,74 @@
 <template>
+    <span>
+        <el-button
+            v-if="edit_link"
+            @click="handleClick"
+        >
+            编辑
+        </el-button>
+        <el-dialog
+            title="编辑"
+            :visible.sync="isShowEditbox"
+            size="large"
+        >
+            <editor
+                :fields="edit_editor"
+            ></editor>
+            <section slot="footer">
+                <el-button @click="isShowEditbox=false">取消</el-button>
+                <el-button
+                    type="danger"
+                    @click="doEdit"
+                >
+                    确认编辑
+                </el-button>
+            </section>
+        </el-dialog>
+    </span>
+</template>
+
+<script>
+import editor from "@/editor/editor"
+export default {
+    components:{
+        editor,
+    },
+    data(){
+        return {
+            isShowEditbox:false,
+            edit_editor:[],
+        }
+    },
+    props:{
+        edit_link:{
+            type:String,
+            required:true,
+        },
+        doedit_link:{
+            type:String,
+            required:true,
+        },
+        id:{
+            type:[String,Number],
+            required:true,
+        }
+    },
+    methods:{
+        showDialog(){
+
+        },
+        handleClick(){
+
+        },
+        doEdit(){
+
+        },
+    },
+}
+</script>
+
+
+<!-- <template>
     <el-dialog
         title="创建"
         :visible.sync="isShowEditbox"
@@ -64,4 +134,4 @@ export default{
 
     },
 }
-</script>
+</script> -->

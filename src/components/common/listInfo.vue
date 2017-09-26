@@ -121,7 +121,12 @@ export default{
             return this.$axios.get(this.baseUrl,{params}).then((json)=>{
                 let {data,total,fields} = json.data;
 
-                this.treatData(data).then((data)=>{
+                let promise = this.treatData(data);
+                if(!(promise instanceof Promise)){
+                    promise = Promise.resolve(promise);
+                }
+
+                promise.then((data)=>{
                     this.fields = fields;
                     this.total = total;
                     this.data = data;
