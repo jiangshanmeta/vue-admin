@@ -58,34 +58,6 @@ export default{
             this.create_fields = [];
             this.create_editor = [];
         },
-        showEditor(){
-            // this.create_editor = [];
-            // 计算create_editor
-            this.create_editor = this.create_fields.reduce((arr,row)=>{
-                let rowitem = row.reduce((rowitem,field)=>{
-                    let value = typeof this.field_list[field].default === 'function'?this.field_list[field].default() : this.field_list[field].default;
-
-                    rowitem.push({
-                        editor:this.field_list[field].editor,
-                        value:value,
-                        candidate:this.field_list[field].candidate,
-                        placeholder:this.field_list[field].placeholder,
-                        uri:this.field_list[field].uri,
-                        valuefield:this.field_list[field].valuefield,
-                        labelfield:this.field_list[field].labelfield,
-                        relates:this.field_list[field].relates,
-                        field,
-                        default:this.field_list[field].default
-                    })
-                    return rowitem;
-                },[]);
-
-                arr.push(rowitem)
-                return arr;
-            },[])
-
-            this.isShowCreatebox = true;
-        },
         initEditor(){
             this.create_editor = this.create_fields.reduce((arr,row)=>{
                 let rowitem = row.reduce((rowitem,field)=>{

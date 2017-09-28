@@ -22,12 +22,20 @@
         ref="listInfo"
     >
         <template scope="scope">
-            <operators
-                :operators="operators"
-                :data="scope.data"
-                :index="scope.index"
-                @update="handleOperatorUpdate"
-            ></operators>
+            <div class="operator-container">
+                <edit
+                    :field_list="field_list"
+                    :id="scope.data.id"
+                    :edit_link="edit_link"
+                    :doedit_link="doedit_link"
+                ></edit>
+                <operators
+                    :operators="operators"
+                    :data="scope.data"
+                    :index="scope.index"
+                    @update="handleOperatorUpdate"
+                ></operators>
+            </div>
         </template>
     </list-info>
 
@@ -50,18 +58,23 @@ import listInfo_mixin from "@/mixins/common/listInfo.js"
 import operators from "@/components/common/operators.vue"
 import operators_mixin from "@/mixins/common/operators.js"
 
+import edit from "@/components/common/edit.vue"
+import edit_mixin from "@/mixins/common/edit.js"
+
 export default{
     components:{
         create,
         filters,
         listInfo,
         operators,
+        edit,
     },
     mixins:[
         create_mixin,
         filters_mixin,
         listInfo_mixin,
         operators_mixin,
+        edit_mixin,
     ],
     data(){
         return {
@@ -78,12 +91,12 @@ export default{
             this.reset_filters();
             this.reset_listInfo();
             this.reset_operators();
+            this.reset_edit();
         },
         handleFilterSearch(){
             this.$refs.listInfo.getListInfo();
         },
         handleOperatorUpdate(){
-            // console.log("====")
             this.$refs.listInfo.getListInfo();
         },
     },
@@ -97,6 +110,7 @@ export default{
                     vm.init_filters(rst.default);
                     vm.init_listInfo(rst.default);
                     vm.init_operators(rst.default);
+                    vm.init_edit(rst.default);
                 })
             }
         })
@@ -104,3 +118,9 @@ export default{
 }
 
 </script>
+
+<style scoped>
+.operator-container{
+    white-space: nowrap;
+}
+</style>

@@ -115,7 +115,11 @@ export default{
             type:"warning",
             function(data){
                 console.log(data.name);
-                alert('不要总想着搞个大新闻')
+                this.$message({
+                    message:"不要总想着搞个大新闻",
+                    type:"success",
+                    duration:2000,
+                })
             },
         },
         {
@@ -124,4 +128,6 @@ export default{
         }
 
     ],
+    edit_link:'/user/edit_link',
+    doedit_link:'/user/doedit_link',
 }

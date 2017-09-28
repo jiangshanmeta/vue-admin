@@ -1,0 +1,11 @@
+{
+    "data":{
+        "fields":[
+            [{"field":"name","value":"张三"}],
+            [{"field":"gender","value":0},{"field":"typ","value":1}],
+            [{"field":"privilege"}]
+
+        ]
+    },
+    "rstno":1
+}

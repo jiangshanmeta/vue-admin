@@ -91,7 +91,7 @@ export default{
 }
 </script>
 
-<style>
+<style scoped>
 .operator-container{
     white-space: nowrap;
 }

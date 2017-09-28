@@ -2,7 +2,8 @@
     <span>
         <el-button
             v-if="edit_link"
-            @click="handleClick"
+            @click="getEditFields"
+            size="small"
         >
             编辑
         </el-button>
@@ -13,10 +14,12 @@
         >
             <editor
                 :fields="edit_editor"
+                ref="editbox"
             ></editor>
             <section slot="footer">
                 <el-button @click="isShowEditbox=false">取消</el-button>
                 <el-button
+                    v-if="doedit_link"
                     type="danger"
                     @click="doEdit"
                 >
@@ -51,87 +54,68 @@ export default {
         id:{
             type:[String,Number],
             required:true,
+        },
+        field_list:{
+            type:Object,
+            required:true,
         }
     },
     methods:{
         showDialog(){
-
+            this.isShowEditbox = true;
         },
-        handleClick(){
+        getEditFields(){
+            this.$axios.get(`${this.edit_link}/${this.id}`).then((json)=>{
+                let fields = json.data.fields;
+                this.edit_editor = fields.reduce((arr,row)=>{
+                    let rowitem = row.reduce((rowitem,fieldInfo)=>{
+                        let field = fieldInfo.field;
 
+                        let value = fieldInfo.hasOwnProperty('value')?fieldInfo.value:(typeof this.field_list[field].default === 'function'? this.field_list[field].default():this.field_list.default );
+
+                        rowitem.push({
+                            field,
+                            value,
+                            label:this.field_list[field].label,
+                            editor:this.field_list[field].editor,
+                            candidate:this.field_list[field].candidate,
+                            placeholder:this.field_list[field].placeholder,
+                            uri:this.field_list[field].uri,
+                            valuefield:this.field_list[field].valuefield,
+                            labelfield:this.field_list[field].labelfield,
+                            relates:this.field_list[field].relates,
+                        })
+                        return rowitem;
+                    },[])
+
+                    arr.push(rowitem);
+                    return arr;
+                },[]);
+
+                this.showDialog();
+
+            })
         },
         doEdit(){
+            let data = this.$refs.editbox.formData;
+            this.$axios.post(`${this.doedit_link}/${this.id}`,data).then((json)=>{
+                this.$message({
+                    message:"编辑成功",
+                    type:"success",
+                    duration:2000,
+                });
 
+                this.isShowEditbox = false;
+                this.$emit('update');
+            })
         },
+    },
+    watch:{
+        isShowEditbox(isShow){
+            if(!isShow){
+                this.edit_editor = [];
+            }
+        }
     },
 }
 </script>
-
-
-<!-- <template>
-    <el-dialog
-        title="创建"
-        :visible.sync="isShowEditbox"
-        size="large"
-
-    >
-        <editor :fields="edit_fields" ref="editbox"></editor>
-        <div slot="footer">
-            <el-button @click="isShowEditbox=false">取消</el-button>
-            <el-button @click="doEdit" type="success" v-if="doedit_link">确认更新</el-button>
-        </div>
-    </el-dialog>
-
-</template>
-
-<script>
-import editor from "@/editor/editor"
-export default{
-    components:{
-        editor
-    },
-    data(){
-        return {
-            isShowEditbox:false,
-            edit_fields:[],
-            id:'',
-        } 
-    },
-    props:{
-        edit_link:{
-            type:String,
-            required:true,
-        },
-        doedit_link:{
-            type:String,
-            required:true,
-        },
-    },
-    methods:{
-        init(){
-            this.edit_fields = [];
-            this.id = '';
-        },
-        doEdit(){
-            let data = this.$refs.editbox.getData();
-            this.$axios.post(this.doedit_link+this.id,data).then((json)=>{
-                this.isShowEditbox = false;
-                this.$emit('update',json.data);
-            })
-        },
-        show(id){
-            this.id = id;
-
-            this.$axios.get(this.edit_link+this.id).then((json)=>{
-                let data = json.data;
-                if(data.fields){
-                    this.edit_fields = data.fields;
-                    this.isShowEditbox = true;
-                }
-            })
-
-        }
-
-    },
-}
-</script> -->
