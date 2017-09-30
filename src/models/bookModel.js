@@ -38,4 +38,36 @@ export default{
     },
     create_link:'/book/create',
     docreate_link:'/book/docreate',
+    baseUrl:"/book/list",
+    edit_link:"/book/edit_link",
+    doedit_link:'/book/doedit_link',
+    filters:[
+        {
+            "label":"客户名",
+            "field":"customername",
+            "editor":"field_string",
+            "placeholder":"请输入客户名",
+            "default":""
+        },
+        {
+            "label":"金额",
+            "field":"totalprice",
+            "editor":"field_number",
+            "default":500,
+        }
+    ],
+    operators:[
+        {
+            "label":"再来一单",
+            "type":"success",
+            function(data){
+                this.$message({
+                    message:data.customername+"再来一单",
+                    type:"success",
+                    duration:2000
+                })
+            }
+        }
+
+    ]
 }

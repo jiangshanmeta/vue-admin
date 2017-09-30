@@ -52,6 +52,8 @@ import field_month from "./field_month.vue"
 import field_day from "./field_day.vue"
 import field_string from "./field_string.vue"
 
+import field_number from "./field_number"
+
 export default{
     components:{
         filter_enum,
@@ -66,6 +68,7 @@ export default{
         field_month,
         field_day,
         field_string,
+        field_number,
     },
     props:{
         filters:{
