@@ -1,51 +1,51 @@
 export default [
     {
-        label:'首页',
-        controller_name:'index',
-        icon:'setting',
+        label:"首页",
+        controller_name:"index",
+        icon:"el-icon-menu",
         children:[
             {
-                method_name:'index',
-                component:resolve=>require(['@/pages/index/index'],resolve),
-                label:'个人中心',
+                path:'/index/index',
+                label:"个人中心",
+                component:()=>import("@/pages/index/index"),
                 meta:{
                     privilege:[1],
-                    base_url:'/index/userList',
-                },
-            },
-            {
-                method_name:'abc',
-                component:resolve=>require(['@/pages/index/index'],resolve),
-                label:'abcpahe',
-                meta:{
-                    privilege:[1],
-                    base_url:'/index/userList',
-                },
-            },
+                }
+            }
         ],
     },
     {
-        label:'客户中心',
+        label:'客户',
         controller_name:'crm',
-        icon:'share',
+        icon:'el-icon-share',
         children:[
             {
-                method_name:'index',
-                component:resolve=>require(['@/pages/crm/index'],resolve),
-                label:'客户首页',
+                path:'/crm/index',
+                component:()=>import('@/pages/common/list_view'),
+                label:'客户列表',
                 meta:{
-                    privilege:[1],
+                    privilege:[1,999],
+                    model:"userModel",
                 },
             },
-            {
-                method_name:'crm',
-                component:resolve=>require(['@/pages/crm/crm'],resolve),
-                label:'客户',
-                meta:{
-                    privilege:[1],
-                },
-            }
+
 
         ],
     },
+    {
+        label:"订单",
+        controller_name:"book",
+        icon:"el-icon-setting",
+        children:[
+            {
+                path:"/book/index",
+                label:"订单列表",
+                component:()=>import('@/pages/common/list_view'),
+                meta:{
+                    privilege:[73,999],
+                    model:"bookModel"
+                }
+            }
+        ],
+    }
 ];

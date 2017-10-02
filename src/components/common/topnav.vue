@@ -4,8 +4,15 @@
         <a>管理系统</a>
     </div>
     <div class="pull-right">
+
         <a class="pull-left">{{$store.state.userInfo.name}}</a>
-        <a @click="doLogout" class="pull-left">退出</a>
+        <a
+            v-if="$store.state.isLogin"
+            @click="doLogout" 
+            class="pull-left"
+        >
+            退出
+        </a>
     </div>
  </header>   
 </template>

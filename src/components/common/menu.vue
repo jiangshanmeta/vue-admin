@@ -1,66 +1,99 @@
 <template>
-    <v-menu :menu="menu" v-if="$store.state.isLogin"></v-menu>
+    <el-menu 
+        v-if="$store.state.isLogin"
+        :router="true"
+        :default-active="defaultActive"
+        style="width:200px;"
+        :unique-opened="true"
+    >
+        <el-submenu
+            v-for="menuItem in computedMenu"
+            :index="menuItem.controller_name"
+            :key="menuItem.path"
+        >
+            <template slot="title">
+                <i :class="menuItem.icon"></i>
+                {{menuItem.label}}
+            </template>
+            <el-menu-item
+                v-for="subMenuItem in menuItem.children"
+                :index="subMenuItem.path"
+                :key="subMenuItem.path"
+            >
+                {{subMenuItem.label}}
+            </el-menu-item>
+        </el-submenu>
+    </el-menu>
 </template>
 
 <script>
-import vMenu from "@/widget/menu"
-import defaultMenu from "@/router/menu"
-
-
-
-
+import menu from "@/router/menu"
 export default{
-    created(){
-        this.$watch(function(){
-            return this.$store.state.isLogin
-        },function(isLogin){
-            if(!isLogin){
-                this.menu = [];
-            }else{
-                this.$axios.get('/index/getMenuByUserPrivilege').then((json)=>{
-                    let backendMenu = json.data.menu;
-                    let menu = defaultMenu.reduce(function(finalMenu,menuItem){
-                        let controller_name = menuItem.controller_name;
-                        if(backendMenu[controller_name] && typeof backendMenu[controller_name] === 'object'){
-                            let subMenu = [];
-                            let backendSubmenu = backendMenu[controller_name];
-                            let children = menuItem.children;
-                            children.forEach(function(submenuitem){
-                                let method_name = submenuitem.method_name;
-                                if(backendSubmenu[method_name]){
-                                    subMenu.push({
-                                        method_name:method_name,
-                                        label:submenuitem.label
-                                    })
-                                }
-                            })
-
-                            if(subMenu.length>0){
-                                finalMenu.push({
-                                    label:menuItem.label,
-                                    controller_name:controller_name,
-                                    icon:menuItem.icon,
-                                    children:subMenu
-                                })
-                            }
-
-
-                        }
-                        return finalMenu;
-                    },[]);
-
-                    this.menu = menu;
-                })
-            }
-        });
-    },
     data(){
         return {
-            menu:[],
+            menu,
         }
     },
-    components:{
-        vMenu,
-    }
+    computed:{
+        defaultActive(){
+            return this.$store.state.uri.path
+        },
+        controllerPrivilege(){
+            return this.menu.reduce((obj,{controller_name,children=[]})=>{
+                obj[controller_name] = [];
+                children.forEach(({meta:{privilege=[]}={}})=>{
+                    for(let item of privilege){
+                        if(!obj[controller_name].includes(item)){
+                            obj[controller_name].push(item);
+                        }
+                    }
+                })
+                return obj;
+            },{})
+        },
+        userPrivilegeHash(){
+            return this.$store.state.userInfo.privilege.reduce((obj,item)=>{
+                obj[item] = true;
+                return obj;
+            },{})
+        },
+        computedMenu(){
+            return this.menu.reduce((arr,item)=>{
+                let controller_name = item.controller_name;
+                if(this.checkHasPrivilege(this.controllerPrivilege[controller_name])){
+                    let menuItem = {};
+                    menuItem.label = item.label;
+                    menuItem.icon = item.icon;
+                    menuItem.controller_name = item.controller_name;
+ 
+                    let children = item.children || [];
+                    menuItem.children = children.reduce((arr,subMenuItem)=>{
+                        if(this.checkHasPrivilege(subMenuItem.meta && subMenuItem.meta.privilege)){
+                            arr.push({
+                                label:subMenuItem.label,
+                                path:subMenuItem.path
+                            })
+                        }
+
+                        return arr;
+                    },[]);
+
+                    arr.push(menuItem);
+                }
+
+                return arr;
+            },[])
+        },
+    },
+    methods:{
+        checkHasPrivilege(privilege=[]){
+            for(let item of privilege){
+                if(this.userPrivilegeHash.hasOwnProperty(item)){
+                    return true;
+                }
+            }
+            return false;
+        },
+    },
 }
 </script>

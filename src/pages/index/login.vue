@@ -18,15 +18,15 @@ export default{
             pwd:'',
         }
     },
-    created(){
-        this.$watch(function(){
-            return this.$store.state.isLogin
-        },function(isLogin){
-            console.log(isLogin)
-            if(isLogin){
-                this.redirect()
-            }
-        })
+    watch:{
+        "$store.state.isLogin":{
+            immediate:true,
+            handler(isLogin){
+                if(isLogin){
+                    this.redirect()
+                }
+            },
+        }
     },
     methods:{
         doLogin (){
@@ -41,11 +41,11 @@ export default{
                 return;
             }
             let data = {
-                phone:phone,
-                pwd:pwd,
+                phone,
+                pwd,
             }
             this.$axios.post('/index/doLogin',data).then((json)=>{
-                this.$store.commit('doLogin',json.data.token);
+                this.$store.commit('setToken',json.data.token);
                 this.$store.dispatch('getUserInfo')
             })
 

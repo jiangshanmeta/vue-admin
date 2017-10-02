@@ -15,8 +15,8 @@ import axios from "@/server/axios.js"
 Vue.prototype.$axios = axios
 
 
-import lodash from 'lodash'
-Vue.prototype.$_ = lodash
+// import lodash from 'lodash'
+// Vue.prototype.$_ = lodash
 
 // 处理element ui库
 import Element from 'element-ui'
@@ -38,6 +38,7 @@ let store = new Vuex.Store({
         uri:{
             controller_name:'',
             method_name:'',
+            path:'',
         },
         userInfo:{
             name:'',
@@ -48,8 +49,9 @@ let store = new Vuex.Store({
         updateUri(state,payload){
             state.uri.controller_name = payload.controller_name;
             state.uri.method_name = payload.method_name;
+            state.uri.path = payload.path;
         },
-        doLogin (state,token){
+        setToken (state,token){
             Vue.localStorage.set('token',token)
         },
         doLogout (state){
@@ -62,20 +64,21 @@ let store = new Vuex.Store({
             })
         },
         getUserInfo (state,data){
-            for(var k in data){
-                state['userInfo'][k] = data[k]
-            }
+            let keys = Object.keys(data);
+            keys.forEach((key)=>{
+                state['userInfo'][key] = data[key]
+            })
             state.isLogin = true;
         },
     },
     actions:{
         doLogout({commit}){
-            return api.post('/index/doLogout').then(()=>{
+            return axios.post('/index/doLogout').then(()=>{
                 commit('doLogout')
             })
         },
         getUserInfo({commit}){
-            return api.get('/index/fetchUser').then((json)=>{
+            return axios.get('/index/getUserInfo').then((json)=>{
                 commit('getUserInfo',json.data);
             })
         }
@@ -86,8 +89,7 @@ let store = new Vuex.Store({
 
 router.beforeEach((to, from, next) => {
     let gotoLogon = false;
-
-    if (to.meta.privilege && Array.isArray(to.meta.privilege)) {
+    if (to.meta && to.meta.privilege && Array.isArray(to.meta.privilege)) {
         let pagePrivilege = to.meta.privilege;
         let userPrivilege = store.state.userInfo.privilege;
         let hasPrivilege = false;
@@ -113,6 +115,7 @@ router.beforeEach((to, from, next) => {
         store.commit('updateUri',{
             controller_name:uriarr[0],
             method_name:uriarr[1],
+            path:to.path,
         });
         next();
     }
@@ -136,14 +139,14 @@ import './assets/css/lib.css';
 
 /* eslint-disable no-new */
 let instance = new Vue({
-  el: '#app',
-  router,
-  store,
-  components: { 
-    topNav,
-    sideMenu,
-    bottomFooter,
-  },
+    el: '#app',
+    router,
+    store,
+    components: { 
+        topNav,
+        sideMenu,
+        bottomFooter,
+    },
     created (){
         if(this.$localStorage.get('token') && !this.$store.state.isLogin){
             this.$store.dispatch('getUserInfo')
