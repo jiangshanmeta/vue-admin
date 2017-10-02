@@ -16,7 +16,7 @@
             <el-table-column
                 label="操作"
                 v-if="data.length"
-                style="white-space:nowrap;width:max-content;"
+                :min-width="200"
             >
                 <template scope="scope">
                     <slot :data="scope.row" :index="scope.$index"></slot>
