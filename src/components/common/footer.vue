@@ -1,7 +1,7 @@
 <template>
-<footer class="admin-footer">
-    <div class="text-center">jiangshanmeta</div>
-</footer>
+    <footer class="admin-footer">
+        <div class="text-center">jiangshanmeta</div>
+    </footer>
 </template>
 
 <script>

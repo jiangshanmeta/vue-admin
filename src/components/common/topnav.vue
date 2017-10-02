@@ -19,11 +19,6 @@
 
 <script>
 export default{
-    data(){
-        return {
-
-        }
-    },
     methods:{
         doLogout(){
             this.$store.dispatch('doLogout');
