@@ -28,7 +28,7 @@
 
 * field_relates_enum_radio、field_relates_enum_select、field_relates_model与上面三个类似，选项都是异步加载进来的，但是带查询参数，查询参数决定于其他表单元素
 
-* field_tag对应多选、表现形式上对应checkbox。field_async_tag是异步加载选项对的field_tag。field_array_model是选项较多时的版本，field_array_model的异步版本是field_async_array_model。field_relates_tag和field_relates_array_model是关联查询版的多选。
+* field_tag对应多选，现形式上对应checkbox。field_async_tag是异步加载选项的field_tag。field_array_model是选项较多时的版本，field_array_model的异步版本是field_async_array_model。field_relates_tag和field_relates_array_model是关联查询版的多选。
 
 * field_ts、field_day、field_month、field_year是关于时间的筛选框
 
@@ -74,6 +74,29 @@ filters组件是为了通用列表页的筛选条件所设计的
 * field_async_enum_select 异步、不可搜索、无不限选项
 * field_model 同步、可搜索、无不限选项
 * field_async_model 异步、可搜索、无不限选项
+
+## 异步请求接口格式
+
+这里所有的以 *field_async_*和*field_relates_*开头的组件都是异步请求候选项的，这些组件都必须配置请求uri。返回的json格式如下：
+
+```json
+{
+    "data":{
+        "data":[
+            {"_id":3,"storename":"北京店"},
+            {"_id":5,"storename":"上海店"},
+            {"_id":7,"storename":"广州店"},
+            {"_id":9,"storename":"深圳店"},
+            {"_id":11,"storename":"杭州店"}
+        ]
+    },
+    "rstno":1
+}
+```
+
+我们约定rstno为正数才算请求成功，data的data属性对应候选项列表。我们的labelfield要声明为storename，valuefield要声明为_id
+
+所有的请求都是GET请求，以*field_async_*为名称开头的组件没有请求时的query参数，以*field_relates*为名称开头的组件请求时会带query参数，query的key上面已经提到了，value就是对应表单元素的value，这里推荐query的key和字段名保持一致。
 
 
 ## 参数详情

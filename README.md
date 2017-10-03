@@ -48,11 +48,15 @@ default描述用于新增和筛选，如果需要新增和筛选该字段，请*
 
 ## filters
 
-filters与field_list相类似，但是他是个数组结构，页面中按照顺序渲染筛选框。
+filters与field_list相类似，但是他是个数组结构，页面中按照顺序渲染筛选组件。
 
 label属性类似于field_list中的label属性，仅仅是展示名
 
-editor是筛选框需要的表单组件，和field_list的editor描述类似。但是filters有一些特有的表单元素(editor目录下以*filter_*开头的组件)，它们都是单选，但是允许一个不限操作，这几个组件需要我们填写allvalue和alllabel，前者默认值是空字符串，后者默认值是 "不限"两个字。
+field是筛选时请求query传参的key
+
+editor是筛选框需要的表单组件，和field_list的editor描述类似。但是filters有一些特有的表单元素(editor目录下以*filter_*开头的组件)，它们都是单选，但是允许一个不限选项，这几个组件需要我们填写allvalue和alllabel，前者默认值是空字符串，后者默认值是 "不限"两个字。
+
+filters的default目测用不到引用类型，但是default为函数依然是有用处的，比如筛选时间时默认时间为三天前。
 
 ## operators
 
@@ -109,6 +113,122 @@ operators会自动通知列表组件状态更新，剩下的更新列表就和�
 
 
 <del>[对应后端php代码](https://github.com/jiangshanmeta/CodeIgniter)</del>由于前端大改过一次后端代码没有对应修改，暂时不能使用。
+
+## 后端接口
+
+虽然这是个前端项目但我依然规定了后端接口的格式，毕竟统一的接口规范对大家来说都是件好事。
+
+#### 列表
+
+列表请求使用GET方法，默认会带上的query参数有pageIndex、pageSize、sortField、sortOrder。如果有filters则会带上filters的query参数，请注意不要覆盖上面几个参数。
+
+响应json格式如下：
+
+```json
+{
+    "data":{
+        "data":[
+            {
+                "id":15,
+                "customername":"野比大雄",
+                "totalprice":500,
+                "address":"东京"
+            },
+            {
+                "id":17,
+                "customername":"鲁路修",
+                "totalprice":9999,
+                "address":"11区"
+            },
+            {
+                "id":19,
+                "customername":"坂本",
+                "totalprice":2345,
+                "address":"日本"
+            },
+            {
+                "id":121,
+                "customername":"凉风青叶",
+                "totalprice":555,
+                "address":"飞鹰跃动"
+            }
+
+        ],
+        "total":234,
+        "fields":["customername","totalprice","address"]
+    },
+    "rstno":1
+}
+```
+
+rstno为正数表示请求正常，data.data是查询出来的列表信息，data.total是分页用到的总记录条数，data.fields是要展示的字段。之所以有fields这个字段是考虑到了不同权限下看到的字段不一致。
+
+#### 新建
+
+新建对应两个接口：create_link、docreate_link。
+
+create_link是查询创建时允许设置的字段，请求方式为GET，响应json示例如下：
+
+```json
+{
+    "data":{
+        "fields":[
+            ["name","password"],
+            ["gender","typ"],
+            ["privilege"]
+
+        ]
+    },
+    "rstno":1
+}
+```
+
+docreate_link是创建时请求的接口，请求方式为POST。响应json示例如下：
+
+```json
+{
+    "data":{
+        "msg":"创建成功"
+    },
+    "rstno":1
+}
+```
+
+事实上我们仅仅需要rstno为正数。
+
+#### 更新
+
+类似于新建，更新也对应两个接口：edit_link、doedit_link
+
+edit_link是请求要更新的字段及其值，请求方式为GET，我把对应的id放到请求的路径中了，例如：```http://jiangshanmeta.github.io/user/edit/234``` ,其中234就是对应记录的id。
+
+响应json示例如下：
+
+```json
+{
+    "data":{
+        "fields":[
+            [{"field":"name","value":"张三"}],
+            [{"field":"gender","value":0},{"field":"typ","value":1}],
+            [{"field":"privilege"}]
+
+        ]
+    },
+    "rstno":1
+}
+```
+
+doedit_link是更新要请求的接口，请求方式为POST，id也是放在请求路径中了，响应json示例如下：
+
+```json
+{
+    "data":{
+        "msg":"更新成功"
+    },
+    "rstno":1
+}
+```
+
 
 ## Build Setup
 
