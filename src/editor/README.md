@@ -77,7 +77,7 @@ filters组件是为了通用列表页的筛选条件所设计的
 
 ## 异步请求接口格式
 
-这里所有的以 *field_async_*和*field_relates_*开头的组件都是异步请求候选项的，这些组件都必须配置请求uri。返回的json格式如下：
+这里所有的以 *field_async_* 和 *field_relates_*开头的组件都是异步请求候选项的，这些组件都必须配置请求uri。返回的json格式如下：
 
 ```json
 {
@@ -96,7 +96,7 @@ filters组件是为了通用列表页的筛选条件所设计的
 
 我们约定rstno为正数才算请求成功，data的data属性对应候选项列表。我们的labelfield要声明为storename，valuefield要声明为_id
 
-所有的请求都是GET请求，以*field_async_*为名称开头的组件没有请求时的query参数，以*field_relates*为名称开头的组件请求时会带query参数，query的key上面已经提到了，value就是对应表单元素的value，这里推荐query的key和字段名保持一致。
+所有的请求都是GET请求，以 *field_async_* 为名称开头的组件没有请求时的query参数，以 *field_relates* 为名称开头的组件请求时会带query参数，query的key上面已经提到了，value就是对应表单元素的value，这里推荐query的key和字段名保持一致。
 
 
 ## 参数详情
