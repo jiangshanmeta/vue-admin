@@ -33,6 +33,7 @@
 <script>
 import editor from "@/editor/editor"
 export default {
+    name:"edit",
     components:{
         editor,
     },

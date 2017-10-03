@@ -21,6 +21,7 @@
 <script>
 import editor from "@/editor/editor"
 export default{
+    name:"create",
     components:{
         editor,
     },

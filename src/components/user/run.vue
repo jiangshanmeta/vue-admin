@@ -11,7 +11,7 @@
     >
         {{data.name}} 跑得比香港记者还快
         <section slot="footer">
-            <el-button @click="dialogVisible = false" type="danger">
+            <el-button @click="doRun" type="danger">
                 确定
             </el-button>
         </section>
@@ -40,6 +40,10 @@ export default{
     methods:{
         run(){
             this.dialogVisible = true;
+        },
+        doRun(){
+            this.dialogVisible = false;
+            this.$emit('update')
         }
     }
 }
