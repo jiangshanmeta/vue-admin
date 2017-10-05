@@ -82,18 +82,19 @@ filters的default目测用不到引用类型，但是default为函数依然是�
 这种声明方式被渲染为一个button，label是button显示的文字，type是按钮的类型(el-button的类型) ，function是点击按钮时的调用的函数，function的参数第一个是该条记录的信息，第二个是该记录的前端索引。
 function被调用完之后operators组件会自动通知父组件状态更新，列表页会自动刷新。注意这里的this指向的是这个operators组件。
 
-第二种声明方式实例如下：
+第二种声明方式示例如下：
 
 ```javascript
 {
-    component:"run",
-    path:"components/user/run.vue"
+    component:"delete",
+    path:"components/common/delete",
+    config:"/user/delete"
 }
 ```
 
-component字段是组件名，对应组件的name属性，**使用这一模式时务必声明组件的name**属性。path是组件相对于src目录的路径，推荐放在src目录下的components目录下，并保持文件名和组件name属性一致。在这种模式下，仅需声明这两个字段，其余的operators组件会自动处理。
+component字段是组件名，对应组件的name属性，**使用这一模式时务必声明组件的name属性**。path是组件相对于src目录的路径，推荐放在src目录下的components目录下，并保持文件名和组件name属性一致。考虑到组件复用问题，还有一个config参数，用来向这些子组件传递配置参数。在这种模式下，仅需声明这三项，其余的operators组件会自动处理。
 
-operators加载的子组件会被传入两个属性：```data```和```index```，对应第一种声明方式下函数的前两个参数。在这一模式下，组件需要手动通过以下程序通知operators状态更新：
+operators加载的子组件会被传入三个属性：```data```、```index```和```config```，前两个对应第一种声明方式下函数的前两个参数，第三个对应声明的config参数。在这一模式下，组件需要手动通过以下程序通知operators状态更新：
 
 ```javascript
 this.$emit('update')
@@ -104,7 +105,7 @@ operators会自动通知列表组件状态更新，剩下的更新列表就和�
 
 ## TODO
 
-* 通用的删除组件
+
 * 寻找一个基于vue的富文本编辑器，目前考虑[这个第三方组件](https://github.com/surmon-china/vue-quill-editor)
 * 传图、传文件，这个任务依然要基于element-ui，主要是对应的后端的代码我还没有写。
 * 优化列表显示。目前列表的treatData方法只能做一些数据处理，比如说一些映射操作。一些特殊的字段，比如一组图片的地址，界面上应该显示的是图片，但是目前只能支持显示图片地址。这个实现上可以参考 operators组件。

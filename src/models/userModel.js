@@ -125,6 +125,11 @@ export default{
         {
             component:"run",
             path:"components/user/run.vue"
+        },
+        {
+            component:"delete",
+            path:"components/common/delete",
+            config:"/user/delete"
         }
 
     ],

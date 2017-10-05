@@ -5,6 +5,7 @@
             <component
                 v-if="item.component"
                 :is="item.component"
+                :config="item.config"
                 :data="data"
                 :index="index"
                 @update="notifyUpdate"
