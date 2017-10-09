@@ -79,6 +79,10 @@ export default{
             default:async (data)=>{
                 return data
             }
+        },
+        filtersname:{
+            type:String,
+            default:"filters",
         }
     },
     methods:{
@@ -109,8 +113,8 @@ export default{
 
 
             let params = {};
-            if(this.filters.length){
-                params = Object.assign(params,this.$parent.$refs.filters.formData);
+            if(this.filters.length && this.$parent.$refs[this.filtersname] ){
+                params = Object.assign(params,this.$parent.$refs[this.filtersname].formData);
             }
 
             params['pageIndex'] = this.pageIndex;
