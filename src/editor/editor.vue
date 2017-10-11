@@ -45,8 +45,11 @@ import field_sex from "./field_sex"
 import field_string from "./field_string"
 import field_tag from "./field_tag"
 import field_text from "./field_text"
+import field_text_rich from "./field_text_rich"
 import field_ts from "./field_ts"
 import field_year from "./field_year"
+
+
 
 import {observe_relates} from "./field_relates_helper.js"
 export default{
@@ -79,6 +82,7 @@ export default{
         field_string,
         field_tag,
         field_text,
+        field_text_rich,
         field_ts,
         field_year
 

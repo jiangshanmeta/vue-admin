@@ -3,7 +3,8 @@
         "fields":[
             [{"field":"name","value":"张三"}],
             [{"field":"gender","value":0},{"field":"typ","value":1}],
-            [{"field":"privilege"}]
+            [{"field":"privilege"}],
+            [{"field":"desc","value":"假装有段描述"}]
 
         ]
     },

@@ -51,6 +51,11 @@ export default{
                 return [];
             }
         },
+        desc:{
+            label:"备注",
+            editor:"field_text_rich",
+            default:""
+        }
     },
     create_link:'/user/create_link',
     docreate_link:'/user/docreate',
