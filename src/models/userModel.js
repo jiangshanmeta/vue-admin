@@ -6,9 +6,16 @@ export default{
     field_list:{
         name:{
             label:'用户名',
-            editor:'field_string',
+            editor:'username',
             placeholder:'请输入用户名',
             default:'',
+            editorcomponent:{
+                component:"username",
+                path:"components/user/username",
+                config:{
+                    msg:"测试传入业务editor"
+                }
+            }
         },
         password:{
             label:'密码',

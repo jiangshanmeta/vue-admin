@@ -23,7 +23,9 @@
 </template>
 
 <script>
+import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 export default{
+    mixins:[dynamicImportComponent],
     props:{
         operators:{
             type:Array,
@@ -59,13 +61,7 @@ export default{
                     }
                     return arr
                 },[])
-
-                Promise.all(components.map((item)=>{
-                    return import("@/"+item)
-                })).then((components)=>{
-                    components.forEach((component)=>{
-                        this.$options.components[component.name] = component;
-                    })
+                this.dynamicImportComponent(components).then(()=>{
                     this.isComponentsLoaded = true;
                 })
             }

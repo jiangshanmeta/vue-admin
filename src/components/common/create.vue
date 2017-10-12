@@ -75,7 +75,8 @@ export default{
                         labelfield:this.field_list[field].labelfield,
                         relates:this.field_list[field].relates,
                         field,
-                        default:this.field_list[field].default
+                        default:this.field_list[field].default,
+                        editorcomponent:this.field_list[field].editorcomponent,
                     })
                     return rowitem;
                 },[]);

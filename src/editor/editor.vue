@@ -1,5 +1,8 @@
 <template>
-    <table class="table">
+    <table 
+        class="table"
+        v-if="!hasAsyncComponent || isComponentsLoaded"
+    >
         <tr v-for="row in fields">
             <template v-for="item in row">
                 <td>{{item.label}}</td>
@@ -14,6 +17,7 @@
                         :labelfield="item.labelfield"
                         :relates="item.relates"
                         :key="item.field"
+                        :config="item.config || (item.editorcomponent && item.editorcomponent.config)"
                     ></component>
                 </td>
             </template>
@@ -52,10 +56,13 @@ import field_year from "./field_year"
 
 
 import {observe_relates} from "./field_relates_helper.js"
+import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 export default{
+    mixins:[dynamicImportComponent],
     data(){
         return {
             proxyFields:{},
+            isComponentsLoaded:false,
         }
     },
     components:{
@@ -96,13 +103,44 @@ export default{
                 },obj)
                 return obj;
             },{});
+        },
+        hasAsyncComponent(){
+            for(let row of this.fields){
+                for(let item of row){
+                    if(item.editorcomponent && typeof item.editorcomponent === 'object'){
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
+    },
+    methods:{
+        importOperator(){
+            if(this.hasAsyncComponent){
+                let components = this.fields.reduce((arr,row)=>{
+                    for(let item of row){
+                        if(item.editorcomponent){
+                            arr.push(item.editorcomponent.path)
+                        }
+                    }
+                    return arr;
+                },[])
+
+                this.dynamicImportComponent(components).then(()=>{
+                    this.isComponentsLoaded = true;
+                })
+            }
+        },
     },
     watch:{
         fields:{
             immediate:true,
             handler(newFields){
                 this.proxyFields = {};
+                this.isComponentsLoaded = false;
+
+                this.importOperator();
 
                 newFields.forEach((row)=>{
                     row.forEach((item)=>{

@@ -85,6 +85,7 @@ export default {
                             valuefield:this.field_list[field].valuefield,
                             labelfield:this.field_list[field].labelfield,
                             relates:this.field_list[field].relates,
+                            editorcomponent:this.field_list[field].editorcomponent,
                         })
                         return rowitem;
                     },[])
