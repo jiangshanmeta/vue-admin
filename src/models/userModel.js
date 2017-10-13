@@ -15,7 +15,15 @@ export default{
                 config:{
                     msg:"测试传入业务editor"
                 }
-            }
+            },
+            showcomponent:{
+                component:"showusername",
+                path:"components/user/showusername",
+                config:{
+                    msg:"测试列表页组件形式展示"
+                }
+
+            },
         },
         password:{
             label:'密码',

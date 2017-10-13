@@ -116,7 +116,7 @@ export default{
         }
     },
     methods:{
-        importOperator(){
+        importEditor(){
             if(this.hasAsyncComponent){
                 let components = this.fields.reduce((arr,row)=>{
                     for(let item of row){
@@ -140,7 +140,7 @@ export default{
                 this.proxyFields = {};
                 this.isComponentsLoaded = false;
 
-                this.importOperator();
+                this.importEditor();
 
                 newFields.forEach((row)=>{
                     row.forEach((item)=>{

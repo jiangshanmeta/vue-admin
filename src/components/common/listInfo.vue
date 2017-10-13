@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section v-if="!hasAsyncComponent || isComponentsLoaded">
         <el-table
             v-if="data.length"
             :data="data"
@@ -12,7 +12,21 @@
                 :label="field_list[field]['label']"
                 :prop="field"
                 :sortable="sortFields.includes[field]?'custom':false"
-            ></el-table-column>
+            >
+                <template scope="scope" >
+                    
+                    <template v-if="!field_list[field].showcomponent">
+                        {{scope.row[field]}}
+                    </template>
+                    <component 
+                        v-else
+                        :is="field_list[field]['showcomponent']['component']"
+                        :data="scope.row[field]"
+                        :config="field_list[field]['showcomponent']['config']"
+                    >
+                    </component>
+                </template>
+            </el-table-column>
             <el-table-column
                 label="操作"
                 v-if="data.length"
@@ -38,7 +52,9 @@
 </template>
 
 <script>
+import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 export default{
+    mixins:[dynamicImportComponent],
     data(){
         return {
             data:[],
@@ -46,9 +62,8 @@ export default{
             sortField:'',
             sortOrder:'',
             total:0,
-            isMounted:false,
-            isModelLoaded:false,
-            fields:[]
+            fields:[],
+            isComponentsLoaded:false,
         }
     },
     props:{
@@ -85,7 +100,33 @@ export default{
             default:"filters",
         }
     },
+    computed:{
+        hasAsyncComponent(){
+            let keys = Object.keys(this.field_list);
+            for(let item of keys){
+                if(this.field_list[item]['showcomponent']){
+                    return true;
+                }
+            }
+            return false;
+        },
+    },
     methods:{
+        importShowComponent(){
+            if(this.hasAsyncComponent){
+                let keys = Object.keys(this.field_list);
+                let components = [];
+                for(let item of keys){
+                    if(this.field_list[item]['showcomponent']){
+                        components.push(this.field_list[item]['showcomponent']['path']);
+                    }
+                }
+
+                this.dynamicImportComponent(components).then(()=>{
+                    this.isComponentsLoaded = true;
+                })
+            }
+        },
         handleSortChange(sortInfo){
             if(sortInfo.prop){
                 this.sortField = sortInfo.prop;
@@ -143,6 +184,8 @@ export default{
             this.fields = [];
             this.total = 0;
             this.data = [];
+            this.isComponentsLoaded = false;
+            this.importShowComponent();
 
             if(newBaseUrl){
                 // 保证如果有filters，filters得到实例化
