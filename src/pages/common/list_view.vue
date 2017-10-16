@@ -30,6 +30,7 @@
                     :doedit_link="doedit_link"
                 ></edit>
                 <operators
+                    :field_list="field_list"
                     :operators="operators"
                     :data="scope.data"
                     :index="scope.index"

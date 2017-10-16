@@ -8,6 +8,7 @@
                 :config="item.config"
                 :data="data"
                 :index="index"
+                :field_list="field_list"
                 @update="notifyUpdate"
             ></component>
             <el-button
@@ -37,6 +38,10 @@ export default{
         },
         index:{
             type:Number,
+            required:true,
+        },
+        field_list:{
+            type:Object,
             required:true,
         }
     },

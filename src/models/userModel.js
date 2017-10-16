@@ -35,6 +35,14 @@ export default{
             label:'性别',
             editor:'field_sex',
             default:0,
+            showcomponent:{
+                component:"showgender",
+                path:"components/user/showgender",
+                config:{
+                    0:"男",
+                    1:"女"
+                }
+            }
         },
         typ:{
             label:'类型',
@@ -119,17 +127,22 @@ export default{
             cache['typCfg'] = typCfg
         }
 
-        let genderCfg = {
-            0:"男",
-            1:"女"
-        }
         data.forEach((item)=>{
             item['typ'] = cache['typCfg'][item['typ']];
-            item['gender'] = genderCfg[item['gender']]
         })
         return data
     },
     operators:[
+        {
+            component:"info",
+            path:"components/common/info.vue",
+            config:{
+                uri:"/user/info",
+                title:"用户详情"
+            }
+        },
+
+
         {
             label:"搞个大新闻",
             type:"warning",
