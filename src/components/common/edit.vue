@@ -1,14 +1,14 @@
 <template>
     <span>
         <el-button
-            v-if="edit_link"
+            v-if="config.edit_link"
             @click="getEditFields"
             size="small"
         >
             编辑
         </el-button>
         <el-dialog
-            title="编辑"
+            :title="config.title || '编辑'"
             :visible.sync="isShowEditbox"
             size="large"
         >
@@ -19,7 +19,7 @@
             <section slot="footer">
                 <el-button @click="isShowEditbox=false">取消</el-button>
                 <el-button
-                    v-if="doedit_link"
+                    v-if="config.doedit_link"
                     type="danger"
                     @click="doEdit"
                 >
@@ -44,16 +44,12 @@ export default {
         }
     },
     props:{
-        edit_link:{
-            type:String,
+        data:{
+            type:Object,
             required:true,
         },
-        doedit_link:{
-            type:String,
-            required:true,
-        },
-        id:{
-            type:[String,Number],
+        config:{
+            type:Object,
             required:true,
         },
         field_list:{
@@ -61,12 +57,17 @@ export default {
             required:true,
         }
     },
+    computed:{
+        id(){
+            return this.data[this.config['idfield'] || 'id'];
+        }
+    },
     methods:{
         showDialog(){
             this.isShowEditbox = true;
         },
         getEditFields(){
-            this.$axios.get(`${this.edit_link}/${this.id}`).then((json)=>{
+            this.$axios.get(`${this.config.edit_link}/${this.id}`).then((json)=>{
                 let fields = json.data.fields;
                 this.edit_editor = fields.reduce((arr,row)=>{
                     let rowitem = row.reduce((rowitem,fieldInfo)=>{
@@ -100,7 +101,7 @@ export default {
         },
         doEdit(){
             let data = this.$refs.editbox.formData;
-            this.$axios.post(`${this.doedit_link}/${this.id}`,data).then((json)=>{
+            this.$axios.post(`${this.config.doedit_link}/${this.id}`,data).then((json)=>{
                 this.$message({
                     message:"编辑成功",
                     type:"success",
@@ -111,13 +112,6 @@ export default {
                 this.$emit('update');
             })
         },
-    },
-    watch:{
-        isShowEditbox(isShow){
-            if(!isShow){
-                this.edit_editor = [];
-            }
-        }
     },
 }
 </script>

@@ -74,6 +74,9 @@ export default{
                 }
             }
             return false;
+        },
+        id(){
+            return this.data[this.config['idfield'] || 'id'];
         }
     },
     methods:{
@@ -82,7 +85,7 @@ export default{
                 this.importShowComponent();
             }
 
-            this.$axios.get(`${this.config.uri}/${this.data.id}`).then((json)=>{
+            this.$axios.get(`${this.config.uri}/${this.id}`).then((json)=>{
                 this.infoData = json.data.fields;
                 this.isShowLightbox = true;
             })

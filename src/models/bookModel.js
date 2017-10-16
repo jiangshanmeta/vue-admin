@@ -39,8 +39,6 @@ export default{
     create_link:'/book/create',
     docreate_link:'/book/docreate',
     baseUrl:"/book/list",
-    edit_link:"/book/edit_link",
-    doedit_link:'/book/doedit_link',
     filters:[
         {
             "label":"客户名",
@@ -57,6 +55,15 @@ export default{
         }
     ],
     operators:[
+        {
+            component:"edit",
+            path:"components/common/edit",
+            config:{
+                edit_link:"/book/edit_link",
+                doedit_link:"/book/doedit_link",
+                title:"编辑订单"
+            }
+        },
         {
             "label":"再来一单",
             "type":"success",

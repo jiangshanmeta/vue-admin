@@ -141,8 +141,14 @@ export default{
                 title:"用户详情"
             }
         },
-
-
+        {
+            component:"edit",
+            path:"components/common/edit",
+            config:{
+                edit_link:"/user/edit_link",
+                doedit_link:"/user/doedit_link",
+            }
+        },
         {
             label:"搞个大新闻",
             type:"warning",
@@ -166,6 +172,4 @@ export default{
         }
 
     ],
-    edit_link:'/user/edit_link',
-    doedit_link:'/user/doedit_link',
 }
