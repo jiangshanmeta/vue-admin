@@ -168,7 +168,9 @@ export default{
         {
             component:"delete",
             path:"components/common/delete",
-            config:"/user/delete"
+            config:{
+                uri:"/user/delete",
+            }
         }
 
     ],

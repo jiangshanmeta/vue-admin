@@ -10,11 +10,16 @@
 </template>
 
 <script>
+import _computed_id_mixin from "./_computed_id_mixin.js";
 export default {
     name:"delete",
+    mixins:[
+        _computed_id_mixin,
+    ],
     props:{
         config:{
-            type:String
+            type:Object,
+            required:true,
         },
         data:{
             type:Object
@@ -27,7 +32,7 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(()=>{
-                this.$axios.post(`${this.config}/${this.data.id}`).then(()=>{
+                this.$axios.post(`${this.config.uri}/${this.id}`).then(()=>{
                     this.$message("删除成功");
                     this.$emit('update');
                 });
