@@ -31,9 +31,13 @@
 </template>
 
 <script>
-import editor from "@/editor/editor"
+import editor from "@/editor/editor";
+import _computed_id_mixin from "./_computed_id_mixin.js";
 export default {
     name:"edit",
+    mixins:[
+        _computed_id_mixin
+    ],
     components:{
         editor,
     },
@@ -55,11 +59,6 @@ export default {
         field_list:{
             type:Object,
             required:true,
-        }
-    },
-    computed:{
-        id(){
-            return this.data[this.config['idfield'] || 'id'];
         }
     },
     methods:{

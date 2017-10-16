@@ -41,8 +41,12 @@
 
 <script>
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
+import _computed_id_mixin from "./_computed_id_mixin.js";
 export default{
-    mixins:[dynamicImportComponent],
+    mixins:[
+        dynamicImportComponent,
+        _computed_id_mixin,
+    ],
     name:"info",
     data(){
         return {
@@ -75,9 +79,6 @@ export default{
             }
             return false;
         },
-        id(){
-            return this.data[this.config['idfield'] || 'id'];
-        }
     },
     methods:{
         handleClick(){
