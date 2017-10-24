@@ -4,6 +4,7 @@
         <field_file 
             v-model="field_file"
             uri="http://www.ci.com/index.php/index/upload"
+            valuefield="uri"
         ></field_file>
     </section>
 </template>
@@ -17,7 +18,7 @@ export default{
     },
     data(){
         return {
-            field_file:[{name:"abc.jpg",url:"http://www.ci.com/uploads/1.jpg"}],
+            field_file:[{name:"abc.jpg",uri:"http://www.ci.com/uploads/1.jpg"}],
 
         }
     }

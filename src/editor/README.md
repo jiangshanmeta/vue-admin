@@ -34,6 +34,8 @@
 
 * field_sex、field_bool是特异化的field_enum_select
 
+* field_file 是基础的上传组件
+
 ## editor
 
 editor组件是对本目录下封装的表单组件的集中运用，该组件是作为基础组件create和edit的基础。
@@ -270,3 +272,11 @@ filters组件是为了通用列表页的筛选条件所设计的
 * value 必传参数，值为空字符串或者*yyyy*格式的时间字符串
 * placeholder
 
+### 上传
+
+#### field_file
+
+* value 必传参数，数组类型
+* uri 上传路径
+* labelfield 名称字段，默认为name
+* valuefield 路径字段，默认为url

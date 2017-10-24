@@ -23,11 +23,27 @@ export default{
             type:String,
             required:true,
         },
+        labelfield:{
+            type:String,
+            default:"name",
+        },
+        valuefield:{
+            type:String,
+            default:"url",
+        }
     },
     computed:{
         model:{
             get(){
-                return this._getValueCopy();
+                const labelfield = this.labelfield;
+                const valuefield = this.valuefield;
+                return this.value.map((item)=>{
+                    let target = Object.assign({},item);
+                    target['name'] = target[labelfield];
+                    target['url'] = target[valuefield];
+                    return target
+                })
+
             },
             set(value){
                 this.$emit('input',value);
@@ -35,11 +51,6 @@ export default{
         }
     },
     methods:{
-        _getValueCopy(){
-            return this.value.map((item)=>{
-                return Object.assign({},item)
-            })
-        },
         handleSuccess(response,file,fileList){
             let [...newArr] = this.value;
             newArr.push(response.data);
