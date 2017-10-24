@@ -14,6 +14,12 @@ let routes = [
         component:()=>import("@/pages/test/test2"),
     },
     {
+        path:"/test/test3",
+        component:()=>import("@/pages/test/test3"),
+    },
+
+
+    {
         path:'/',
         redirect:'/index/index',
     },
