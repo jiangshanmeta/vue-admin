@@ -34,7 +34,7 @@
 
 * field_sex、field_bool是特异化的field_enum_select
 
-* field_file 是基础的上传组件
+* field_file 是基础的上传组件，field_images限定只能传图片,field_image限定只能传一张图
 
 ## editor
 
@@ -275,6 +275,20 @@ filters组件是为了通用列表页的筛选条件所设计的
 ### 上传
 
 #### field_file
+
+* value 必传参数，数组类型
+* uri 上传路径
+* labelfield 名称字段，默认为name
+* valuefield 路径字段，默认为url
+
+#### field_images
+
+* value 必传参数，数组类型
+* uri 上传路径
+* labelfield 名称字段，默认为name
+* valuefield 路径字段，默认为url
+
+#### field_image
 
 * value 必传参数，数组类型
 * uri 上传路径

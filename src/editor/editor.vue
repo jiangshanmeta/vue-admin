@@ -37,6 +37,8 @@ import field_day from "./field_day"
 import field_enum_radio from "./field_enum_radio"
 import field_enum_select from "./field_enum_select"
 import field_file from "./field_file"
+import field_image from "./field_image"
+import field_images from "./field_images"
 import field_model from "./field_model"
 import field_month from "./field_month"
 import field_number from "./field_number"
@@ -78,6 +80,8 @@ export default{
         field_enum_radio,
         field_enum_select,
         field_file,
+        field_image,
+        field_images,
         field_model,
         field_month,
         field_number,
