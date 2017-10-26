@@ -44,12 +44,16 @@ let store = new Vuex.Store({
             name:'',
             privilege:[],
         },
+        title:"admin",
     },
     mutations:{
         updateUri(state,payload){
             state.uri.controller_name = payload.controller_name;
             state.uri.method_name = payload.method_name;
             state.uri.path = payload.path;
+        },
+        updateTitie(state,title){
+            state.title = title;
         },
         setToken (state,token){
             Vue.localStorage.set('token',token)
@@ -105,6 +109,12 @@ router.beforeEach((to, from, next) => {
         }
     }
 
+    if(to.meta && to.meta.title){
+        store.commit("updateTitie",to.meta.title)
+    }else{
+        store.commit("updateTitie","admin")
+    }
+
     if(gotoLogon){
         next({
             path: '/index/login',
@@ -131,7 +141,7 @@ Vue.config.productionTip = false
 import topNav from '@/components/common/topnav'
 import sideMenu from "@/components/common/menu"
 import bottomFooter from "@/components/common/footer"
-
+import vueTitle from "@/widget/title.vue"
 
 import './assets/css/bootstrap-grid.min.css';
 import './assets/css/bootstrap-reboot.min.css';
@@ -146,6 +156,7 @@ let instance = new Vue({
         topNav,
         sideMenu,
         bottomFooter,
+        vueTitle,
     },
     created (){
         if(this.$localStorage.get('token') && !this.$store.state.isLogin){

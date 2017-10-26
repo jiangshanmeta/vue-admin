@@ -10,6 +10,7 @@ export default [
                 component:()=>import("@/pages/index/index"),
                 meta:{
                     privilege:[1],
+                    title:"个人中心",
                 }
             }
         ],
@@ -26,6 +27,7 @@ export default [
                 meta:{
                     privilege:[1,999],
                     model:"userModel",
+                    title:"客户列表",
                 },
             },
 
@@ -43,7 +45,8 @@ export default [
                 component:()=>import('@/pages/common/list_view'),
                 meta:{
                     privilege:[73,999],
-                    model:"bookModel"
+                    model:"bookModel",
+                    title:"订单列表",
                 }
             }
         ],

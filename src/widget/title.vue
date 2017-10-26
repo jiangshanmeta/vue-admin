@@ -4,7 +4,7 @@
 
 <script>
 export default{
-    created(){
+    mounted(){
         this.updateTitle();
     },
     beforeUpdate(){

@@ -26,6 +26,9 @@ let routes = [
     {
         path:'/index/login',
         component:()=>import("@/pages/index/login"),
+        meta:{
+            title:"登录",
+        }
     }
 ];
 
