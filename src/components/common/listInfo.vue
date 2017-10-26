@@ -14,7 +14,6 @@
                 :sortable="sortFields.includes[field]?'custom':false"
             >
                 <template scope="scope" >
-                    
                     <template v-if="!field_list[field].showcomponent">
                         {{scope.row[field]}}
                     </template>

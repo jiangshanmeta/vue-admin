@@ -114,6 +114,7 @@ operators会自动通知列表组件状态更新，剩下的更新列表就和�
 * 表单前端验证
 * <del>editor允许通过field_list声明业务editor，类似于opeartor组件的声明方式。(done)</del>
 * <del>[对应后端php代码](https://github.com/jiangshanmeta/CodeIgniter)</del>由于前端大改过一次后端代码没有对应修改，暂时不能使用。
+* <del>允许filters传入用户自定义filter</del>
 
 ## 后端接口
 

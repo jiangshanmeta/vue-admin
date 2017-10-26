@@ -1,6 +1,6 @@
 <template>
     <el-form :inline="true"
-        v-if="filters.length"
+        v-if="filters.length && (!hasAsyncComponent || isComponentsLoaded)"
     >
         <el-form-item
             v-for="item in filters"
@@ -17,6 +17,7 @@
                 :placeholder="item.placeholder"
                 :allvalue="item.allvalue"
                 :alllabel="item.alllabel"
+                :config="item.config"
             ></component>
         </el-form-item>
         <el-form-item>
@@ -54,7 +55,11 @@ import field_string from "./field_string.vue"
 
 import field_number from "./field_number"
 
+import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 export default{
+    mixins:[
+        dynamicImportComponent
+    ],
     components:{
         filter_enum,
         filter_async_enum,
@@ -69,6 +74,11 @@ export default{
         field_day,
         field_string,
         field_number,
+    },
+    data(){
+        return {
+            isComponentsLoaded:false,
+        }
     },
     props:{
         filters:{
@@ -90,6 +100,11 @@ export default{
                 obj[item.field] = item.value;
                 return obj;
             },{})
+        },
+        hasAsyncComponent(){
+            return this.filters.some((item)=>{
+                return item.componentPath;
+            })
         }
     },
     methods:{
@@ -97,10 +112,23 @@ export default{
             this.$emit('search',this.formData);
         },
         reset(){
+            this.isComponentsLoaded = false;
+            if(this.hasAsyncComponent){
+                let componentPaths = this.filters.reduce((arr,item)=>{
+                    if(item.componentPath){
+                        arr.push(item.componentPath)
+                    }
+                    return arr;
+                },[]);
+
+                this.dynamicImportComponent(componentPaths).then(()=>{
+                    this.isComponentsLoaded = true;
+                })
+            }
             this.filters.forEach((item)=>{
                 let value = typeof item.default === 'function'?item.default():item.default;
                 this.$set(item,'value',value);
-            })
+            });
         },
     }
 }

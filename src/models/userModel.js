@@ -10,7 +10,6 @@ export default{
             placeholder:'请输入用户名',
             default:'',
             editorcomponent:{
-                component:"username",
                 path:"components/user/username",
                 config:{
                     msg:"测试传入业务editor"
@@ -117,7 +116,16 @@ export default{
             alllabel:"不限",
             default:"all",
         },
-
+        {
+            label:"自定义filter",
+            field:"test",
+            editor:"test_custom_filter",
+            componentPath:"components/user/test_custom_filter",
+            config:{
+                msg:"测试自定义filter"
+            },
+            default:"test"
+        }
     ],
     baseUrl:"/user/list",
     sortFields:['typ'],
