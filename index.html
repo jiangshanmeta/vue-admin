@@ -6,7 +6,7 @@
     </head>
     <body>
         <div id="app" style="min-height:100vh;display:flex;flex-direction:column;">
-            <vue-title>{{$store.state.title}}</vue-title>
+            <vue-title v-cloak>{{$store.state.title}}</vue-title>
             <top-nav></top-nav>
 
             <div style="flex-grow:1;display:flex;max-width:100%;">
@@ -19,5 +19,11 @@
             <bottom-footer></bottom-footer>
 
         </div>
+
+        <style>
+            [v-cloak] {
+                display: none;
+            }
+        </style>
     </body>
 </html>
