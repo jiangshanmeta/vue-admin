@@ -134,7 +134,7 @@ router.beforeEach((to, from, next) => {
 
 })
 
-
+import "@/widget/vue-config.js"
 
 Vue.config.productionTip = false
 
