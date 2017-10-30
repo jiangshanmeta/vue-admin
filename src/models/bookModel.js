@@ -36,8 +36,10 @@ export default{
             uri:"book/salerList",
         },
     },
-    create_link:'/book/create',
-    docreate_link:'/book/docreate',
+    create_config:{
+        create_link:'/book/create',
+        docreate_link:'/book/docreate',
+    },
     baseUrl:"/book/list",
     filters:[
         {

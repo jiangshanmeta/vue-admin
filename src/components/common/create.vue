@@ -34,12 +34,10 @@ export default{
     },
     props:{
         create_link:{
-            type:String,
-            required:true,
+
         },
         docreate_link:{
-            type:String,
-            required:true,
+
         },
         field_list:{
             type:Object,
@@ -122,7 +120,7 @@ export default{
             }).catch((err)=>{
                 this.$message(err);
             })
-            
+
         },
     }
 }

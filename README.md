@@ -18,7 +18,7 @@
 
 * field_list 字段，这个在新建、编辑、列表都用到了，具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)，然后看下面的具体描述
 
-* create_link、docreate_link。这两个是用于新建功能的，前者是请求哪些字段是创建时需要的，后者是创建时要请求的接口。之所以有create_link这个配置项是考虑到了不同的人有不同的权限，因而有不同的创建字段，考虑到权限还是放在后端去处理吧。
+* <del>create_link、docreate_link。这两个是用于新建功能的，前者是请求哪些字段是创建时需要的，后者是创建时要请求的接口。之所以有create_link这个配置项是考虑到了不同的人有不同的权限，因而有不同的创建字段，考虑到权限还是放在后端去处理吧。</del>修改为create_config字段，前面的两个字段是这个字段的子字段
 
 * filters 筛选的配置项，具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)，然后看下面的具体描述
 

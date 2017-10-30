@@ -102,8 +102,10 @@ export default{
             default:""
         }
     },
-    create_link:'/user/create_link',
-    docreate_link:'/user/docreate',
+    create_config:{
+        create_link:'/user/create_link',
+        docreate_link:'/user/docreate',
+    },
     filters:[
         {
             label:"姓名",
