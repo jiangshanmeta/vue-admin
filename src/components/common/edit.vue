@@ -14,6 +14,7 @@
         >
             <editor
                 :fields="edit_editor"
+                :autoValidate="config.autoValidate"
                 ref="editbox"
             ></editor>
             <section slot="footer">
@@ -87,6 +88,7 @@ export default {
                             relates:this.field_list[field].relates,
                             editorcomponent:this.field_list[field].editorcomponent,
                             tip:this.field_list[field].tip,
+                            validator:this.field_list[field].validator,
                         })
                         return rowitem;
                     },[])
@@ -100,17 +102,21 @@ export default {
             })
         },
         doEdit(){
-            let data = this.$refs.editbox.formData;
-            this.$axios.post(`${this.config.doedit_link}/${this.id}`,data).then((json)=>{
-                this.$message({
-                    message:"编辑成功",
-                    type:"success",
-                    duration:2000,
-                });
+            this.$refs.editbox.validate().then((data)=>{
+                this.$axios.post(`${this.config.doedit_link}/${this.id}`,data).then((json)=>{
+                    this.$message({
+                        message:"编辑成功",
+                        type:"success",
+                        duration:2000,
+                    });
 
-                this.isShowEditbox = false;
-                this.$emit('update');
+                    this.isShowEditbox = false;
+                    this.$emit('update');
+                })
+            }).catch((err)=>{
+                this.$message(err);
             })
+
         },
     },
 }

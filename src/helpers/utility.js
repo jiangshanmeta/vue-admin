@@ -4,6 +4,11 @@ function isAsyncFunction(func){
     return toString.call(func) === '[object AsyncFunction]';
 }
 
+function noop(){
+
+}
+
 export {
     isAsyncFunction,
+    noop,
 }

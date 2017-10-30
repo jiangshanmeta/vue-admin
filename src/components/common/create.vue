@@ -78,6 +78,7 @@ export default{
                         default:this.field_list[field].default,
                         editorcomponent:this.field_list[field].editorcomponent,
                         tip:this.field_list[field].tip,
+                        validator:this.field_list[field].validator,
                     })
                     return rowitem;
                 },[]);
@@ -106,16 +107,22 @@ export default{
             }    
         },
         doCreate(){
-            let data = this.$refs.createbox.formData;
-            this.$axios.post(this.docreate_link,data).then(()=>{
-                this.$message({
-                    message:"创建成功",
-                    type:"success",
-                    duration:2000,
+            this.$refs.createbox.validate().then((data)=>{
+
+                this.$axios.post(this.docreate_link,data).then(()=>{
+                    this.$message({
+                        message:"创建成功",
+                        type:"success",
+                        duration:2000,
+                    })
+                    this.isShowCreatebox = false;
+                    this.$emit('create');
                 })
-                this.isShowCreatebox = false;
-                this.$emit('create');
+
+            }).catch((err)=>{
+                this.$message(err);
             })
+            
         },
     }
 }

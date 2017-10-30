@@ -19,7 +19,13 @@
                         :key="item.field"
                         :config="item.editorcomponent && item.editorcomponent.config"
                     ></component>
-                    <p v-if="item.tip" class="form-tip">{{item.tip}}</p>
+                    <p v-if="item.tip" class="form-helper">{{item.tip}}</p>
+                    <p 
+                        v-if="validators[item.field] && validators[item.field]['hasErr']"
+                        class="text-danger form-helper"
+                    >
+                        {{validators[item.field]['errMsg']}}
+                    </p>
                 </td>
             </template>
         </tr>
@@ -61,11 +67,16 @@ import field_year from "./field_year"
 
 import {observe_relates} from "./field_relates_helper.js"
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
+
+import AsyncValidator from 'async-validator';
+
+const noop = function(){};
 export default{
     mixins:[dynamicImportComponent],
     data(){
         return {
             proxyFields:{},
+            validators:{},
             isComponentsLoaded:false,
         }
     },
@@ -139,12 +150,56 @@ export default{
                 })
             }
         },
+        validate(){
+            let keys = Object.keys(this.validators);
+
+            let promises = keys.map((field)=>{
+                return this.validateField(field,this.formData[field]);
+            });
+
+            if(!this.autoValidate){
+                keys.forEach((field)=>{
+                    this.addValidateInputListener(field);
+                })
+            }
+
+            return Promise.all(promises).then(()=>{
+                return this.formData;
+            }).catch((err)=>{
+                return Promise.reject(err);
+            })
+        },
+        validateField(field,value){
+            return new Promise((resolve,reject)=>{
+                let asyncValidator = this.validators[field]['validator'];
+                asyncValidator.validate({[field]:value},(errors,fields)=>{
+                    if(errors){
+                        this.validators[field]['hasErr'] = true;
+                        this.validators[field]['errMsg'] = errors[0]['message'];
+                        reject(errors[0]['message']);
+                    }else{
+                        this.validators[field]['hasErr'] = false;
+                        this.validators[field]['errMsg'] = '';
+                        resolve();
+                    }
+                })
+            })
+
+        },
+        addValidateInputListener(field){
+            this.$watch(()=>{
+                return this.proxyFields[field]
+            },(value)=>{
+                this.validateField.call(this,field,value).catch(noop)
+            })
+        }
     },
     watch:{
         fields:{
             immediate:true,
             handler(newFields){
                 this.proxyFields = {};
+                this.validators = {};
                 this.isComponentsLoaded = false;
 
                 this.importEditor();
@@ -169,6 +224,23 @@ export default{
                         if(item.relates){
                             observe_relates(item.relates,this.proxyFields)
                         }
+
+                        if(item.validator){
+
+                            let asyncValidator = new AsyncValidator({[item.field]:item.validator});
+
+                            this.$set(this.validators,item.field,{
+                                hasErr:false,
+                                errMsg:'',
+                                validator:asyncValidator,
+                            })
+
+                            if(this.autoValidate){
+                                this.addValidateInputListener(item.field);
+                            }
+
+                        }
+
                     })
                 });
             }
@@ -178,17 +250,23 @@ export default{
         fields:{
             type:Array,
             required:true
+        },
+        autoValidate:{
+            default:true
         }
     },
 }
 </script>
 
 <style scoped>
-.form-tip{
+.form-helper{
     margin-top:5px;
     margin-bottom:5px;
     color:#737373;
     font-size:12px;
     line-height:1.42;
+}
+.text-danger{
+    color:#FF4949;
 }
 </style>

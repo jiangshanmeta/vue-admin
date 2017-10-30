@@ -111,7 +111,7 @@ operators会自动通知列表组件状态更新，剩下的更新列表就和�
 * <del>优化列表显示。目前列表的treatData方法只能做一些数据处理，比如说一些映射操作。一些特殊的字段，比如一组图片的地址，界面上应该显示的是图片，但是目前只能支持显示图片地址。这个实现上可以参考 operators组件。 (done)  </del>
 * operators以及edit组件的优化。目前是一条记录对应一个operators组件以及一个edit组件，其对应的子组件数量可能很多(目前edit组件就是这样)，尝试这些子组件被共享使用。
 * 去除vuex。在这个项目中vuex用处并不大，几个共享的状态其实可以直接放在根vue实例上。
-* 表单前端验证
+* <del>表单前端验证</del>采用[这个表单验证库](https://github.com/yiminghe/async-validator)，然而我考虑自己写一个(一个大TODO)
 * <del>editor允许通过field_list声明业务editor，类似于opeartor组件的声明方式。(done)</del>
 * <del>[对应后端php代码](https://github.com/jiangshanmeta/CodeIgniter)</del>由于前端大改过一次后端代码没有对应修改，暂时不能使用。
 * <del>允许filters传入用户自定义filter</del>

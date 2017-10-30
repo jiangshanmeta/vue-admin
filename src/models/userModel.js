@@ -22,13 +22,35 @@ export default{
                     msg:"测试列表页组件形式展示"
                 }
             },
-
+            validator:[
+                {
+                    validator:function(rule,value,cb){
+                        if(value.length<2){
+                            cb([new Error("姓名最少两个字符")])
+                        }else{
+                            cb()
+                        }
+                    }
+                }
+            ],
         },
         password:{
             label:'密码',
             editor:'field_pwd',
             placeholder:'请输入密码',
             default:'',
+            validator:[
+                {
+                    validator(rule,value,cb){
+                        if(value.length>15){
+                            cb([new Error('密码位数最多为15位')])
+                        }else{
+                            cb();
+                        }
+                    }
+                }
+
+            ],
         },
         gender:{
             label:'性别',
@@ -42,7 +64,7 @@ export default{
                     1:"女"
                 }
             },
-            tip:"测试tip功能"
+            tip:"测试tip功能",
         },
         typ:{
             label:'类型',
@@ -156,6 +178,7 @@ export default{
             config:{
                 edit_link:"/user/edit_link",
                 doedit_link:"/user/doedit_link",
+                autoValidate:false,
             }
         },
         {
