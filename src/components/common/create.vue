@@ -77,6 +77,7 @@ export default{
                         field,
                         default:this.field_list[field].default,
                         editorcomponent:this.field_list[field].editorcomponent,
+                        tip:this.field_list[field].tip,
                     })
                     return rowitem;
                 },[]);

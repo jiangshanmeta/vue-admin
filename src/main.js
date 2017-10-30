@@ -12,11 +12,9 @@ import VueLocalStorage from 'vue-localstorage'
 Vue.use(VueLocalStorage)
 
 import axios from "@/server/axios.js"
-Vue.prototype.$axios = axios
-
-
-// import lodash from 'lodash'
-// Vue.prototype.$_ = lodash
+Object.defineProperty(Vue.prototype,'$axios',{
+    value:axios
+})
 
 // 处理element ui库
 import Element from 'element-ui'

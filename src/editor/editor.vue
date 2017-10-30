@@ -17,8 +17,9 @@
                         :labelfield="item.labelfield"
                         :relates="item.relates"
                         :key="item.field"
-                        :config="item.config || (item.editorcomponent && item.editorcomponent.config)"
+                        :config="item.editorcomponent && item.editorcomponent.config"
                     ></component>
+                    <p v-if="item.tip" class="form-tip">{{item.tip}}</p>
                 </td>
             </template>
         </tr>
@@ -181,3 +182,13 @@ export default{
     },
 }
 </script>
+
+<style scoped>
+.form-tip{
+    margin-top:5px;
+    margin-bottom:5px;
+    color:#737373;
+    font-size:12px;
+    line-height:1.42;
+}
+</style>

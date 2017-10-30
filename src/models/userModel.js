@@ -21,8 +21,8 @@ export default{
                 config:{
                     msg:"测试列表页组件形式展示"
                 }
-
             },
+
         },
         password:{
             label:'密码',
@@ -41,7 +41,8 @@ export default{
                     0:"男",
                     1:"女"
                 }
-            }
+            },
+            tip:"测试tip功能"
         },
         typ:{
             label:'类型',
