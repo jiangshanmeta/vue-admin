@@ -1,8 +1,8 @@
 <template>
     <el-menu 
-        v-if="$store.state.isLogin"
+        v-if="isLogin"
         :router="true"
-        :default-active="defaultActive"
+        :default-active="uri"
         style="width:200px;"
         :unique-opened="true"
     >
@@ -34,10 +34,23 @@ export default{
             menu,
         }
     },
-    computed:{
-        defaultActive(){
-            return this.$store.state.uri.path
+    props:{
+        isLogin:{
+            type:Boolean,
+            default:false
         },
+        uri:{
+            type:String,
+            default:''
+        },
+        privilege:{
+            type:Array,
+            default:function(){
+                return [];
+            }
+        }
+    },
+    computed:{
         controllerPrivilege(){
             return this.menu.reduce((obj,{controller_name,children=[]})=>{
                 obj[controller_name] = [];
@@ -52,7 +65,7 @@ export default{
             },{})
         },
         userPrivilegeHash(){
-            return this.$store.state.userInfo.privilege.reduce((obj,item)=>{
+            return this.privilege.reduce((obj,item)=>{
                 obj[item] = true;
                 return obj;
             },{})
