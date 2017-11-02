@@ -1,7 +1,6 @@
 <template>
     <field_images
         v-model="model"
-        class="field_image"
         :class="{'has-enough-value':hasEnoughValue}"
         :uri="uri"
         :labelfield="labelfield"
@@ -43,8 +42,8 @@ export default{
 }
 </script>
 
-<style>
-.has-enough-value.field_image .el-upload{
+<style scoped>
+.has-enough-value >>> .el-upload{
     display:none;
 }
 </style>
