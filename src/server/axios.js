@@ -2,11 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import Vue from "vue"
 let axiosIns = axios.create({});
-if(process.env.NODE_ENV == 'development'){
-    axiosIns.defaults.baseURL = 'http://localhost:8080/mock'
-}else{
-    
-}
+axiosIns.defaults.baseURL = process.env.baseUrl;
 axiosIns.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest'
 axiosIns.defaults.headers.get['X-Requested-With'] = 'XMLHttpRequest'
 axiosIns.defaults.responseType = 'json'
