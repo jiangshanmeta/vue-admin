@@ -13,7 +13,7 @@
                 :prop="field"
                 :sortable="sortFields.includes[field]?'custom':false"
             >
-                <template scope="scope" >
+                <template slot-scope="scope" >
                     <template v-if="!field_list[field].showcomponent">
                         {{scope.row[field]}}
                     </template>
@@ -31,7 +31,7 @@
                 v-if="data.length"
                 :min-width="200"
             >
-                <template scope="scope">
+                <template slot-scope="scope">
                     <slot :data="scope.row" :index="scope.$index"></slot>
                 </template>
             </el-table-column>

@@ -21,7 +21,7 @@
         :treatData="treatData"
         ref="listInfo"
     >
-        <template scope="scope">
+        <template slot-scope="scope">
             <div class="operator-container">
                 <operators
                     :field_list="field_list"
