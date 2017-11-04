@@ -13,27 +13,27 @@
         v-model="selectedId"
         :valuefield="valuefield"
         :labelfield="labelfield"
-        :placeholder="placeholder"
         :candidate="candidate"
+        v-bind="$attrs"
     ></field_model>
     <el-button type="success" @click="addItem">添加</el-button>
 </section>
 </template>
 
 <script>
+import field_model from "./field_model.vue"
+
+import _props_value_array_mixin from "./_props_value_array_mixin.js"
 import _props_label_value_mixin from "./_props_label_value_mixin.js"
 import _computed_model_mixin from "./_computed_model_mixin.js"
-import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
-import _props_value_array_mixin from "./_props_value_array_mixin.js"
-import field_model from "./field_model.vue"
 
 export default{
     name:'field_array_model',
+    inheritAttrs:true,
     mixins:[
+        _props_value_array_mixin,
         _props_label_value_mixin,
         _computed_model_mixin,
-        _props_placeholder_mixin,
-        _props_value_array_mixin,
     ],
     components:{
         field_model,

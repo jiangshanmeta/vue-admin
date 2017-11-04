@@ -1,0 +1,109 @@
+<template>
+<section>
+    <table class="table">
+        <thead>
+            <th>组件名</th>
+            <th>组件值</th>
+            <th>组件实例</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>filter_enum</td>
+                <td>{{filter_enum}}</td>
+                <td>
+                    <filter_enum
+                        labelfield="name"
+                        valuefield="id"
+                        allvalue="all"
+                        alllabel="不限1"
+                        v-model="filter_enum"
+                        :candidate="filter_enum_candidate"
+                    >
+                    </filter_enum>
+                </td>
+            </tr>
+            <tr>
+                <td>filter_model</td>
+                <td>{{filter_model}}</td>
+                <td>
+                    <filter_model
+                        v-model="filter_model"
+                        valuefield='id'
+                        labelfield='name'
+                        allvalue="all"
+                        alllabel="全部"
+                        :candidate="filter_model_candidate"
+                    ></filter_model>
+                </td>
+            </tr>
+            <tr>
+                <td>filter_async_enum</td>
+                <td>{{filter_async_enum}}</td>
+                <td>
+                    <filter_async_enum
+                        v-model="filter_async_enum"
+                        uri="/test/field_async_enum_select"
+                        :allvalue="-1"
+                        alllabel="不限2"
+                        labelfield="name"
+                        valuefield="id"
+                    ></filter_async_enum>
+                </td>
+            </tr>
+            <tr>
+                <td>filter_async_model</td>
+                <td>{{filter_async_model}}</td>
+                <td>
+                    <filter_async_model
+                        v-model="filter_async_model"
+                        uri='/test/field_async_enum_select'
+                        :allvalue="-1"
+                        alllabel="不限8"
+                        labelfield="name"
+                        valuefield="id"
+                    ></filter_async_model>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+</template>
+
+<script>
+import filter_enum from "@/editor/filter_enum"
+import filter_model from "@/editor/filter_model"
+import filter_async_enum from "@/editor/filter_async_enum"
+import filter_async_model from "@/editor/filter_async_model"
+
+export default{
+    config:{
+        filter_enum_candidate:[
+            {id:4,name:'value1'},
+            {id:5,name:'value2'},
+            {id:6,name:'value3'},
+        ],
+        filter_model_candidate:[
+            {id:9,name:"张三"},
+            {id:10,name:"张四"},
+            {id:11,name:"李四"},
+            {id:12,name:"李五"},
+            {id:13,name:"王五"},
+        ]
+    },
+    components:{
+        filter_enum,
+        filter_model,
+        filter_async_enum,
+        filter_async_model,
+    },
+    data(){
+        return {
+            filter_enum:"all",
+            filter_model:"all",
+            filter_async_enum:-1,
+            filter_async_model:-1,
+        }
+    },
+}
+
+</script>

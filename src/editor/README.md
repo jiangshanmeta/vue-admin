@@ -22,6 +22,8 @@
 
 * field_pwd 是password形式的input框
 
+* field_text_rich 是富文本编辑器
+
 * field_enum_radio、field_enum_select、field_model对应单选，三者是表现形式不一样。候选项比较少的时候用field_enum_radio，数量略多的时候用field_enum_select，数量更多的时候用field_model，它支持输入筛选功能。
 
 * field_async_enum_radio、field_async_enum_select、field_async_model与上面三个类似，但是他们的选项是异步加载的。

@@ -1,11 +1,11 @@
 {
     "data":{
         "data":[
-            {"label":"naive","value":1},
-            {"label":"young","value":2},
-            {"label":"simple","value":3},
-            {"label":"exciting","value":4},
-            {"label":"亦可赛艇","value":5}
+            {"name":"naive","id":1},
+            {"name":"young","id":2},
+            {"name":"simple","id":3},
+            {"name":"exciting","id":4},
+            {"name":"亦可赛艇","id":5}
         ]
     },
     "rstno":1

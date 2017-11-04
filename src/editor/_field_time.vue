@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import _props_value_mixin from "./_props_value_mixin.js"
 import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
 export default{
     data(){
@@ -16,6 +17,7 @@ export default{
         }
     },
     mixins:[
+        _props_value_mixin,
         _props_placeholder_mixin,
     ],
     props:{

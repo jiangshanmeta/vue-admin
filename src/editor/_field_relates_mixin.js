@@ -10,14 +10,6 @@ export default{
             type:String,
             required:true,
         },
-        labelfield:{
-            type:String,
-            default:'label',
-        },
-        valuefield:{
-            type:String,
-            default:'value',
-        },
     },
     methods:{
         getOptions(){
