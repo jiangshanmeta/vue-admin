@@ -5,7 +5,7 @@
             :placeholder="placeholder"
             style="width:50%;"
         ></el-input>
-        {{config.msg}}
+        {{msg}}
     </div>
 </template>
 
@@ -18,7 +18,7 @@ export default{
             required:true,
 
         },
-        config:{
+        msg:{
 
         },
         placeholder:{

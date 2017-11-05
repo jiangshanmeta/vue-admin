@@ -7,14 +7,12 @@ export default{
         name:{
             label:'用户名',
             editor:'username',
-            placeholder:'请输入用户名',
-            default:'',
-            editorcomponent:{
-                path:"components/user/username",
-                config:{
-                    msg:"测试传入业务editor"
-                }
+            editorConfig:{
+                placeholder:'请输入用户名',
+                msg:"测试传入业务editor",
+                default:'',
             },
+            editorComponentPath:"components/user/username",
             showcomponent:{
                 component:"showusername",
                 path:"components/user/showusername",
@@ -37,8 +35,10 @@ export default{
         password:{
             label:'密码',
             editor:'field_pwd',
-            placeholder:'请输入密码',
-            default:'',
+            editorConfig:{
+                placeholder:'请输入密码',
+                default:'',
+            },
             validator:[
                 {
                     validator(rule,value,cb){
@@ -55,51 +55,61 @@ export default{
         gender:{
             label:'性别',
             editor:'field_sex',
-            default:0,
+            editorConfig:{
+                default:0,
+            },
             showcomponent:{
                 component:"showgender",
                 path:"components/user/showgender",
                 config:{
                     0:"男",
                     1:"女"
-                }
+                },
             },
             tip:"测试tip功能",
         },
         typ:{
             label:'类型',
             editor:'field_enum_select',
-            candidate:[
-                {value:0,label:'路人甲'},
-                {value:1,label:'店小二'},
-                {value:2,label:'收银员'},
-                {value:99,label:'店掌柜'},
-                {value:999,label:'管理员'},
-            ],
-            default:0,
-            valuefield:'value',
-            labelfield:'label',
+            editorConfig:{
+                candidate:[
+                    {value:0,label:'路人甲'},
+                    {value:1,label:'店小二'},
+                    {value:2,label:'收银员'},
+                    {value:99,label:'店掌柜'},
+                    {value:999,label:'管理员'},
+                ],
+                default:0,
+                valuefield:'value',
+                labelfield:'label',
+            },
+
         },
         privilege:{
             label:'权限',
             editor:"field_relates_tag",
-            uri:'/user/getPrivilege',
-            labelfield:'name',
-            valuefield:'id',
-            relates:{
-                usertyp:{
-                    inValidValue:0,
-                    relatefield:'typ'
-                }
+            editorConfig:{
+                uri:'/user/getPrivilege',
+                labelfield:'name',
+                valuefield:'id',
+                relates:{
+                    usertyp:{
+                        inValidValue:0,
+                        relatefield:'typ'
+                    }
+                },
+                default(){
+                    return [];
+                },
             },
-            default(){
-                return [];
-            }
         },
         desc:{
             label:"备注",
             editor:"field_text_rich",
-            default:""
+            editorConfig:{
+                default:"这是富文本编辑器蛤",
+            }
+            
         }
     },
     create_config:{

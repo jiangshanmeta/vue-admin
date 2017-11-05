@@ -60,21 +60,17 @@ export default{
         initEditor(){
             this.create_editor = this.create_fields.reduce((arr,row)=>{
                 let rowitem = row.reduce((rowitem,field)=>{
-                    let value = typeof this.field_list[field].default === 'function'?this.field_list[field].default() : this.field_list[field].default;
+                    let configDefault = (this.field_list[field].editorConfig || {}).default;
+
+                    let value = typeof configDefault === 'function'?configDefault() : configDefault;
 
                     rowitem.push({
+                        field,
                         label:this.field_list[field].label,
                         editor:this.field_list[field].editor,
                         value:value,
-                        candidate:this.field_list[field].candidate,
-                        placeholder:this.field_list[field].placeholder,
-                        uri:this.field_list[field].uri,
-                        valuefield:this.field_list[field].valuefield,
-                        labelfield:this.field_list[field].labelfield,
-                        relates:this.field_list[field].relates,
-                        field,
-                        default:this.field_list[field].default,
-                        editorcomponent:this.field_list[field].editorcomponent,
+                        editorConfig:this.field_list[field].editorConfig,
+                        editorComponentPath:this.field_list[field].editorComponentPath,
                         tip:this.field_list[field].tip,
                         validator:this.field_list[field].validator,
                     })

@@ -10,14 +10,7 @@
                     <component 
                         :is="item.editor" 
                         v-model="item.value" 
-                        :candidate="item.candidate"
-                        :placeholder="item.placeholder"
-                        :uri="item.uri"
-                        :valuefield="item.valuefield"
-                        :labelfield="item.labelfield"
-                        :relates="item.relates"
-                        :key="item.field"
-                        :config="item.editorcomponent && item.editorcomponent.config"
+                        v-bind="mergeAttrsConfig(item.editorConfig)"
                     ></component>
                     <p v-if="item.tip" class="form-helper">{{item.tip}}</p>
                     <p 
@@ -67,12 +60,16 @@ import field_year from "./field_year"
 
 import {observe_relates} from "./field_relates_helper.js"
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
+import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 
 import AsyncValidator from 'async-validator';
 
 const noop = function(){};
 export default{
-    mixins:[dynamicImportComponent],
+    mixins:[
+        dynamicImportComponent,
+        mergeAttrsConfig,
+    ],
     data(){
         return {
             proxyFields:{},
@@ -125,7 +122,7 @@ export default{
         hasAsyncComponent(){
             for(let row of this.fields){
                 for(let item of row){
-                    if(item.editorcomponent && typeof item.editorcomponent === 'object'){
+                    if(item.editorComponentPath){
                         return true;
                     }
                 }
@@ -138,12 +135,12 @@ export default{
             if(this.hasAsyncComponent){
                 let components = this.fields.reduce((arr,row)=>{
                     for(let item of row){
-                        if(item.editorcomponent){
-                            arr.push(item.editorcomponent.path)
+                        if(item.editorComponentPath){
+                            arr.push(item.editorComponentPath)
                         }
                     }
                     return arr;
-                },[])
+                },[]);
 
                 this.dynamicImportComponent(components).then(()=>{
                     this.isComponentsLoaded = true;
@@ -221,8 +218,8 @@ export default{
 
                 newFields.forEach((row)=>{
                     row.forEach((item)=>{
-                        if(item.relates){
-                            observe_relates(item.relates,this.proxyFields)
+                        if(item.editorConfig && item.editorConfig.relates){
+                            observe_relates(item.editorConfig.relates,this.proxyFields)
                         }
 
                         if(item.validator){
