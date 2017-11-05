@@ -8,11 +8,11 @@
 
 查找功能是由两部分构成，一个是筛选条件，一个是结果展示列表及分页。筛选条件对应 */src/editor/filters* 组件，结果列表对应 */src/components/common/listInfo* 组件。
 
-删除功能我并没有特意去实现，而是实现了一个 operators组件(*/src/components/common/operators*)，这个组件是针对每条记录的操作的集合，删除组件应该作为该组件的子组件(从逻辑上讲edit组件也应该作为operators组件的子组件使用，但是编辑功能是常规需求，于是在list_view这个界面这两个组件被放到了同级的位置，避免重复声明)。
+删除功能对应 */src/components/common/delete* 组件，这只是一个基本的实现，和edit组件类似，它应作为operators组件的子组件。
 
 ## model
 
-对于这个核心列表页，有相当多的可配置信息(列表请求地址、新建请求地址、操作组件等)，这些可配置项被抽象成为一个model统一管理，这就是src目录下的**models**目录要存放的内容。
+对于这个核心列表页，有相当多的可配置信息(列表请求地址、筛选条件、结果的操作)，这些可配置项被抽象成为一个model统一管理，这就是src目录下的**models**目录要存放的内容。
 
 一个model由以下几个部分构成：
 
@@ -40,11 +40,28 @@
 
 field_list是一个字段集合，每一个键是对应的字段名，值是关于这个字段相关的描述。
 
-editor描述表明该字段在新建和编辑时所需要的表单组件，可以根据[这个说明选择相应的表单元素组件和查询相关参数](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)。每一个editor相关参数都作为一个描述。
-
 label描述是这个字段的展示名
 
-default描述用于新增和筛选，如果需要新增和筛选该字段，请**务必声明default描述**。类似于vue组件的props属性，对于引用类型default用一个函数来处理。
+editor描述表明该字段在新建和编辑时所需要的表单组件，可以根据[这个说明选择相应的表单元素组件](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)。editorConfig是对editor的配置项，它应为一个对象，editorConfig的每一项应与editor的一个props属性对应。项目提供了一些通用editor，你也可以使用自己的业务editor，只需使用editorComponentPath声明文件相对于src目录的位置即可。
+
+showcomponent是展示时对应的组件，他用在列表页和详情模态框中(info组件)。它的声明格式如下：
+
+```javascript
+showcomponent:{
+    // 组件名
+    component:"showusername",
+    // 组件路径
+    path:"components/user/showusername",
+    // 配置项，一个配置项对应一个props
+    config:{
+        msg:"测试列表页组件形式展示"
+    }
+},
+```
+
+validator 表单验证用的
+
+
 
 ## filters
 
@@ -54,9 +71,11 @@ label属性类似于field_list中的label属性，仅仅是展示名
 
 field是筛选时请求query传参的key
 
-editor是筛选框需要的表单组件，和field_list的editor描述类似。但是filters有一些特有的表单元素(editor目录下以*filter_*开头的组件)，它们都是单选，但是允许一个不限选项，这几个组件需要我们填写allvalue和alllabel，前者默认值是空字符串，后者默认值是 "不限"两个字。
+editor是筛选框需要的表单组件，和field_list的editor描述类似。但是filters有一些特有的表单元素(editor目录下以*filter_*开头的组件)，它们都是单选，但是允许一个不限选项，这几个组件需要我们填写allvalue和alllabel，前者默认值是空字符串，后者默认值是 "不限"两个字。对其配置项为config属性，它应为一个对象，每一项对应一个组件的props。
 
 filters的default目测用不到引用类型，但是default为函数依然是有用处的，比如筛选时间时默认时间为三天前。
+
+filters也支持你传入自定义的业务filter，只需利用componentPath声明文件路径即可，对其配置依然是声明在config中。
 
 ## operators
 
@@ -87,14 +106,17 @@ function被调用完之后operators组件会自动通知父组件状态更新，
 ```javascript
 {
     component:"delete",
-    path:"components/common/delete",
-    config:"/user/delete"
+    componentPath:"components/common/delete",
+    config:{
+        // delete组件有个名为uri的props属性
+        uri:"/user/delete",
+    }
 }
 ```
 
-component字段是组件名，对应组件的name属性，**使用这一模式时务必声明组件的name属性**。path是组件相对于src目录的路径，推荐放在src目录下的components目录下，并保持文件名和组件name属性一致。考虑到组件复用问题，还有一个config参数，用来向这些子组件传递配置参数。在这种模式下，仅需声明这三项，其余的operators组件会自动处理。
+component字段是组件名，对应组件的name属性，**使用这一模式时务必声明组件的name属性**。componentPath是组件相对于src目录的路径，推荐放在src目录下的components目录下，并保持文件名和组件name属性一致。考虑到组件复用问题，还有一个config参数，用来向这些子组件传递配置参数。在这种模式下，仅需声明这三项，其余的operators组件会自动处理。
 
-operators加载的子组件会被传入三个属性：```data```、```index```和```config```，前两个对应第一种声明方式下函数的前两个参数，第三个对应声明的config参数。在这一模式下，组件需要手动通过以下程序通知operators状态更新：
+operators加载的子组件会被传入```data```和```index```，对应第一种声明方式下函数的前两个参数。在这一模式下，组件需要手动通过以下程序通知operators状态更新：
 
 ```javascript
 this.$emit('update')
@@ -115,6 +137,7 @@ operators会自动通知列表组件状态更新，剩下的更新列表就和�
 * <del>editor允许通过field_list声明业务editor，类似于opeartor组件的声明方式。(done)</del>
 * <del>[对应后端php代码](https://github.com/jiangshanmeta/CodeIgniter)</del>由于前端大改过一次后端代码没有对应修改，暂时不能使用。
 * <del>允许filters传入用户自定义filter</del>
+* 允许有ajax操作的editor传入自定义ajax方法。
 
 ## 后端接口
 
