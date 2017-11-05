@@ -29,7 +29,7 @@
                                 v-else
                                 :is="field_list[item.field]['showcomponent']['component']"
                                 :data="item.value"
-                                :config="field_list[item.field]['showcomponent']['config']"
+                                v-bind="mergeAttrsConfig(field_list[item.field]['showcomponent']['config'])"
                             ></component>
                         </td>
                     </template>
@@ -41,10 +41,12 @@
 
 <script>
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
+import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import _id_mixin from "@/mixins/common/_id_mixin.js"
 export default{
     mixins:[
         dynamicImportComponent,
+        mergeAttrsConfig,
         _id_mixin,
     ],
     name:"info",

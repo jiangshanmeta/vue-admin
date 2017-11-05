@@ -1,5 +1,5 @@
 <template>
-    <span>{{config[data]}}</span>
+    <span>{{genderCfg[data]}}</span>
 </template>
 
 <script>
@@ -10,10 +10,10 @@ export default{
             type:Number,
             required:true
         },
-        config:{
+        genderCfg:{
             type:Object,
-            required:true,
-        }
+            required:true
+        },
     },
 }
 </script>

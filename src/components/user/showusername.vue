@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{data}} {{config.msg}}
+        {{data}} {{msg}}
     </div>
 </template>
 
@@ -11,7 +11,7 @@ export default{
         data:{
 
         },
-        config:{
+        msg:{
 
         }
     },

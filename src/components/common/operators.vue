@@ -1,5 +1,5 @@
 <template>
-    <span v-if="(!hasAsyncComponent) || (hasAsyncComponent && isComponentsLoaded)" 
+    <span v-if="(!hasAsyncComponent) || isComponentsLoaded" 
     class="operator-container">
         <template v-for="item in operators">
             <component

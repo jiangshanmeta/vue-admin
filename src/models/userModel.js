@@ -62,8 +62,11 @@ export default{
                 component:"showgender",
                 path:"components/user/showgender",
                 config:{
-                    0:"男",
-                    1:"女"
+                    genderCfg:{
+                        0:"男",
+                        1:"女"
+                    }
+
                 },
             },
             tip:"测试tip功能",

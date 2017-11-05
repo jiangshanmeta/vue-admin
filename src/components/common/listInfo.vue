@@ -21,7 +21,8 @@
                         v-else
                         :is="field_list[field]['showcomponent']['component']"
                         :data="scope.row[field]"
-                        :config="field_list[field]['showcomponent']['config']"
+                        v-bind="mergeAttrsConfig(field_list[field]['showcomponent']['config'])"
+                        
                     >
                     </component>
                 </template>
@@ -52,8 +53,12 @@
 
 <script>
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
+import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 export default{
-    mixins:[dynamicImportComponent],
+    mixins:[
+        dynamicImportComponent,
+        mergeAttrsConfig,
+    ],
     data(){
         return {
             data:[],
