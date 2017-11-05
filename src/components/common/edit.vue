@@ -1,26 +1,26 @@
 <template>
     <span>
         <el-button
-            v-if="config.edit_link"
+            v-if="edit_link"
             @click="getEditFields"
             size="small"
         >
             编辑
         </el-button>
         <el-dialog
-            :title="config.title || '编辑'"
+            :title="title"
             :visible.sync="isShowEditbox"
             size="large"
         >
             <editor
                 :fields="edit_editor"
-                :autoValidate="config.autoValidate"
+                :autoValidate="autoValidate"
                 ref="editbox"
             ></editor>
             <section slot="footer">
                 <el-button @click="isShowEditbox=false">取消</el-button>
                 <el-button
-                    v-if="config.doedit_link"
+                    v-if="doedit_link"
                     type="danger"
                     @click="doEdit"
                 >
@@ -33,11 +33,11 @@
 
 <script>
 import editor from "@/editor/editor";
-import _computed_id_mixin from "./_computed_id_mixin.js";
+import _id_mixin from "@/mixins/common/_id_mixin.js"
 export default {
     name:"edit",
     mixins:[
-        _computed_id_mixin
+        _id_mixin,
     ],
     components:{
         editor,
@@ -53,21 +53,34 @@ export default {
             type:Object,
             required:true,
         },
-        config:{
-            type:Object,
-            required:true,
-        },
         field_list:{
             type:Object,
             required:true,
-        }
+        },
+        edit_link:{
+            type:String,
+            required:true,
+        },
+        doedit_link:{
+            type:String,
+            required:true,
+        },
+        title:{
+            type:String,
+            default:"编辑",
+        },
+        autoValidate:{
+            type:Boolean,
+            default:false,
+        },
+
     },
     methods:{
         showDialog(){
             this.isShowEditbox = true;
         },
         getEditFields(){
-            this.$axios.get(`${this.config.edit_link}/${this.id}`).then((json)=>{
+            this.$axios.get(`${this.edit_link}/${this.id}`).then((json)=>{
                 let fields = json.data.fields;
                 this.edit_editor = fields.reduce((arr,row)=>{
                     let rowitem = row.reduce((rowitem,fieldInfo)=>{
@@ -103,7 +116,7 @@ export default {
         },
         doEdit(){
             this.$refs.editbox.validate().then((data)=>{
-                this.$axios.post(`${this.config.doedit_link}/${this.id}`,data).then((json)=>{
+                this.$axios.post(`${this.doedit_link}/${this.id}`,data).then((json)=>{
                     this.$message({
                         message:"编辑成功",
                         type:"success",

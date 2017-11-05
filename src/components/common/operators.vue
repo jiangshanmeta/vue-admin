@@ -5,10 +5,9 @@
             <component
                 v-if="item.component"
                 :is="item.component"
-                :config="item.config"
                 :data="data"
                 :index="index"
-                :field_list="field_list"
+                v-bind="mergeAttrsConfig(item.config)"
                 @update="notifyUpdate"
             ></component>
             <el-button
@@ -26,6 +25,8 @@
 <script>
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 export default{
+    name:"operators",
+    inheritAttrs:true,
     mixins:[dynamicImportComponent],
     props:{
         operators:{
@@ -40,10 +41,6 @@ export default{
             type:Number,
             required:true,
         },
-        field_list:{
-            type:Object,
-            required:true,
-        }
     },
     data(){
         return {
@@ -56,8 +53,29 @@ export default{
                 return item.component
             })
         },
+
     },
     methods:{
+        mergeAttrsConfig(config){
+            if(!config || typeof config !== 'object'){
+                return this.$attrs;
+            }
+
+            let target = {};
+            let attrKeys = Object.keys(this.$attrs);
+            attrKeys.forEach((key)=>{
+                let descriptor = Object.getOwnPropertyDescriptor(this.$attrs,key);
+                Object.defineProperty(target,key,descriptor);
+            });
+
+            let configKeys = Object.keys(config);
+            configKeys.forEach((key)=>{
+                let descriptor = Object.getOwnPropertyDescriptor(config,key);
+                Object.defineProperty(target,key,descriptor)
+            });
+
+            return target;
+        },
         importOperator(){
             if(this.hasAsyncComponent){
                 let components = this.operators.reduce((arr,item)=>{
@@ -88,8 +106,6 @@ export default{
             }
         }
     },
-
-
 }
 </script>
 

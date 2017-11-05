@@ -172,7 +172,7 @@ export default{
             config:{
                 uri:"/user/info",
                 title:"用户详情"
-            }
+            },
         },
         {
             component:"edit",
@@ -197,7 +197,7 @@ export default{
         },
         {
             component:"run",
-            path:"components/user/run.vue"
+            path:"components/user/run.vue",
         },
         {
             component:"delete",

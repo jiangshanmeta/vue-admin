@@ -1,6 +1,6 @@
 <template>
     <el-button
-        v-if="config"
+        v-if="uri"
         type="danger"
         size="small"
         @click="handleClick"
@@ -10,20 +10,20 @@
 </template>
 
 <script>
-import _computed_id_mixin from "./_computed_id_mixin.js";
+import _id_mixin from "@/mixins/common/_id_mixin.js"
 export default {
     name:"delete",
     mixins:[
-        _computed_id_mixin,
+        _id_mixin,
     ],
     props:{
-        config:{
-            type:Object,
-            required:true,
-        },
         data:{
             type:Object
-        }
+        },
+        uri:{
+            type:String,
+            required:true,
+        },
     },
     methods:{
         handleClick(){
@@ -32,7 +32,7 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(()=>{
-                this.$axios.post(`${this.config.uri}/${this.id}`).then(()=>{
+                this.$axios.post(`${this.uri}/${this.id}`).then(()=>{
                     this.$message("删除成功");
                     this.$emit('update');
                 });

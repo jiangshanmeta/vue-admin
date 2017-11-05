@@ -8,7 +8,7 @@
             详情
         </el-button>
         <el-dialog
-            :title="config.title || '详情'"
+            :title="title"
             :visible.sync="isShowLightbox"
             size="large"
         >
@@ -41,11 +41,11 @@
 
 <script>
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
-import _computed_id_mixin from "./_computed_id_mixin.js";
+import _id_mixin from "@/mixins/common/_id_mixin.js"
 export default{
     mixins:[
         dynamicImportComponent,
-        _computed_id_mixin,
+        _id_mixin,
     ],
     name:"info",
     data(){
@@ -64,10 +64,14 @@ export default{
             type:Object,
             required:true,
         },
-        config:{
-            type:Object,
+        uri:{
+            type:String,
             required:true,
-        }
+        },
+        title:{
+            type:[String,Number],
+            default:"详情",
+        },
     },
     computed:{
         hasAsyncComponent(){
@@ -86,7 +90,7 @@ export default{
                 this.importShowComponent();
             }
 
-            this.$axios.get(`${this.config.uri}/${this.id}`).then((json)=>{
+            this.$axios.get(`${this.uri}/${this.id}`).then((json)=>{
                 this.infoData = json.data.fields;
                 this.isShowLightbox = true;
             })
