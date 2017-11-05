@@ -46,7 +46,9 @@ export default{
             "label":"客户名",
             "field":"customername",
             "editor":"field_string",
-            "placeholder":"请输入客户名",
+            "config":{
+                "placeholder":"请输入客户名",
+            },
             "default":""
         },
         {
@@ -54,7 +56,7 @@ export default{
             "field":"totalprice",
             "editor":"field_number",
             "default":500,
-        }
+        },
     ],
     operators:[
         {

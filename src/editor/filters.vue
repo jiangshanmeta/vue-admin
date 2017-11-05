@@ -10,14 +10,7 @@
             <component
                 :is="item.editor"
                 v-model="item.value"
-                :candidate="item.candidate"
-                :uri="item.uri"
-                :labelfield="item.labelfield"
-                :valuefield="item.valuefield"
-                :placeholder="item.placeholder"
-                :allvalue="item.allvalue"
-                :alllabel="item.alllabel"
-                :config="item.config"
+                v-bind="mergeAttrsConfig(item.config)"
             ></component>
         </el-form-item>
         <el-form-item>
@@ -56,9 +49,13 @@ import field_string from "./field_string.vue"
 import field_number from "./field_number"
 
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
+import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 export default{
+    name:"filters",
+    inheritAttrs:true,
     mixins:[
-        dynamicImportComponent
+        dynamicImportComponent,
+        mergeAttrsConfig,
     ],
     components:{
         filter_enum,

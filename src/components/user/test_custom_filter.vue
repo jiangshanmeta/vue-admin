@@ -1,7 +1,7 @@
 <template>
     <span>
         <el-input v-model="model"></el-input>
-        {{config.msg}}
+        {{msg}}
     </span>
 </template>
 
@@ -12,8 +12,8 @@ export default{
         value:{
 
         },
-        config:{
-            type:Object,
+        msg:{
+
         }
     },
     computed:{

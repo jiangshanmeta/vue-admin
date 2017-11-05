@@ -24,10 +24,14 @@
 
 <script>
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
+import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 export default{
     name:"operators",
     inheritAttrs:true,
-    mixins:[dynamicImportComponent],
+    mixins:[
+        dynamicImportComponent,
+        mergeAttrsConfig,
+    ],
     props:{
         operators:{
             type:Array,
@@ -56,26 +60,6 @@ export default{
 
     },
     methods:{
-        mergeAttrsConfig(config){
-            if(!config || typeof config !== 'object'){
-                return this.$attrs;
-            }
-
-            let target = {};
-            let attrKeys = Object.keys(this.$attrs);
-            attrKeys.forEach((key)=>{
-                let descriptor = Object.getOwnPropertyDescriptor(this.$attrs,key);
-                Object.defineProperty(target,key,descriptor);
-            });
-
-            let configKeys = Object.keys(config);
-            configKeys.forEach((key)=>{
-                let descriptor = Object.getOwnPropertyDescriptor(config,key);
-                Object.defineProperty(target,key,descriptor)
-            });
-
-            return target;
-        },
         importOperator(){
             if(this.hasAsyncComponent){
                 let components = this.operators.reduce((arr,item)=>{
