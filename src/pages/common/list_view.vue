@@ -64,15 +64,6 @@ export default{
         listInfo_mixin,
         operators_mixin,
     ],
-    data(){
-        return {
-
-        }
-
-    },
-    computed:{
-
-    },
     methods:{
         init(){
             this.reset_create();

@@ -64,7 +64,7 @@ export default{
             if(this.hasAsyncComponent){
                 let components = this.operators.reduce((arr,item)=>{
                     if(item.component){
-                        arr.push(item.path)
+                        arr.push(item.componentPath)
                     }
                     return arr
                 },[])

@@ -187,7 +187,7 @@ export default{
     operators:[
         {
             component:"info",
-            path:"components/common/info.vue",
+            componentPath:"components/common/info.vue",
             config:{
                 uri:"/user/info",
                 title:"用户详情"
@@ -195,7 +195,7 @@ export default{
         },
         {
             component:"edit",
-            path:"components/common/edit",
+            componentPath:"components/common/edit",
             config:{
                 edit_link:"/user/edit_link",
                 doedit_link:"/user/doedit_link",
@@ -216,11 +216,11 @@ export default{
         },
         {
             component:"run",
-            path:"components/user/run.vue",
+            componentPath:"components/user/run.vue",
         },
         {
             component:"delete",
-            path:"components/common/delete",
+            componentPath:"components/common/delete",
             config:{
                 uri:"/user/delete",
             }
