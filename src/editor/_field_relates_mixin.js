@@ -1,3 +1,4 @@
+import {getRelatesCandidate} from "@/server/common.js"
 export default{
     props:{
         relates:{
@@ -9,6 +10,10 @@ export default{
         uri:{
             type:String,
             required:true,
+        },
+        httpRequest:{
+            type:Function,
+            default:getRelatesCandidate,
         },
     },
     methods:{
@@ -23,9 +28,15 @@ export default{
                 return obj;
             },{})
 
-            this.$axios.get(this.uri,{params:query}).then((json)=>{
-                this.setCacheOptions(json.data.data);
-            });
+            new Promise((resolve,reject)=>{
+
+                this.httpRequest(this,query,resolve)
+            }).then((candidate)=>{
+                this.setCacheOptions(candidate)
+            }).catch(()=>{
+
+            })
+
         },
         setCacheOptions(options){
             let keys = this.cacheKeys;

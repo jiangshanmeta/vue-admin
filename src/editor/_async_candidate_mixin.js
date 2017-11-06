@@ -1,3 +1,4 @@
+import {getAsyncCandidate} from "@/server/common.js"
 export default{
     data(){
         return {
@@ -8,12 +9,20 @@ export default{
         uri:{
             type:String,
             required:true,
+        },
+        httpRequest:{
+            type:Function,
+            default:getAsyncCandidate
         }
     },
     methods:{
         getCandidate(){
-            this.$axios.get(this.uri).then((json)=>{
-                this.candidate = json.data.data;
+            return new Promise((resolve,reject)=>{
+                this.httpRequest(this,resolve)
+            }).then((candidate)=>{
+                return this.candidate = candidate
+            }).catch(()=>{
+
             })
         },
     },

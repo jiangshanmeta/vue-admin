@@ -102,6 +102,8 @@ filters组件是为了通用列表页的筛选条件所设计的
 
 所有的请求都是GET请求，以 *field_async_* 为名称开头的组件没有请求时的query参数，以 *field_relates* 为名称开头的组件请求时会带query参数，query的key上面已经提到了，value就是对应表单元素的value，这里推荐query的key和字段名保持一致。
 
+注意哈，上面的json结构只是默认请求模式下使用的。
+
 
 ## 参数详情
 
@@ -160,6 +162,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * uri 必传参数，请求候选选项的相对路径
 * labelfield 默认为label
 * valuefield 默认为value
+* httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
+    * vm，组件实例
+    * cb，你需要调用该方法传入选项数组
 
 #### field_async_enum_select
 
@@ -168,6 +173,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * placeholder
+* httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
+    * vm，组件实例
+    * cb，你需要调用该方法传入选项数组
 
 #### field_async_model
 
@@ -176,6 +184,10 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * placeholder
+* httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
+    * vm，组件实例
+    * cb，你需要调用该方法传入选项数组
+
 
 #### field_relates_enum_radio
 
@@ -184,6 +196,10 @@ filters组件是为了通用列表页的筛选条件所设计的
 * relates 必传参数，类型为对象，声明了和其他表单元素的关联关系
 * labelfield 默认为label
 * valuefield 默认为value
+* httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
+    * vm，组件实例
+    * data，查询参数，一个对象
+    * cb，你需要调用该方法传入选项数组
 
 #### field_relates_enum_select
 
@@ -193,6 +209,10 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * placeholder
+* httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
+    * vm，组件实例
+    * data，查询参数，一个对象
+    * cb，你需要调用该方法传入选项数组
 
 #### field_relates_model
 
@@ -202,6 +222,11 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * placeholder
+* httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
+    * vm，组件实例
+    * data，查询参数，一个对象
+    * cb，你需要调用该方法传入选项数组
+
 
 ### 多选
 
@@ -226,6 +251,10 @@ filters组件是为了通用列表页的筛选条件所设计的
 * uri 必传参数，请求候选选项的相对路径
 * labelfield 默认为label
 * valuefield 默认为value
+* httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
+    * vm，组件实例
+    * cb，你需要调用该方法传入选项数组
+
 
 #### field_async_array_model
 
@@ -234,6 +263,10 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * placeholder
+* httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
+    * vm，组件实例
+    * cb，你需要调用该方法传入选项数组
+
 
 #### field_relates_tag
 
@@ -242,6 +275,10 @@ filters组件是为了通用列表页的筛选条件所设计的
 * relates 必传参数，类型为对象，声明了和其他表单元素的关联关系
 * labelfield 默认为label
 * valuefield 默认为value
+* httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
+    * vm，组件实例
+    * data，查询参数，一个对象
+    * cb，你需要调用该方法传入选项数组
 
 #### field_relates_array_model
 
@@ -251,6 +288,10 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * placeholder
+* httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
+    * vm，组件实例
+    * data，查询参数，一个对象
+    * cb，你需要调用该方法传入选项数组
 
 ### 时间
 
