@@ -1,7 +1,7 @@
 <template>
     <span>
         <el-button
-            v-if="edit_link"
+            v-if="editLink"
             @click="getEditFields"
             size="small"
         >
@@ -20,7 +20,7 @@
             <section slot="footer">
                 <el-button @click="isShowEditbox=false">取消</el-button>
                 <el-button
-                    v-if="doedit_link"
+                    v-if="doEditLink"
                     type="danger"
                     @click="doEdit"
                 >
@@ -34,6 +34,8 @@
 <script>
 import editor from "@/editor/editor";
 import _id_mixin from "@/mixins/common/_id_mixin.js"
+import {getEditInfo,doEdit} from "@/server/common.js"
+import {noop} from "@/helpers/utility.js"
 export default {
     name:"edit",
     mixins:[
@@ -57,11 +59,11 @@ export default {
             type:Object,
             required:true,
         },
-        edit_link:{
+        editLink:{
             type:String,
             required:true,
         },
-        doedit_link:{
+        doEditLink:{
             type:String,
             required:true,
         },
@@ -73,6 +75,14 @@ export default {
             type:Boolean,
             default:false,
         },
+        getInfoRequest:{
+            type:Function,
+            default:getEditInfo,
+        },
+        doEditRequest:{
+            type:Function,
+            default:doEdit
+        }
 
     },
     methods:{
@@ -80,8 +90,9 @@ export default {
             this.isShowEditbox = true;
         },
         getEditFields(){
-            this.$axios.get(`${this.edit_link}/${this.id}`).then((json)=>{
-                let fields = json.data.fields;
+            new Promise((resolve,reject)=>{
+                this.getInfoRequest(this,resolve);
+            }).then((fields)=>{
                 this.edit_editor = fields.reduce((arr,row)=>{
                     let rowitem = row.reduce((rowitem,fieldInfo)=>{
                         let field = fieldInfo.field;
@@ -107,12 +118,13 @@ export default {
                 },[]);
 
                 this.showDialog();
-
-            })
+            }).catch(noop);
         },
         doEdit(){
             this.$refs.editbox.validate().then((data)=>{
-                this.$axios.post(`${this.doedit_link}/${this.id}`,data).then((json)=>{
+                new Promise((resolve,reject)=>{
+                    this.doEditRequest(this,data,resolve)
+                }).then(()=>{
                     this.$message({
                         message:"编辑成功",
                         type:"success",
@@ -121,7 +133,8 @@ export default {
 
                     this.isShowEditbox = false;
                     this.$emit('update');
-                })
+                }).catch(noop);
+
             }).catch((err)=>{
                 this.$message(err);
             })

@@ -24,12 +24,16 @@ function doCreate(vm,data,cb){
     })
 }
 
-function getEditInfo(){
-
+function getEditInfo(vm,cb){
+    axios.get(`${vm.editLink}/${vm.id}`).then((json)=>{
+        cb(json.data.fields);
+    })
 }
 
-function doEdit(){
-
+function doEdit(vm,data,cb){
+    axios.post(`${vm.doEditLink}/${vm.id}`,data).then((json)=>{
+        cb(json)
+    })
 }
 
 function doDelete(){

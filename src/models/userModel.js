@@ -197,8 +197,8 @@ export default{
             component:"edit",
             componentPath:"components/common/edit",
             config:{
-                edit_link:"/user/edit_link",
-                doedit_link:"/user/doedit_link",
+                editLink:"/user/edit_link",
+                doEditLink:"/user/doedit_link",
                 autoValidate:false,
             }
         },

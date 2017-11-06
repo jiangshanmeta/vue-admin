@@ -72,8 +72,8 @@ export default{
             component:"edit",
             componentPath:"components/common/edit",
             config:{
-                edit_link:"/book/edit_link",
-                doedit_link:"/book/doedit_link",
+                editLink:"/book/edit_link",
+                doEditLink:"/book/doedit_link",
                 title:"编辑订单"
             }
         },
