@@ -1,6 +1,6 @@
 <template>
 <section style="display:inline-block;">
-    <el-button type="primary" v-if="create_link" @click="handleClick">
+    <el-button type="primary" v-if="createLink" @click="handleClick">
         新建
     </el-button>
     <el-dialog
@@ -12,7 +12,7 @@
         <editor :fields="create_editor" ref="createbox"></editor>
         <div slot="footer">
             <el-button @click="isShowCreatebox=false">取消</el-button>
-            <el-button @click="doCreate" type="success" v-if="docreate_link">确认创建</el-button>
+            <el-button @click="doCreate" type="success" v-if="doCreateLink">确认创建</el-button>
         </div>
     </el-dialog>
 </section>
@@ -20,6 +20,8 @@
 
 <script>
 import editor from "@/editor/editor"
+import {getCreateInfo,doCreate} from "@/server/common.js"
+import {noop} from "@/helpers/utility.js"
 export default{
     name:"create",
     components:{
@@ -33,19 +35,27 @@ export default{
         }
     },
     props:{
-        create_link:{
+        createLink:{
 
         },
-        docreate_link:{
+        doCreateLink:{
 
         },
         field_list:{
             type:Object,
             required:true,
         },
+        getInfoRequest:{
+            type:Function,
+            default:getCreateInfo,
+        },
+        doCreateRequest:{
+            type:Function,
+            default:doCreate
+        }
     },
     watch:{
-        create_link(){
+        createLink(){
             this.init();
         }
     },
@@ -90,11 +100,14 @@ export default{
         },
         handleClick(){
             if(this.create_fields.length === 0){
-                this.$axios.get(this.create_link).then((json)=>{
-                    this.create_fields = json.data.fields;
+                new Promise((resolve,reject)=>{
+                    this.getInfoRequest(this,resolve)
+                }).then((fields)=>{
+                    this.create_fields = fields;
                     this.initEditor();
-                    this.showDialog()
-                })
+                    this.showDialog();
+                }).catch(noop)
+
             }else{
                 this.resetEditor();
                 this.showDialog()
@@ -102,8 +115,10 @@ export default{
         },
         doCreate(){
             this.$refs.createbox.validate().then((data)=>{
-
-                this.$axios.post(this.docreate_link,data).then(()=>{
+                console.log("2222")
+                new Promise((resolve,reject)=>{
+                    this.doCreateRequest(this,data,resolve)
+                }).then(()=>{
                     this.$message({
                         message:"创建成功",
                         type:"success",
@@ -111,7 +126,17 @@ export default{
                     })
                     this.isShowCreatebox = false;
                     this.$emit('create');
-                })
+                }).catch(noop)
+
+                // this.$axios.post(this.doCreateLink,data).then(()=>{
+                //     this.$message({
+                //         message:"创建成功",
+                //         type:"success",
+                //         duration:2000,
+                //     })
+                //     this.isShowCreatebox = false;
+                //     this.$emit('create');
+                // })
 
             }).catch((err)=>{
                 this.$message(err);

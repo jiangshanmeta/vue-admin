@@ -46,8 +46,8 @@ export default{
         },
     },
     create_config:{
-        create_link:'/book/create',
-        docreate_link:'/book/docreate',
+        createLink:'/book/create',
+        doCreateLink:'/book/docreate',
     },
     baseUrl:"/book/list",
     filters:[

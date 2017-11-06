@@ -116,8 +116,8 @@ export default{
         }
     },
     create_config:{
-        create_link:'/user/create_link',
-        docreate_link:'/user/docreate',
+        createLink:'/user/create_link',
+        doCreateLink:'/user/docreate',
     },
     filters:[
         {

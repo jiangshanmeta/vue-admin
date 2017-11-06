@@ -8,7 +8,6 @@ export default {
     methods:{
         reset_create(){
             this.field_list = {};
-            this.create_link = {};
         },
         init_create(model){
             let {field_list={},create_config={}} = model;

@@ -2,8 +2,10 @@
 <section>
     <create
         :field_list="field_list"
-        :create_link="create_config.create_link"
-        :docreate_link="create_config.docreate_link"
+        :createLink="create_config.createLink"
+        :doCreateLink="create_config.doCreateLink"
+        :getInfoRequest="create_config.getInfoRequest"
+        :doCreateRequest="create_config.doCreateRequest"
     ></create>
 
     <filters
