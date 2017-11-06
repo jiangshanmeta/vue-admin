@@ -36,8 +36,10 @@ function doEdit(vm,data,cb){
     })
 }
 
-function doDelete(){
-
+function doDelete(vm,cb){
+    axios.post(`${vm.uri}/${vm.id}`).then(()=>{
+        cb();
+    })
 }
 
 export {

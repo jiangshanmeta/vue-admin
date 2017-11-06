@@ -128,16 +128,6 @@ export default{
                     this.$emit('create');
                 }).catch(noop)
 
-                // this.$axios.post(this.doCreateLink,data).then(()=>{
-                //     this.$message({
-                //         message:"创建成功",
-                //         type:"success",
-                //         duration:2000,
-                //     })
-                //     this.isShowCreatebox = false;
-                //     this.$emit('create');
-                // })
-
             }).catch((err)=>{
                 this.$message(err);
             })

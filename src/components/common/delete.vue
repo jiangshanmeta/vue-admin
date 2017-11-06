@@ -11,6 +11,8 @@
 
 <script>
 import _id_mixin from "@/mixins/common/_id_mixin.js"
+import {doDelete} from "@/server/common.js"
+import {noop} from "@/helpers/utility.js"
 export default {
     name:"delete",
     mixins:[
@@ -24,6 +26,10 @@ export default {
             type:String,
             required:true,
         },
+        doDeleteRequest:{
+            type:Function,
+            default:doDelete
+        }
     },
     methods:{
         handleClick(){
@@ -32,13 +38,13 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(()=>{
-                this.$axios.post(`${this.uri}/${this.id}`).then(()=>{
+                new Promise((resolve,reject)=>{
+                    this.doDeleteRequest(this,resolve);
+                }).then(()=>{
                     this.$message("删除成功");
                     this.$emit('update');
-                });
-            }).catch(()=>{
-
-            })   
+                }).catch(noop);
+            }).catch(noop)   
         }
     },
 }
