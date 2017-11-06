@@ -43,6 +43,8 @@
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import _id_mixin from "@/mixins/common/_id_mixin.js"
+import {getDetailInfo} from "@/server/common.js"
+import {noop} from "@/helpers/utility.js"
 export default{
     mixins:[
         dynamicImportComponent,
@@ -74,6 +76,10 @@ export default{
             type:[String,Number],
             default:"详情",
         },
+        detailRequest:{
+            type:Function,
+            default:getDetailInfo
+        }
     },
     computed:{
         hasAsyncComponent(){
@@ -92,10 +98,12 @@ export default{
                 this.importShowComponent();
             }
 
-            this.$axios.get(`${this.uri}/${this.id}`).then((json)=>{
-                this.infoData = json.data.fields;
+            new Promise((resolve,reject)=>{
+                this.detailRequest(this,resolve);
+            }).then((infoData)=>{
+                this.infoData = infoData;
                 this.isShowLightbox = true;
-            })
+            }).catch(noop);
         },
         importShowComponent(){
             if(this.hasAsyncComponent){

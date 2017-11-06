@@ -42,6 +42,12 @@ function doDelete(vm,cb){
     })
 }
 
+function getDetailInfo(vm,cb){
+    axios.get(`${vm.uri}/${vm.id}`).then((json)=>{
+        cb(json.data.fields);
+    })
+}
+
 export {
     getAsyncCandidate,
     getRelatesCandidate,
@@ -50,4 +56,5 @@ export {
     getEditInfo,
     doEdit,
     doDelete,
+    getDetailInfo,
 }
