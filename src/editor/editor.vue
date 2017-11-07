@@ -8,9 +8,9 @@
                 <td>{{item.label}}</td>
                 <td :colspan="row.length===1?3:1">
                     <component 
-                        :is="item.editor" 
+                        :is="item.editorComponent.name" 
                         v-model="item.value" 
-                        v-bind="mergeAttrsConfig(item.editorConfig)"
+                        v-bind="mergeAttrsConfig(item.editorComponent.config)"
                     ></component>
                     <p v-if="item.tip" class="form-helper">{{item.tip}}</p>
                     <p 
@@ -122,7 +122,7 @@ export default{
         hasAsyncComponent(){
             for(let row of this.fields){
                 for(let item of row){
-                    if(item.editorComponentPath){
+                    if(item.editorComponent && item.editorComponent.path){
                         return true;
                     }
                 }
@@ -135,8 +135,8 @@ export default{
             if(this.hasAsyncComponent){
                 let components = this.fields.reduce((arr,row)=>{
                     for(let item of row){
-                        if(item.editorComponentPath){
-                            arr.push(item.editorComponentPath)
+                        if(item.editorComponent && item.editorComponent.path){
+                            arr.push(item.editorComponent.path)
                         }
                     }
                     return arr;
@@ -218,8 +218,8 @@ export default{
 
                 newFields.forEach((row)=>{
                     row.forEach((item)=>{
-                        if(item.editorConfig && item.editorConfig.relates){
-                            observe_relates(item.editorConfig.relates,this.proxyFields)
+                        if(item.editorComponent && item.editorComponent.config && item.editorComponent.config.relates){
+                            observe_relates(item.editorComponent.config.relates,this.proxyFields)
                         }
 
                         if(item.validator){

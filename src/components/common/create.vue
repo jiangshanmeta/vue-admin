@@ -74,17 +74,20 @@ export default{
         initEditor(){
             this.create_editor = this.create_fields.reduce((arr,row)=>{
                 let rowitem = row.reduce((rowitem,field)=>{
-                    let configDefault = (this.field_list[field].editorConfig || {}).default;
+                    let configDefault = (this.field_list[field].editorComponent.config ||{}).default;
+                    // let configDefault = (this.field_list[field].editorConfig || {}).default;
 
                     let value = typeof configDefault === 'function'?configDefault() : configDefault;
 
                     rowitem.push({
                         field,
-                        label:this.field_list[field].label,
-                        editor:this.field_list[field].editor,
                         value:value,
-                        editorConfig:this.field_list[field].editorConfig,
-                        editorComponentPath:this.field_list[field].editorComponentPath,
+                        label:this.field_list[field].label,
+                        editorComponent:this.field_list[field].editorComponent,
+                        // editor:this.field_list[field].editor,
+                        
+                        // editorConfig:this.field_list[field].editorConfig,
+                        // editorComponentPath:this.field_list[field].editorComponentPath,
                         tip:this.field_list[field].tip,
                         validator:this.field_list[field].validator,
                     })
@@ -119,7 +122,6 @@ export default{
         },
         doCreate(){
             this.$refs.createbox.validate().then((data)=>{
-                console.log("2222")
                 new Promise((resolve,reject)=>{
                     this.doCreateRequest(this,data,resolve)
                 }).then(()=>{

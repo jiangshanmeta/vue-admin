@@ -6,13 +6,22 @@ export default{
     field_list:{
         name:{
             label:'用户名',
-            editor:'username',
-            editorConfig:{
-                placeholder:'请输入用户名',
-                msg:"测试传入业务editor",
-                default:'',
+            editorComponent:{
+                name:"username",
+                path:"components/user/username",
+                config:{
+                    placeholder:'请输入用户名',
+                    msg:"测试传入业务editor",
+                    default:'',
+                },
             },
-            editorComponentPath:"components/user/username",
+            // editor:'username',
+            // editorConfig:{
+            //     placeholder:'请输入用户名',
+            //     msg:"测试传入业务editor",
+            //     default:'',
+            // },
+            // editorComponentPath:"components/user/username",
             showComponent:{
                 name:"showusername",
                 path:"components/user/showusername",
@@ -34,11 +43,18 @@ export default{
         },
         password:{
             label:'密码',
-            editor:'field_pwd',
-            editorConfig:{
-                placeholder:'请输入密码',
-                default:'',
+            editorComponent:{
+                name:"field_pwd",
+                config:{
+                    placeholder:'请输入密码',
+                    default:'',
+                }
             },
+            // editor:'field_pwd',
+            // editorConfig:{
+            //     placeholder:'请输入密码',
+            //     default:'',
+            // },
             validator:[
                 {
                     validator(rule,value,cb){
@@ -54,10 +70,17 @@ export default{
         },
         gender:{
             label:'性别',
-            editor:'field_sex',
-            editorConfig:{
-                default:0,
+            editorComponent:{
+                name:"field_sex",
+                config:{
+                    default:0,
+                }
             },
+
+            // editor:'field_sex',
+            // editorConfig:{
+            //     default:0,
+            // },
             showComponent:{
                 name:"showgender",
                 path:"components/user/showgender",
@@ -73,45 +96,83 @@ export default{
         },
         typ:{
             label:'类型',
-            editor:'field_enum_select',
-            editorConfig:{
-                candidate:[
-                    {value:0,label:'路人甲'},
-                    {value:1,label:'店小二'},
-                    {value:2,label:'收银员'},
-                    {value:99,label:'店掌柜'},
-                    {value:999,label:'管理员'},
-                ],
-                default:0,
-                valuefield:'value',
-                labelfield:'label',
+            editorComponent:{
+                name:"field_enum_select",
+                config:{
+                    candidate:[
+                        {value:0,label:'路人甲'},
+                        {value:1,label:'店小二'},
+                        {value:2,label:'收银员'},
+                        {value:99,label:'店掌柜'},
+                        {value:999,label:'管理员'},
+                    ],
+                    default:0,
+                    valuefield:'value',
+                    labelfield:'label',
+                }
             },
+            // editor:'field_enum_select',
+            // editorConfig:{
+            //     candidate:[
+            //         {value:0,label:'路人甲'},
+            //         {value:1,label:'店小二'},
+            //         {value:2,label:'收银员'},
+            //         {value:99,label:'店掌柜'},
+            //         {value:999,label:'管理员'},
+            //     ],
+            //     default:0,
+            //     valuefield:'value',
+            //     labelfield:'label',
+            // },
 
         },
         privilege:{
             label:'权限',
-            editor:"field_relates_tag",
-            editorConfig:{
-                uri:'/user/getPrivilege',
-                labelfield:'name',
-                valuefield:'id',
-                relates:{
-                    usertyp:{
-                        inValidValue:0,
-                        relatefield:'typ'
-                    }
-                },
-                default(){
-                    return [];
-                },
+            editorComponent:{
+                name:"field_relates_tag",
+                config:{
+                    uri:'/user/getPrivilege',
+                    labelfield:'name',
+                    valuefield:'id',
+                    relates:{
+                        usertyp:{
+                            inValidValue:0,
+                            relatefield:'typ'
+                        }
+                    },
+                    default(){
+                        return [];
+                    },
+                }
             },
+            // editor:"field_relates_tag",
+            // editorConfig:{
+            //     uri:'/user/getPrivilege',
+            //     labelfield:'name',
+            //     valuefield:'id',
+            //     relates:{
+            //         usertyp:{
+            //             inValidValue:0,
+            //             relatefield:'typ'
+            //         }
+            //     },
+            //     default(){
+            //         return [];
+            //     },
+            // },
         },
         desc:{
             label:"备注",
-            editor:"field_text_rich",
-            editorConfig:{
-                default:"这是富文本编辑器蛤",
-            }
+            editorComponent:{
+                name:"field_text_rich",
+                config:{
+                    default:"这是富文本编辑器蛤",
+                }
+            },
+            // editor:"field_text_rich",
+            // editorConfig:{
+            //     default:"这是富文本编辑器蛤",
+            // }
             
         }
     },

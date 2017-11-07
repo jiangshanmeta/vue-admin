@@ -35,7 +35,11 @@ field_list是一个字段集合，每一个键是对应的字段名，值是关�
 
 label描述是这个字段的展示名
 
-editor描述表明该字段在新建和编辑时所需要的表单组件，可以根据[这个说明选择相应的表单元素组件](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)。editorConfig是对editor的配置项，它应为一个对象，editorConfig的每一项应与editor的一个props属性对应。项目提供了一些通用editor，你也可以使用自己的业务editor，只需使用editorComponentPath声明文件相对于src目录的位置即可。(正在纠结要不要把这三个字段合并到一个字段之下TODO)
+<del>editor描述表明该字段在新建和编辑时所需要的表单组件，可以根据[这个说明选择相应的表单元素组件](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)。editorConfig是对editor的配置项，它应为一个对象，editorConfig的每一项应与editor的一个props属性对应。项目提供了一些通用editor，你也可以使用自己的业务editor，只需使用editorComponentPath声明文件相对于src目录的位置即可。(正在纠结要不要把这三个字段合并到一个字段之下TODO)</del>
+
+editorComponent是这个字段编辑相关的配置，包括name(组件名),config(对组件的配置项),path(自定义组件的路径)。我提供了一些[通用业务组件](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)
+
+
 
 showComponent是展示时对应的组件，他用在列表页和详情模态框中(info组件)。它的声明格式如下：
 
@@ -131,6 +135,8 @@ operators会自动通知列表组件状态更新，剩下的更新列表就和�
 * <del>[对应后端php代码](https://github.com/jiangshanmeta/CodeIgniter)</del>由于前端大改过一次后端代码没有对应修改，暂时不能使用。
 * <del>允许filters传入用户自定义filter</del>
 * <del>允许有ajax操作的editor传入自定义ajax方法。(done)</del>
+* 筛选组件配置按照field_list的改
+* 更新field_relates_*组件
 
 ## 后端接口
 
