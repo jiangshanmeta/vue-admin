@@ -8,9 +8,9 @@
             :key="item.field"
         >
             <component
-                :is="item.editor"
+                :is="item.editorComponent.name"
                 v-model="item.value"
-                v-bind="mergeAttrsConfig(item.config)"
+                v-bind="mergeAttrsConfig(item.editorComponent.config)"
             ></component>
         </el-form-item>
         <el-form-item>
@@ -100,7 +100,7 @@ export default{
         },
         hasAsyncComponent(){
             return this.filters.some((item)=>{
-                return item.componentPath;
+                return item.editorComponent.path;
             })
         }
     },
@@ -112,8 +112,8 @@ export default{
             this.isComponentsLoaded = false;
             if(this.hasAsyncComponent){
                 let componentPaths = this.filters.reduce((arr,item)=>{
-                    if(item.componentPath){
-                        arr.push(item.componentPath)
+                    if(item.editorComponent.path){
+                        arr.push(item.editorComponent.path)
                     }
                     return arr;
                 },[]);
@@ -123,7 +123,9 @@ export default{
                 })
             }
             this.filters.forEach((item)=>{
-                let value = typeof item.default === 'function'?item.default():item.default;
+                let defaultConfig = item.editorComponent.default;
+                let value = typeof defaultConfig === 'function'?defaultConfig():defaultConfig;
+
                 this.$set(item,'value',value);
             });
         },

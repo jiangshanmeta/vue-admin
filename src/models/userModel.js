@@ -12,8 +12,8 @@ export default{
                 config:{
                     placeholder:'请输入用户名',
                     msg:"测试传入业务editor",
-                    default:'',
                 },
+                default:'',
             },
             showComponent:{
                 name:"showusername",
@@ -40,8 +40,8 @@ export default{
                 name:"field_pwd",
                 config:{
                     placeholder:'请输入密码',
-                    default:'',
-                }
+                },
+                default:'',
             },
             validator:[
                 {
@@ -60,9 +60,7 @@ export default{
             label:'性别',
             editorComponent:{
                 name:"field_sex",
-                config:{
-                    default:0,
-                }
+                default:0,
             },
             showComponent:{
                 name:"showgender",
@@ -89,10 +87,10 @@ export default{
                         {value:99,label:'店掌柜'},
                         {value:999,label:'管理员'},
                     ],
-                    default:0,
                     valuefield:'value',
                     labelfield:'label',
-                }
+                },
+                default:0,
             },
         },
         privilege:{
@@ -109,19 +107,17 @@ export default{
                             relatefield:'typ'
                         }
                     },
-                    default(){
-                        return [];
-                    },
-                }
+                },
+                default(){
+                    return [];
+                },
             },
         },
         desc:{
             label:"备注",
             editorComponent:{
                 name:"field_text_rich",
-                config:{
-                    default:"这是富文本编辑器蛤",
-                }
+                default:"这是富文本编辑器蛤",
             },
         }
     },
@@ -133,52 +129,63 @@ export default{
         {
             label:"姓名",
             field:"username",
-            editor:"field_string",
-            config:{
-                placeholder:"请输入用户姓名",
+            editorComponent:{
+                name:"field_string",
+                config:{
+                    placeholder:"请输入用户姓名",
+                },
+                default:"",
             },
-            default:"",
         },
         {
             label:"类型",
             field:"typ",
-            editor:"filter_enum",
-            config:{
-                candidate:[
-                    {value:0,label:'路人甲'},
-                    {value:1,label:'店小二'},
-                    {value:2,label:'收银员'},
-                    {value:99,label:'店掌柜'},
-                    {value:999,label:'管理员'},
-                ],
-                allvalue:-1,
-                alllabel:"全部", 
+            editorComponent:{
+                name:"filter_enum",
+                config:{
+                    candidate:[
+                        {value:0,label:'路人甲'},
+                        {value:1,label:'店小二'},
+                        {value:2,label:'收银员'},
+                        {value:99,label:'店掌柜'},
+                        {value:999,label:'管理员'},
+                    ],
+                    allvalue:-1,
+                    alllabel:"全部",
+                },
+                default:-1,
             },
-            default:-1,
+            editor:"filter_enum",
+
+            
         },
         {
             label:"权限",
             field:"privilege",
-            editor:"filter_async_enum",
-            config:{
-                uri:"/user/getPrivilege",
-                valuefield:"id",
-                labelfield:"name",
-                placeholder:"请选择权限",
-                allvalue:"all",
-                alllabel:"不限",
+            editorComponent:{
+                name:"filter_async_enum",
+                config:{
+                    uri:"/user/getPrivilege",
+                    valuefield:"id",
+                    labelfield:"name",
+                    placeholder:"请选择权限",
+                    allvalue:"all",
+                    alllabel:"不限",
+                },
+                default:"all",
             },
-            default:"all",
         },
         {
             label:"自定义filter",
             field:"test",
-            editor:"test_custom_filter",
-            config:{
-                msg:"测试自定义filter",
+            editorComponent:{
+                name:"test_custom_filter",
+                config:{
+                    msg:"测试自定义filter",
+                },
+                path:"components/user/test_custom_filter",
+                default:"test",
             },
-            componentPath:"components/user/test_custom_filter",
-            default:"test"
         }
     ],
     listConfig:{

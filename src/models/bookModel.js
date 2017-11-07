@@ -6,23 +6,22 @@ export default{
                 name:"field_string",
                 config:{
                     placeholder:'请输入客户名',
-                    default:'',
-                }
+                },
+                default:'',
             },
         },
         totalprice:{
             label:'金额',
             editorComponent:{
                 name:"field_number",
-                config:{
-                    default:0,
-                }
+                default:0,
             },
         },
         address:{
             label:"收货地址",
             editorComponent:{
                 name:"field_text",
+                default:"",
             },
         },
         store:{
@@ -30,11 +29,11 @@ export default{
             editorComponent:{
                 name:"field_async_enum_select",
                 config:{
-                    default:"",
                     uri:"/book/storeList",
                     labelfield:"storename",
                     valuefield:"_id",
-                }
+                },
+                default:"",
             },
         },
         saler:{
@@ -48,9 +47,9 @@ export default{
                             relatefield:"store"
                         }
                     },
-                    default:"",
                     uri:"book/salerList",
-                }
+                },
+                default:"",
             },
         },
     },
@@ -63,19 +62,23 @@ export default{
     },
     filters:[
         {
-            "label":"客户名",
-            "field":"customername",
-            "editor":"field_string",
-            "config":{
-                "placeholder":"请输入客户名",
-            },
-            "default":""
+            label:"客户名",
+            field:"customername",
+            editorComponent:{
+                name:"field_string",
+                config:{
+                    placeholder:"请输入客户名"
+                },
+                default:"",
+            }
         },
         {
-            "label":"金额",
-            "field":"totalprice",
-            "editor":"field_number",
-            "default":500,
+            label:"金额",
+            field:"totalprice",
+            editorComponent:{
+                name:"field_number",
+                default:500,
+            }
         },
     ],
     operators:[
@@ -89,8 +92,8 @@ export default{
             }
         },
         {
-            "label":"再来一单",
-            "type":"success",
+            label:"再来一单",
+            type:"success",
             function(data){
                 this.$message({
                     message:data.customername+"再来一单",

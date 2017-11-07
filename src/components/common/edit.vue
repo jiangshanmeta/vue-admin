@@ -96,9 +96,7 @@ export default {
                 this.edit_editor = fields.reduce((arr,row)=>{
                     let rowitem = row.reduce((rowitem,fieldInfo)=>{
                         let field = fieldInfo.field;
-                        let configDefault = (this.field_list[field].editorComponent.config ||{}).default;
-
-                        // let configDefault = (this.field_list[field].editorConfig || {}).default;
+                        let configDefault = this.field_list[field].editorComponent.default;
 
                         let value = fieldInfo.hasOwnProperty('value')?fieldInfo.value:(typeof configDefault === 'function'? configDefault():configDefault );
 
@@ -107,9 +105,6 @@ export default {
                             value,
                             label:this.field_list[field].label,
                             editorComponent:this.field_list[field].editorComponent,
-                            // editor:this.field_list[field].editor,
-                            // editorConfig:this.field_list[field].editorConfig,
-                            // editorComponentPath:this.field_list[field].editorComponentPath,
                             tip:this.field_list[field].tip,
                             validator:this.field_list[field].validator,
                         })
