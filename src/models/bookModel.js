@@ -45,11 +45,13 @@ export default{
             },
         },
     },
-    create_config:{
+    createConfig:{
         createLink:'/book/create',
         doCreateLink:'/book/docreate',
     },
-    baseUrl:"/book/list",
+    listConfig:{
+        baseUrl:"/book/list",
+    },
     filters:[
         {
             "label":"客户名",

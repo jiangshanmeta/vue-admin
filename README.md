@@ -12,26 +12,19 @@
 
 ## model
 
-对于这个核心列表页，有相当多的可配置信息(列表请求地址、筛选条件、结果的操作)，这些可配置项被抽象成为一个model统一管理，这就是src目录下的**models**目录要存放的内容。
+对于这个核心列表页，有相当多的可配置信息(列表请求地址、筛选条件、结果的操作等)，这些可配置项被抽象成为一个model统一管理，这就是src目录下的**models**目录要存放的内容。
 
 一个model由以下几个部分构成：
 
 * field_list 字段，这个在新建、编辑、列表都用到了，具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)，然后看下面的具体描述
 
-* <del>create_link、docreate_link。这两个是用于新建功能的，前者是请求哪些字段是创建时需要的，后者是创建时要请求的接口。之所以有create_link这个配置项是考虑到了不同的人有不同的权限，因而有不同的创建字段，考虑到权限还是放在后端去处理吧。</del>修改为create_config字段，前面的两个字段是这个字段的子字段
+* createConfig，创建组件的配置项。包括createLink(查询允许创建哪些字段的接口路径)、doCreateLink(创建操作要请求的接口路径)、getInfoRequest(自定义查询允许创建哪些字段方法)、doCreateRequest(自定义创建的请求方法)、
 
-* filters 筛选的配置项，具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)，然后看下面的具体描述
+* filters，筛选组件的配置项。具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)，然后看下面的具体描述
 
-* baseUrl 列表请求路径。使用GET方法请求，默认会通过query带上分页信息pageIndex(从1开始的页数)、pageSize(每一页多少条记录)，以及下面要介绍的两个排序相关字段。
-
-* sortFields 可排序字段，当向后端请求列表时，使用GET方法query传参，sortField表示排序的字段，sortOrder表示升序还是降序(asc或者desc)。
-
-* treatData 这个是获得列表数据后对数据的处理方法，默认是原样返回。这个配置项支持async函数(或者说推荐使用async函数)，所以可以在这里做一些ajax操作获取数据操作所需要的信息。
-
-* <del>edit_link、doedit_link。这两个配置项是为编辑操作准备的，前者是请求可以编辑的字段及数据，后者是编辑操作所要请求的接口。</del> edit组件作为operators的子组件，而不是同级组件了。所以这两个字段要声明在operator的config属性中了
+* listConfig，列表组件的配置项。包括baseUrl(列表项请求相对路径)、pageSize(每页几条数据)、sortFields(允许排序的字段)、treatData(用来处理得到的列表数据的方法，推荐async函数)、listRequest(自定义请求列表方法)。
 
 * operators 操作集，具体使用方法在下面
-
 
 声明了一个model后，我们还需要在vue-router配置中指明用了哪个model，因而用到了vue-router的meta属性。具体的声明请看 */src/router/menu.js* 文件
 
@@ -42,7 +35,7 @@ field_list是一个字段集合，每一个键是对应的字段名，值是关�
 
 label描述是这个字段的展示名
 
-editor描述表明该字段在新建和编辑时所需要的表单组件，可以根据[这个说明选择相应的表单元素组件](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)。editorConfig是对editor的配置项，它应为一个对象，editorConfig的每一项应与editor的一个props属性对应。项目提供了一些通用editor，你也可以使用自己的业务editor，只需使用editorComponentPath声明文件相对于src目录的位置即可。
+editor描述表明该字段在新建和编辑时所需要的表单组件，可以根据[这个说明选择相应的表单元素组件](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)。editorConfig是对editor的配置项，它应为一个对象，editorConfig的每一项应与editor的一个props属性对应。项目提供了一些通用editor，你也可以使用自己的业务editor，只需使用editorComponentPath声明文件相对于src目录的位置即可。(正在纠结要不要把这三个字段合并到一个字段之下TODO)
 
 showcomponent是展示时对应的组件，他用在列表页和详情模态框中(info组件)。它的声明格式如下：
 
@@ -137,11 +130,11 @@ operators会自动通知列表组件状态更新，剩下的更新列表就和�
 * <del>editor允许通过field_list声明业务editor，类似于opeartor组件的声明方式。(done)</del>
 * <del>[对应后端php代码](https://github.com/jiangshanmeta/CodeIgniter)</del>由于前端大改过一次后端代码没有对应修改，暂时不能使用。
 * <del>允许filters传入用户自定义filter</del>
-* 允许有ajax操作的editor传入自定义ajax方法。
+* <del>允许有ajax操作的editor传入自定义ajax方法。(done)</del>
 
 ## 后端接口
 
-虽然这是个前端项目但我依然规定了后端接口的格式，毕竟统一的接口规范对大家来说都是件好事。
+虽然这是个前端项目但我依然规定了后端接口的格式，毕竟统一的接口规范对大家来说都是件好事。这个接口规范只是推荐，我支持了自定义请求方法，只要最后结果满足需求即可。
 
 #### 列表
 

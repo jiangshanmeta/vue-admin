@@ -54,6 +54,8 @@
 <script>
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
+import {getListInfo} from "@/server/common.js"
+import {noop} from "@/helpers/utility.js"
 export default{
     mixins:[
         dynamicImportComponent,
@@ -102,6 +104,10 @@ export default{
         filtersname:{
             type:String,
             default:"filters",
+        },
+        listRequest:{
+            type:Function,
+            default:getListInfo,
         }
     },
     computed:{
@@ -167,9 +173,10 @@ export default{
             params['sortField'] = this.sortField;
             params['sortOrder'] = this.sortOrder;
 
-            return this.$axios.get(this.baseUrl,{params}).then((json)=>{
-                let {data,total,fields} = json.data;
-
+            return new Promise((resolve,reject)=>{
+                this.listRequest(this,params,resolve)
+            }).then((rst)=>{
+                let {data,total,fields} = rst;
                 let promise = this.treatData(data);
                 if(!(promise instanceof Promise)){
                     promise = Promise.resolve(promise);
@@ -180,7 +187,8 @@ export default{
                     this.total = total;
                     this.data = data;
                 });
-            });
+            }).catch(noop);
+
         },
     },
     watch:{

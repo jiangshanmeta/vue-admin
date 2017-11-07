@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import menu from './menu'
+import store from "@/store"
 
 Vue.use(Router)
 
@@ -54,7 +55,53 @@ menu.forEach((item)=>{
     })
 })
 
-
-export default new Router({
+const router = new Router({
   routes: routes
 })
+
+router.beforeEach((to, from, next) => {
+    let gotoLogon = false;
+    if(to.query.redirect){
+        store.commit('setRedirect',to.query.redirect);
+    }
+
+    if (to.meta && to.meta.privilege && Array.isArray(to.meta.privilege)) {
+        let pagePrivilege = to.meta.privilege;
+        let userPrivilege = store.state.userInfo.privilege;
+        let hasPrivilege = false;
+        for(var i=0,len=userPrivilege.length;i<len;i++){
+            var priItem = userPrivilege[i];
+            if(pagePrivilege.includes(priItem)){
+                hasPrivilege = true;
+                break;
+            }
+        }
+        if(!hasPrivilege){
+            gotoLogon = true;
+        }
+    }
+
+    if(to.meta && to.meta.title){
+        store.commit("updateTitie",to.meta.title)
+    }else{
+        store.commit("updateTitie","admin")
+    }
+
+    if(gotoLogon){
+        next({
+            path: '/index/login',
+            query: {redirect: to.fullPath}
+        })
+    }else{
+        let uriarr = to.path.replace(/^\//,'').split('/')
+        store.commit('updateUri',{
+            controller_name:uriarr[0],
+            method_name:uriarr[1],
+            path:to.path,
+        });
+        next();
+    }
+})
+
+
+export default router

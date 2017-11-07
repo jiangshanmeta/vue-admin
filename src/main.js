@@ -2,9 +2,6 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 
-import Vuex from 'vuex'
-Vue.use(Vuex)
-
 // cookie && localstorage
 import VueCookie from 'vue-cookie'
 Vue.use(VueCookie)
@@ -26,113 +23,10 @@ import 'echarts'
 import ECharts from 'vue-echarts/components/ECharts.vue'
 Vue.component('chart', ECharts)
 
-
+import "@/widget/vue-config.js"
 
 import router from './router'
-
-let store = new Vuex.Store({
-    state:{
-        isLogin:false,
-        uri:{
-            controller_name:'',
-            method_name:'',
-            path:'',
-        },
-        userInfo:{
-            name:'',
-            privilege:[],
-        },
-        title:"admin",
-    },
-    mutations:{
-        updateUri(state,payload){
-            state.uri.controller_name = payload.controller_name;
-            state.uri.method_name = payload.method_name;
-            state.uri.path = payload.path;
-        },
-        updateTitie(state,title){
-            state.title = title;
-        },
-        setToken (state,token){
-            Vue.localStorage.set('token',token)
-        },
-        doLogout (state){
-            Vue.localStorage.remove('token')
-            state.isLogin = false;
-            state.userInfo.name = '';
-            state.userInfo.privilege = [];
-            instance.$router.push({
-                path:'/index/login'
-            })
-        },
-        getUserInfo (state,data){
-            let keys = Object.keys(data);
-            keys.forEach((key)=>{
-                state['userInfo'][key] = data[key]
-            })
-            state.isLogin = true;
-        },
-    },
-    actions:{
-        doLogout({commit}){
-            return axios.post('/index/doLogout').then(()=>{
-                commit('doLogout')
-            })
-        },
-        getUserInfo({commit}){
-            return axios.get('/index/getUserInfo').then((json)=>{
-                commit('getUserInfo',json.data);
-            })
-        }
-    },
-
-})
-
-
-router.beforeEach((to, from, next) => {
-    let gotoLogon = false;
-    if (to.meta && to.meta.privilege && Array.isArray(to.meta.privilege)) {
-        let pagePrivilege = to.meta.privilege;
-        let userPrivilege = store.state.userInfo.privilege;
-        let hasPrivilege = false;
-        for(var i=0,len=userPrivilege.length;i<len;i++){
-            var priItem = userPrivilege[i];
-            if(pagePrivilege.includes(priItem)){
-                hasPrivilege = true;
-                break;
-            }
-        }
-        if(!hasPrivilege){
-            gotoLogon = true;
-        }
-    }
-
-    if(to.meta && to.meta.title){
-        store.commit("updateTitie",to.meta.title)
-    }else{
-        store.commit("updateTitie","admin")
-    }
-
-    if(gotoLogon){
-        next({
-            path: '/index/login',
-            query: {redirect: to.fullPath}
-        })
-    }else{
-        let uriarr = to.path.replace(/^\//,'').split('/')
-        store.commit('updateUri',{
-            controller_name:uriarr[0],
-            method_name:uriarr[1],
-            path:to.path,
-        });
-        next();
-    }
-
-
-
-})
-
-import "@/widget/vue-config.js"
+import store from "./store"
 
 Vue.config.productionTip = false
 
@@ -150,11 +44,24 @@ let instance = new Vue({
     el: '#app',
     router,
     store,
-    components: { 
+    components: {
         topNav,
         sideMenu,
         bottomFooter,
         vueTitle,
+    },
+    watch:{
+        "$store.state.isLogin"(isLogin){
+            if(isLogin){
+                this.$router.replace({
+                    path:this.$store.state.uri.redirect || '/'
+                })
+            }else{
+                this.$router.push({
+                    path:'/index/login'
+                })
+            }
+        },
     },
     created (){
         if(this.$localStorage.get('token') && !this.$store.state.isLogin){
@@ -162,4 +69,3 @@ let instance = new Vue({
         }
     },
 })
-window.__INSTANCE__ = instance

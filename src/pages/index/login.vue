@@ -11,21 +11,12 @@
 </template>
 
 <script>
+import {doLogin} from "@/server/index.js"
 export default{
     data (){
         return {
             phone:'',
             pwd:'',
-        }
-    },
-    watch:{
-        "$store.state.isLogin":{
-            immediate:true,
-            handler(isLogin){
-                if(isLogin){
-                    this.redirect()
-                }
-            },
         }
     },
     methods:{
@@ -44,20 +35,12 @@ export default{
                 phone,
                 pwd,
             }
-            this.$axios.post('/index/doLogin',data).then((json)=>{
+            doLogin(data).then((json)=>{
                 this.$store.commit('setToken',json.data.token);
                 this.$store.dispatch('getUserInfo')
             })
 
         },
-        redirect(){
-            this.$router.replace({
-                path:this.$route.query.redirect || '/'
-            })
-        }
-
-
     },
-
 }
 </script>

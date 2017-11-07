@@ -115,7 +115,7 @@ export default{
             
         }
     },
-    create_config:{
+    createConfig:{
         createLink:'/user/create_link',
         doCreateLink:'/user/docreate',
     },
@@ -171,18 +171,20 @@ export default{
             default:"test"
         }
     ],
-    baseUrl:"/user/list",
-    sortFields:['typ'],
-    async treatData(data){
-        if(!cache['typCfg']){
-            let {data:typCfg} = await getTypConfig();
-            cache['typCfg'] = typCfg
-        }
+    listConfig:{
+        baseUrl:"/user/list",
+        sortFields:['typ'],
+        async treatData(data){
+            if(!cache['typCfg']){
+                let {data:typCfg} = await getTypConfig();
+                cache['typCfg'] = typCfg
+            }
 
-        data.forEach((item)=>{
-            item['typ'] = cache['typCfg'][item['typ']];
-        })
-        return data
+            data.forEach((item)=>{
+                item['typ'] = cache['typCfg'][item['typ']];
+            })
+            return data
+        },
     },
     operators:[
         {

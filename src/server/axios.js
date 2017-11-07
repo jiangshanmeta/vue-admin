@@ -1,6 +1,9 @@
 import axios from 'axios'
 import qs from 'qs'
 import Vue from "vue"
+import store from "@/store"
+import router from "@/router"
+
 let axiosIns = axios.create({});
 axiosIns.defaults.baseURL = process.env.baseUrl;
 axiosIns.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest'
@@ -32,10 +35,10 @@ axiosIns.interceptors.response.use(function(response){
         return Promise.reject(response);
     }else{
         if(status===412){
-            window.__INSTANCE__.$store.dispatch('doLogout')
-            window.__INSTANCE__.$router.push({
+            store.dispatch('doLogout')
+            router.push({
                 path:'/index/login',
-                query:{'redirect':window.__INSTANCE__.$route.fullPath},
+                query:{'redirect':store.state.uri.path},
             })
         }
         return Promise.reject(response);
@@ -50,9 +53,8 @@ ajaxMethod.forEach((method)=>{
             axiosIns[method](uri,data,config).then((json)=>{
                 resolve(json);
             }).catch((response)=>{
-                console.log(response);
                 if(response.status===200 && response.data.rstno<0){
-                    window.__INSTANCE__.$message(response.data.data.err.msg);
+                    Vue.prototype.$message(response.data.data.err.msg)
                 }
             })
         })

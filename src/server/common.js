@@ -48,6 +48,12 @@ function getDetailInfo(vm,cb){
     })
 }
 
+function getListInfo(vm,data,cb){
+    axios.get(`${vm.baseUrl}`,{params:data}).then((json)=>{
+        cb(json.data);
+    })
+}
+
 export {
     getAsyncCandidate,
     getRelatesCandidate,
@@ -57,4 +63,5 @@ export {
     doEdit,
     doDelete,
     getDetailInfo,
+    getListInfo,
 }

@@ -2,10 +2,7 @@
 <section>
     <create
         :field_list="field_list"
-        :createLink="create_config.createLink"
-        :doCreateLink="create_config.doCreateLink"
-        :getInfoRequest="create_config.getInfoRequest"
-        :doCreateRequest="create_config.doCreateRequest"
+        v-bind="createConfig"
     ></create>
 
     <filters
@@ -15,12 +12,9 @@
     ></filters>
 
     <list-info
-        :baseUrl="baseUrl"
-        :pageSize="pageSize"
-        :sortFields="sortFields"
         :field_list="field_list"
         :filters="filters"
-        :treatData="treatData"
+        v-bind="listConfig"
         ref="listInfo"
     >
         <template slot-scope="scope">

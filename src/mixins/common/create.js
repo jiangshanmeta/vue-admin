@@ -2,7 +2,7 @@ export default {
     data(){
         return {
             field_list:{},
-            create_config:{},
+            createConfig:{},
         }
     },
     methods:{
@@ -10,9 +10,9 @@ export default {
             this.field_list = {};
         },
         init_create(model){
-            let {field_list={},create_config={}} = model;
+            let {field_list={},createConfig={}} = model;
             this.field_list = field_list;
-            this.create_config = create_config;
+            this.createConfig = createConfig;
         },
     }
 }

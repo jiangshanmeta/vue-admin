@@ -4,7 +4,7 @@
         新建
     </el-button>
     <el-dialog
-        title="创建"
+        :title="title"
         :visible.sync="isShowCreatebox"
         size="large"
 
@@ -52,6 +52,10 @@ export default{
         doCreateRequest:{
             type:Function,
             default:doCreate
+        },
+        title:{
+            type:String,
+            default:"创建"
         }
     },
     watch:{
