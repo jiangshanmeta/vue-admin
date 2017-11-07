@@ -9,11 +9,6 @@ export default{
                     default:'',
                 }
             },
-            // editor:'field_string',
-            // editorConfig:{
-            //     placeholder:'请输入客户名',
-            //     default:'',
-            // },
         },
         totalprice:{
             label:'金额',
@@ -23,18 +18,12 @@ export default{
                     default:0,
                 }
             },
-            // editor:'field_number',
-            // editorConfig:{
-            //     default:0,
-            // },
-            
         },
         address:{
             label:"收货地址",
             editorComponent:{
                 name:"field_text",
             },
-            // editor:"field_text",
         },
         store:{
             label:"店铺",
@@ -47,13 +36,6 @@ export default{
                     valuefield:"_id",
                 }
             },
-            // editor:"field_async_enum_select",
-            // editorConfig:{
-            //     default:"",
-            //     uri:"/book/storeList",
-            //     labelfield:"storename",
-            //     valuefield:"_id",
-            // },
         },
         saler:{
             label:"销售",
@@ -70,17 +52,6 @@ export default{
                     uri:"book/salerList",
                 }
             },
-            // editor:"field_relates_enum_select",
-            // editorConfig:{
-            //     relates:{
-            //         store:{
-            //             inValidValue:"",
-            //             relatefield:"store"
-            //         }
-            //     },
-            //     default:"",
-            //     uri:"book/salerList",
-            // },
         },
     },
     createConfig:{

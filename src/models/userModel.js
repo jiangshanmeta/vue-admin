@@ -15,13 +15,6 @@ export default{
                     default:'',
                 },
             },
-            // editor:'username',
-            // editorConfig:{
-            //     placeholder:'请输入用户名',
-            //     msg:"测试传入业务editor",
-            //     default:'',
-            // },
-            // editorComponentPath:"components/user/username",
             showComponent:{
                 name:"showusername",
                 path:"components/user/showusername",
@@ -50,11 +43,6 @@ export default{
                     default:'',
                 }
             },
-            // editor:'field_pwd',
-            // editorConfig:{
-            //     placeholder:'请输入密码',
-            //     default:'',
-            // },
             validator:[
                 {
                     validator(rule,value,cb){
@@ -76,11 +64,6 @@ export default{
                     default:0,
                 }
             },
-
-            // editor:'field_sex',
-            // editorConfig:{
-            //     default:0,
-            // },
             showComponent:{
                 name:"showgender",
                 path:"components/user/showgender",
@@ -111,20 +94,6 @@ export default{
                     labelfield:'label',
                 }
             },
-            // editor:'field_enum_select',
-            // editorConfig:{
-            //     candidate:[
-            //         {value:0,label:'路人甲'},
-            //         {value:1,label:'店小二'},
-            //         {value:2,label:'收银员'},
-            //         {value:99,label:'店掌柜'},
-            //         {value:999,label:'管理员'},
-            //     ],
-            //     default:0,
-            //     valuefield:'value',
-            //     labelfield:'label',
-            // },
-
         },
         privilege:{
             label:'权限',
@@ -145,21 +114,6 @@ export default{
                     },
                 }
             },
-            // editor:"field_relates_tag",
-            // editorConfig:{
-            //     uri:'/user/getPrivilege',
-            //     labelfield:'name',
-            //     valuefield:'id',
-            //     relates:{
-            //         usertyp:{
-            //             inValidValue:0,
-            //             relatefield:'typ'
-            //         }
-            //     },
-            //     default(){
-            //         return [];
-            //     },
-            // },
         },
         desc:{
             label:"备注",
@@ -169,11 +123,6 @@ export default{
                     default:"这是富文本编辑器蛤",
                 }
             },
-            // editor:"field_text_rich",
-            // editorConfig:{
-            //     default:"这是富文本编辑器蛤",
-            // }
-            
         }
     },
     createConfig:{
