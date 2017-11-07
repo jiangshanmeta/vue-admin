@@ -13,8 +13,8 @@ export default{
                 default:'',
             },
             editorComponentPath:"components/user/username",
-            showcomponent:{
-                component:"showusername",
+            showComponent:{
+                name:"showusername",
                 path:"components/user/showusername",
                 config:{
                     msg:"测试列表页组件形式展示"
@@ -58,8 +58,8 @@ export default{
             editorConfig:{
                 default:0,
             },
-            showcomponent:{
-                component:"showgender",
+            showComponent:{
+                name:"showgender",
                 path:"components/user/showgender",
                 config:{
                     genderCfg:{

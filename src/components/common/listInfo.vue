@@ -14,14 +14,14 @@
                 :sortable="sortFields.includes[field]?'custom':false"
             >
                 <template slot-scope="scope" >
-                    <template v-if="!field_list[field].showcomponent">
+                    <template v-if="!field_list[field].showComponent">
                         {{scope.row[field]}}
                     </template>
                     <component 
                         v-else
-                        :is="field_list[field]['showcomponent']['component']"
+                        :is="field_list[field]['showComponent']['name']"
                         :data="scope.row[field]"
-                        v-bind="mergeAttrsConfig(field_list[field]['showcomponent']['config'])"
+                        v-bind="mergeAttrsConfig(field_list[field]['showComponent']['config'])"
                         
                     >
                     </component>
@@ -114,7 +114,7 @@ export default{
         hasAsyncComponent(){
             let keys = Object.keys(this.field_list);
             for(let item of keys){
-                if(this.field_list[item]['showcomponent']){
+                if(this.field_list[item]['showComponent']){
                     return true;
                 }
             }
@@ -122,13 +122,13 @@ export default{
         },
     },
     methods:{
-        importShowComponent(){
+        importshowComponent(){
             if(this.hasAsyncComponent){
                 let keys = Object.keys(this.field_list);
                 let components = [];
                 for(let item of keys){
-                    if(this.field_list[item]['showcomponent']){
-                        components.push(this.field_list[item]['showcomponent']['path']);
+                    if(this.field_list[item]['showComponent']){
+                        components.push(this.field_list[item]['showComponent']['path']);
                     }
                 }
 
@@ -197,7 +197,7 @@ export default{
             this.total = 0;
             this.data = [];
             this.isComponentsLoaded = false;
-            this.importShowComponent();
+            this.importshowComponent();
 
             if(newBaseUrl){
                 // 保证如果有filters，filters得到实例化

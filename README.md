@@ -37,12 +37,12 @@ label描述是这个字段的展示名
 
 editor描述表明该字段在新建和编辑时所需要的表单组件，可以根据[这个说明选择相应的表单元素组件](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)。editorConfig是对editor的配置项，它应为一个对象，editorConfig的每一项应与editor的一个props属性对应。项目提供了一些通用editor，你也可以使用自己的业务editor，只需使用editorComponentPath声明文件相对于src目录的位置即可。(正在纠结要不要把这三个字段合并到一个字段之下TODO)
 
-showcomponent是展示时对应的组件，他用在列表页和详情模态框中(info组件)。它的声明格式如下：
+showComponent是展示时对应的组件，他用在列表页和详情模态框中(info组件)。它的声明格式如下：
 
 ```javascript
-showcomponent:{
+showComponent:{
     // 组件名
-    component:"showusername",
+    name:"showusername",
     // 组件路径
     path:"components/user/showusername",
     // 配置项，一个配置项对应一个props

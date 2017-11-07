@@ -22,14 +22,14 @@
                     <template v-for="item in row">
                         <td>{{field_list[item.field]['label']}}</td>
                         <td :colspan="row.length===1?3:1">
-                            <template v-if="!field_list[item.field]['showcomponent']">
+                            <template v-if="!field_list[item.field]['showComponent']">
                                 {{item.value}}
                             </template>
                             <component
                                 v-else
-                                :is="field_list[item.field]['showcomponent']['component']"
+                                :is="field_list[item.field]['showComponent']['name']"
                                 :data="item.value"
-                                v-bind="mergeAttrsConfig(field_list[item.field]['showcomponent']['config'])"
+                                v-bind="mergeAttrsConfig(field_list[item.field]['showComponent']['config'])"
                             ></component>
                         </td>
                     </template>
@@ -85,7 +85,7 @@ export default{
         hasAsyncComponent(){
             let keys = Object.keys(this.field_list);
             for(let item of keys){
-                if(this.field_list[item]['showcomponent']){
+                if(this.field_list[item]['showComponent']){
                     return true;
                 }
             }
@@ -95,7 +95,7 @@ export default{
     methods:{
         handleClick(){
             if(!this.isComponentsLoaded){
-                this.importShowComponent();
+                this.importshowComponent();
             }
 
             new Promise((resolve,reject)=>{
@@ -105,13 +105,13 @@ export default{
                 this.isShowLightbox = true;
             }).catch(noop);
         },
-        importShowComponent(){
+        importshowComponent(){
             if(this.hasAsyncComponent){
                 let keys = Object.keys(this.field_list);
                 let components = [];
                 for(let item of keys){
-                    if(this.field_list[item]['showcomponent']){
-                        components.push(this.field_list[item]['showcomponent']['path']);
+                    if(this.field_list[item]['showComponent']){
+                        components.push(this.field_list[item]['showComponent']['path']);
                     }
                 }
 
