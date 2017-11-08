@@ -41,12 +41,12 @@ export default{
             editorComponent:{
                 name:"field_relates_enum_select",
                 config:{
-                    relates:{
-                        store:{
-                            inValidValue:"",
-                            relatefield:"store"
+                    relates:[
+                        {
+                            invalidValue:"",
+                            relateField:"store",
                         }
-                    },
+                    ],
                     uri:"book/salerList",
                 },
                 default:"",

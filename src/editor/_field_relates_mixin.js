@@ -1,10 +1,15 @@
 import {getRelatesCandidate} from "@/server/common.js"
+
+function noop(){
+
+}
+
 export default{
     props:{
         relates:{
-            type:Object,
+            type:Array,
             default:function(){
-                return {}
+                return []
             }
         },
         uri:{
@@ -15,6 +20,15 @@ export default{
             type:Function,
             default:getRelatesCandidate,
         },
+        labelfield:{
+            type:String,
+            default:'label',
+        },
+        valuefield:{
+            type:String,
+            default:'value',
+        }
+        
     },
     methods:{
         getOptions(){
@@ -22,72 +36,57 @@ export default{
                 return;
             }
 
-            let keys = this.cacheKeys;
-            let query = keys.reduce((obj,item)=>{
-                obj[this.relates[item]['field']?this.relates[item]['field']:item] = this.relates[item]['value'];
+            let query = this.relates.reduce((obj,item)=>{
+                let key = item.hasOwnProperty('requestField')?item.requestField : item.relateField;
+                obj[key] = item.value;
                 return obj;
             },{})
 
             new Promise((resolve,reject)=>{
-
                 this.httpRequest(this,query,resolve)
             }).then((candidate)=>{
                 this.setCacheOptions(candidate)
-            }).catch(()=>{
-
-            })
+            }).catch(noop)
 
         },
         setCacheOptions(options){
-            let keys = this.cacheKeys;
             let start = this.optionsCache;
+            let len = this.relates.length;
             let counter = 0;
-            let len = keys.length;
             while(counter<len-1){
-                let cacheKey = this.relates[keys[counter++]]['value'];
+                let cacheKey = this.relates[counter++]['value'];
                 if(!start.hasOwnProperty(cacheKey)){
                     this.$set(start,cacheKey,{});
                 }
-                
                 start = start[cacheKey];
             }
-            this.$set(start,this.relates[keys[len-1]]['value'],options);
+            this.$set(start,this.relates[len-1]['value'],options);
         },
     },
     computed:{
-        cacheKeys(){
-            return Object.keys(this.relates);
-        },
         finalOptions(){
             if(!this.hasValidIds || !this.hasCachedOptions ){
                 return [];
             }
-            let keys = this.cacheKeys;
-            let length = keys.length;
+            let length = this.relates.length;
             let counter = 0;
             let start = this.optionsCache;
             while(counter<length){
-                start = start[this.relates[keys[counter++]]['value'] ];
+                start = start[this.relates[counter++]['value'] ];
             }
             return start;
         },
         allOptions(){
-
-            let keys = this.cacheKeys;
-            let level = keys.length;
+            let level = this.relates.length;
             let counter = 0;
 
-            let levelTree = {};
+            let levelTree = [];
             levelTree[0] = [this.optionsCache];
 
             while(counter < level){
                 levelTree[counter+1] = levelTree[counter].reduce((arr,item)=>{
-                    let child = Object.keys(item).map((childkey)=>{
-                        return item[childkey];
-                    });
-
-                    let newArr = [...arr,...child];
-                    return newArr;
+                    let child = Object.values(item);
+                    return arr.concat(child);
                 },[]);
                 counter++;
             }
@@ -105,29 +104,21 @@ export default{
             return Object.values(rst);
         },
         hasValidIds(){
-            let keys = this.cacheKeys;
-            let len = keys.length;
-            let counter = 0;
-            while(counter < len){
-                let relateId = this.relates[keys[counter]]['value'];
-                let inValidValue = this.relates[keys[counter]]['inValidValue']
-                if(relateId === inValidValue){
+            for(let item of this.relates){
+                if(item.value === item.invalidValue){
                     return false;
                 }
-                counter++;
             }
-
             return true;
         },
         hasCachedOptions(){
             let start = this.optionsCache;
-            let keys = this.cacheKeys;
-            let len = keys.length;
+            let len = this.relates.length;
             let counter = 0;
             let relateId;
 
             while(counter<len){
-                relateId = this.relates[keys[counter++]]['value'];
+                relateId = this.relates[counter++]['value'];
                 if(!start.hasOwnProperty(relateId)){
                     return false;
                 }

@@ -183,15 +183,15 @@ export default{
             {valuefield:3,label:"drei"},
             {valuefield:4,label:"fuer"},
         ],
-        field_relates_enum_radio_relates:{
-            "bool":{
-                relatefield:"field_bool",
+        field_relates_enum_radio_relates:[
+            {
+                relateField:"field_bool"
             },
-            "ppp":{
-                relatefield:"field_enum_radio"
+            {
+                relateField:"field_enum_radio"
             }
-        },
 
+        ]
 
 
     },

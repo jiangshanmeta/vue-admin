@@ -113,18 +113,21 @@ export default{
             {id:5,name:"simple"},
             {id:6,name:"naive"}
         ],
-        field_relates_tag_relates:{
-            "sex":{
-                relatefield:"relates",
-                inValidValue:""
+        field_relates_tag_relates:[
+            {
+                relateField:"relates",
+                invalidValue:"",
+                requestField:"sex"
             },
-        },
-        field_relates_model_relates:{
-            "sex":{
-                relatefield:"relates",
-                inValidValue:""
+        ],
+        field_relates_model_relates:[
+            {
+                relateField:"relates",
+                invalidValue:"",
+                requestField:"sex"
             },
-        }
+
+        ],
     },
     components:{
         field_tag,

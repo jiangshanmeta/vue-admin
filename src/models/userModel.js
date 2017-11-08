@@ -101,12 +101,13 @@ export default{
                     uri:'/user/getPrivilege',
                     labelfield:'name',
                     valuefield:'id',
-                    relates:{
-                        usertyp:{
-                            inValidValue:0,
-                            relatefield:'typ'
+                    relates:[
+                        {
+                            invalidValue:0,
+                            relateField:'typ',
+                            requestField:'req_typ',
                         }
-                    },
+                    ],
                 },
                 default(){
                     return [];

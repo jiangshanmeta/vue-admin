@@ -1,12 +1,10 @@
 export function observe_relates(relates,context){
-    let keys = Object.keys(relates);
-    keys.forEach(function(item){
-        observe_item(relates[item],context)
-    });
-
+    relates.forEach(function(item){
+        observe_item(item,context)
+    })
 }
 
-export function observe_item(item,context,field=item.relatefield){
+export function observe_item(item,context,field=item.relateField){
     Object.defineProperty(item,'value',{
         get:function(){
             return context[field]

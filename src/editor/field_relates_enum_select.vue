@@ -3,6 +3,8 @@
         v-model="model"
         :candidate="finalOptions"
         v-bind="$attrs"
+        :labelfield="labelfield"
+        :valuefield="valuefield"
     >
         <template v-if="$slots.default">
             <slot></slot>
