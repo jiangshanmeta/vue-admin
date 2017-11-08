@@ -35,11 +35,7 @@ field_list是一个字段集合，每一个键是对应的字段名，值是关�
 
 label描述是这个字段的展示名
 
-<del>editor描述表明该字段在新建和编辑时所需要的表单组件，可以根据[这个说明选择相应的表单元素组件](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)。editorConfig是对editor的配置项，它应为一个对象，editorConfig的每一项应与editor的一个props属性对应。项目提供了一些通用editor，你也可以使用自己的业务editor，只需使用editorComponentPath声明文件相对于src目录的位置即可。(正在纠结要不要把这三个字段合并到一个字段之下TODO)</del>
-
-editorComponent是这个字段编辑相关的配置，包括name(组件名),config(对组件的配置项),path(自定义组件的路径)。我提供了一些[通用业务组件](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)
-
-
+editorComponent是这个字段编辑相关的配置，包括name(组件名),config(对组件的配置项),path(自定义组件的路径),default(默认值)。我提供了一些[通用业务组件](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)
 
 showComponent是展示时对应的组件，他用在列表页和详情模态框中(info组件)。它的声明格式如下：
 
@@ -58,7 +54,7 @@ showComponent:{
 
 validator 表单验证用的
 
-
+tip是展示在表单元素下面的用来提示用户的信息。
 
 ## filters
 
@@ -68,11 +64,9 @@ label属性类似于field_list中的label属性，仅仅是展示名
 
 field是筛选时请求query传参的key
 
-editor是筛选框需要的表单组件，和field_list的editor描述类似。但是filters有一些特有的表单元素(editor目录下以*filter_*开头的组件)，它们都是单选，但是允许一个不限选项，这几个组件需要我们填写allvalue和alllabel，前者默认值是空字符串，后者默认值是 "不限"两个字。对其配置项为config属性，它应为一个对象，每一项对应一个组件的props。
+editorComponent与field_list中的editorComponent一致。
 
-filters的default目测用不到引用类型，但是default为函数依然是有用处的，比如筛选时间时默认时间为三天前。
-
-filters也支持你传入自定义的业务filter，只需利用componentPath声明文件路径即可，对其配置依然是声明在config中。
+filters也支持你传入自定义的业务filter，只需要在editorComponent中声明path属性即可。
 
 ## operators
 
@@ -129,18 +123,18 @@ operators会自动通知列表组件状态更新，剩下的更新列表就和�
 * <del>传图、传文件，这个任务依然要基于element-ui，主要是对应的后端的代码我还没有写。</del>
 * <del>优化列表显示。目前列表的treatData方法只能做一些数据处理，比如说一些映射操作。一些特殊的字段，比如一组图片的地址，界面上应该显示的是图片，但是目前只能支持显示图片地址。这个实现上可以参考 operators组件。 (done)  </del>
 * operators以及edit组件的优化。目前是一条记录对应一个operators组件以及一个edit组件，其对应的子组件数量可能很多(目前edit组件就是这样)，尝试这些子组件被共享使用。
-* 去除vuex。在这个项目中vuex用处并不大，几个共享的状态其实可以直接放在根vue实例上。
+* 去除vuex。在这个项目中vuex用处并不大，几个共享的状态其实可以直接放在根vue实例上。(似乎vuex还是有点用的)
 * <del>表单前端验证</del>采用[这个表单验证库](https://github.com/yiminghe/async-validator)，然而我考虑自己写一个(一个大TODO)
 * <del>editor允许通过field_list声明业务editor，类似于opeartor组件的声明方式。(done)</del>
 * <del>[对应后端php代码](https://github.com/jiangshanmeta/CodeIgniter)</del>由于前端大改过一次后端代码没有对应修改，暂时不能使用。
 * <del>允许filters传入用户自定义filter</del>
 * <del>允许有ajax操作的editor传入自定义ajax方法。(done)</del>
 * <del>筛选组件配置按照field_list的改</del>
-* 更新field_relates_*组件
+* <del>更新field_relates_*组件</del>
 
 ## 后端接口
 
-虽然这是个前端项目但我依然规定了后端接口的格式，毕竟统一的接口规范对大家来说都是件好事。这个接口规范只是推荐，我支持了自定义请求方法，只要最后结果满足需求即可。
+虽然这是个前端项目但我依然规定了后端接口的格式，毕竟统一的接口规范对大家来说都是件好事。这个接口规范只是推荐，默认请求是按照这个接口规范来的，我支持了自定义请求方法，只要最后结果满足需求即可。
 
 #### 列表
 

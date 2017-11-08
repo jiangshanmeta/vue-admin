@@ -49,15 +49,16 @@ editor组件还做了一件事，为关联查询组件(那一堆带有relates字
 关联组件的关联关系声明示例如下：
 
 ```javascript
-relates:{
-    usertyp:{
-        inValidValue:0,
-        relatefield:'typ'
+relates:[
+    {
+        invalidValue:0,
+        relateField:'typ',
+        requestField:'req_typ',
     }
-},
+],
 ```
 
-这里的含义是某个字段与typ字段相关联，该字段GET请求查询时query的key是usertyp，同时在typ的值不为0的时候才会发送请求。关联组件内部做了优化，可以缓存请求的结果，减少关联查询数量。目前一个字段可以有多个相关联的字段。
+这里的含义是某个字段与typ字段相关联，该字段GET请求查询时query的key是req_typ(如果没有requestField，则请求的key是relateField，在这里是typ)，同时在typ的值不为0的时候才会发送请求。关联组件内部做了优化，可以缓存请求的结果，减少关联查询数量。目前一个字段可以有多个相关联的字段。
 
 
 ## filters
