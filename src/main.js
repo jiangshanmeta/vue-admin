@@ -8,6 +8,12 @@ Vue.use(VueCookie)
 import VueLocalStorage from 'vue-localstorage'
 Vue.use(VueLocalStorage)
 
+// 因为调用了Vue.mixin，会重写Vue.options，所以要在创建子类之前调用
+import "@/widget/vue-config.js"
+
+import router from './router'
+import store from "./store"
+
 import axios from "@/server/axios.js"
 Object.defineProperty(Vue.prototype,'$axios',{
     value:axios
@@ -23,11 +29,6 @@ import 'echarts'
 import ECharts from 'vue-echarts/components/ECharts.vue'
 Vue.component('chart', ECharts)
 
-import "@/widget/vue-config.js"
-
-import router from './router'
-import store from "./store"
-
 Vue.config.productionTip = false
 
 import topNav from '@/components/common/topnav'
@@ -35,9 +36,9 @@ import sideMenu from "@/components/common/menu"
 import bottomFooter from "@/components/common/footer"
 import vueTitle from "@/widget/title.vue"
 
-import './assets/css/bootstrap-grid.min.css';
-import './assets/css/bootstrap-reboot.min.css';
-import './assets/css/lib.css';
+import '@/assets/css/bootstrap-grid.min.css';
+import '@/assets/css/bootstrap-reboot.min.css';
+import '@/assets/css/lib.css';
 
 /* eslint-disable no-new */
 let instance = new Vue({
