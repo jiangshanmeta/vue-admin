@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import {doLogin} from "@/server/index.js"
 export default{
     data (){
         return {
@@ -35,11 +34,7 @@ export default{
                 phone,
                 pwd,
             }
-            doLogin(data).then((json)=>{
-                this.$store.commit('setToken',json.data.token);
-                this.$store.dispatch('getUserInfo')
-            })
-
+            this.$store.dispatch('doLogin',data);
         },
     },
 }

@@ -62,7 +62,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
     let gotoLogon = false;
     if(to.query.redirect){
-        store.commit('setRedirect',to.query.redirect);
+        store.commit('uri/setRedirect',to.query.redirect);
     }
 
     if (to.meta && to.meta.privilege && Array.isArray(to.meta.privilege)) {
@@ -80,12 +80,11 @@ router.beforeEach((to, from, next) => {
             gotoLogon = true;
         }
     }
-
+    let title = "admin";
     if(to.meta && to.meta.title){
-        store.commit("updateTitie",to.meta.title)
-    }else{
-        store.commit("updateTitie","admin")
+        title = to.meta.title
     }
+    store.commit("title/updateTitie",title);
 
     if(gotoLogon){
         next({
@@ -94,7 +93,7 @@ router.beforeEach((to, from, next) => {
         })
     }else{
         let uriarr = to.path.replace(/^\//,'').split('/')
-        store.commit('updateUri',{
+        store.commit('uri/updateBasicUri',{
             controller_name:uriarr[0],
             method_name:uriarr[1],
             path:to.path,

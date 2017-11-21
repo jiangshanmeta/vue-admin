@@ -3,62 +3,50 @@ import Vuex from "vuex"
 
 Vue.use(Vuex);
 
-import {doLogout,getUserInfo} from "@/server/index.js"
+import {doLogin,getUserInfo,doLogout} from "@/server/index.js"
+
+import title from "./title.js"
+import uri from "./uri.js"
+import userInfo from "./userInfo.js"
+
 export default new Vuex.Store({
+    modules:{
+        title,
+        uri,
+        userInfo,
+    },
     state:{
         isLogin:false,
-        uri:{
-            controller_name:'',
-            method_name:'',
-            path:'',
-            redirect:'',
-        },
-        userInfo:{
-            name:'',
-            privilege:[],
-        },
-        title:"admin",
     },
     mutations:{
-        updateUri(state,payload){
-            state.uri.controller_name = payload.controller_name;
-            state.uri.method_name = payload.method_name;
-            state.uri.path = payload.path;
+        setLogin(state){
+            state.isLogin = true;
         },
-        updateTitie(state,title){
-            state.title = title;
-        },
-        setRedirect(state,redirect){
-            state.uri.redirect = redirect;
-        },
-        setToken (state,token){
-            Vue.localStorage.set('token',token)
-        },
-        doLogout (state){
+        setLogout (state){
             Vue.localStorage.remove('token')
             state.isLogin = false;
-            state.userInfo.name = '';
-            state.userInfo.privilege = [];
-            state.uri.redirect = '';
-        },
-        getUserInfo (state,data){
-            let keys = Object.keys(data);
-            keys.forEach((key)=>{
-                state['userInfo'][key] = data[key]
-            })
-            state.isLogin = true;
         },
     },
     actions:{
-        doLogout({commit}){
-            return doLogout().then(()=>{
-                commit('doLogout')
+        doLogin({dispatch},data){
+            doLogin(data).then((json)=>{
+                Vue.localStorage.set('token',json.data.token);
+                dispatch('getUserInfo')
             })
         },
         getUserInfo({commit}){
             return getUserInfo().then((json)=>{
-                commit('getUserInfo',json.data);
+                commit('setLogin');
+                commit('userInfo/initUserInfo',json.data);
             })
-        }
+        },
+        doLogout({commit}){
+            return doLogout().then(()=>{
+                commit('setLogout');
+                commit('userInfo/resetUserInfo');
+                commit('uri/setRedirect');
+            })
+        },
+
     },
 })
