@@ -31,10 +31,7 @@ Vue.component('chart', ECharts)
 
 Vue.config.productionTip = false
 
-import topNav from '@/components/common/topnav'
-import sideMenu from "@/components/common/menu"
-import bottomFooter from "@/components/common/footer"
-import vueTitle from "@/widget/title.vue"
+import App from './App'
 
 import '@/assets/css/bootstrap-grid.min.css';
 import '@/assets/css/bootstrap-reboot.min.css';
@@ -45,28 +42,10 @@ let instance = new Vue({
     el: '#app',
     router,
     store,
-    components: {
-        topNav,
-        sideMenu,
-        bottomFooter,
-        vueTitle,
+    render(h){
+        return h('App');
     },
-    watch:{
-        "$store.state.isLogin"(isLogin){
-            if(isLogin){
-                this.$router.replace({
-                    path:this.$store.state.uri.redirect || '/'
-                })
-            }else{
-                this.$router.push({
-                    path:'/index/login'
-                })
-            }
-        },
-    },
-    created (){
-        if(this.$localStorage.get('token') && !this.$store.state.isLogin){
-            this.$store.dispatch('getUserInfo')
-        }
+    components:{
+        App,
     },
 })

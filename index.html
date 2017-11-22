@@ -2,33 +2,10 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>admin</title>
     </head>
     <body>
-        <div id="app" style="min-height:100vh;display:flex;flex-direction:column;">
-            <vue-title v-cloak>{{$store.state.title.title}}</vue-title>
-            <top-nav></top-nav>
-
-            <div style="flex-grow:1;display:flex;max-width:100%;">
-                <side-menu 
-                    style="flex:0 0 auto;"
-                    :uri="$store.state.uri.path"
-                    :is-login="$store.state.isLogin"
-                    :privilege="$store.state.userInfo.privilege"
-                ></side-menu>
-                <main style="flex:1 1 auto;max-width:100%;padding:15px;">
-                    <router-view ></router-view>
-                </main>
-            </div>
-
-            <bottom-footer></bottom-footer>
-
-        </div>
-
-        <style>
-            [v-cloak] {
-                display: none;
-            }
-        </style>
+        <div id="app"></div>
     </body>
 </html>
