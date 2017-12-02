@@ -20,6 +20,16 @@
                 </td>
             </tr>
             <tr>
+                <td>field_int</td>
+                <td>{{field_int}}</td>
+                <td>
+                    <field_int
+                        v-model="field_int"
+                        placeholder="sssss"
+                    ></field_int>
+                </td>
+            </tr>
+            <tr>
                 <td>field_string</td>
                 <td>{{field_string}}</td>
                 <td>
@@ -56,6 +66,7 @@
 
 <script>
 import field_number from "@/editor/field_number"
+import field_int from "@/editor/field_int"
 import field_string from "@/editor/field_string"
 import field_text from "@/editor/field_text"
 import field_pwd from "@/editor/field_pwd"
@@ -63,6 +74,7 @@ import field_pwd from "@/editor/field_pwd"
 export default{
     components:{
         field_number,
+        field_int,
         field_string,
         field_text,
         field_pwd,
@@ -70,6 +82,7 @@ export default{
     data(){
         return {
             field_number:0,
+            field_int:0,
             field_string:"",
             field_text:"",
             field_pwd:"",

@@ -4,8 +4,8 @@
   "description": "admin",
   "author": "jsmeta",
   "private": true,
-  "config":{
-    "baseUrl":"http://localhost:8080/mock"
+  "config": {
+    "baseUrl": "http://localhost:8080/mock"
   },
   "scripts": {
     "dev": "node build/dev-server.js",
