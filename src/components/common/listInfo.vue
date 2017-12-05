@@ -108,6 +108,22 @@ export default{
         listRequest:{
             type:Function,
             default:getListInfo,
+        },
+        pageIndexReqName:{
+            type:String,
+            default:"pageIndex",
+        },
+        pageSizeReqName:{
+            type:String,
+            default:"pageSize",
+        },
+        sortFieldReqName:{
+            type:String,
+            default:"sortField",
+        },
+        sortOrderReqName:{
+            type:String,
+            default:"sortOrder",
         }
     },
     computed:{
@@ -168,10 +184,10 @@ export default{
                 params = Object.assign(params,this.$parent.$refs[this.filtersname].formData);
             }
 
-            params['pageIndex'] = this.pageIndex;
-            params['pageSize'] = this.pageSize;
-            params['sortField'] = this.sortField;
-            params['sortOrder'] = this.sortOrder;
+            params[this.pageIndexReqName] = this.pageIndex;
+            params[this.pageSizeReqName] = this.pageSize;
+            params[this.sortFieldReqName] = this.sortField;
+            params[this.sortOrderReqName] = this.sortOrder;
 
             return new Promise((resolve,reject)=>{
                 this.listRequest(this,params,resolve)

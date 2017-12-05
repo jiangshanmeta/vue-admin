@@ -22,7 +22,7 @@
 
 * filters，筛选组件的配置项。具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)，然后看下面的具体描述
 
-* listConfig，列表组件的配置项。包括baseUrl(列表项请求相对路径)、pageSize(每页几条数据)、sortFields(允许排序的字段)、treatData(用来处理得到的列表数据的方法，推荐async函数)、listRequest(自定义请求列表方法)。
+* listConfig，列表组件的配置项。包括baseUrl(列表项请求相对路径)、pageSize(每页几条数据)、sortFields(允许排序的字段)、treatData(用来处理得到的列表数据的方法，推荐async函数)、listRequest(自定义请求列表方法)、pageIndexReqName(请求时页数字段的请求名)、pageSizeReqName(请求时每页多少条记录的请求名)、sortFieldReqName(请求时排序字段名的请求名)、sortOrderReqName(请求时排序顺序的请求名)。
 
 * operators 操作集，具体使用方法在下面
 
