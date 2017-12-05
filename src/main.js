@@ -9,7 +9,9 @@ import VueLocalStorage from 'vue-localstorage'
 Vue.use(VueLocalStorage)
 
 // 因为调用了Vue.mixin，会重写Vue.options，所以要在创建子类之前调用
-import "@/widget/vue-config.js"
+// import "@/widget/vue-config.js"
+import VueConfig from "@/widget/vue-config.js"
+Vue.use(VueConfig)
 
 import router from './router'
 import store from "./store"
