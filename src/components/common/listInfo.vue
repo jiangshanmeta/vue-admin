@@ -41,7 +41,7 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page.sync="pageIndex"
-            :page-sizes="[10, 20, 30, 40]"
+            :page-sizes="pageSizes"
             :page-size="pageSize"
             layout="total, sizes, prev, pager, next, jumper"
             :total="total"
@@ -124,6 +124,12 @@ export default{
         sortOrderReqName:{
             type:String,
             default:"sortOrder",
+        },
+        pageSizes:{
+            type:Array,
+            default:function(){
+                return [10,20,30,40];
+            }
         }
     },
     computed:{

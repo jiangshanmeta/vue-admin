@@ -203,6 +203,7 @@ export default{
             })
             return data
         },
+        pageSizes:[10,20,30,50],
     },
     operators:[
         {
