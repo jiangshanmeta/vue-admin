@@ -26,7 +26,7 @@
             >
                 重置
             </el-button>
-            <slot></slot>
+            <slot :formData="formData"></slot>
         </el-form-item>
     </el-form>
 </template>

@@ -1,5 +1,15 @@
 <template>
     <section v-if="!hasAsyncComponent || isComponentsLoaded">
+        <filters
+            :filters="filters"
+            @search="getListInfo"
+            ref="filters"
+        >
+            <template slot-scope="scope" >
+                <slot name="filters" :formData="scope.formData"></slot>
+            </template>
+        </filters>
+        <slot name="afterFilters"></slot>
         <el-table
             v-if="data.length"
             :data="data"
@@ -33,7 +43,15 @@
                 :min-width="200"
             >
                 <template slot-scope="scope">
-                    <slot :data="scope.row" :index="scope.$index"></slot>
+                    <div class="operator-container">
+                        <operators
+                            :field_list="field_list"
+                            :operators="operators"
+                            :data="scope.row"
+                            :index="scope.$index"
+                            @update="getListInfo"
+                        ></operators>
+                    </div>
                 </template>
             </el-table-column>
         </el-table>
@@ -52,15 +70,24 @@
 </template>
 
 <script>
+import filters from "@/editor/filters.vue"
+import operators from "@/components/common/operators.vue"
+
+
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import {getListInfo} from "@/server/common.js"
 import {noop} from "@/helpers/utility.js"
+
 export default{
     mixins:[
         dynamicImportComponent,
         mergeAttrsConfig,
     ],
+    components:{
+        filters,
+        operators,
+    },
     data(){
         return {
             data:[],
@@ -73,20 +100,6 @@ export default{
         }
     },
     props:{
-        baseUrl:{
-            type:String,
-            required:true,
-        },
-        pageSize:{
-            type:Number,
-            default:20
-        },
-        sortFields:{
-            type:Array,
-            default:function(){
-                return [];
-            }
-        },
         field_list:{
             type:Object,
             required:true,
@@ -95,15 +108,15 @@ export default{
             type:Array,
             required:true,
         },
-        treatData:{
-            type:Function,
-            default:async (data)=>{
-                return data
+        sortFields:{
+            type:Array,
+            default:function(){
+                return [];
             }
         },
-        filtersname:{
+        baseUrl:{
             type:String,
-            default:"filters",
+            default:""
         },
         listRequest:{
             type:Function,
@@ -125,12 +138,28 @@ export default{
             type:String,
             default:"sortOrder",
         },
+        treatData:{
+            type:Function,
+            default:async (data)=>{
+                return data
+            }
+        },
+        operators:{
+            type:Array,
+            default:function(){
+                return [];
+            }
+        },
+        pageSize:{
+            type:Number,
+            default:20
+        },
         pageSizes:{
             type:Array,
             default:function(){
                 return [10,20,30,40];
             }
-        }
+        },
     },
     computed:{
         hasAsyncComponent(){
@@ -179,15 +208,28 @@ export default{
         },
         getListInfo(){
             if(!this.baseUrl){
-                return new Promise((resolve,reject)=>{
-
-                });
+                return;
             }
 
 
             let params = {};
-            if(this.filters.length && this.$parent.$refs[this.filtersname] ){
-                params = Object.assign(params,this.$parent.$refs[this.filtersname].formData);
+            // 有filters 要拿到filters的formData，所以需要等到filters组件实例化完成
+            if(this.filters.length && !this.$refs.filters){
+                // 这里之所以用setTimeout而不是$nextTick
+                // 是因为$nextTick会优先尝试使用Promise
+                // 当getListInfo作为microTask的一个任务时
+                // 会向同一个microTask push新任务
+                // 而挂载子组件到$refs上是作为macroTask的任务
+                // 于是会死循环
+                setTimeout(()=>{
+                    this.getListInfo();
+                },0)
+                return;
+
+            }
+
+            if(this.filters.length){
+                params = Object.assign(params,this.$refs.filters.formData)
             }
 
             params[this.pageIndexReqName] = this.pageIndex;
@@ -209,6 +251,7 @@ export default{
                     this.total = total;
                     this.data = data;
                 });
+
             }).catch(noop);
 
         },
@@ -222,10 +265,7 @@ export default{
             this.importshowComponent();
 
             if(newBaseUrl){
-                // 保证如果有filters，filters得到实例化
-                this.$nextTick(()=>{
-                    this.getListInfo();
-                })
+                this.getListInfo();
             }
         }
     },
@@ -233,3 +273,9 @@ export default{
 
 }
 </script>
+
+<style scoped>
+.operator-container{
+    white-space: nowrap;
+}
+</style>

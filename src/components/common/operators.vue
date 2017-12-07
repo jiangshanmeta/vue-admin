@@ -35,7 +35,9 @@ export default{
     props:{
         operators:{
             type:Array,
-            required:true,
+            default:function(){
+                return [];
+            }
         },
         data:{
             type:Object,

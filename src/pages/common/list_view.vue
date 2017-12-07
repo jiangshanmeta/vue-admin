@@ -1,98 +1,76 @@
 <template>
 <section>
-    <create
-        :field_list="field_list"
-        v-bind="createConfig"
-    ></create>
+    <slot name="beforeAll"></slot>
+    <section>
+        <create
+            :field_list="field_list"
+            v-bind="createConfig"
+        ></create>
+        <slot name="afterCreate"></slot>
+    </section>
 
-    <filters
-        :filters="filters"
-        @search="handleFilterSearch"
-        ref="filters"
-    ></filters>
-
+    <slot name="beforeList"></slot>
     <list-info
         :field_list="field_list"
         :filters="filters"
+        :operators="operators"
         v-bind="listConfig"
         ref="listInfo"
     >
-        <template slot-scope="scope">
-            <div class="operator-container">
-                <operators
-                    :field_list="field_list"
-                    :operators="operators"
-                    :data="scope.data"
-                    :index="scope.index"
-                    @update="handleOperatorUpdate"
-                ></operators>
-            </div>
+        <template slot="filters" slot-scope="scope">
+            <slot name="filters" :formData="scope.formData"></slot>
+        </template>
+        <template slot="afterFilters">
+            <slot name="afterFilters"></slot>
         </template>
     </list-info>
+    <slot name="afterAll"></slot>
 </section>
 </template>
 
 <script>
 import create from "@/components/common/create.vue"
-import create_mixin from "@/mixins/common/create.js"
-
-import filters from "@/editor/filters.vue"
-import filters_mixin from "@/mixins/common/filters"
-
 import listInfo from "@/components/common/listInfo.vue"
-import listInfo_mixin from "@/mixins/common/listInfo.js"
-
-import operators from "@/components/common/operators.vue"
-import operators_mixin from "@/mixins/common/operators.js"
-
 
 
 export default{
+    inheritAttrs:true,
     components:{
         create,
-        filters,
         listInfo,
-        operators,
     },
-    mixins:[
-        create_mixin,
-        filters_mixin,
-        listInfo_mixin,
-        operators_mixin,
-    ],
-    methods:{
-        init(){
-            this.reset_create();
-            this.reset_filters();
-            this.reset_listInfo();
-            this.reset_operators();
-        },
-        handleFilterSearch(){
-            this.$refs.listInfo.getListInfo();
-        },
-        handleOperatorUpdate(){
-            this.$refs.listInfo.getListInfo();
-        },
-    },
-    beforeRouteEnter(to, from, next){
-        next((vm)=>{
-            vm.init();
-            if(to.meta && to.meta.model){
-                import("@/models/" + to.meta.model + ".js").then((rst)=>{
-                    vm.init_create(rst.default);
-                    vm.init_filters(rst.default);
-                    vm.init_listInfo(rst.default);
-                    vm.init_operators(rst.default);
-                })
+    props:{
+        field_list:{
+            type:Object,
+            default:function(){
+                return {};
             }
-        })
+        },
+        createConfig:{
+            type:Object,
+            default:function(){
+                return {}
+            }
+        },
+        filters:{
+            type:Array,
+            default:function(){
+                return [];
+            }
+        },
+        listConfig:{
+            type:Object,
+            default:function(){
+                return {};
+            },
+        },
+        operators:{
+            type:Array,
+            default:function(){
+                return [];
+            }
+        }
     },
 }
 
 </script>
-
-<style scoped>
-.operator-container{
-    white-space: nowrap;
-}
-</style>

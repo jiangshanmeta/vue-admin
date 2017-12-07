@@ -22,7 +22,7 @@ export default [
         children:[
             {
                 path:'/crm/index',
-                component:()=>import('@/pages/common/list_view'),
+                component:()=>import('@/pages/common/listView.js'),
                 label:'客户列表',
                 meta:{
                     privilege:[1,999],
@@ -42,7 +42,7 @@ export default [
             {
                 path:"/book/index",
                 label:"订单列表",
-                component:()=>import('@/pages/common/list_view'),
+                component:()=>import('@/pages/book/index.js'),
                 meta:{
                     privilege:[73,999],
                     model:"bookModel",
