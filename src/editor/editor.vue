@@ -12,7 +12,12 @@
                         v-model="item.value" 
                         v-bind="mergeAttrsConfig(item.editorComponent.config)"
                     ></component>
-                    <p v-if="item.tip" class="form-helper">{{item.tip}}</p>
+                    <p 
+                        v-if="item.tip" 
+                        class="form-helper"
+                    >
+                        {{item.tip}}
+                    </p>
                     <p 
                         v-if="validators[item.field] && validators[item.field]['hasErr']"
                         class="text-danger form-helper"
@@ -76,6 +81,7 @@ export default{
             proxyFields:{},
             validators:{},
             isComponentsLoaded:false,
+            hasValidateListener:false,
         }
     },
     components:{
@@ -156,7 +162,7 @@ export default{
                 return this.validateField(field,this.formData[field]);
             });
 
-            if(!this.autoValidate){
+            if(!this.hasValidateListener){
                 keys.forEach((field)=>{
                     this.addValidateInputListener(field);
                 })
@@ -191,18 +197,8 @@ export default{
             },(value)=>{
                 this.validateField.call(this,field,value).catch(noop)
             })
-        }
-    },
-    watch:{
-        fields:{
-            immediate:true,
-            handler(newFields){
-                this.proxyFields = {};
-                this.validators = {};
-                this.isComponentsLoaded = false;
-
-                this.importEditor();
-
+        },
+        initRelates(newFields){
                 newFields.forEach((row)=>{
                     row.forEach((item)=>{
                         Object.defineProperty(this.proxyFields,item.field,{
@@ -215,33 +211,51 @@ export default{
                             enumerable:true,
                             configurable:true,
                         })
-                    })
-                });
 
-                newFields.forEach((row)=>{
-                    row.forEach((item)=>{
                         if(item.editorComponent && item.editorComponent.config && item.editorComponent.config.relates){
                             observe_relates(item.editorComponent.config.relates,this.proxyFields)
                         }
 
-                        if(item.validator){
-
-                            let asyncValidator = new AsyncValidator({[item.field]:item.validator});
-
-                            this.$set(this.validators,item.field,{
-                                hasErr:false,
-                                errMsg:'',
-                                validator:asyncValidator,
-                            })
-
-                            if(this.autoValidate){
-                                this.addValidateInputListener(item.field);
-                            }
-
-                        }
 
                     })
                 });
+        },
+        initValidate(newFields){
+            newFields.forEach((row)=>{
+                row.forEach((item)=>{
+                    if(item.validator){
+                        let asyncValidator = new AsyncValidator({[item.field]:item.validator});
+
+                        this.$set(this.validators,item.field,{
+                            hasErr:false,
+                            errMsg:'',
+                            validator:asyncValidator,
+                        })
+
+                        if(this.autoValidate){
+                            this.addValidateInputListener(item.field);
+                        }
+
+                    }
+
+                })
+            });
+            if(this.autoValidate){
+                this.hasValidateListener = true;
+            }
+        }
+    },
+    watch:{
+        fields:{
+            immediate:true,
+            handler(newFields){
+                this.proxyFields = {};
+                this.validators = {};
+                this.isComponentsLoaded = false;
+                this.hasValidateListener = false;
+                this.importEditor();
+                this.initRelates(newFields);
+                this.initValidate(newFields);
             }
         },
     },

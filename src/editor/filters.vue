@@ -22,7 +22,7 @@
             </el-button>
             <el-button
                 type="warning"
-                @click="reset"
+                @click="resetValue"
             >
                 重置
             </el-button>
@@ -87,7 +87,9 @@ export default{
         filters:{
             immediate:true,
             handler(newFilters){
-                this.reset()
+                this.isComponentsLoaded = false;
+                this.importFilter();
+                this.resetValue();
             },
         }
     },
@@ -108,8 +110,7 @@ export default{
         search(){
             this.$emit('search',this.formData);
         },
-        reset(){
-            this.isComponentsLoaded = false;
+        importFilter(){
             if(this.hasAsyncComponent){
                 let componentPaths = this.filters.reduce((arr,item)=>{
                     if(item.editorComponent.path){
@@ -122,6 +123,8 @@ export default{
                     this.isComponentsLoaded = true;
                 })
             }
+        },
+        resetValue(){
             this.filters.forEach((item)=>{
                 let defaultConfig = item.editorComponent.default;
                 let value = typeof defaultConfig === 'function'?defaultConfig():defaultConfig;
