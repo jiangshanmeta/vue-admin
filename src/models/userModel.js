@@ -156,15 +156,12 @@ export default{
                 },
                 default:-1,
             },
-            editor:"filter_enum",
-
-            
         },
         {
             label:"权限",
             field:"privilege",
             editorComponent:{
-                name:"filter_async_enum",
+                name:"filter_relates_enum",
                 config:{
                     uri:"/user/getPrivilege",
                     valuefield:"id",
@@ -172,6 +169,15 @@ export default{
                     placeholder:"请选择权限",
                     allvalue:"all",
                     alllabel:"不限",
+                    relates:[
+                        {
+                            invalidValue:-1,
+                            relateField:'typ',
+                            requestField:'req_typ',
+                        }
+                    ],
+
+
                 },
                 default:"all",
             },

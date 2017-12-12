@@ -36,6 +36,7 @@ import filter_enum from "./filter_enum.vue"
 import filter_async_enum from "./filter_async_enum.vue"
 import filter_model from "./filter_model.vue"
 import filter_async_model from "./filter_async_model.vue"
+import filter_relates_enum from "./filter_relates_enum.vue"
 
 import field_enum_select from "./field_enum_select.vue"
 import field_async_enum_select from "./field_async_enum_select.vue"
@@ -46,8 +47,12 @@ import field_month from "./field_month.vue"
 import field_day from "./field_day.vue"
 import field_string from "./field_string.vue"
 
+import field_relates_enum_select from "./field_relates_enum_select.vue"
+import field_relates_model from "./field_relates_model.vue"
+
 import field_number from "./field_number"
 
+import {observe_relates} from "./field_relates_helper.js"
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 export default{
@@ -62,6 +67,10 @@ export default{
         filter_async_enum,
         filter_model,
         filter_async_model,
+        filter_relates_enum,
+
+
+
         field_enum_select,
         field_async_enum_select,
         field_model,
@@ -71,10 +80,13 @@ export default{
         field_day,
         field_string,
         field_number,
+        field_relates_enum_select,
+        field_relates_model,
     },
     data(){
         return {
             isComponentsLoaded:false,
+            proxyFields:{},
         }
     },
     props:{
@@ -88,8 +100,10 @@ export default{
             immediate:true,
             handler(newFilters){
                 this.isComponentsLoaded = false;
+                this.proxyFields = {};
                 this.importFilter();
                 this.resetValue();
+                this.initRelates(newFilters);
             },
         }
     },
@@ -132,6 +146,23 @@ export default{
                 this.$set(item,'value',value);
             });
         },
+        initRelates(newFilters){
+            newFilters.forEach((item)=>{
+                Object.defineProperty(this.proxyFields,item.field,{
+                    get(){
+                        return item.value
+                    },
+                    set(){
+
+                    },
+                    enumerable:true,
+                    configurable:true,
+                });
+                if(item.editorComponent && item.editorComponent.config && item.editorComponent.config.relates){
+                    observe_relates(item.editorComponent.config.relates,this.proxyFields)
+                }
+            })
+        }
     }
 }
 </script>
