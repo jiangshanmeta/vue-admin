@@ -56,6 +56,13 @@ export default{
         title:{
             type:String,
             default:"创建"
+        },
+        transformData:{
+            type:Function,
+            default:function(data){
+                console.log(data)
+                return data;
+            }
         }
     },
     watch:{
@@ -118,7 +125,7 @@ export default{
         doCreate(){
             this.$refs.createbox.validate().then((data)=>{
                 new Promise((resolve,reject)=>{
-                    this.doCreateRequest(this,data,resolve)
+                    this.doCreateRequest(this,this.transformData(data),resolve)
                 }).then(()=>{
                     this.$message({
                         message:"创建成功",

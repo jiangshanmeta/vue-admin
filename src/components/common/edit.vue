@@ -82,7 +82,13 @@ export default {
         doEditRequest:{
             type:Function,
             default:doEdit
-        }
+        },
+        transformData:{
+            type:Function,
+            default:function(data){
+                return data;
+            }
+        },
 
     },
     methods:{
@@ -121,7 +127,7 @@ export default {
         doEdit(){
             this.$refs.editbox.validate().then((data)=>{
                 new Promise((resolve,reject)=>{
-                    this.doEditRequest(this,data,resolve)
+                    this.doEditRequest(this,this.transformData(data),resolve)
                 }).then(()=>{
                     this.$message({
                         message:"编辑成功",
