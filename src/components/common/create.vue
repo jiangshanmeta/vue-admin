@@ -1,6 +1,9 @@
 <template>
 <section style="display:inline-block;">
-    <el-button type="primary" v-if="createLink" @click="handleClick">
+    <el-button 
+        type="primary"  
+        @click="handleClick"
+    >
         新建
     </el-button>
     <el-dialog

@@ -1,7 +1,6 @@
 <template>
     <span>
         <el-button
-            v-if="editLink"
             @click="getEditFields"
             size="small"
         >
