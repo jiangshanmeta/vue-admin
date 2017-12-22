@@ -70,7 +70,7 @@ module.exports = {
   },
   plugins:[
     new webpack.DefinePlugin({
-      'process.env.baseUrl':JSON.stringify(process.env.npm_package_config_baseUrl)
+      'process.env.baseUrl':JSON.stringify(process.env['npm_package_config_'+ process.env.NODE_ENV + '_baseUrl'])
     }),
   ]
 }

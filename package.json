@@ -5,7 +5,12 @@
   "author": "jsmeta",
   "private": true,
   "config": {
-    "baseUrl": "http://localhost:8080/mock"
+    "development":{
+      "baseUrl": "http://localhost:8080/mock"
+    },
+    "production":{
+      "baseUrl":"https://jiangshanmeta.github.io"
+    }
   },
   "scripts": {
     "dev": "node build/dev-server.js",
