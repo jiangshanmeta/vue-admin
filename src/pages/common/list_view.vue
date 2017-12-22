@@ -5,6 +5,7 @@
         <create
             :field_list="field_list"
             v-bind="createConfig"
+            @create="handleCreate"
         ></create>
         <slot name="afterCreate"></slot>
     </section>
@@ -71,6 +72,11 @@ export default{
             }
         }
     },
+    methods:{
+        handleCreate(){
+            this.$refs.listInfo && this.$refs.listInfo.getListInfo();
+        }
+    }
 }
 
 </script>

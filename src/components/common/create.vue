@@ -1,6 +1,9 @@
 <template>
-<section style="display:inline-block;">
-    <el-button 
+<section
+    v-if="canCreate"
+    style="display:inline-block;"
+>
+    <el-button
         type="primary"  
         @click="handleClick"
     >
@@ -10,12 +13,23 @@
         :title="title"
         :visible.sync="isShowCreatebox"
         size="large"
-
     >
-        <editor :fields="create_editor" ref="createbox"></editor>
+        <editor 
+            :fields="create_editor" 
+            ref="createbox"
+        ></editor>
         <div slot="footer">
-            <el-button @click="isShowCreatebox=false">取消</el-button>
-            <el-button @click="doCreate" type="success" v-if="doCreateLink">确认创建</el-button>
+            <el-button 
+                @click="isShowCreatebox=false"
+            >
+                取消
+            </el-button>
+            <el-button 
+                @click="doCreate" 
+                type="success"
+            >
+                确认创建
+            </el-button>
         </div>
     </el-dialog>
 </section>
@@ -38,11 +52,15 @@ export default{
         }
     },
     props:{
+        canCreate:{
+            type:Boolean,
+            default:true,
+        },
         createLink:{
 
         },
         doCreateLink:{
-
+            
         },
         field_list:{
             type:Object,
@@ -69,9 +87,9 @@ export default{
         }
     },
     watch:{
-        createLink(){
+        field_list(){
             this.init();
-        }
+        },
     },
     methods:{
         showDialog(){

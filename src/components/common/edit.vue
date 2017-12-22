@@ -19,7 +19,6 @@
             <section slot="footer">
                 <el-button @click="isShowEditbox=false">取消</el-button>
                 <el-button
-                    v-if="doEditLink"
                     type="danger"
                     @click="doEdit"
                 >
@@ -60,11 +59,9 @@ export default {
         },
         editLink:{
             type:String,
-            required:true,
         },
         doEditLink:{
             type:String,
-            required:true,
         },
         title:{
             type:String,

@@ -1,5 +1,5 @@
 <template>
-    <section v-if="!hasAsyncComponent || isComponentsLoaded">
+    <section v-if="Object.keys(field_list).length && (!hasAsyncComponent || isComponentsLoaded)">
         <filters
             :filters="filters"
             @search="getListInfo"
@@ -11,17 +11,18 @@
         </filters>
         <slot name="afterFilters"></slot>
         <el-table
-            v-if="data.length"
+            v-if="fields.length && data.length"
             :data="data"
             style="width:100%;"
             @sort-change="handleSortChange"
         >
             <el-table-column
                 v-for="field in fields"
+                v-if="field_list[field]"
                 :key="field"
                 :label="field_list[field]['label']"
                 :prop="field"
-                :sortable="sortFields.includes[field]?'custom':false"
+                :sortable="sortFields.includes(field)?'custom':false"
             >
                 <template slot-scope="scope" >
                     <template v-if="!field_list[field].showComponent">
@@ -32,7 +33,6 @@
                         :is="field_list[field]['showComponent']['name']"
                         :data="scope.row[field]"
                         v-bind="mergeAttrsConfig(field_list[field]['showComponent']['config'])"
-                        
                     >
                     </component>
                 </template>
@@ -207,14 +207,14 @@ export default{
             this.getListInfo();
         },
         getListInfo(){
-            if(!this.baseUrl){
-                return;
-            }
-
-
             let params = {};
             // 有filters 要拿到filters的formData，所以需要等到filters组件实例化完成
-            if(this.filters.length && !this.$refs.filters){
+            // 有时filters组件虽然实例化了，但是formData数据为空，需要等待formData对应数据形成
+            // console.log(this.$refs.filters,!this.$refs.filters || this.$refs.filters.formData )
+            if(this.filters.length && ( (!this.$refs.filters) || (Object.keys(this.$refs.filters.formData).length === 0)
+             )   ){
+
+
                 // 这里之所以用setTimeout而不是$nextTick
                 // 是因为$nextTick会优先尝试使用Promise
                 // 当getListInfo作为microTask的一个任务时
@@ -255,19 +255,22 @@ export default{
             }).catch(noop);
 
         },
-    },
-    watch:{
-        baseUrl(newBaseUrl){
+        reset(){
             this.fields = [];
             this.total = 0;
             this.data = [];
+            this.pageIndex = 1;
+            this.sortField = '';
+            this.sortOrder = '';
             this.isComponentsLoaded = false;
-            this.importshowComponent();
-
-            if(newBaseUrl){
-                this.getListInfo();
-            }
         }
+    },
+    watch:{
+        field_list(){
+            this.reset();
+            this.importshowComponent();
+            this.getListInfo();
+        },
     },
 
 
