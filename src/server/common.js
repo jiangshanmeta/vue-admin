@@ -49,6 +49,9 @@ function getDetailInfo(vm,cb){
 }
 
 function getListInfo(vm,data,cb){
+    if(!vm.baseUrl){
+        return;
+    }
     axios.get(`${vm.baseUrl}`,{params:data}).then((json)=>{
         cb(json.data);
     })
