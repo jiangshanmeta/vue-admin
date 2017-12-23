@@ -70,7 +70,6 @@ export default{
         },
         uri:{
             type:String,
-            required:true,
         },
         title:{
             type:[String,Number],

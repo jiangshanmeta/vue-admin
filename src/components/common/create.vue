@@ -81,7 +81,6 @@ export default{
         transformData:{
             type:Function,
             default:function(data){
-                console.log(data)
                 return data;
             }
         }
@@ -113,6 +112,7 @@ export default{
                         editorComponent:this.field_list[field].editorComponent,
                         tip:this.field_list[field].tip,
                         validator:this.field_list[field].validator,
+                        default:configDefault,
                     })
                     return rowitem;
                 },[]);

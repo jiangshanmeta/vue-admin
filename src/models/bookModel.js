@@ -1,3 +1,11 @@
+import {
+    getStore,
+    getSaler,
+    getCreateFields,
+    createBook,
+    getBookList,
+} from "@/server/book.js"
+
 export default{
     field_list:{
         customername:{
@@ -29,7 +37,7 @@ export default{
             editorComponent:{
                 name:"field_async_enum_select",
                 config:{
-                    uri:"/book/storeList",
+                    httpRequest:getStore,
                     labelfield:"storename",
                     valuefield:"_id",
                 },
@@ -47,18 +55,18 @@ export default{
                             relateField:"store",
                         }
                     ],
-                    uri:"book/salerList",
+                    httpRequest:getSaler,
                 },
                 default:"",
             },
         },
     },
     createConfig:{
-        createLink:'/book/create',
-        doCreateLink:'/book/docreate',
+        getInfoRequest:getCreateFields,
+        doCreateRequest:createBook,
     },
     listConfig:{
-        baseUrl:"/book/list",
+        listRequest:getBookList,
     },
     filters:[
         {
@@ -83,20 +91,11 @@ export default{
     ],
     operators:[
         {
-            component:"edit",
-            componentPath:"components/common/edit",
-            config:{
-                editLink:"/book/edit_link",
-                doEditLink:"/book/doedit_link",
-                title:"编辑订单"
-            }
-        },
-        {
             label:"再来一单",
             type:"success",
             function(data){
                 this.$message({
-                    message:data.customername+"再来一单",
+                    message:`${data.customername}再来一单`,
                     type:"success",
                     duration:2000
                 })

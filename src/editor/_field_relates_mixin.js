@@ -14,7 +14,7 @@ export default{
         },
         uri:{
             type:String,
-            required:true,
+            default:'',
         },
         httpRequest:{
             type:Function,
@@ -46,7 +46,9 @@ export default{
                 this.httpRequest(this,query,resolve)
             }).then((candidate)=>{
                 this.setCacheOptions(candidate)
-            }).catch(noop)
+            }).catch((e)=>{
+                console.log(e)
+            })
 
         },
         setCacheOptions(options){

@@ -1,6 +1,5 @@
 <template>
     <el-button
-        v-if="uri"
         type="danger"
         size="small"
         @click="handleClick"
@@ -24,7 +23,6 @@ export default {
         },
         uri:{
             type:String,
-            required:true,
         },
         doDeleteRequest:{
             type:Function,

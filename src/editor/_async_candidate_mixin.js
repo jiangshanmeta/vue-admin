@@ -8,7 +8,6 @@ export default{
     props:{
         uri:{
             type:String,
-            required:true,
         },
         httpRequest:{
             type:Function,
@@ -21,8 +20,8 @@ export default{
                 this.httpRequest(this,resolve)
             }).then((candidate)=>{
                 return this.candidate = candidate
-            }).catch(()=>{
-
+            }).catch((e)=>{
+                console.log(e)
             })
         },
     },

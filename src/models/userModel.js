@@ -1,26 +1,27 @@
-import {getTypConfig} from "@/server/user.js"
-const cache = {
+import {
+    genderEnum,
+    typEnum,
+    typHash,
+    getPrivilege,
+    getCreateFields,
+    createUser,
+    getUserList,
+    getUserDetail,
+    getEditUserInfo,
+    editUser,
+    delUser,
+} from "@/server/user.js"
 
-}
 export default{
     field_list:{
         name:{
             label:'用户名',
             editorComponent:{
-                name:"username",
-                path:"components/user/username",
+                name:"field_string",
                 config:{
                     placeholder:'请输入用户名',
-                    msg:"测试传入业务editor",
                 },
                 default:'',
-            },
-            showComponent:{
-                name:"showusername",
-                path:"components/user/showusername",
-                config:{
-                    msg:"测试列表页组件形式展示"
-                }
             },
             validator:[
                 {
@@ -63,42 +64,39 @@ export default{
                 default:0,
             },
             showComponent:{
-                name:"showgender",
-                path:"components/user/showgender",
+                name:"enum_view",
+                path:"components/common/enum_view",
                 config:{
-                    genderCfg:{
-                        0:"男",
-                        1:"女"
-                    }
-
+                    enums:genderEnum,
                 },
             },
-            tip:"测试tip功能",
+            tip:"暂不支持LGBT",
         },
         typ:{
             label:'类型',
             editorComponent:{
                 name:"field_enum_select",
                 config:{
-                    candidate:[
-                        {value:0,label:'路人甲'},
-                        {value:1,label:'店小二'},
-                        {value:2,label:'收银员'},
-                        {value:99,label:'店掌柜'},
-                        {value:999,label:'管理员'},
-                    ],
+                    candidate:typEnum,
                     valuefield:'value',
                     labelfield:'label',
                 },
                 default:0,
             },
+            showComponent:{
+                name:"enum_view",
+                path:"components/common/enum_view",
+                config:{
+                    enums:typHash
+                }
+            }
         },
         privilege:{
             label:'权限',
             editorComponent:{
                 name:"field_relates_tag",
                 config:{
-                    uri:'/user/getPrivilege',
+                    httpRequest:getPrivilege,
                     labelfield:'name',
                     valuefield:'id',
                     relates:[
@@ -123,8 +121,8 @@ export default{
         }
     },
     createConfig:{
-        createLink:'/user/create_link',
-        doCreateLink:'/user/docreate',
+        getInfoRequest:getCreateFields,
+        doCreateRequest:createUser,
     },
     filters:[
         {
@@ -144,13 +142,7 @@ export default{
             editorComponent:{
                 name:"filter_enum",
                 config:{
-                    candidate:[
-                        {value:0,label:'路人甲'},
-                        {value:1,label:'店小二'},
-                        {value:2,label:'收银员'},
-                        {value:99,label:'店掌柜'},
-                        {value:999,label:'管理员'},
-                    ],
+                    candidate:typEnum,
                     allvalue:-1,
                     alllabel:"全部",
                 },
@@ -163,7 +155,7 @@ export default{
             editorComponent:{
                 name:"filter_relates_enum",
                 config:{
-                    uri:"/user/getPrivilege",
+                    httpRequest:getPrivilege,
                     valuefield:"id",
                     labelfield:"name",
                     placeholder:"请选择权限",
@@ -196,17 +188,9 @@ export default{
         }
     ],
     listConfig:{
-        baseUrl:"/user/list",
+        listRequest:getUserList,
         sortFields:['typ'],
         async treatData(data){
-            if(!cache['typCfg']){
-                let {data:typCfg} = await getTypConfig();
-                cache['typCfg'] = typCfg
-            }
-
-            data.forEach((item)=>{
-                item['typ'] = cache['typCfg'][item['typ']];
-            })
             return data
         },
         pageSizes:[10,20,30,50],
@@ -216,16 +200,16 @@ export default{
             component:"info",
             componentPath:"components/common/info.vue",
             config:{
-                uri:"/user/info",
-                title:"用户详情"
+                title:"用户详情",
+                detailRequest:getUserDetail,
             },
         },
         {
             component:"edit",
             componentPath:"components/common/edit",
             config:{
-                editLink:"/user/edit_link",
-                doEditLink:"/user/doedit_link",
+                getInfoRequest:getEditUserInfo,
+                doEditRequest:editUser,
                 autoValidate:false,
             }
         },
@@ -233,23 +217,18 @@ export default{
             label:"搞个大新闻",
             type:"warning",
             function(data){
-                console.log(data.name);
                 this.$message({
-                    message:"不要总想着搞个大新闻",
+                    message:`${data.name}不要总想着搞个大新闻`,
                     type:"success",
                     duration:2000,
                 })
             },
         },
         {
-            component:"run",
-            componentPath:"components/user/run.vue",
-        },
-        {
             component:"delete",
             componentPath:"components/common/delete",
             config:{
-                uri:"/user/delete",
+                doDeleteRequest:delUser,
             }
         }
 

@@ -1,15 +1,32 @@
-import axios from "./axios.js"
-
 function doLogin(data){
-    return axios.post('/index/doLogin',data)
+    let rst = {
+        data:{
+            token:"admin",
+        },
+        rstno:1,
+    }
+    return Promise.resolve(rst)
 }
 
 function doLogout(){
-    return axios.post('/index/doLogout')
+    let rst = {
+        data:{
+            msg:"登出成功",
+        },
+        rstno:1,
+    }
+    return Promise.resolve(rst);
 }
 
 function getUserInfo(){
-    return axios.get('/index/getUserInfo')
+    let rst = {
+        data:{
+            name:"不萌的山山",
+            privilege:[1,2,3,5,7,10,233,999]
+        },
+        rstno:1
+    };
+    return Promise.resolve(rst)
 }
 
 export {

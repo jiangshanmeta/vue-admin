@@ -195,7 +195,9 @@ export default{
             this.$watch(()=>{
                 return this.proxyFields[field]
             },(value)=>{
-                this.validateField.call(this,field,value).catch(noop)
+                this.validateField.call(this,field,value).catch((e)=>{
+                    console.log(e);
+                })
             })
         },
         initRelates(newFields){
