@@ -37,7 +37,7 @@
 
 <script>
 import editor from "@/editor/editor"
-import {getCreateInfo,doCreate} from "@/server/common.js"
+import {getCreateFields,doCreateRequest} from "@/server/common.js"
 import {noop} from "@/helpers/utility.js"
 export default{
     name:"create",
@@ -56,23 +56,23 @@ export default{
             type:Boolean,
             default:true,
         },
-        createLink:{
+        getCreateFieldsUri:{
 
         },
-        doCreateLink:{
+        doCreateUri:{
             
         },
         field_list:{
             type:Object,
             required:true,
         },
-        getInfoRequest:{
+        getCreateFields:{
             type:Function,
-            default:getCreateInfo,
+            default:getCreateFields,
         },
         doCreateRequest:{
             type:Function,
-            default:doCreate
+            default:doCreateRequest
         },
         title:{
             type:String,
@@ -131,7 +131,7 @@ export default{
         handleClick(){
             if(this.create_fields.length === 0){
                 new Promise((resolve,reject)=>{
-                    this.getInfoRequest(this,resolve)
+                    this.getCreateFields(this,resolve)
                 }).then((fields)=>{
                     this.create_fields = fields;
                     this.initEditor();

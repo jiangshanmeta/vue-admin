@@ -10,7 +10,7 @@
 
 <script>
 import _id_mixin from "@/mixins/common/_id_mixin.js"
-import {doDelete} from "@/server/common.js"
+import {doDeleteRequest} from "@/server/common.js"
 import {noop} from "@/helpers/utility.js"
 export default {
     name:"delete",
@@ -26,7 +26,7 @@ export default {
         },
         doDeleteRequest:{
             type:Function,
-            default:doDelete
+            default:doDeleteRequest
         }
     },
     methods:{
@@ -41,7 +41,9 @@ export default {
                 }).then(()=>{
                     this.$message("删除成功");
                     this.$emit('update');
-                }).catch(noop);
+                }).catch((e)=>{
+                    console.log(e);
+                });
             }).catch(noop)   
         }
     },

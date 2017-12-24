@@ -121,7 +121,7 @@ export default{
         }
     },
     createConfig:{
-        getInfoRequest:getCreateFields,
+        getCreateFields:getCreateFields,
         doCreateRequest:createUser,
     },
     filters:[
@@ -208,7 +208,7 @@ export default{
             component:"edit",
             componentPath:"components/common/edit",
             config:{
-                getInfoRequest:getEditUserInfo,
+                getEditInfo:getEditUserInfo,
                 doEditRequest:editUser,
                 autoValidate:false,
             }

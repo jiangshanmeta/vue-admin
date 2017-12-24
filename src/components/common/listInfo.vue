@@ -106,7 +106,9 @@ export default{
         },
         filters:{
             type:Array,
-            required:true,
+            default:function(){
+                return [];
+            },
         },
         sortFields:{
             type:Array,

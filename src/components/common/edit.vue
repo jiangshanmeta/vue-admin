@@ -32,7 +32,7 @@
 <script>
 import editor from "@/editor/editor";
 import _id_mixin from "@/mixins/common/_id_mixin.js"
-import {getEditInfo,doEdit} from "@/server/common.js"
+import {getEditInfo,doEditRequest} from "@/server/common.js"
 import {noop} from "@/helpers/utility.js"
 export default {
     name:"edit",
@@ -57,10 +57,10 @@ export default {
             type:Object,
             required:true,
         },
-        editLink:{
-            type:String,
+        editInfoUri:{
+
         },
-        doEditLink:{
+        doEditUri:{
             type:String,
         },
         title:{
@@ -71,13 +71,13 @@ export default {
             type:Boolean,
             default:false,
         },
-        getInfoRequest:{
+        getEditInfo:{
             type:Function,
             default:getEditInfo,
         },
         doEditRequest:{
             type:Function,
-            default:doEdit
+            default:doEditRequest
         },
         transformData:{
             type:Function,
@@ -93,7 +93,7 @@ export default {
         },
         getEditFields(){
             new Promise((resolve,reject)=>{
-                this.getInfoRequest(this,resolve);
+                this.getEditInfo(this,resolve);
             }).then((fields)=>{
                 this.edit_editor = fields.reduce((arr,row)=>{
                     let rowitem = row.reduce((rowitem,fieldInfo)=>{

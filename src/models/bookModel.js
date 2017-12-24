@@ -62,7 +62,7 @@ export default{
         },
     },
     createConfig:{
-        getInfoRequest:getCreateFields,
+        getCreateFields:getCreateFields,
         doCreateRequest:createBook,
     },
     listConfig:{
