@@ -201,7 +201,7 @@ export default{
             componentPath:"components/common/info.vue",
             config:{
                 title:"用户详情",
-                detailRequest:getUserDetail,
+                getDetailInfo:getUserDetail,
             },
         },
         {

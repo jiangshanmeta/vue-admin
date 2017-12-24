@@ -66,6 +66,31 @@
 
 ## info
 
+用来展示详情信息的操作组件
+
+参数：
+
+| 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
+| :---:  | :--:  | :--: | :-----:  | :--: |
+| data   | 是    | Object | 一条记录  |  作为操作组件，该属性自动传入 |
+| field_list | 是 | Object | 字段列表 | - |
+| uri | 否 | String | 获得详情时请求地址 | 采用默认getDetailInfo时该参数必需 |
+| title | 否 | String | 详情dialog的标题 | 默认为 “详情” | 
+| getDetailInfo | 否 | Function | 获得详情信息的方法 | 采用默认方法需要配合uri参数 |
+
+函数类型配置项的参数：
+
+* getDetailInfo(vm,resolve) vm是info组件实例，详情信息通过resolve方法传入，格式如下：
+
+```
+[
+    [{"field":"name","value":"张三"}],
+    [{"field":"gender","value":0},{"field":"typ","value":"店小二"}],
+    [{"field":"desc","value":"假装有段描述"}]
+]
+```
+
+
 ## edit
 
 编辑组件

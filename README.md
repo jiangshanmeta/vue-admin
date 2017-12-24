@@ -4,25 +4,19 @@
 
 本项目的核心页面是 */src/pages/common/list_view*，这个页面涵盖了后台页面最常见的增删查改功能。
 
-新建功能对应 */src/components/common/create* 组件，更新功能对应 */src/components/common/edit* 组件，这两个组件都是基于 */src/editor/editor* 组件，关于该组件请[移步查看](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)。
-
-查找功能是由两部分构成，一个是筛选条件，一个是结果展示列表及分页。筛选条件对应 */src/editor/filters* 组件，结果列表对应 */src/components/common/listInfo* 组件。
-
-删除功能对应 */src/components/common/delete* 组件，这只是一个基本的实现，和edit组件类似，它应作为operators组件的子组件。
-
 ## model
 
-对于这个核心列表页，有相当多的可配置信息(列表请求地址、筛选条件、结果的操作等)，这些可配置项被抽象成为一个model统一管理，这就是src目录下的**models**目录要存放的内容。
+对于这个核心列表页，有相当多的可配置信息，这些可配置项被抽象成为一个model统一管理，这就是src目录下的**models**目录要存放的内容。
 
 一个model由以下几个部分构成：
 
-* field_list 字段，这个在新建、编辑、列表都用到了，具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)，然后看下面的具体描述
+* field_list 字段，是一个model最基础的配置项，具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)，然后看下面的具体描述
 
-* createConfig，创建组件的配置项。包括createLink(查询允许创建哪些字段的接口路径)、doCreateLink(创建操作要请求的接口路径)、getInfoRequest(自定义查询允许创建哪些字段方法)、doCreateRequest(自定义创建的请求方法)、
+* createConfig [create组件需要的配置项](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common#create)
 
 * filters，筛选组件的配置项。具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)，然后看下面的具体描述
 
-* listConfig，列表组件的配置项。包括baseUrl(列表项请求相对路径)、pageSize(每页几条数据)、sortFields(允许排序的字段)、treatData(用来处理得到的列表数据的方法，推荐async函数)、listRequest(自定义请求列表方法)、pageIndexReqName(请求时页数字段的请求名)、pageSizeReqName(请求时每页多少条记录的请求名)、sortFieldReqName(请求时排序字段名的请求名)、sortOrderReqName(请求时排序顺序的请求名)、pageSizes(分页组件每页显示个数选择器的选项设置)
+* listConfig，[列表组件的配置项](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common#listinfo)
 
 * operators 操作集，具体使用方法在下面
 

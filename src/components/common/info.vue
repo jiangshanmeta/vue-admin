@@ -75,7 +75,7 @@ export default{
             type:[String,Number],
             default:"详情",
         },
-        detailRequest:{
+        getDetailInfo:{
             type:Function,
             default:getDetailInfo
         }
@@ -98,7 +98,7 @@ export default{
             }
 
             new Promise((resolve,reject)=>{
-                this.detailRequest(this,resolve);
+                this.getDetailInfo(this,resolve);
             }).then((infoData)=>{
                 this.infoData = infoData;
                 this.isShowLightbox = true;
