@@ -76,8 +76,15 @@ export default{
             }
         },
         handleOperatorClick(func){
-            func.call(this,this.data,this.index);
-            this.notifyUpdate();
+            new Promise((resolve,reject)=>{
+                func.call(this,this.data,this.index,resolve);
+            }).then(()=>{
+                this.notifyUpdate();
+            }).catch((e)=>{
+                console.log(e);
+            })
+            
+            
         },
         notifyUpdate(){
             this.$emit('update',this.index);

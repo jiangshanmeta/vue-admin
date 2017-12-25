@@ -39,7 +39,7 @@
             </el-table-column>
             <el-table-column
                 label="操作"
-                v-if="data.length"
+                v-if="operators.length && data.length"
                 :min-width="200"
             >
                 <template slot-scope="scope">

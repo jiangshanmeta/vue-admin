@@ -72,19 +72,20 @@ filters也支持你传入自定义的业务filter，只需要在editorComponent�
 {
     label:"搞个大新闻",
     type:"warning",
-    function(data){
+    function(data,index,resolve){
         console.log(data.name);
         this.$message({
             message:"不要总想着搞个大新闻",
             type:"success",
             duration:2000,
         })
+        resolve();
     },
 },
 ```
 
 这种声明方式被渲染为一个button，label是button显示的文字，type是按钮的类型(el-button的类型) ，function是点击按钮时的调用的函数，function的参数第一个是该条记录的信息，第二个是该记录的前端索引。
-function被调用完之后operators组件会自动通知父组件状态更新，列表页会自动刷新。注意这里的this指向的是这个operators组件。
+调用resolve方法,operators组件会自动通知父组件状态更新，列表页会自动刷新。注意这里的this指向的是这个operators组件。
 
 第二种声明方式示例如下：
 

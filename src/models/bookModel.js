@@ -93,12 +93,15 @@ export default{
         {
             label:"再来一单",
             type:"success",
-            function(data){
+            function(data,index,resolve){
                 this.$message({
                     message:`${data.customername}再来一单`,
                     type:"success",
                     duration:2000
-                })
+                });
+                setTimeout(()=>{
+                    resolve();
+                },1000)
             }
         }
 

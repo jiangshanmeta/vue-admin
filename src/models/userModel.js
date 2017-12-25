@@ -216,12 +216,15 @@ export default{
         {
             label:"搞个大新闻",
             type:"warning",
-            function(data){
+            function(data,index,resolve){
                 this.$message({
                     message:`${data.name}不要总想着搞个大新闻`,
                     type:"success",
                     duration:2000,
-                })
+                });
+                setTimeout(()=>{
+                    resolve();
+                },1000)
             },
         },
         {
