@@ -4,7 +4,7 @@
             @click="getEditFields"
             size="small"
         >
-            编辑
+            {{triggerText}}
         </el-button>
         <el-dialog
             :title="title"
@@ -17,12 +17,16 @@
                 ref="editbox"
             ></editor>
             <section slot="footer">
-                <el-button @click="isShowEditbox=false">取消</el-button>
+                <el-button 
+                    @click="isShowEditbox=false"
+                >
+                    {{cancelText}}
+                </el-button>
                 <el-button
                     type="danger"
                     @click="doEdit"
                 >
-                    确认编辑
+                    {{editText}}
                 </el-button>
             </section>
         </el-dialog>
@@ -63,10 +67,6 @@ export default {
         doEditUri:{
             type:String,
         },
-        title:{
-            type:String,
-            default:"编辑",
-        },
         autoValidate:{
             type:Boolean,
             default:false,
@@ -85,7 +85,22 @@ export default {
                 return data;
             }
         },
-
+        title:{
+            type:String,
+            default:"编辑",
+        },
+        triggerText:{
+            type:String,
+            default:"编辑"
+        },
+        editText:{
+            type:String,
+            default:"确认编辑"
+        },
+        cancelText:{
+            type:String,
+            default:"取消"
+        },
     },
     methods:{
         showDialog(){

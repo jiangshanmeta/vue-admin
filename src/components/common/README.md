@@ -112,12 +112,13 @@
 | doEditUri | 否 | String | 编辑操作的请求地址 | doEditRequest采用默认值时该参数必需 |
 | getEditInfo | 否 | Function | 获取编辑相关信息 | - |
 | doEditRequest | 否 | Function | 编辑操作的方法 | - |
-| title | 否 | String | 编辑对话框的标题 | 默认为编辑 |
 | autoValidate | 否 | Boolean | 是否自动表单验证 | 默认为false,第一次点提交时才自动表单验证 |
 | transformData | 否 | Function | 在doEditRequest前对表单数据做一次转换 |
 | idfield | 否 | String | 指明id字段 | 默认是id |
-
-
+| title | 否 | String | 编辑对话框的标题 | 默认为编辑 |
+| triggerText | 否 | String | 触发按钮文字 | 默认为 "编辑" |
+| editText | 否 | String | 确认编辑按钮文字 | 默认为 "确认编辑" |
+| cancelText | 否 | String | 取消按钮文字 | 默认为 "取消" |
 
 函数类型配置项的参数：
 
