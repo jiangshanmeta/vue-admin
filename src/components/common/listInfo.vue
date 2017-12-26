@@ -55,6 +55,12 @@
                 </template>
             </el-table-column>
         </el-table>
+        <section 
+            v-if="data.length === 0"
+            style="margin:10px;text-align:center;font-size:28px;color:#777;letter-spacing:8px;"
+        >
+            {{emptyText}}
+        </section>
         <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -120,6 +126,12 @@ export default{
             type:String,
             default:""
         },
+        transformRequestData:{
+            type:Function,
+            default:function(data){
+                return data;
+            }
+        },
         listRequest:{
             type:Function,
             default:getListInfo,
@@ -140,7 +152,7 @@ export default{
             type:String,
             default:"sortOrder",
         },
-        treatData:{
+        transformListData:{
             type:Function,
             default:async (data)=>{
                 return data
@@ -162,6 +174,10 @@ export default{
                 return [10,20,30,40];
             }
         },
+        emptyText:{
+            type:String,
+            default:"暂无数据"
+        }
     },
     computed:{
         hasAsyncComponent(){
@@ -240,10 +256,10 @@ export default{
             params[this.sortOrderReqName] = this.sortOrder;
 
             return new Promise((resolve,reject)=>{
-                this.listRequest(params,resolve)
+                this.listRequest(this.transformRequestData(params),resolve)
             }).then((rst)=>{
                 let {data,total,fields} = rst;
-                let promise = this.treatData(data);
+                let promise = this.transformListData(data);
                 if(!(promise instanceof Promise)){
                     promise = Promise.resolve(promise);
                 }
