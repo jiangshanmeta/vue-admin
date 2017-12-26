@@ -9,11 +9,7 @@
 </template>
 
 <script>
-import list_view from "@/pages/common/list_view.vue"
 export default{
-    components:{
-        list_view,
-    },
     methods:{
         handleClick(formData){
             console.log(formData)

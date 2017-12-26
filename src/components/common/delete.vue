@@ -37,7 +37,7 @@ export default {
                 type: 'warning'
             }).then(()=>{
                 new Promise((resolve,reject)=>{
-                    this.doDeleteRequest(this,resolve);
+                    this.doDeleteRequest(resolve);
                 }).then(()=>{
                     this.$message("删除成功");
                     this.$emit('update');

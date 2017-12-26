@@ -76,7 +76,7 @@ const privilegeEnum = [
     {"id":999,"name":"关小黑屋"},
 ];
 
-function getPrivilege(vm,data,cb){
+function getPrivilege(data,cb){
     let typ = data.req_typ;
     console.log(typ)
     let rst;
@@ -109,18 +109,18 @@ const createFields = [
     ["privilege"],
 ];
 
-function getCreateFields(vm,cb){
+function getCreateFields(cb){
     cb(createFields);
 }
 
-function createUser(vm,data,cb){
+function createUser(data,cb){
     data.id = id++;
     userTable.push(data);
     cb();
 }
 
 
-function getUserList(vm,params,cb){
+function getUserList(params,cb){
     let data = userTable;
     let fields = ["name","gender","typ"];
     let total = data.length;
@@ -138,8 +138,8 @@ const detailFields = [
     ["desc"],
 ];
 
-function getUserDetail(vm,cb){
-    let id = vm.id;
+function getUserDetail(cb){
+    let id = this.id;
     for(let item of userTable){
         if(item.id === id){
             let rst = detailFields.reduce((arr,row)=>{
@@ -169,8 +169,8 @@ const editFields = [
     ["desc"]
 ];
 
-function getEditUserInfo(vm,cb){
-    let id = vm.id;
+function getEditUserInfo(cb){
+    let id = this.id;
     for(let item of userTable){
         if(item.id === id){
             let rst = editFields.reduce((arr,row)=>{
@@ -193,8 +193,8 @@ function getEditUserInfo(vm,cb){
     
 }
 
-function editUser(vm,data,cb){
-    let id = vm.id;
+function editUser(data,cb){
+    let id = this.id;
     for(let item of userTable){
         if(item.id === id){
             let keys = Object.keys(item);
@@ -209,8 +209,8 @@ function editUser(vm,data,cb){
     cb();
 }
 
-function delUser(vm,cb){
-    let id = vm.id;
+function delUser(cb){
+    let id = this.id;
     for(let index in userTable){
         if(userTable[index]['id'] === id){
             userTable.splice(index,1);

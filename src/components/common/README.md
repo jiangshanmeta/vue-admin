@@ -28,7 +28,9 @@
 
 函数类型配置项的参数：
 
-* getCreateFields(vm,resolve) vm为create组件实例，获取的创建字段通过调用resolve返回，
+* getCreateFields(resolve) 获取的创建字段通过调用resolve返回，一般情况下该函数的this指向create组件实例
+
+
   创建字段格式如下：
 
 ```
@@ -40,7 +42,7 @@
 ```
 
 * transformData(data) data为表单中的数据，需要返回一个对象(处理后的数据)
-* doCreateRequest(vm,data,resolve) vm为createe组件实例，data是经过transformData处理过的表单数据，resolve是Promise的resolve，创建完成触发create事件。
+* doCreateRequest(data,resolve) data是经过transformData处理过的表单数据，resolve是Promise的resolve，创建完成触发create事件。一般情况下该函数的this指向create组件实例
 
 ## listInfo
 
@@ -80,7 +82,7 @@
 
 函数类型配置项的参数：
 
-* getDetailInfo(vm,resolve) vm是info组件实例，详情信息通过resolve方法传入，格式如下：
+* getDetailInfo(resolve) 一般情况下该函数的this指向info组件实例，详情信息通过resolve方法传入，格式如下：
 
 ```
 [
@@ -114,7 +116,7 @@
 
 函数类型配置项的参数：
 
-* getEditInfo(vm,resolve) , vm是edit组件实例，编辑需要的信息通过resolve传入，示例如下：
+* getEditInfo(resolve) , 一般情况下该函数的this指向edit组件实例，，编辑需要的信息通过resolve传入，示例如下：
 
 ```
 [
@@ -126,7 +128,7 @@
 ```
 
 * transformData(data) data为表单中的数据，需要返回一个对象(处理后的数据)
-* doEditRequest(vm,data,resolve) vm是edit组件实例，data是经过transformData处理的数据，更新完成后调用resolve。
+* doEditRequest(data,resolve) 一般情况下该函数的this指向edit组件实例，，data是经过transformData处理的数据，更新完成后调用resolve。
 
 ## delete
 
@@ -144,4 +146,4 @@
 
 函数类型配置项的参数：
 
-* doDeleteRequest(vm,resolve) vm是删除组件实例，通过vm.id可以访问到利用idfield指明的id字段，删除完成后调用resolve
+* doDeleteRequest(resolve) 一般情况下该函数的this指向delete组件实例，，通过this.id可以访问到利用idfield指明的id字段，删除完成后调用resolve

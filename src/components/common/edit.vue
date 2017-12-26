@@ -93,7 +93,7 @@ export default {
         },
         getEditFields(){
             new Promise((resolve,reject)=>{
-                this.getEditInfo(this,resolve);
+                this.getEditInfo(resolve);
             }).then((fields)=>{
                 this.edit_editor = fields.reduce((arr,row)=>{
                     let rowitem = row.reduce((rowitem,fieldInfo)=>{
@@ -123,7 +123,7 @@ export default {
         doEdit(){
             this.$refs.editbox.validate().then((data)=>{
                 new Promise((resolve,reject)=>{
-                    this.doEditRequest(this,this.transformData(data),resolve)
+                    this.doEditRequest(this.transformData(data),resolve)
                 }).then(()=>{
                     this.$message({
                         message:"编辑成功",
@@ -133,7 +133,9 @@ export default {
 
                     this.isShowEditbox = false;
                     this.$emit('update');
-                }).catch(noop);
+                }).catch((e)=>{
+                    console.log(e)
+                });
 
             }).catch((err)=>{
                 this.$message(err);

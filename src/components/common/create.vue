@@ -131,7 +131,7 @@ export default{
         handleClick(){
             if(this.create_fields.length === 0){
                 new Promise((resolve,reject)=>{
-                    this.getCreateFields(this,resolve)
+                    this.getCreateFields(resolve)
                 }).then((fields)=>{
                     this.create_fields = fields;
                     this.initEditor();
@@ -146,7 +146,7 @@ export default{
         doCreate(){
             this.$refs.createbox.validate().then((data)=>{
                 new Promise((resolve,reject)=>{
-                    this.doCreateRequest(this,this.transformData(data),resolve)
+                    this.doCreateRequest(this.transformData(data),resolve)
                 }).then(()=>{
                     this.$message({
                         message:"创建成功",

@@ -43,7 +43,7 @@ export default{
             },{})
 
             new Promise((resolve,reject)=>{
-                this.httpRequest(this,query,resolve)
+                this.httpRequest(query,resolve)
             }).then((candidate)=>{
                 this.setCacheOptions(candidate)
             }).catch((e)=>{

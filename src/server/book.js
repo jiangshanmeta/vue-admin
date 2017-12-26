@@ -1,4 +1,4 @@
-function getStore(vm,cb){
+function getStore(cb){
     cb([
         {"_id":3,"storename":"北京店"},
         {"_id":5,"storename":"上海店"},
@@ -8,7 +8,7 @@ function getStore(vm,cb){
     ])
 }
 
-function getSaler(vm,data,cb){
+function getSaler(data,cb){
     let storeId = data.store;
     let rst;
     switch(storeId){
@@ -68,17 +68,17 @@ const createFields = [
     ["store","saler"]
 ];
 
-function getCreateFields(vm,cb){
+function getCreateFields(cb){
     cb(createFields);
 }
 
-function createBook(vm,data,cb){
+function createBook(data,cb){
     data.id = id++;
     bookTable.push(data);
     cb();
 }
 
-function getBookList(vm,params,cb){
+function getBookList(params,cb){
     let data = bookTable;
     let fields = ["customername","totalprice","address"];
     let total = data.length;

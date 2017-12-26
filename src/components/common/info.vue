@@ -98,7 +98,7 @@ export default{
             }
 
             new Promise((resolve,reject)=>{
-                this.getDetailInfo(this,resolve);
+                this.getDetailInfo(resolve);
             }).then((infoData)=>{
                 this.infoData = infoData;
                 this.isShowLightbox = true;

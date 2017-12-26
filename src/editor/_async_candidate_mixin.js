@@ -17,7 +17,7 @@ export default{
     methods:{
         getCandidate(){
             return new Promise((resolve,reject)=>{
-                this.httpRequest(this,resolve)
+                this.httpRequest(resolve)
             }).then((candidate)=>{
                 return this.candidate = candidate
             }).catch((e)=>{
