@@ -7,7 +7,7 @@
         type="primary"  
         @click="handleClick"
     >
-        新建
+        {{triggerText}}
     </el-button>
     <el-dialog
         :title="title"
@@ -22,13 +22,13 @@
             <el-button 
                 @click="isShowCreatebox=false"
             >
-                取消
+                {{cancelText}}
             </el-button>
             <el-button 
                 @click="doCreate" 
                 type="success"
             >
-                确认创建
+                {{createText}}
             </el-button>
         </div>
     </el-dialog>
@@ -74,15 +74,27 @@ export default{
             type:Function,
             default:doCreateRequest
         },
-        title:{
-            type:String,
-            default:"创建"
-        },
         transformData:{
             type:Function,
             default:function(data){
                 return data;
             }
+        },
+        title:{
+            type:String,
+            default:"创建"
+        },
+        triggerText:{
+            type:String,
+            default:"新建"
+        },
+        createText:{
+            type:String,
+            default:"确认创建"
+        },
+        cancelText:{
+            type:String,
+            default:"取消"
         }
     },
     watch:{
