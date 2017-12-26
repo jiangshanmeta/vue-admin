@@ -4,7 +4,7 @@
         size="small"
         @click="handleClick"
     >
-        删除
+        {{triggerText}}
     </el-button>
 </template>
 
@@ -27,7 +27,11 @@ export default {
         doDeleteRequest:{
             type:Function,
             default:doDeleteRequest
-        }
+        },
+        triggerText:{
+            type:String,
+            default:"删除",
+        },
     },
     methods:{
         handleClick(){

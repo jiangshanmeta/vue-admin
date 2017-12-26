@@ -82,8 +82,9 @@
 | data   | 是    | Object | 一条记录  |  作为操作组件，该属性自动传入 |
 | field_list | 是 | Object | 字段列表 | - |
 | uri | 否 | String | 获得详情时请求地址 | 采用默认getDetailInfo时该参数必需 |
-| title | 否 | String | 详情dialog的标题 | 默认为 “详情” | 
 | getDetailInfo | 否 | Function | 获得详情信息的方法 | 采用默认方法需要配合uri参数 |
+| title | 否 | String | 详情dialog的标题 | 默认为 “详情” | 
+| triggerText | 否 | String | 触发按钮文字 | 默认为 "详情" |
 
 函数类型配置项的参数：
 
@@ -148,6 +149,7 @@
 | uri | 否 | String | 删除时请求的uri | 配合doDeleteRequest使用 | 
 | doDeleteRequest | 否 | Function | 删除操作请求 | 默认方法需要结合uri，且删除的id作为路径的一部分 |
 | idfield | 否 | String | 指明id字段 | 默认是id |
+| triggerText | 否 | String | 触发按钮文案 | 默认是 "删除" |
 
 
 函数类型配置项的参数：

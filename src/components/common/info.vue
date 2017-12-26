@@ -5,7 +5,7 @@
             size="small"
             @click="handleClick"
         >
-            详情
+            {{triggerText}}
         </el-button>
         <el-dialog
             :title="title"
@@ -78,6 +78,10 @@ export default{
         getDetailInfo:{
             type:Function,
             default:getDetailInfo
+        },
+        triggerText:{
+            type:String,
+            default:"详情"
         }
     },
     computed:{

@@ -233,6 +233,7 @@ export default{
             componentPath:"components/common/delete",
             config:{
                 doDeleteRequest:delUser,
+                triggerText:"删除用户",
             }
         }
 
