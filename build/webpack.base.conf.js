@@ -4,6 +4,15 @@ var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 var webpack = require('webpack')
 
+var env = process.env.NODE_ENV;
+var defineBaseConfig = require("../config/define.base.conf.js");
+var defineEnvConfig = require("../config/define." + (env === 'development'? 'dev':'prod') + ".conf.js" );
+var defineConfig = Object.assign({},defineBaseConfig,defineEnvConfig);
+var defineKeys = Object.keys(defineConfig);
+defineKeys.forEach(function(field){
+  defineConfig[field] = JSON.stringify(defineConfig[field])
+})
+
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -69,8 +78,9 @@ module.exports = {
     ]
   },
   plugins:[
-    new webpack.DefinePlugin({
-      'process.env.baseUrl':JSON.stringify(process.env['npm_package_config_'+ process.env.NODE_ENV + '_baseUrl'])
-    }),
+    new webpack.DefinePlugin(defineConfig),
+    // new webpack.DefinePlugin({
+    //   'process.env.baseUrl':JSON.stringify(process.env['npm_package_config_'+ process.env.NODE_ENV + '_baseUrl'])
+    // }),
   ]
 }
