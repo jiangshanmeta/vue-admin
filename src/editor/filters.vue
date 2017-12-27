@@ -109,10 +109,11 @@ export default{
     },
     computed:{
         formData(){
-            return this.filters.reduce((obj,item)=>{
+            let data = this.filters.reduce((obj,item)=>{
                 obj[item.field] = item.value;
                 return obj;
-            },{})
+            },{});
+            return JSON.parse(JSON.stringify(data));
         },
         hasAsyncComponent(){
             return this.filters.some((item)=>{
