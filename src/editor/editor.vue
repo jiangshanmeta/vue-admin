@@ -168,7 +168,7 @@ export default{
             }
 
             return Promise.all(promises).then(()=>{
-                return this.formData;
+                return JSON.parse(JSON.stringify(this.formData));
             }).catch((err)=>{
                 return Promise.reject(err);
             })
