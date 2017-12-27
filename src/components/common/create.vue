@@ -38,7 +38,7 @@
 <script>
 import editor from "@/editor/editor"
 import {getCreateFields,doCreateRequest} from "@/server/common.js"
-import {noop} from "@/helpers/utility.js"
+import {logError} from "@/widget/utility.js"
 export default{
     name:"create",
     components:{
@@ -148,7 +148,7 @@ export default{
                     this.create_fields = fields;
                     this.initEditor();
                     this.showDialog();
-                }).catch(noop)
+                }).catch(logError)
 
             }else{
                 this.resetEditor();
@@ -160,14 +160,9 @@ export default{
                 new Promise((resolve,reject)=>{
                     this.doCreateRequest(this.transformData(data),resolve)
                 }).then(()=>{
-                    this.$message({
-                        message:"创建成功",
-                        type:"success",
-                        duration:2000,
-                    })
                     this.isShowCreatebox = false;
                     this.$emit('create');
-                }).catch(noop)
+                }).catch(logError)
 
             }).catch((err)=>{
                 this.$message(err);

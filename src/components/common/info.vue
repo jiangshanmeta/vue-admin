@@ -44,7 +44,7 @@ import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import _id_mixin from "@/mixins/common/_id_mixin.js"
 import {getDetailInfo} from "@/server/common.js"
-import {noop} from "@/helpers/utility.js"
+import {logError} from "@/widget/utility.js"
 export default{
     mixins:[
         dynamicImportComponent,
@@ -106,7 +106,7 @@ export default{
             }).then((infoData)=>{
                 this.infoData = infoData;
                 this.isShowLightbox = true;
-            }).catch(noop);
+            }).catch(logError);
         },
         importshowComponent(){
             if(this.hasAsyncComponent){

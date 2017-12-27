@@ -1,9 +1,5 @@
 import {getRelatesCandidate} from "@/server/common.js"
 
-function noop(){
-
-}
-
 export default{
     props:{
         relates:{

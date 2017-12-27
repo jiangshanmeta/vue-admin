@@ -25,6 +25,8 @@
 <script>
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
+import {logError} from "@/widget/utility.js"
+
 export default{
     name:"operators",
     inheritAttrs:true,
@@ -80,9 +82,7 @@ export default{
                 func.call(this,this.data,this.index,resolve);
             }).then(()=>{
                 this.notifyUpdate();
-            }).catch((e)=>{
-                console.log(e);
-            })
+            }).catch(logError)
             
             
         },

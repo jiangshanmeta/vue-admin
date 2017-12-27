@@ -11,7 +11,7 @@
 <script>
 import _id_mixin from "@/mixins/common/_id_mixin.js"
 import {doDeleteRequest} from "@/server/common.js"
-import {noop} from "@/helpers/utility.js"
+import {logError} from "@/widget/utility.js"
 export default {
     name:"delete",
     mixins:[
@@ -43,12 +43,9 @@ export default {
                 new Promise((resolve,reject)=>{
                     this.doDeleteRequest(resolve);
                 }).then(()=>{
-                    this.$message("删除成功");
                     this.$emit('update');
-                }).catch((e)=>{
-                    console.log(e);
-                });
-            }).catch(noop)   
+                }).catch(logError);
+            }).catch(logError);
         }
     },
 }

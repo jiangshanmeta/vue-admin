@@ -83,7 +83,7 @@ import operators from "@/components/common/operators.vue"
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import {getListInfo} from "@/server/common.js"
-import {noop} from "@/helpers/utility.js"
+import {logError} from "@/widget/utility.js"
 
 export default{
     mixins:[
@@ -270,7 +270,7 @@ export default{
                     this.data = data;
                 });
 
-            }).catch(noop);
+            }).catch(logError);
 
         },
         reset(){

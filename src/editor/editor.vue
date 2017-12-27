@@ -70,7 +70,6 @@ import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 
 import AsyncValidator from 'async-validator';
 
-const noop = function(){};
 export default{
     mixins:[
         dynamicImportComponent,
@@ -195,9 +194,7 @@ export default{
             this.$watch(()=>{
                 return this.proxyFields[field]
             },(value)=>{
-                this.validateField.call(this,field,value).catch((e)=>{
-                    console.log(e);
-                })
+                this.validateField.call(this,field,value).catch(()=>{})
             })
         },
         initRelates(newFields){

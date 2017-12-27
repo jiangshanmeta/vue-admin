@@ -37,7 +37,7 @@
 import editor from "@/editor/editor";
 import _id_mixin from "@/mixins/common/_id_mixin.js"
 import {getEditInfo,doEditRequest} from "@/server/common.js"
-import {noop} from "@/helpers/utility.js"
+import {logError} from "@/widget/utility.js"
 export default {
     name:"edit",
     mixins:[
@@ -133,24 +133,16 @@ export default {
                 },[]);
 
                 this.showDialog();
-            }).catch(noop);
+            }).catch(logError);
         },
         doEdit(){
             this.$refs.editbox.validate().then((data)=>{
                 new Promise((resolve,reject)=>{
                     this.doEditRequest(this.transformData(data),resolve)
                 }).then(()=>{
-                    this.$message({
-                        message:"编辑成功",
-                        type:"success",
-                        duration:2000,
-                    });
-
                     this.isShowEditbox = false;
                     this.$emit('update');
-                }).catch((e)=>{
-                    console.log(e)
-                });
+                }).catch(logError);
 
             }).catch((err)=>{
                 this.$message(err);

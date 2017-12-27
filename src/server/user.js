@@ -78,7 +78,6 @@ const privilegeEnum = [
 
 function getPrivilege(data,cb){
     let typ = data.req_typ;
-    console.log(typ)
     let rst;
     switch(typ){
         case 0:
@@ -146,7 +145,6 @@ function getUserDetail(cb){
                 let rowInfo = row.reduce((arr2,field)=>{
                     let value = item[field];
                     if(field === 'typ'){
-                        console.log(value,typHash)
                         value = typHash[value];
                     }
                     arr2.push({field,value});
