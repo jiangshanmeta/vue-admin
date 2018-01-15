@@ -21,8 +21,8 @@
         <template slot="filters" slot-scope="scope">
             <slot name="filters" :formData="scope.formData"></slot>
         </template>
-        <template slot="afterFilters">
-            <slot name="afterFilters"></slot>
+        <template slot="afterFilters" slot-scope="scope">
+            <slot name="afterFilters" :selection="scope.selection"></slot>
         </template>
     </list-info>
     <slot name="afterAll"></slot>

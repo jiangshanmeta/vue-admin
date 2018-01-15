@@ -10,6 +10,14 @@
         <template slot="filters" slot-scope="scope">
             <el-button @click="handleClick(scope.formData)">slot 传递</el-button>
         </template>
+        <div slot="afterFilters" slot-scope="scope">
+            <el-button 
+                type="danger"
+                @click="delAll(scope.selection)"
+            >
+                删除多项
+            </el-button>
+        </div>
     </list_view>
 </template>
 
@@ -25,6 +33,9 @@ export default{
         },
         handleImport(data){
             console.log(data)
+        },
+        delAll(selection){
+            console.log(selection)
         }
     }
 }

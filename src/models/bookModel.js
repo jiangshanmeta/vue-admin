@@ -66,6 +66,7 @@ export default{
         doCreateRequest:createBook,
     },
     listConfig:{
+        selection:true,
         listRequest:getBookList,
     },
     filters:[

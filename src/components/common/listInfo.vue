@@ -9,13 +9,18 @@
                 <slot name="filters" :formData="scope.formData"></slot>
             </template>
         </filters>
-        <slot name="afterFilters"></slot>
+        <slot name="afterFilters" :selection="multipleSelection"></slot>
         <el-table
             v-if="fields.length && data.length"
             :data="data"
             style="width:100%;"
             @sort-change="handleSortChange"
+            @selection-change="handleSelectionChange"
         >
+            <el-table-column
+                v-if="selection"
+                type="selection"
+            ></el-table-column>
             <el-table-column
                 v-for="field in fields"
                 v-if="field_list[field]"
@@ -103,6 +108,7 @@ export default{
             total:0,
             fields:[],
             isComponentsLoaded:false,
+            multipleSelection:[],
         }
     },
     props:{
@@ -115,6 +121,10 @@ export default{
             default:function(){
                 return [];
             },
+        },
+        selection:{
+            type:Boolean,
+            default:false,
         },
         sortFields:{
             type:Array,
@@ -224,6 +234,9 @@ export default{
             this.pageSize = newPageSize;
             this.getListInfo();
         },
+        handleSelectionChange(section){
+            this.multipleSelection = section;
+        },
         getListInfo(){
             let params = {};
             // 有filters 要拿到filters的formData，所以需要等到filters组件实例化完成
@@ -281,6 +294,7 @@ export default{
             this.sortField = '';
             this.sortOrder = '';
             this.isComponentsLoaded = false;
+            this.multipleSelection = [];
         }
     },
     watch:{
