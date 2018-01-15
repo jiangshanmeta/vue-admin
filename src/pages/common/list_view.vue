@@ -5,7 +5,7 @@
         <create
             :field_list="field_list"
             v-bind="createConfig"
-            @create="handleCreate"
+            @create="refreshListData"
         ></create>
         <slot name="afterCreate"></slot>
     </section>
@@ -73,7 +73,7 @@ export default{
         }
     },
     methods:{
-        handleCreate(){
+        refreshListData(){
             this.$refs.listInfo && this.$refs.listInfo.getListInfo();
         }
     }
