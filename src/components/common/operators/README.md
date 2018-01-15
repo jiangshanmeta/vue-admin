@@ -82,3 +82,16 @@
 函数类型配置项的参数：
 
 * doDeleteRequest(resolve) 一般情况下该函数的this指向delete组件实例，，通过this.id可以访问到利用idfield指明的id字段，删除完成后调用resolve
+
+## operator_csv
+
+导入csv
+
+参数：
+
+| 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
+| :---:  | :--:  | :--: | :-----:  | :--: |
+| handleData | 是 | Function | 处理data | 推荐返回promise |
+| text | 否 | String | 按钮文字 | 默认为 “导入csv” |
+| type | 否 | String | 按钮颜色 | 默认为 “success” |
+

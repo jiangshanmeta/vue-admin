@@ -103,6 +103,18 @@ export default{
                     resolve();
                 },1000)
             }
+        },
+        {
+            component:"operator_csv",
+            componentPath:"components/common/operators/operator_csv.vue",
+            config:{
+                text:"import csv",
+                type:"warning",
+                handleData(data){
+                    console.log(data);
+                    return data;
+                }
+            },
         }
 
     ],
