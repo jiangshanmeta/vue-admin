@@ -7,7 +7,7 @@
             v-bind="createConfig"
             @create="refreshListData"
         ></create>
-        <slot name="afterCreate"></slot>
+        <slot name="staticOperators"></slot>
     </section>
 
     <slot name="beforeList"></slot>

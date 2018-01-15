@@ -2,7 +2,7 @@
     <list_view
         v-bind="model"
     >
-        <div slot="afterCreate" style="display:inline-block;">
+        <div slot="staticOperators" style="display:inline-block;">
             <csv 
                 @importCSV="handleImport"
             ></csv>
