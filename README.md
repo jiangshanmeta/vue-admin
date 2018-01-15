@@ -12,7 +12,7 @@
 
 * field_list 字段，是一个model最基础的配置项，具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)，然后看下面的具体描述
 
-* createConfig [create组件需要的配置项](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common#create)
+* createConfig [create组件需要的配置项](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/staticOperators/#create)
 
 * filters，筛选组件的配置项。具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)，然后看下面的具体描述
 
@@ -92,7 +92,7 @@ filters也支持你传入自定义的业务filter，只需要在editorComponent�
 ```javascript
 {
     component:"delete",
-    componentPath:"components/common/delete",
+    componentPath:"components/common/operators/delete",
     config:{
         // delete组件有个名为uri的props属性
         uri:"/user/delete",

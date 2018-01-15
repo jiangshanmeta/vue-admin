@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import create from "@/components/common/create.vue"
-import listInfo from "@/components/common/listInfo.vue"
+import create from "@/components/common/staticOperators/create.vue"
+import listInfo from "@/components/common/views/listInfo.vue"
 
 
 export default{

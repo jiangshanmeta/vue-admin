@@ -4,7 +4,7 @@
 
 <script>
 export default{
-    name:"enum_view",
+    name:"view_enum",
     props:{
         data:{
             type:[Number,String],

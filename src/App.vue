@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import topNav from '@/components/common/topnav'
-import sideMenu from "@/components/common/menu"
-import bottomFooter from "@/components/common/footer"
+import topNav from '@/components/index/topnav'
+import sideMenu from "@/components/index/menu"
+import bottomFooter from "@/components/index/footer"
 import vueTitle from "@/widget/title.vue"
 
 export default {

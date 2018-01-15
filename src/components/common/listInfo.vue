@@ -77,7 +77,7 @@
 
 <script>
 import filters from "@/editor/filters.vue"
-import operators from "@/components/common/operators.vue"
+import operators from "@/components/common/operators/operators.vue"
 
 
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"

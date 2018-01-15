@@ -64,8 +64,8 @@ export default{
                 default:0,
             },
             showComponent:{
-                name:"enum_view",
-                path:"components/common/enum_view",
+                name:"view_enum",
+                path:"components/common/views/view_enum",
                 config:{
                     enums:genderEnum,
                 },
@@ -84,8 +84,8 @@ export default{
                 default:0,
             },
             showComponent:{
-                name:"enum_view",
-                path:"components/common/enum_view",
+                name:"view_enum",
+                path:"components/common/views/view_enum",
                 config:{
                     enums:typHash
                 }
@@ -199,7 +199,7 @@ export default{
     operators:[
         {
             component:"info",
-            componentPath:"components/common/info.vue",
+            componentPath:"components/common/operators/info.vue",
             config:{
                 title:"用户详情",
                 getDetailInfo:getUserDetail,
@@ -207,7 +207,7 @@ export default{
         },
         {
             component:"edit",
-            componentPath:"components/common/edit",
+            componentPath:"components/common/operators/edit",
             config:{
                 getEditInfo:getEditUserInfo,
                 doEditRequest:editUser,
@@ -230,7 +230,7 @@ export default{
         },
         {
             component:"delete",
-            componentPath:"components/common/delete",
+            componentPath:"components/common/operators/delete",
             config:{
                 doDeleteRequest:delUser,
                 triggerText:"删除用户",
