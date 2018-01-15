@@ -38,3 +38,17 @@
 * transformData(data) data为表单中的数据，需要返回一个对象(处理后的数据)
 * doCreateRequest(data,resolve) data是经过transformData处理过的表单数据，resolve是Promise的resolve，创建完成触发create事件。一般情况下该函数的this指向create组件实例
 
+## csv
+
+导入CSV文件，需要浏览器支持fileReader
+
+配置项：
+
+| 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
+| :---:  | :--:  | :--: | :-----:  | :--: |
+| text  |  否 | String | 显示文字 | 默认为 “导入csv” |
+| type  |  否 | String | 按钮类型 | 默认为 “success” |
+| size  |  否 | String | 按钮大小 | 默认为空，正常大小 |
+
+导入CSV文件后，会触发 **importCSV** 事件，传入解析好的数组
+

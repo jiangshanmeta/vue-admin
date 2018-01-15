@@ -31,7 +31,7 @@
 
 <script>
 import create from "@/components/common/staticOperators/create.vue"
-import listInfo from "@/components/common/views/listInfo.vue"
+import listInfo from "@/components/common/listInfo.vue"
 
 
 export default{
