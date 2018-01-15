@@ -10,6 +10,7 @@
             </template>
         </filters>
         <slot name="afterFilters" :selection="multipleSelection"></slot>
+        {{multipleSelection.length}}
         <el-table
             v-if="fields.length && data.length"
             :data="data"

@@ -36,6 +36,7 @@ export default{
         },
         delAll(selection){
             console.log(selection)
+            selection.splice(0,selection.length)
         }
     }
 }
