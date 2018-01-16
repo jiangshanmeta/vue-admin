@@ -1,16 +1,7 @@
 <template>
 <section>
     <slot name="beforeAll"></slot>
-    <section>
-        <create
-            :field_list="field_list"
-            v-bind="createConfig"
-            @create="refreshListData"
-        ></create>
-        <slot name="staticOperators"></slot>
-    </section>
 
-    <slot name="beforeList"></slot>
     <list-info
         :field_list="field_list"
         :filters="filters"
@@ -18,11 +9,21 @@
         v-bind="listConfig"
         ref="listInfo"
     >
+        <template slot="beforeFilters" slot-scope="scope">
+            <operators
+                :operators="staticOperators"
+                :data="scope.data"
+                :formData="scope.formData"
+                :field_list="field_list"
+                @update="refreshListData"
+                size=""
+            ></operators>
+        </template>
         <template slot="filters" slot-scope="scope">
             <slot name="filters" :formData="scope.formData"></slot>
         </template>
         <template slot="afterFilters" slot-scope="scope">
-            <slot name="afterFilters" :selection="scope.selection"></slot>
+            <slot name="afterFilters" :data="scope.data" :formData="scope.formData"></slot>
         </template>
     </list-info>
     <slot name="afterAll"></slot>
@@ -30,15 +31,14 @@
 </template>
 
 <script>
-import create from "@/components/common/staticOperators/create.vue"
 import listInfo from "@/components/common/listInfo.vue"
-
+import operators from "@/components/common/operators/operators.vue"
 
 export default{
     inheritAttrs:true,
     components:{
-        create,
         listInfo,
+        operators,
     },
     props:{
         field_list:{
@@ -47,11 +47,11 @@ export default{
                 return {};
             }
         },
-        createConfig:{
-            type:Object,
+        staticOperators:{
+            type:Array,
             default:function(){
-                return {}
-            }
+                return [];
+            },
         },
         filters:{
             type:Array,

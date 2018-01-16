@@ -61,10 +61,29 @@ export default{
             },
         },
     },
-    createConfig:{
-        getCreateFields:getCreateFields,
-        doCreateRequest:createBook,
-    },
+    staticOperators:[
+        {
+            component:"create",
+            componentPath:"components/common/staticOperators/create",
+            config:{
+                getCreateFields:getCreateFields,
+                doCreateRequest:createBook,
+            },
+        },
+        {
+            label:"删除多项",
+            type:"danger",
+            function(resolve,selection){
+                console.log(this.$attrs.formData);
+                this.$message({
+                    type:"warning",
+                    message:"就把选中的取消选中"
+                })
+                selection.splice(0,selection.length);
+                resolve();
+            }
+        }
+    ],
     listConfig:{
         selection:true,
         listRequest:getBookList,

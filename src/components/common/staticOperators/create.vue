@@ -1,7 +1,7 @@
 <template>
 <section
     v-if="canCreate"
-    style="display:inline-block;"
+    style="display:inline-block;margin-left:10px;margin-right:10px;"
 >
     <el-button
         type="primary"  
@@ -161,7 +161,7 @@ export default{
                     this.doCreateRequest(this.transformData(data),resolve)
                 }).then(()=>{
                     this.isShowCreatebox = false;
-                    this.$emit('create');
+                    this.$emit('update');
                 }).catch(logError)
 
             }).catch((err)=>{

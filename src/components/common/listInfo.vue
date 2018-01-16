@@ -1,16 +1,38 @@
 <template>
     <section v-if="Object.keys(field_list).length && (!hasAsyncComponent || isComponentsLoaded)">
+        <portal-target
+            name="beforeFilters"
+        ></portal-target>
         <filters
             :filters="filters"
             @search="getListInfo"
             ref="filters"
         >
             <template slot-scope="scope" >
+                <portal to="beforeFilters">
+                    <slot 
+                        name="beforeFilters" 
+                        :formData="scope.formData"
+                        :data="multipleSelection"
+                    ></slot>
+                </portal>
+
                 <slot name="filters" :formData="scope.formData"></slot>
+
+                <portal to="afterFilters">
+                    <slot 
+                        name="afterFilters" 
+                        :formData="scope.formData"
+                        :data="multipleSelection"
+                    ></slot>
+                </portal>
             </template>
         </filters>
-        <slot name="afterFilters" :selection="multipleSelection"></slot>
-        {{multipleSelection.length}}
+
+        <portal-target
+            name="afterFilters"
+        ></portal-target>
+
         <el-table
             v-if="fields.length && data.length"
             :data="data"

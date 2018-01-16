@@ -120,11 +120,23 @@ export default{
             },
         }
     },
-    createConfig:{
-        getCreateFields:getCreateFields,
-        doCreateRequest:createUser,
-        triggerText:"新建用户",
-    },
+    // createConfig:{
+    //     getCreateFields:getCreateFields,
+    //     doCreateRequest:createUser,
+    //     triggerText:"新建用户",
+    // },
+    staticOperators:[
+        {
+            component:"create",
+            componentPath:"components/common/staticOperators/create",
+            config:{
+                getCreateFields:getCreateFields,
+                doCreateRequest:createUser,
+                triggerText:"新建用户",
+            }
+        },
+
+    ],
     filters:[
         {
             label:"姓名",
@@ -217,7 +229,7 @@ export default{
         {
             label:"搞个大新闻",
             type:"warning",
-            function(data,index,resolve){
+            function(resolve,data){
                 this.$message({
                     message:`${data.name}不要总想着搞个大新闻`,
                     type:"success",

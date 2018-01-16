@@ -1,25 +1,24 @@
 <template>
-    <span v-if="(!hasAsyncComponent) || isComponentsLoaded" 
+    <div v-if="(!hasAsyncComponent) || isComponentsLoaded" 
     class="operator-container">
         <template v-for="item in operators">
             <component
                 v-if="item.component"
                 :is="item.component"
                 :data="data"
-                :index="index"
                 v-bind="mergeAttrsConfig(item.config)"
                 @update="notifyUpdate"
             ></component>
             <el-button
                 v-else-if="item.function"
                 @click="handleOperatorClick(item.function)"
-                size="small"
+                :size="size"
                 :type="item.type"
             >
                 {{item.label}}
             </el-button>
         </template>
-    </span>
+    </div>
 </template>
 
 <script>
@@ -42,13 +41,13 @@ export default{
             }
         },
         data:{
-            type:Object,
+            type:[Object,Array],
             required:true,
         },
-        index:{
-            type:Number,
-            required:true,
-        },
+        size:{
+            type:String,
+            default:"small"
+        }
     },
     data(){
         return {
@@ -79,7 +78,7 @@ export default{
         },
         handleOperatorClick(func){
             new Promise((resolve,reject)=>{
-                func.call(this,this.data,this.index,resolve);
+                func.call(this,resolve,this.data);
             }).then(()=>{
                 this.notifyUpdate();
             }).catch(logError)
@@ -87,7 +86,7 @@ export default{
             
         },
         notifyUpdate(){
-            this.$emit('update',this.index);
+            this.$emit('update');
         }
     },
     watch:{
