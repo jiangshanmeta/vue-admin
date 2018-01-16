@@ -1,38 +1,38 @@
 <template>
-<section
-    v-if="canCreate"
-    style="display:inline-block;margin-left:10px;margin-right:10px;"
->
-    <el-button
-        type="primary"  
-        @click="handleClick"
+    <div
+        v-if="canCreate"
+        style="display:inline-block;"
     >
-        {{triggerText}}
-    </el-button>
-    <el-dialog
-        :title="title"
-        :visible.sync="isShowCreatebox"
-        size="large"
-    >
-        <editor 
-            :fields="create_editor" 
-            ref="createbox"
-        ></editor>
-        <div slot="footer">
-            <el-button 
-                @click="isShowCreatebox=false"
-            >
-                {{cancelText}}
-            </el-button>
-            <el-button 
-                @click="doCreate" 
-                type="success"
-            >
-                {{createText}}
-            </el-button>
-        </div>
-    </el-dialog>
-</section>
+        <el-button
+            type="primary"  
+            @click="handleClick"
+        >
+            {{triggerText}}
+        </el-button>
+        <el-dialog
+            :title="title"
+            :visible.sync="isShowCreatebox"
+            size="large"
+        >
+            <editor 
+                :fields="create_editor" 
+                ref="createbox"
+            ></editor>
+            <div slot="footer">
+                <el-button 
+                    @click="isShowCreatebox=false"
+                >
+                    {{cancelText}}
+                </el-button>
+                <el-button 
+                    @click="doCreate" 
+                    type="success"
+                >
+                    {{createText}}
+                </el-button>
+            </div>
+        </el-dialog>
+    </div>
 </template>
 
 <script>

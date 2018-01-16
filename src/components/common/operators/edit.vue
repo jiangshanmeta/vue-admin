@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <div style="display:inline-block;">
         <el-button
             @click="getEditFields"
             size="small"
@@ -30,7 +30,7 @@
                 </el-button>
             </section>
         </el-dialog>
-    </span>
+    </div>
 </template>
 
 <script>

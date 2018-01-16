@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <div style="display:inline-block;">
         <el-button
             type="primary"
             size="small"
@@ -36,7 +36,7 @@
                 </tr>
             </table>
         </el-dialog>
-    </span>
+    </div>
 </template>
 
 <script>
