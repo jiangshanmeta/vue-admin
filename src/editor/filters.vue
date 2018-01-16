@@ -1,6 +1,6 @@
 <template>
     <el-form :inline="true"
-        v-if="filters.length && (!hasAsyncComponent || isComponentsLoaded)"
+        v-if="!hasAsyncComponent || isComponentsLoaded"
     >
         <el-form-item
             v-for="item in filters"

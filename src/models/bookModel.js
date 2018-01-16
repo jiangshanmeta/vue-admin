@@ -82,7 +82,19 @@ export default{
                 selection.splice(0,selection.length);
                 resolve();
             }
-        }
+        },
+        {
+            component:"csv",
+            componentPath:"components/common/staticOperators/csv",
+            config:{
+                text:"导入csv数据",
+                type:"warning",
+                handleData:function(resolve,data){
+                    console.log(data);
+                    resolve();
+                }
+            }
+        },
     ],
     listConfig:{
         selection:true,
@@ -124,18 +136,5 @@ export default{
                 },1000)
             }
         },
-        {
-            component:"operator_csv",
-            componentPath:"components/common/operators/operator_csv.vue",
-            config:{
-                text:"import csv",
-                type:"warning",
-                handleData(data){
-                    console.log(data);
-                    return data;
-                }
-            },
-        }
-
     ],
 }

@@ -9,11 +9,8 @@
 </template>
 
 <script>
-import csv from "@/components/common/staticOperators/csv"
+
 export default{
-    components:{
-        csv,
-    },
     methods:{
         handleClick(formData){
             console.log(formData)
