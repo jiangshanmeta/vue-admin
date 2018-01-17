@@ -14,6 +14,7 @@
             <editor
                 :fields="edit_editor"
                 :autoValidate="autoValidate"
+                mode="edit"
                 ref="editbox"
             ></editor>
             <section slot="footer">

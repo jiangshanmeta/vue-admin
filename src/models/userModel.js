@@ -21,6 +21,9 @@ export default{
                 config:{
                     placeholder:'请输入用户名',
                 },
+                editConfig:{
+                    placeholder:"测试editconfig"
+                },
                 default:'',
             },
             validator:[

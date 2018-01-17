@@ -15,6 +15,9 @@ export default{
                 config:{
                     placeholder:'请输入客户名',
                 },
+                createConfig:{
+                    placeholder:"测试createconfig"
+                },
                 default:'',
             },
         },

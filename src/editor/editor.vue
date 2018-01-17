@@ -7,10 +7,10 @@
             <template v-for="item in row">
                 <td>{{item.label}}</td>
                 <td :colspan="row.length===1?3:1">
-                    <component 
+                    <component
                         :is="item.editorComponent.name" 
                         v-model="item.value" 
-                        v-bind="mergeAttrsConfig(item.editorComponent.config)"
+                        v-bind="mergeAttrsConfig(item.editorComponent.config,item.editorComponent[mode + 'Config'])"
                     ></component>
                     <p 
                         v-if="item.tip" 
@@ -265,6 +265,10 @@ export default{
         },
         autoValidate:{
             default:true
+        },
+        mode:{
+            type:String,
+            default:"create"
         }
     },
 }

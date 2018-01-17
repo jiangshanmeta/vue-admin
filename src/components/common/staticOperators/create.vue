@@ -14,6 +14,7 @@
             <editor 
                 :fields="create_editor" 
                 ref="createbox"
+                mode="create"
             ></editor>
             <div slot="footer">
                 <el-button 
