@@ -1,5 +1,5 @@
 <template>
-    <div style="display:inline-block;">
+    <div>
         <el-button
             type="primary"
             size="small"

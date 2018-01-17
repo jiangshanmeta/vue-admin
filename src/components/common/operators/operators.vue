@@ -102,8 +102,8 @@ export default{
 </script>
 
 <style scoped>
-.operator-container{
-    white-space: nowrap;
+.operator-container>*{
+    display:inline-block;
 }
 .operator-container>:first-child~*{
     margin-left:10px;

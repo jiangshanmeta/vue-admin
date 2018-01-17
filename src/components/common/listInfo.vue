@@ -71,7 +71,6 @@
                 :min-width="200"
             >
                 <template slot-scope="scope">
-                    <div class="operator-container">
                         <operators
                             :field_list="field_list"
                             :operators="operators"
@@ -79,7 +78,6 @@
                             :index="scope.$index"
                             @update="getListInfo"
                         ></operators>
-                    </div>
                 </template>
             </el-table-column>
         </el-table>
@@ -331,9 +329,3 @@ export default{
 
 }
 </script>
-
-<style scoped>
-.operator-container{
-    white-space: nowrap;
-}
-</style>

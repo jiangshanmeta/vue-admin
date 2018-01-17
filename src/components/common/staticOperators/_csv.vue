@@ -1,5 +1,5 @@
 <template>
-    <div style="display:inline-block;">
+    <div>
         <el-button
             @click="handleClick"
             :type="type"

@@ -1,8 +1,5 @@
 <template>
-    <div
-        v-if="canCreate"
-        style="display:inline-block;"
-    >
+    <div>
         <el-button
             type="primary"  
             @click="handleClick"
@@ -52,10 +49,6 @@ export default{
         }
     },
     props:{
-        canCreate:{
-            type:Boolean,
-            default:true,
-        },
         getCreateFieldsUri:{
 
         },
