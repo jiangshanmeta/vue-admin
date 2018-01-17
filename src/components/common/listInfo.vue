@@ -88,6 +88,7 @@
             {{emptyText}}
         </section>
         <el-pagination
+            v-if="paginated && data.length"
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page.sync="pageIndex"
@@ -96,7 +97,6 @@
             layout="total, sizes, prev, pager, next, jumper"
             :total="total"
             style="display:table;margin-left:auto;margin-right:auto;"
-            v-if="data.length"
         ></el-pagination>
     </section>
 </template>
@@ -195,6 +195,10 @@ export default{
                 return [];
             }
         },
+        paginated:{
+            type:Boolean,
+            default:true,
+        },
         pageSize:{
             type:Number,
             default:20
@@ -284,8 +288,11 @@ export default{
                 params = Object.assign(params,this.$refs.filters.formData)
             }
 
-            params[this.pageIndexReqName] = this.pageIndex;
-            params[this.pageSizeReqName] = this.pageSize;
+            if(this.paginated){
+                params[this.pageIndexReqName] = this.pageIndex;
+                params[this.pageSizeReqName] = this.pageSize;
+            }
+            
             params[this.sortFieldReqName] = this.sortField;
             params[this.sortOrderReqName] = this.sortOrder;
 

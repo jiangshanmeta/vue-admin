@@ -17,6 +17,7 @@
 | sortFieldReqName | 否 | String   | 请求时排序字段的key  | 默认为 sortField |
 | sortOrderReqName | 否 | String   | 请求时排序顺序的key  | 默认为sortOrder 值为asc或者desc |
 | transformListData        | 否 | Function | 获得后端传回的列表数据是对列表数据的操作 | 支持async函数，默认什么都不做 |
+| paginated | 否 | Boolean | 是否需要分页 | 默认为false |
 | pageSize         | 否 | Number   | 分页组件需要的，每页多少条记录 | 默认为20 |
 | pageSizes        | 否 | Array    | 分页组件需要的，每页记录数选择器配置项，一个数字数组 | 默认为 [10,20,30,40] |
 | emptyText | 否 | String | 无数据时的展示文字 | 默认为 "暂无数据" |

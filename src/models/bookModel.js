@@ -99,6 +99,7 @@ export default{
     listConfig:{
         selection:true,
         listRequest:getBookList,
+        paginated:false,
     },
     filters:[
         {
