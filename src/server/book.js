@@ -8,7 +8,7 @@ function getStore(cb){
     ])
 }
 
-function getSaler(data,cb){
+function getSaler(cb,data){
     let storeId = data.store;
     let rst;
     switch(storeId){
@@ -72,13 +72,13 @@ function getCreateFields(cb){
     cb(createFields);
 }
 
-function createBook(data,cb){
+function createBook(cb,data){
     data.id = id++;
     bookTable.push(data);
     cb();
 }
 
-function getBookList(params,cb){
+function getBookList(cb,params){
     let data = bookTable;
     let fields = ["customername","totalprice","address"];
     let total = data.length;

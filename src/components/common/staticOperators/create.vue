@@ -158,7 +158,7 @@ export default{
         doCreate(){
             this.$refs.createbox.validate().then((data)=>{
                 new Promise((resolve,reject)=>{
-                    this.doCreateRequest(this.transformData(data),resolve)
+                    this.doCreateRequest(resolve,this.transformData(data))
                 }).then(()=>{
                     this.isShowCreatebox = false;
                     this.$emit('update');

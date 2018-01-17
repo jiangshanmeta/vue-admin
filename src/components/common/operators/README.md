@@ -62,7 +62,7 @@
 ```
 
 * transformData(data) data为表单中的数据，需要返回一个对象(处理后的数据)
-* doEditRequest(data,resolve) 一般情况下该函数的this指向edit组件实例，，data是经过transformData处理的数据，更新完成后调用resolve。
+* doEditRequest(resolve,data) 一般情况下该函数的this指向edit组件实例，，data是经过transformData处理的数据，更新完成后调用resolve。
 
 ## delete
 

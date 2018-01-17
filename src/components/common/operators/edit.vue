@@ -138,7 +138,7 @@ export default {
         doEdit(){
             this.$refs.editbox.validate().then((data)=>{
                 new Promise((resolve,reject)=>{
-                    this.doEditRequest(this.transformData(data),resolve)
+                    this.doEditRequest(resolve,this.transformData(data))
                 }).then(()=>{
                     this.isShowEditbox = false;
                     this.$emit('update');

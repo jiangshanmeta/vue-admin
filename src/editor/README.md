@@ -164,7 +164,6 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
-    * vm，组件实例
     * cb，你需要调用该方法传入选项数组
 
 #### field_async_enum_select
@@ -175,7 +174,6 @@ filters组件是为了通用列表页的筛选条件所设计的
 * valuefield 默认为value
 * placeholder
 * httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
-    * vm，组件实例
     * cb，你需要调用该方法传入选项数组
 
 #### field_async_model
@@ -186,7 +184,6 @@ filters组件是为了通用列表页的筛选条件所设计的
 * valuefield 默认为value
 * placeholder
 * httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
-    * vm，组件实例
     * cb，你需要调用该方法传入选项数组
 
 
@@ -198,9 +195,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
-    * vm，组件实例
-    * data，查询参数，一个对象
     * cb，你需要调用该方法传入选项数组
+    * data，查询参数，一个对象
+    
 
 #### field_relates_enum_select
 
@@ -211,9 +208,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * valuefield 默认为value
 * placeholder
 * httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
-    * vm，组件实例
-    * data，查询参数，一个对象
     * cb，你需要调用该方法传入选项数组
+    * data，查询参数，一个对象
+    
 
 #### field_relates_model
 
@@ -224,9 +221,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * valuefield 默认为value
 * placeholder
 * httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
-    * vm，组件实例
-    * data，查询参数，一个对象
     * cb，你需要调用该方法传入选项数组
+    * data，查询参数，一个对象
+    
 
 
 ### 多选
@@ -253,7 +250,6 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
-    * vm，组件实例
     * cb，你需要调用该方法传入选项数组
 
 
@@ -265,7 +261,6 @@ filters组件是为了通用列表页的筛选条件所设计的
 * valuefield 默认为value
 * placeholder
 * httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
-    * vm，组件实例
     * cb，你需要调用该方法传入选项数组
 
 
@@ -277,9 +272,8 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
-    * vm，组件实例
-    * data，查询参数，一个对象
     * cb，你需要调用该方法传入选项数组
+    * data，查询参数，一个对象
 
 #### field_relates_array_model
 
@@ -290,9 +284,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * valuefield 默认为value
 * placeholder
 * httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
-    * vm，组件实例
-    * data，查询参数，一个对象
     * cb，你需要调用该方法传入选项数组
+    * data，查询参数，一个对象
+
 
 ### 时间
 

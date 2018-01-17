@@ -120,11 +120,6 @@ export default{
             },
         }
     },
-    // createConfig:{
-    //     getCreateFields:getCreateFields,
-    //     doCreateRequest:createUser,
-    //     triggerText:"新建用户",
-    // },
     staticOperators:[
         {
             component:"create",

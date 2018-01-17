@@ -27,7 +27,7 @@
 
 * transformRequestData(data) data是请求的参数
 
-* listRequest(data,resolve) 请求列表数据，返回字段格式如下：
+* listRequest(resolve,data) 请求列表数据，返回字段格式如下：
 
 ```
 {

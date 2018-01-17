@@ -10,7 +10,7 @@ function getAsyncCandidate(cb){
     })
 }
 
-function getRelatesCandidate(data,cb){
+function getRelatesCandidate(cb,data){
     if(!this.uri){
         console.error("relates-enum需要配置uri");
         return;
@@ -30,7 +30,7 @@ function getCreateFields(cb){
     })
 }
 
-function doCreateRequest(data,cb){
+function doCreateRequest(cb,data){
     if(!this.doCreateUri){
         console.error("创建时使用默认方法需要配置doCreateUri");
         return;
@@ -50,7 +50,7 @@ function getEditInfo(cb){
     })
 }
 
-function doEditRequest(data,cb){
+function doEditRequest(cb,data){
     if(!this.doEditUri){
         console.error("edit组件需要配置doEditUri");
         return;
@@ -76,7 +76,7 @@ function getDetailInfo(cb){
     })
 }
 
-function getListInfo(data,cb){
+function getListInfo(cb,data){
     if(!this.baseUrl){
         return;
     }

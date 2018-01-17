@@ -76,7 +76,7 @@ const privilegeEnum = [
     {"id":999,"name":"关小黑屋"},
 ];
 
-function getPrivilege(data,cb){
+function getPrivilege(cb,data){
     let typ = data.req_typ;
     let rst;
     switch(typ){
@@ -112,14 +112,14 @@ function getCreateFields(cb){
     cb(createFields);
 }
 
-function createUser(data,cb){
+function createUser(cb,data){
     data.id = id++;
     userTable.push(data);
     cb();
 }
 
 
-function getUserList(params,cb){
+function getUserList(cb,params){
     let data = userTable;
     let fields = ["name","gender","typ"];
     let total = data.length;
@@ -191,7 +191,7 @@ function getEditUserInfo(cb){
     
 }
 
-function editUser(data,cb){
+function editUser(cb,data){
     let id = this.id;
     for(let item of userTable){
         if(item.id === id){

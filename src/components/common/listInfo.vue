@@ -292,7 +292,7 @@ export default{
             params[this.sortOrderReqName] = this.sortOrder;
 
             return new Promise((resolve,reject)=>{
-                this.listRequest(this.transformRequestData(params),resolve)
+                this.listRequest(resolve,this.transformRequestData(params))
             }).then((rst)=>{
                 let {data,total,fields} = rst;
                 let promise = this.transformListData(data);
