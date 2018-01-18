@@ -82,3 +82,19 @@
 函数类型配置项的参数：
 
 * doDeleteRequest(resolve) 一般情况下该函数的this指向delete组件实例，，通过this.id可以访问到利用idfield指明的id字段，删除完成后调用resolve
+
+
+## toggle
+
+反转状态的更新
+
+参数：
+
+| 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
+| :---:  | :--:  | :--: | :-----:  | :--: |
+| data | 是 | Object | 这一条记录的数据  | 对于操作组件是自动传入的 |
+| field | 是  | String | 反转状态的字段名 | - |
+| typeMap | 是 | Object | 根据状态对应的按钮颜色 | - |
+| textMap | 是 | Object | 根据状态决定的文字 | - |
+| handleToggle | 是 | Function | 对数据处理，第一个参数是resolve回调，第二个参数是这一条记录 | - |
+
