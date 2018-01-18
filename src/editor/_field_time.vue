@@ -2,12 +2,14 @@
     <el-date-picker
         :type="type"
         :placeholder="placeholder"
+        :disabled="disabled"
         v-model="currentValue"
         @change="handleChange"
     ></el-date-picker>
 </template>
 
 <script>
+import _props_disabled_mixin from "./_props_disabled_mixin.js"
 import _props_value_mixin from "./_props_value_mixin.js"
 import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
 export default{
@@ -17,6 +19,7 @@ export default{
         }
     },
     mixins:[
+        _props_disabled_mixin,
         _props_value_mixin,
         _props_placeholder_mixin,
     ],

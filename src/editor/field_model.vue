@@ -6,16 +6,19 @@
         @select="handleSelect"
         @input="handleInput"
         :placeholder="placeholder"
+        :disabled="disabled"
     ></el-autocomplete>
 </template>
 
 <script>
+import _props_disabled_mixin from "./_props_disabled_mixin.js"
 import _props_label_value_mixin from "./_props_label_value_mixin"
 import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
 import _props_value_mixin from "./_props_value_mixin"
 export default{
     name:'field_model',
     mixins:[
+        _props_disabled_mixin,
         _props_label_value_mixin,
         _props_placeholder_mixin,
         _props_value_mixin,

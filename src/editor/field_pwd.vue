@@ -12,6 +12,7 @@ import _computed_model_mixin from "./_computed_model_mixin.js"
 
 export default{
     name:'field_pwd',
+    inheritAttrs:true,
     mixins:[
         _props_value_mixin,
         _computed_model_mixin,

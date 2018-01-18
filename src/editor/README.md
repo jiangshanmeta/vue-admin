@@ -16,7 +16,7 @@
 
 ## 组件分类
 
-* field_number 限定表单元素值为数字
+* field_number 限定表单元素值为数字 field_int限定为int
 
 * field_string、field_text限定表单元素值为字符串，两者的区别在于表现形式，前者是一个input框，后者是一个textarea
 
@@ -113,7 +113,17 @@ filters组件是为了通用列表页的筛选条件所设计的
 #### field_number
 
 * value 必传参数，类型为number
-* placeholder 可选
+* min 允许的最小值，默认为0
+* max 允许的最大值，默认为Infinity
+* disabled 是否禁用，默认为false
+
+#### field_int
+
+* value
+* min 允许的最小值，默认为0
+* max 允许的最大值，默认为Infinity
+* disabled 是否禁用，默认为false
+
 
 ### 字符串
 
@@ -121,16 +131,19 @@ filters组件是为了通用列表页的筛选条件所设计的
 
 * value 必传参数，类型没有做校验
 * placeholder 可选
+* disabled 是否禁用，默认为false
 
 #### field_text
 
 * value 必传参数，类型没有做校验
 * placeholder 可选
+* disabled 是否禁用，默认为false
 
 #### field_pwd
 
 * value 必传参数，类型没有做校验
 * placeholder 可选
+* disabled 是否禁用，默认为false
 
 ### 单选
 
@@ -140,6 +153,7 @@ filters组件是为了通用列表页的筛选条件所设计的
 * candidate 必传参数，类型为数组，单选的候选项数组
 * labelfield 默认为label
 * valuefield 默认为value
+* disabled 是否禁用，默认为false
 
 #### field_enum_select
 
@@ -148,6 +162,7 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * placeholder
+* disabled 是否禁用 默认为false
 
 #### field_model
 
@@ -156,6 +171,7 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * placeholder
+* disabled 是否禁用 默认为false
 
 #### field_async_enum_radio
 
@@ -163,6 +179,7 @@ filters组件是为了通用列表页的筛选条件所设计的
 * uri 必传参数，请求候选选项的相对路径
 * labelfield 默认为label
 * valuefield 默认为value
+* disabled 是否禁用 默认为false
 * httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
 
@@ -173,6 +190,7 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * placeholder
+* disabled 是否禁用 默认为false
 * httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
 
@@ -183,6 +201,7 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * placeholder
+* disabled 是否禁用 默认为false
 * httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
 
@@ -194,6 +213,7 @@ filters组件是为了通用列表页的筛选条件所设计的
 * relates 必传参数，类型为对象，声明了和其他表单元素的关联关系
 * labelfield 默认为label
 * valuefield 默认为value
+* disabled 是否禁用 默认为false
 * httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
     * data，查询参数，一个对象
@@ -207,6 +227,7 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * placeholder
+* disabled 是否禁用 默认为false
 * httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
     * data，查询参数，一个对象
@@ -220,6 +241,7 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * placeholder
+* disabled 是否禁用 默认为false
 * httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
     * data，查询参数，一个对象
@@ -234,6 +256,7 @@ filters组件是为了通用列表页的筛选条件所设计的
 * candidate 必传参数，类型为数组，选项数组
 * labelfield 默认为label
 * valuefield 默认为value
+* disabled 是否禁用 默认为false
 
 #### field_array_model
 
@@ -249,6 +272,7 @@ filters组件是为了通用列表页的筛选条件所设计的
 * uri 必传参数，请求候选选项的相对路径
 * labelfield 默认为label
 * valuefield 默认为value
+* disabled 是否禁用 默认为false
 * httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
 
@@ -271,6 +295,7 @@ filters组件是为了通用列表页的筛选条件所设计的
 * relates 必传参数，类型为对象，声明了和其他表单元素的关联关系
 * labelfield 默认为label
 * valuefield 默认为value
+* disabled 是否禁用 默认为false
 * httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
     * data，查询参数，一个对象
@@ -294,21 +319,26 @@ filters组件是为了通用列表页的筛选条件所设计的
 
 * value 必传参数，值为空字符串或者*yyyy-MM-dd HH:mm:ss*格式的时间字符串
 * placeholder
+* disabled 是否禁用 默认为false
+
 
 #### field_day
 
 * value 必传参数，值为空字符串或者*yyyy-MM-dd*格式的时间字符串
 * placeholder
+* disabled 是否禁用 默认为false
 
 #### field_month
 
 * value 必传参数，值为空字符串或者*yyyy-MM*格式的时间字符串
 * placeholder
+* disabled 是否禁用 默认为false
 
 #### field_year
 
 * value 必传参数，值为空字符串或者*yyyy*格式的时间字符串
 * placeholder
+* disabled 是否禁用 默认为false
 
 ### 上传
 
