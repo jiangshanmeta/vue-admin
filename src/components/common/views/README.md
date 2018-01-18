@@ -16,3 +16,7 @@
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
 | path   | 是    | String | 路径描述 | 例如 "$store.state.activity.name" |
+
+## view_html
+
+输出真正的 HTML
