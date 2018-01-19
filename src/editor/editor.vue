@@ -163,9 +163,11 @@ export default{
 
             if(!this.hasValidateListener){
                 keys.forEach((field)=>{
-                    this.addValidateInputListener(field);
+                    this.validators[field].unwatch = this.addValidateInputListener(field);
                 })
+                this.hasValidateListener = true;
             }
+            
 
             return Promise.all(promises).then(()=>{
                 return JSON.parse(JSON.stringify(this.formData));
@@ -191,33 +193,32 @@ export default{
 
         },
         addValidateInputListener(field){
-            this.$watch(()=>{
+            return this.$watch(()=>{
                 return this.proxyFields[field]
             },(value)=>{
                 this.validateField.call(this,field,value).catch(()=>{})
             })
         },
         initRelates(newFields){
-                newFields.forEach((row)=>{
-                    row.forEach((item)=>{
-                        Object.defineProperty(this.proxyFields,item.field,{
-                            get(){
-                                return item.value
-                            },
-                            set(){
+            newFields.forEach((row)=>{
+                row.forEach((item)=>{
+                    Object.defineProperty(this.proxyFields,item.field,{
+                        get(){
+                            return item.value
+                        },
+                        set(){
 
-                            },
-                            enumerable:true,
-                            configurable:true,
-                        })
-
-                        if(item.editorComponent && item.editorComponent.config && item.editorComponent.config.relates){
-                            observe_relates(item.editorComponent.config.relates,this.proxyFields)
-                        }
-
-
+                        },
+                        enumerable:true,
+                        configurable:true,
                     })
-                });
+
+                    if(item.editorComponent && item.editorComponent.config && item.editorComponent.config.relates){
+                        observe_relates(item.editorComponent.config.relates,this.proxyFields)
+                    }
+
+                })
+            });
         },
         initValidate(newFields){
             newFields.forEach((row)=>{
@@ -229,16 +230,16 @@ export default{
                             hasErr:false,
                             errMsg:'',
                             validator:asyncValidator,
+                            unwatch:null,
                         })
 
                         if(this.autoValidate){
-                            this.addValidateInputListener(item.field);
+                            this.validators[item.field].unwatch = this.addValidateInputListener(item.field);
                         }
-
                     }
-
                 })
             });
+
             if(this.autoValidate){
                 this.hasValidateListener = true;
             }
@@ -249,6 +250,9 @@ export default{
             immediate:true,
             handler(newFields){
                 this.proxyFields = {};
+                Object.keys(this.validators).forEach((field)=>{
+                    this.validators[field].unwatch && this.validators[field].unwatch();
+                })
                 this.validators = {};
                 this.isComponentsLoaded = false;
                 this.hasValidateListener = false;

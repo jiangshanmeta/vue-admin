@@ -16,8 +16,23 @@ function logError(e){
     console && console.log && console.log(e);
 }
 
+function download(data,name="template",options){
+    if(typeof data === 'string'){
+        data = [data];
+    }
+    let blob = new Blob(data,options);
+    let href = URL.createObjectURL(blob);
+    let dom = document.createElement("a");
+    dom.href = href;
+    dom.download = name;
+    dom.click();
+    URL.revokeObjectURL(href);
+}
+
+
 export {
     isAsyncFunction,
     enumArr2Hash,
     logError,
+    download,
 }

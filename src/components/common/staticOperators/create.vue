@@ -132,7 +132,9 @@ export default{
                 row.forEach((item)=>{
                     item.value = typeof item.default==='function'?item.default():item.default;
                 })
-            })
+            });
+            // 使editor重置
+            this.create_editor.splice(0,0);
         },
         handleClick(){
             if(this.create_fields.length === 0){
