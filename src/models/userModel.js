@@ -198,6 +198,13 @@ export default{
             },
         }
     ],
+    filterOperators:[
+        {
+            component:"reset",
+            componentPath:"components/common/filterOperators/reset",
+
+        },
+    ],
     listConfig:{
         listRequest:getUserList,
         sortFields:['typ'],

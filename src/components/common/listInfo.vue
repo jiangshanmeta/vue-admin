@@ -17,10 +17,18 @@
                     ></slot>
                 </portal>
 
-                <slot name="filters" :formData="scope.formData"></slot>
+                <operators
+                    :field_list="field_list"
+                    :operators="filterOperators"
+                    :data="scope.formData"
+                    :filters="filters"
+                    @update="getListInfo"
+                    slot="filters"
+                    style="display:inline-block;margin-left:10px;"
+                ></operators>
 
                 <portal to="afterFilters">
-                    <slot 
+                    <slot
                         name="afterFilters" 
                         :formData="scope.formData"
                         :data="multipleSelection"
@@ -71,13 +79,13 @@
                 :min-width="200"
             >
                 <template slot-scope="scope">
-                        <operators
-                            :field_list="field_list"
-                            :operators="operators"
-                            :data="scope.row"
-                            :index="scope.$index"
-                            @update="getListInfo"
-                        ></operators>
+                    <operators
+                        :field_list="field_list"
+                        :operators="operators"
+                        :data="scope.row"
+                        :index="scope.$index"
+                        @update="getListInfo"
+                    ></operators>
                 </template>
             </el-table-column>
         </el-table>
@@ -212,7 +220,13 @@ export default{
         emptyText:{
             type:String,
             default:"暂无数据"
-        }
+        },
+        filterOperators:{
+            type:Array,
+            default:function(){
+                return [];
+            }
+        },
     },
     computed:{
         hasAsyncComponent(){

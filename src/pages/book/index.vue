@@ -2,9 +2,9 @@
     <list_view
         v-bind="model"
     >
-        <template slot="filters" slot-scope="scope">
+<!--         <template slot="filters" slot-scope="scope">
             <el-button @click="handleClick(scope.formData)">slot 传递</el-button>
-        </template>
+        </template> -->
     </list_view>
 </template>
 

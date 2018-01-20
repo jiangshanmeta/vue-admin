@@ -6,6 +6,7 @@
         :field_list="field_list"
         :filters="filters"
         :operators="operators"
+        :filterOperators="filterOperators"
         v-bind="listConfig"
         ref="listInfo"
     >
@@ -17,11 +18,10 @@
                 :field_list="field_list"
                 @update="refreshListData"
                 size=""
+                style="margin-bottom:8px;"
             ></operators>
         </template>
-        <template slot="filters" slot-scope="scope">
-            <slot name="filters" :formData="scope.formData"></slot>
-        </template>
+
         <template slot="afterFilters" slot-scope="scope">
             <slot name="afterFilters" :data="scope.data" :formData="scope.formData"></slot>
         </template>
@@ -70,7 +70,13 @@ export default{
             default:function(){
                 return [];
             }
-        }
+        },
+        filterOperators:{
+            type:Array,
+            default:function(){
+                return [];
+            }
+        },
     },
     methods:{
         refreshListData(){

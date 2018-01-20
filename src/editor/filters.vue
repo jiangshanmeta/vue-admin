@@ -1,6 +1,7 @@
 <template>
     <el-form :inline="true"
         v-if="!hasAsyncComponent || isComponentsLoaded"
+        class="filters"
     >
         <el-form-item
             v-for="item in filters"
@@ -19,12 +20,6 @@
                 @click="search"
             >
                 查询
-            </el-button>
-            <el-button
-                type="warning"
-                @click="resetValue"
-            >
-                重置
             </el-button>
             <slot :formData="formData"></slot>
         </el-form-item>
@@ -167,3 +162,9 @@ export default{
     }
 }
 </script>
+
+<style scoped>
+.filters >>> .el-form-item{
+    margin-bottom:5px;
+}
+</style>
