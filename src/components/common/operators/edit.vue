@@ -2,7 +2,8 @@
     <div>
         <el-button
             @click="getEditFields"
-            size="small"
+            :type="type"
+            :size="size"
         >
             {{triggerText}}
         </el-button>
@@ -102,6 +103,14 @@ export default {
             type:String,
             default:"取消"
         },
+        type:{
+            type:String,
+            default:"primary",
+        },
+        size:{
+            type:String,
+            default:"small",
+        }
     },
     methods:{
         showDialog(){

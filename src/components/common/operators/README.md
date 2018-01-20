@@ -12,6 +12,9 @@
 | getDetailInfo | 否 | Function | 获得详情信息的方法 | 采用默认方法需要配合uri参数 |
 | title | 否 | String | 详情dialog的标题 | 默认为 “详情” | 
 | triggerText | 否 | String | 触发按钮文字 | 默认为 "详情" |
+| type | 否 | String | 按钮颜色 | 默认为 primary 蓝色 |
+| size | 否 | String | 按钮大小 | 默认为正常大小 | 
+
 
 函数类型配置项的参数：
 
@@ -47,6 +50,9 @@
 | triggerText | 否 | String | 触发按钮文字 | 默认为 "编辑" |
 | editText | 否 | String | 确认编辑按钮文字 | 默认为 "确认编辑" |
 | cancelText | 否 | String | 取消按钮文字 | 默认为 "取消" |
+| type | 否 | String | 按钮颜色 | 默认为 primary 蓝色 |
+| size | 否 | String | 按钮大小 | 默认为正常大小 | 
+
 
 函数类型配置项的参数：
 
@@ -77,6 +83,9 @@
 | doDeleteRequest | 否 | Function | 删除操作请求 | 默认方法需要结合uri，且删除的id作为路径的一部分 |
 | idfield | 否 | String | 指明id字段 | 默认是id |
 | triggerText | 否 | String | 触发按钮文案 | 默认是 "删除" |
+| type | 否 | String | 按钮颜色 | 默认为 primary 蓝色 |
+| size | 否 | String | 按钮大小 | 默认为正常大小 | 
+
 
 
 函数类型配置项的参数：
@@ -97,4 +106,7 @@
 | typeMap | 是 | Object | 根据状态对应的按钮颜色 | - |
 | textMap | 是 | Object | 根据状态决定的文字 | - |
 | handleToggle | 是 | Function | 对数据处理，第一个参数是resolve回调，第二个参数是这一条记录 | - |
+| type | 否 | String | 按钮颜色 | 默认为 primary 蓝色 |
+| size | 否 | String | 按钮大小 | 默认为正常大小 | 
+
 

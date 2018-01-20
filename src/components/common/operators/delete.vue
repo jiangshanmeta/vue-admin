@@ -1,7 +1,7 @@
 <template>
     <el-button
-        type="danger"
-        size="small"
+        :type="type"
+        :size="size"
         @click="handleClick"
     >
         {{triggerText}}
@@ -32,6 +32,14 @@ export default {
             type:String,
             default:"删除",
         },
+        type:{
+            type:String,
+            default:"danger",
+        },
+        size:{
+            type:String,
+            default:"small",
+        }
     },
     methods:{
         handleClick(){

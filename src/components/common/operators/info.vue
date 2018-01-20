@@ -1,8 +1,8 @@
 <template>
     <div>
         <el-button
-            type="primary"
-            size="small"
+            :type="type"
+            :size="size"
             @click="handleClick"
         >
             {{triggerText}}
@@ -82,7 +82,15 @@ export default{
         triggerText:{
             type:String,
             default:"详情"
-        }
+        },
+        type:{
+            type:String,
+            default:"primary",
+        },
+        size:{
+            type:String,
+            default:"small",
+        },
     },
     computed:{
         hasAsyncComponent(){

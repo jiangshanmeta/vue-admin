@@ -1,8 +1,9 @@
 <template>
     <div>
         <el-button
-            type="primary"  
+            :type="type"  
             @click="handleClick"
+            :size="size"
         >
             {{triggerText}}
         </el-button>
@@ -12,7 +13,8 @@
             size="large"
         >
             <editor 
-                :fields="create_editor" 
+                :fields="create_editor"
+                :autoValidate="autoValidate"
                 ref="createbox"
                 mode="create"
             ></editor>
@@ -89,7 +91,19 @@ export default{
         cancelText:{
             type:String,
             default:"取消"
-        }
+        },
+        type:{
+            type:String,
+            default:"primary",
+        },
+        size:{
+            type:String,
+            default:"",
+        },
+        autoValidate:{
+            type:Boolean,
+            default:false,
+        },
     },
     watch:{
         field_list(){

@@ -1,7 +1,7 @@
 <template>
     <el-button
         :type="typeMap[data[field]]"
-        size="small"
+        :size="size"
         @click="handleClick"
     >
         {{textMap[data[field]]}}
@@ -34,7 +34,11 @@ export default{
             default:function(){
 
             },
-        }
+        },
+        size:{
+            type:String,
+            default:"small",
+        },
     },
     methods:{
         handleClick(){

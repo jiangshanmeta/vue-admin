@@ -268,7 +268,8 @@ export default{
             required:true
         },
         autoValidate:{
-            default:true
+            type:Boolean,
+            default:false,
         },
         mode:{
             type:String,
