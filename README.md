@@ -2,23 +2,25 @@
 
 这个项目是基于vue-cli构建的针对于后台业务的通用业务层，UI库采用了element-ui。
 
-本项目的核心页面是 */src/pages/common/list_view*，这个页面涵盖了后台页面最常见的增删查改功能。
+本项目的核心页面是 */src/pages/common/list_view* ，这个页面涵盖了后台页面最常见的增删查改功能。
 
 ## model
 
-对于这个核心列表页，有相当多的可配置信息，这些可配置项被抽象成为一个model统一管理，这就是src目录下的**models**目录要存放的内容。
+对于这个核心列表页，有相当多的可配置信息，这些可配置项被抽象成为一个model统一管理，这就是 */src/model/* 要存放的内容。
 
 一个model由以下几个部分构成：
 
 * field_list 字段，是一个model最基础的配置项，具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)，然后看下面的具体描述
 
-* staticOperators 类似于operators，但是data不是对应的一条记录，而是选中的记录数组
+* listConfig，[列表组件的配置项](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common#listinfo)
+
+* operators 针对一条记录的操作集，更新、删除功能应该放在这里
+
+* staticOperators 类似于operators，但staticOperators不针对于一条特定的记录，它对应的data是选中的数据数组。创建功能应该放在这里。
 
 * filters，筛选组件的配置项。具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)，然后看下面的具体描述
 
-* listConfig，[列表组件的配置项](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common#listinfo)
-
-* operators 操作集，具体使用方法在下面
+* filterOperators 类似于operators，是为了拓展筛选功能设计的(目前没发现什么特别的用途)，除了传入代表筛选参数的data属性，它还传入了filters属性。
 
 声明了一个model后，我们还需要在vue-router配置中指明用了哪个model，因而用到了vue-router的meta属性。具体的声明请看 */src/router/menu.js* 文件
 
@@ -52,15 +54,29 @@ tip是展示在表单元素下面的用来提示用户的信息。
 
 ## filters
 
-filters与field_list相类似，但是他是个数组结构，页面中按照顺序渲染筛选组件。
+filters是筛选的配置项，它是一个数组，其组成元素示例如下：
 
-label属性类似于field_list中的label属性，仅仅是展示名
+```javascript
+{
+    label:"自定义filter",
+    field:"test",
+    editorComponent:{
+        name:"test_custom_filter",
+        config:{
+            msg:"测试自定义filter",
+        },
+        path:"components/user/test_custom_filter",
+        default:"test",
+    },
+    watch:true,
+}
+```
 
-field是筛选时请求query传参的key
+* label是展示名
+* field是请求时的key
+* editorComponent是编辑组件相关配置项，name是编辑组件名称，config是对这个编辑组件的配置项，path是编辑组件的路径，用于自定义编辑组件时动态引入，default是编辑组件的默认值
+* watch是用来实现当一个编辑组件变化时就触发查询(默认是有个查询按钮，点击才查询)，值为true则开启此功能。
 
-editorComponent与field_list中的editorComponent一致。
-
-filters也支持你传入自定义的业务filter，只需要在editorComponent中声明path属性即可。
 
 ## operators
 
@@ -101,30 +117,19 @@ filters也支持你传入自定义的业务filter，只需要在editorComponent�
 
 component字段是组件名，对应组件的name属性，**使用这一模式时务必声明组件的name属性**。componentPath是组件相对于src目录的路径，推荐放在src目录下的components目录下，并保持文件名和组件name属性一致。考虑到组件复用问题，还有一个config参数，用来向这些子组件传递配置参数。在这种模式下，仅需声明这三项，其余的operators组件会自动处理。
 
-operators加载的子组件会被传入```data```，对应第一种声明方式下函数的前两个参数。在这一模式下，组件需要手动通过以下程序通知operators状态更新：
+在这种声明情况下，一个data参数会被自动传入。data对于operators、staticOperators和filterOperators含义是不同的，对于operators，data是这条记录的信息(一个对象)，对于staticOperators，data是一组被选中的记录(一个数组)，对于filterOperators，data是筛选框的数据集合(一个对象)。
+
+这种声明方式要想通知列表刷新需要手动触发update事件：
 
 ```javascript
 this.$emit('update')
 ```
 
-operators会自动通知列表组件状态更新，剩下的更新列表就和第一种声明方式一致了。
-
 
 ## TODO
 
-* <del> 通用的删除组件 (done)</del>
-* <del>寻找一个基于vue的富文本编辑器，目前考虑[这个第三方组件](https://github.com/surmon-china/vue-quill-editor) (done)</del>
-* <del>传图、传文件，这个任务依然要基于element-ui，主要是对应的后端的代码我还没有写。</del>
-* <del>优化列表显示。目前列表的treatData方法只能做一些数据处理，比如说一些映射操作。一些特殊的字段，比如一组图片的地址，界面上应该显示的是图片，但是目前只能支持显示图片地址。这个实现上可以参考 operators组件。 (done)  </del>
-* operators以及edit组件的优化。目前是一条记录对应一个operators组件以及一个edit组件，其对应的子组件数量可能很多(目前edit组件就是这样)，尝试这些子组件被共享使用。
-* 去除vuex。在这个项目中vuex用处并不大，几个共享的状态其实可以直接放在根vue实例上。(似乎vuex还是有点用的)
-* <del>表单前端验证</del>采用[这个表单验证库](https://github.com/yiminghe/async-validator)，然而我考虑自己写一个(一个大TODO)
-* <del>editor允许通过field_list声明业务editor，类似于opeartor组件的声明方式。(done)</del>
-* <del>[对应后端php代码](https://github.com/jiangshanmeta/CodeIgniter)</del>由于前端大改过一次后端代码没有对应修改，暂时不能使用。
-* <del>允许filters传入用户自定义filter</del>
-* <del>允许有ajax操作的editor传入自定义ajax方法。(done)</del>
-* <del>筛选组件配置按照field_list的改</del>
-* <del>更新field_relates_*组件</del>
+
+
 
 ## 后端接口
 

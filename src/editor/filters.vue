@@ -82,6 +82,7 @@ export default{
         return {
             isComponentsLoaded:false,
             proxyFields:{},
+            unwatchs:[],
         }
     },
     props:{
@@ -97,8 +98,13 @@ export default{
                 this.isComponentsLoaded = false;
                 this.proxyFields = {};
                 this.importFilter();
+                this.unwatchs.forEach((unwatch)=>{
+                    unwatch && unwatch();
+                });
+                this.unwatchs.splice(0,this.unwatchs.length);
                 this.resetValue();
                 this.initRelates(newFilters);
+                this.initWatch();
             },
         }
     },
@@ -158,7 +164,18 @@ export default{
                     observe_relates(item.editorComponent.config.relates,this.proxyFields)
                 }
             })
-        }
+        },
+        initWatch(){
+            this.filters.forEach((item)=>{
+                if(!item.watch){
+                    return;
+                }
+                let unwatch = this.$watch(()=>{
+                    return item.value
+                },this.search);
+                this.unwatchs.push(unwatch);
+            })
+        },
     }
 }
 </script>

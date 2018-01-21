@@ -196,6 +196,7 @@ export default{
                 path:"components/user/test_custom_filter",
                 default:"test",
             },
+            watch:true,
         }
     ],
     filterOperators:[
