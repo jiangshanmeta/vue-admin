@@ -2,6 +2,7 @@
     <el-form :inline="true"
         v-if="!hasAsyncComponent || isComponentsLoaded"
         class="filters"
+        v-show="filters.length"
     >
         <el-form-item
             v-for="item in filters"
@@ -18,6 +19,8 @@
             <el-button 
                 type="primary"
                 @click="search"
+                v-if="filters.length"
+                style="margin-right:10px;"
             >
                 查询
             </el-button>

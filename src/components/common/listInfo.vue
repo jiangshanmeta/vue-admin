@@ -24,7 +24,7 @@
                     :filters="filters"
                     @update="getListInfo"
                     slot="filters"
-                    style="display:inline-block;margin-left:10px;"
+                    style="display:inline-block;"
                 ></operators>
 
                 <portal to="afterFilters">
@@ -76,7 +76,7 @@
             <el-table-column
                 label="操作"
                 v-if="operators.length && data.length"
-                :min-width="200"
+                :min-width="60*operators.length"
             >
                 <template slot-scope="scope">
                     <operators

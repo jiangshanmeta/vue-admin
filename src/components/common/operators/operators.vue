@@ -108,4 +108,10 @@ export default{
 .operator-container>:first-child~*{
     margin-left:10px;
 }
+.operator-container{
+    white-space:nowrap;
+}
+.operator-container>*{
+    white-space:normal;
+}
 </style>
