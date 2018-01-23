@@ -114,6 +114,10 @@ export default{
                     return [];
                 },
             },
+            colspan:{
+                create:3,
+                edit:3,
+            }
         },
         desc:{
             label:"备注",
@@ -121,6 +125,10 @@ export default{
                 name:"field_text_rich",
                 default:"这是富文本编辑器蛤",
             },
+            colspan:{
+                create:3,
+                edit:3,
+            }
         }
     },
     staticOperators:[

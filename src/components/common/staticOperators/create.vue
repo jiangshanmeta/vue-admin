@@ -133,6 +133,7 @@ export default{
                         tip:this.field_list[field].tip,
                         validator:this.field_list[field].validator,
                         default:configDefault,
+                        colspan:(this.field_list[field].colspan && this.field_list[field].colspan.create) || 1,
                     })
                     return rowitem;
                 },[]);

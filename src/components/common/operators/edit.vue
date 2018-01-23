@@ -134,6 +134,7 @@ export default {
                             editorComponent:this.field_list[field].editorComponent,
                             tip:this.field_list[field].tip,
                             validator:this.field_list[field].validator,
+                            colspan:(this.field_list[field].colspan && this.field_list[field].colspan.edit) || 1,
                         })
                         return rowitem;
                     },[])

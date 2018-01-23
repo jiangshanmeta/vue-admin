@@ -3,10 +3,10 @@
         class="table"
         v-if="!hasAsyncComponent || isComponentsLoaded"
     >
-        <tr v-for="row in fields">
+        <tr v-for="(row,rowIndex) in fields">
             <template v-for="item in row">
                 <td>{{item.label}}</td>
-                <td :colspan="row.length===1?3:1">
+                <td :colspan="item.colspan || 1">
                     <component
                         :is="item.editorComponent.name" 
                         v-model="item.value" 
@@ -26,6 +26,7 @@
                     </p>
                 </td>
             </template>
+            <td v-if="restCols[rowIndex]" :colspan="restCols[rowIndex]"></td>
         </tr>
     </table>
 </template>
@@ -135,7 +136,33 @@ export default{
                 }
             }
             return false;
-        }
+        },
+        maxCol(){
+            let max = 2;
+            for(let row of this.fields){
+                let rowCol = 0;
+                for(let item of row){
+                    rowCol += ( (item.colspan || 1) + 1 );
+                }
+                if(rowCol>max){
+                    max = rowCol;
+                }
+            }
+
+            return max;
+        },
+        restCols(){
+            let arr = [];
+            const max = this.maxCol;
+            for(let row of this.fields){
+                let rowCol = 0;
+                for(let item of row){
+                    rowCol += ( (item.colspan || 1) + 1 );
+                }
+                arr.push(max - rowCol);
+            }
+            return arr;
+        },
     },
     methods:{
         importEditor(){
