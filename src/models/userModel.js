@@ -125,9 +125,14 @@ export default{
                 name:"field_text_rich",
                 default:"这是富文本编辑器蛤",
             },
+            showComponent:{
+                name:"view_html",
+                path:"components/common/views/view_html"
+            },
             colspan:{
                 create:3,
                 edit:3,
+                info:3,
             }
         }
     },

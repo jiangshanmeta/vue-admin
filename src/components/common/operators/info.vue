@@ -17,11 +17,11 @@
                 v-if="!hasAsyncComponent || isComponentsLoaded"
             >
                 <tr
-                    v-for="row in infoData"
+                    v-for="(row,rowIndex) in infoData"
                 >
                     <template v-for="item in row">
                         <td>{{field_list[item.field]['label']}}</td>
-                        <td :colspan="row.length===1?3:1">
+                        <td :colspan="(field_list[item.field].colspan && field_list[item.field].colspan.info) || 1">
                             <template v-if="!field_list[item.field]['showComponent']">
                                 {{item.value}}
                             </template>
@@ -33,6 +33,7 @@
                             ></component>
                         </td>
                     </template>
+                    <td v-if="restCols[rowIndex]" :colspan="restCols[rowIndex]"></td>
                 </tr>
             </table>
         </el-dialog>
@@ -102,6 +103,33 @@ export default{
             }
             return false;
         },
+        maxCol(){
+            let max = 2;
+            for(let row of this.infoData){
+                let rowCol = 0;
+                for(let item of row){
+                    let field = item.field;
+                    rowCol += ( (this.field_list[field].colspan && this.field_list[field].colspan.info) || 1) + 1;
+                }
+                if(rowCol>max){
+                    max = rowCol;
+                }
+            }
+            return max;
+        },
+        restCols(){
+            let arr = [];
+            const max = this.maxCol;
+            for(let row of this.infoData){
+                let rowCol = 0;
+                for(let item of row){
+                    let field = item.field;
+                    rowCol += ( (this.field_list[field].colspan && this.field_list[field].colspan.info) || 1) + 1;
+                }
+                arr.push(max - rowCol);
+            }
+            return arr;
+        }
     },
     methods:{
         handleClick(){

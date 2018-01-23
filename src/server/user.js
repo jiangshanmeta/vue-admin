@@ -144,9 +144,6 @@ function getUserDetail(cb){
             let rst = detailFields.reduce((arr,row)=>{
                 let rowInfo = row.reduce((arr2,field)=>{
                     let value = item[field];
-                    if(field === 'typ'){
-                        value = typHash[value];
-                    }
                     arr2.push({field,value});
                     return arr2;
                 },[])
