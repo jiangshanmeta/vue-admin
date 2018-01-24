@@ -41,7 +41,17 @@ let routes = [
         meta:{
             title:"登录",
         }
-    }
+    },
+    {
+        path:"/index/404",
+        component:()=>import("@/pages/index/404"),
+    },
+
+    // 类似于路由表的默认规则
+    {
+        path:"*",
+        redirect:"/index/404"
+    },
 ];
 
 menu.forEach((item)=>{

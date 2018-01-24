@@ -45,6 +45,14 @@ export default {
                 })
             }
         },
+        // 404页的另一种实现
+        // "$route.matched"(matched){
+        //     if(!Array.isArray(matched) || matched.length === 0){
+        //         this.$router.push({
+        //             path:'/index/404'
+        //         });
+        //     }
+        // }
     },
     created (){
         if(this.$localStorage.get('token') && !this.$store.state.isLogin){
