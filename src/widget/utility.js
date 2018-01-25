@@ -16,17 +16,14 @@ function logError(e){
     console && console.log && console.log(e);
 }
 
+import fileSaver from 'file-saver';
+
 function download(data,name="template",options){
     if(typeof data === 'string'){
         data = [data];
     }
     let blob = new Blob(data,options);
-    let href = URL.createObjectURL(blob);
-    let dom = document.createElement("a");
-    dom.href = href;
-    dom.download = name;
-    dom.click();
-    URL.revokeObjectURL(href);
+    fileSaver.saveAs(blob,name);
 }
 
 

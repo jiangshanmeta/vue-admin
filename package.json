@@ -14,6 +14,7 @@
     "axios": "^0.16.2",
     "csv-js": "^1.0.0",
     "element-ui": "^1.3.7",
+    "file-saver": "^1.3.3",
     "phpjs": "^1.3.2",
     "portal-vue": "^1.3.0-beta.0",
     "qs": "^6.5.0",

@@ -6,6 +6,8 @@ import {
     getBookList,
 } from "@/server/book.js"
 
+import {download} from "@/widget/utility.js"
+
 export default{
     field_list:{
         customername:{
@@ -98,6 +100,20 @@ export default{
                 }
             }
         },
+        {
+            label:"下载CSV",
+            type:"primary",
+            function(resolve,data){
+                const keys = ['customername','totalprice','address'];
+                let rst = data.map((item)=>{
+                    return keys.map((key)=>{
+                        return item[key];
+                    }).join(",");
+                }).join("\r\n");
+                
+                download(rst,"template.csv");
+            },
+        }
     ],
     listConfig:{
         selection:true,
