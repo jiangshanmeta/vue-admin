@@ -67,7 +67,7 @@ export default{
                 default:0,
             },
             showComponent:{
-                name:"view_enum",
+                name:"view_enum2",
                 path:"components/common/views/view_enum",
                 config:{
                     enums:genderEnum,

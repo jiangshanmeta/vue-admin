@@ -246,7 +246,10 @@ export default{
                 let components = [];
                 for(let item of keys){
                     if(this.field_list[item]['showComponent']){
-                        components.push(this.field_list[item]['showComponent']['path']);
+                        components.push({
+                            name:this.field_list[item]['showComponent']['name'],
+                            path:this.field_list[item]['showComponent']['path'],
+                        });
                     }
                 }
 

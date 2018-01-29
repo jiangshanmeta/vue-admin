@@ -133,7 +133,10 @@ export default{
             if(this.hasAsyncComponent){
                 let componentPaths = this.filters.reduce((arr,item)=>{
                     if(item.editorComponent.path){
-                        arr.push(item.editorComponent.path)
+                        arr.push({
+                            name:item.editorComponent.name,
+                            path:item.editorComponent.path,
+                        })
                     }
                     return arr;
                 },[]);

@@ -170,7 +170,10 @@ export default{
                 let components = this.fields.reduce((arr,row)=>{
                     for(let item of row){
                         if(item.editorComponent && item.editorComponent.path){
-                            arr.push(item.editorComponent.path)
+                            arr.push({
+                                name:item.editorComponent.name,
+                                path:item.editorComponent.path,
+                            })
                         }
                     }
                     return arr;
