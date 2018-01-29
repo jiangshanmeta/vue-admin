@@ -120,14 +120,14 @@ export default {
             new Promise((resolve,reject)=>{
                 this.getEditInfo(resolve);
             }).then((fields)=>{
-                this.edit_editor = fields.reduce((arr,row)=>{
-                    let rowitem = row.reduce((rowitem,fieldInfo)=>{
+
+                this.edit_editor = fields.map((row)=>{
+                    return row.map((fieldInfo)=>{
                         let field = fieldInfo.field;
                         let configDefault = this.field_list[field].editorComponent.default;
-
                         let value = fieldInfo.hasOwnProperty('value')?fieldInfo.value:(typeof configDefault === 'function'? configDefault():configDefault );
 
-                        rowitem.push({
+                        return {
                             field,
                             value,
                             label:this.field_list[field].label,
@@ -135,13 +135,10 @@ export default {
                             tip:this.field_list[field].tip,
                             validator:this.field_list[field].validator,
                             colspan:(this.field_list[field].colspan && this.field_list[field].colspan.edit) || 1,
-                        })
-                        return rowitem;
-                    },[])
+                        }
+                    });
 
-                    arr.push(rowitem);
-                    return arr;
-                },[]);
+                });
 
                 this.showDialog();
             }).catch(logError);

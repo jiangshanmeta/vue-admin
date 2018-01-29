@@ -82,8 +82,6 @@ export default{
             }).then(()=>{
                 this.notifyUpdate();
             }).catch(logError)
-            
-            
         },
         notifyUpdate(){
             this.$emit('update');

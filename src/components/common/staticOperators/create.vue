@@ -119,28 +119,24 @@ export default{
             this.create_editor = [];
         },
         initEditor(){
-            this.create_editor = this.create_fields.reduce((arr,row)=>{
-                let rowitem = row.reduce((rowitem,field)=>{
+            this.create_editor = this.create_fields.map((row)=>{
+                return row.map((field)=>{
                     let configDefault = this.field_list[field].editorComponent.default;
-
                     let value = typeof configDefault === 'function'?configDefault() : configDefault;
 
-                    rowitem.push({
+                    return {
                         field,
-                        value:value,
+                        value,
                         label:this.field_list[field].label,
                         editorComponent:this.field_list[field].editorComponent,
                         tip:this.field_list[field].tip,
                         validator:this.field_list[field].validator,
                         default:configDefault,
                         colspan:(this.field_list[field].colspan && this.field_list[field].colspan.create) || 1,
-                    })
-                    return rowitem;
-                },[]);
+                    }
+                })
+            })
 
-                arr.push(rowitem)
-                return arr;
-            },[])
         },
         resetEditor(){
             this.create_editor.forEach((row)=>{
