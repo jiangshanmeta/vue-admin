@@ -1,54 +1,11 @@
+import index from "./modules/index"
+import crm from "./modules/crm"
+import book from "./modules/book"
+import test from "./modules/test"
+
 export default [
-    {
-        label:"首页",
-        controller_name:"index",
-        icon:"el-icon-menu",
-        children:[
-            {
-                path:'/index/index',
-                label:"个人中心",
-                component:()=>import("@/pages/index/index"),
-                meta:{
-                    privilege:[1],
-                    title:"个人中心",
-                }
-            }
-        ],
-    },
-    {
-        label:'客户',
-        controller_name:'crm',
-        icon:'el-icon-share',
-        children:[
-            {
-                path:'/crm/index',
-                component:()=>import('@/pages/common/listView.js'),
-                label:'客户列表',
-                meta:{
-                    privilege:[1,999],
-                    model:"userModel",
-                    title:"客户列表",
-                },
-            },
-
-
-        ],
-    },
-    {
-        label:"订单",
-        controller_name:"book",
-        icon:"el-icon-setting",
-        children:[
-            {
-                path:"/book/index",
-                label:"订单列表",
-                component:()=>import('@/pages/book/index.js'),
-                meta:{
-                    privilege:[73,999],
-                    model:"bookModel",
-                    title:"订单列表",
-                }
-            }
-        ],
-    }
+    index,
+    crm,
+    book,
+    test,
 ];

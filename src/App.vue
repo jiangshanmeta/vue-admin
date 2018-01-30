@@ -4,10 +4,10 @@
         <top-nav></top-nav>
 
         <div style="flex-grow:1;display:flex;max-width:100%;">
-            <side-menu 
+            <side-menu
+                v-if="$store.state.isLogin"
                 style="flex:0 0 auto;"
                 :uri="$store.state.uri.path"
-                :is-login="$store.state.isLogin"
                 :privilege="$store.state.userInfo.privilege"
             ></side-menu>
             <main style="flex:1 1 auto;max-width:100%;padding:15px;">

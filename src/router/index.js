@@ -5,68 +5,18 @@ import store from "@/store"
 
 Vue.use(Router)
 
-let routes = [
-    {
-        path:"/test/test_basic",
-        component:()=>import("@/pages/test/test_basic"),
-    },
-    {
-        path:"/test/test_upload",
-        component:()=>import("@/pages/test/test_upload"),
-    },
-    {
-        path:"/test/test_ts",
-        component:()=>import("@/pages/test/test_ts"),
-    },
-    {
-        path:"/test/test_enum",
-        component:()=>import("@/pages/test/test_enum"),
-    },
-    {
-        path:"/test/test_tag",
-        component:()=>import("@/pages/test/test_tag"),
-    },
-    {
-        path:"/test/test_filter",
-        component:()=>import("@/pages/test/test_filter"),
-    },
+let routes = [];
 
-    {
-        path:'/',
-        redirect:'/index/index',
-    },
-    {
-        path:'/index/login',
-        component:()=>import("@/pages/index/login"),
-        meta:{
-            title:"登录",
-        }
-    },
-    {
-        path:"/index/404",
-        component:()=>import("@/pages/index/404"),
-    },
+Object.keys(menu).forEach((moduleName)=>{
+    let pages = menu[moduleName].pages || [];
+    pages.forEach((page)=>{
+        routes.push(page);
+    });
+});
 
-    // 类似于路由表的默认规则
-    {
-        path:"*",
-        redirect:"/index/404"
-    },
-];
-
-menu.forEach((item)=>{
-    let children = item.children || [];
-    children.forEach((child)=>{
-        routes.push({
-            path:child.path,
-            component:child.component,
-            meta:child.meta,
-        })
-    })
-})
 
 const router = new Router({
-  routes: routes
+    routes
 })
 
 router.beforeEach((to, from, next) => {

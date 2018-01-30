@@ -1,6 +1,5 @@
 <template>
-    <el-menu 
-        v-if="isLogin"
+    <el-menu
         :router="true"
         :default-active="uri"
         style="width:200px;"
@@ -8,7 +7,7 @@
     >
         <el-submenu
             v-for="menuItem in computedMenu"
-            :index="menuItem.controller_name"
+            :index="menuItem.name"
             :key="menuItem.path"
         >
             <template slot="title">
@@ -29,16 +28,10 @@
 <script>
 import menu from "@/router/menu"
 export default{
-    data(){
-        return {
-            menu,
-        }
+    config:{
+        menu,
     },
     props:{
-        isLogin:{
-            type:Boolean,
-            default:false
-        },
         uri:{
             type:String,
             default:''
@@ -52,15 +45,13 @@ export default{
     },
     computed:{
         controllerPrivilege(){
-            return this.menu.reduce((obj,{controller_name,children=[]})=>{
-                obj[controller_name] = [];
-                children.forEach(({meta:{privilege=[]}={}})=>{
+            return this.menu.reduce((obj,{name,pages=[]})=>{
+                obj[name] = new Set();
+                pages.forEach(({meta:{privilege=[]}={}})=>{
                     for(let item of privilege){
-                        if(!obj[controller_name].includes(item)){
-                            obj[controller_name].push(item);
-                        }
+                        obj[name].add(item);
                     }
-                })
+                });
                 return obj;
             },{})
         },
@@ -68,20 +59,26 @@ export default{
             return this.privilege.reduce((obj,item)=>{
                 obj[item] = true;
                 return obj;
-            },{})
+            },Object.create(null));
         },
         computedMenu(){
             return this.menu.reduce((arr,item)=>{
-                let controller_name = item.controller_name;
-                if(this.checkHasPrivilege(this.controllerPrivilege[controller_name])){
+                let name = item.name;
+                if(this.checkHasPrivilege(this.controllerPrivilege[name])){
                     let menuItem = {};
                     menuItem.label = item.label;
                     menuItem.icon = item.icon;
-                    menuItem.controller_name = item.controller_name;
+                    menuItem.name = name;
  
-                    let children = item.children || [];
-                    menuItem.children = children.reduce((arr,subMenuItem)=>{
+                    let pages = item.pages || [];
+                    menuItem.children = pages.reduce((arr,subMenuItem)=>{
+                        // 页面从属于某个模块，但是不显示在菜单中
+                        if(subMenuItem.meta && subMenuItem.meta.menuHide){
+                            return arr;
+                        }
+                        // console.log(subMenuItem.meta.privilege)
                         if(this.checkHasPrivilege(subMenuItem.meta && subMenuItem.meta.privilege)){
+
                             arr.push({
                                 label:subMenuItem.label,
                                 path:subMenuItem.path
@@ -90,7 +87,6 @@ export default{
 
                         return arr;
                     },[]);
-
                     arr.push(menuItem);
                 }
 
@@ -100,8 +96,12 @@ export default{
     },
     methods:{
         checkHasPrivilege(privilege=[]){
+            // 任何人都能看的菜单项
+            if(!privilege.length){
+                return true;
+            }
             for(let item of privilege){
-                if(this.userPrivilegeHash.hasOwnProperty(item)){
+                if(this.userPrivilegeHash[item]){
                     return true;
                 }
             }
