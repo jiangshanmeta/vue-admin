@@ -29,6 +29,15 @@ export default{
                 name:"field_number",
                 default:0,
             },
+            showComponent:{
+                name:"view_transform",
+                path:"components/common/views/view_transform",
+                config:{
+                    transform:function(data){
+                        return "¥" + data;
+                    },
+                }
+            },
         },
         address:{
             label:"收货地址",
