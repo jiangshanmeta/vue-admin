@@ -52,22 +52,34 @@ editorComponent:{
 },
 ```
 
-* viewComponent 展示时对应的组件，他用在列表页和详情模态框中(info组件)。它的声明格式如下：
+* view 字段展示时的配置项，目前支持两种模式，一种是组件，一种是函数。简单地转换函数就足够了，复杂的展示效果需要使用组件。组件式声明如下：
 
 ```javascript
-viewComponent:{
+view:{
     // 组件名
-    name:"showusername",
+    component:"view_enum",
     // 组件路径
-    path:"components/user/showusername",
-    // 配置项，一个配置项对应一个props
+    componentPath:"components/common/views/view_enum",
+    // 组件配置项
     config:{
-        msg:"测试列表页组件形式展示"
+        enums:typHash
+    },
+},
+```
+
+函数式声明如下：
+
+```javascript
+view:{
+    function(data,config){
+        return config.prefix + data;
+    },
+    config:{
+        prefix:"用户名"
     }
 },
 ```
 
-* viewTransform 也是用在展示上的，但是不是组件而是函数，它的唯一参数是对应的字段值。
 
 * validator 表单验证用的
 

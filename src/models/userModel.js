@@ -26,8 +26,13 @@ export default{
                 },
                 default:'',
             },
-            viewTransform:function(data){
-                return "用户名: " + data;
+            view:{
+                function(data,config){
+                    return config.prefix + data;
+                },
+                config:{
+                    prefix:"用户名"
+                }
             },
             validator:[
                 {
@@ -69,9 +74,9 @@ export default{
                 name:"field_sex",
                 default:0,
             },
-            viewComponent:{
-                name:"view_enum2",
-                path:"components/common/views/view_enum",
+            view:{
+                component:"view_enum2",
+                componentPath:"components/common/views/view_enum",
                 config:{
                     enums:genderEnum,
                 },
@@ -89,13 +94,13 @@ export default{
                 },
                 default:0,
             },
-            viewComponent:{
-                name:"view_enum",
-                path:"components/common/views/view_enum",
+            view:{
+                component:"view_enum",
+                componentPath:"components/common/views/view_enum",
                 config:{
                     enums:typHash
-                }
-            }
+                },
+            },
         },
         privilege:{
             label:'权限',
@@ -128,9 +133,9 @@ export default{
                 name:"field_text_rich",
                 default:"这是富文本编辑器蛤",
             },
-            viewComponent:{
-                name:"view_html",
-                path:"components/common/views/view_html"
+            view:{
+                component:"view_html",
+                componentPath:"components/common/views/view_html",
             },
             colspan:{
                 create:3,

@@ -29,9 +29,9 @@ export default{
                 name:"field_number",
                 default:0,
             },
-            viewComponent:{
-                name:"view_transform",
-                path:"components/common/views/view_transform",
+            view:{
+                component:"view_transform",
+                componentPath:"components/common/views/view_transform",
                 config:{
                     transform:function(data){
                         return "¥" + data;

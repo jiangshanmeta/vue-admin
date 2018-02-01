@@ -24,13 +24,13 @@
                         <td :colspan="(field_list[item.field].colspan && field_list[item.field].colspan.info) || 1">
 
                             <component 
-                                v-if="field_list[item.field].viewComponent"
-                                :is="field_list[item.field]['viewComponent']['name']"
+                                v-if="field_list[item.field].view && field_list[item.field].view.component"
+                                :is="field_list[item.field].view.component"
                                 :data="item.value"
-                                v-bind="mergeAttrsConfig(field_list[item.field]['viewComponent']['config'])"
+                                v-bind="mergeAttrsConfig(field_list[item.field].view.config || {})"
                             ></component>
-                            <template v-else-if="field_list[item.field].viewTransform && (typeof field_list[item.field].viewTransform === 'function')">
-                                {{field_list[item.field].viewTransform(item.value)}}
+                            <template v-else-if="field_list[item.field].view && field_list[item.field].view.function">
+                                {{field_list[item.field].view.function(item.value,field_list[item.field].view.config || {} )}}
                             </template>
                             <template v-else>
                                 {{item.value}}
@@ -101,7 +101,7 @@ export default{
         hasAsyncComponent(){
             let keys = Object.keys(this.field_list);
             for(let item of keys){
-                if(this.field_list[item]['viewComponent']){
+                if(this.field_list[item].view && this.field_list[item].view.component){
                     return true;
                 }
             }
@@ -153,10 +153,10 @@ export default{
                 let keys = Object.keys(this.field_list);
                 let components = [];
                 for(let item of keys){
-                    if(this.field_list[item]['viewComponent']){
+                    if(this.field_list[item].view && this.field_list[item].view.component){
                         components.push({
-                            name:this.field_list[item]['viewComponent']['name'],
-                            path:this.field_list[item]['viewComponent']['path'],
+                            name:this.field_list[item].view.component,
+                            path:this.field_list[item].view.componentPath,
                         });
                     }
                 }
