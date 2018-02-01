@@ -29,7 +29,7 @@ export default{
                 name:"field_number",
                 default:0,
             },
-            showComponent:{
+            viewComponent:{
                 name:"view_transform",
                 path:"components/common/views/view_transform",
                 config:{

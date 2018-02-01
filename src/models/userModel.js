@@ -26,6 +26,9 @@ export default{
                 },
                 default:'',
             },
+            viewTransform:function(data){
+                return "用户名: " + data;
+            },
             validator:[
                 {
                     validator:function(rule,value,cb){
@@ -66,7 +69,7 @@ export default{
                 name:"field_sex",
                 default:0,
             },
-            showComponent:{
+            viewComponent:{
                 name:"view_enum2",
                 path:"components/common/views/view_enum",
                 config:{
@@ -86,7 +89,7 @@ export default{
                 },
                 default:0,
             },
-            showComponent:{
+            viewComponent:{
                 name:"view_enum",
                 path:"components/common/views/view_enum",
                 config:{
@@ -125,7 +128,7 @@ export default{
                 name:"field_text_rich",
                 default:"这是富文本编辑器蛤",
             },
-            showComponent:{
+            viewComponent:{
                 name:"view_html",
                 path:"components/common/views/view_html"
             },

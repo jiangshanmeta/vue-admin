@@ -60,17 +60,19 @@
                 :prop="field"
                 :sortable="sortFields.includes(field)?'custom':false"
             >
-                <template slot-scope="scope" >
-                    <template v-if="!field_list[field].showComponent">
+                <template slot-scope="scope">
+                    <component 
+                        v-if="field_list[field].viewComponent"
+                        :is="field_list[field]['viewComponent']['name']"
+                        :data="scope.row[field]"
+                        v-bind="mergeAttrsConfig(field_list[field]['viewComponent']['config'])"
+                    ></component>
+                    <template v-else-if="field_list[field].viewTransform && (typeof field_list[field].viewTransform === 'function')">
+                        {{field_list[field].viewTransform(scope.row[field])}}
+                    </template>
+                    <template v-else>
                         {{scope.row[field]}}
                     </template>
-                    <component 
-                        v-else
-                        :is="field_list[field]['showComponent']['name']"
-                        :data="scope.row[field]"
-                        v-bind="mergeAttrsConfig(field_list[field]['showComponent']['config'])"
-                    >
-                    </component>
                 </template>
             </el-table-column>
             <el-table-column
@@ -232,7 +234,7 @@ export default{
         hasAsyncComponent(){
             let keys = Object.keys(this.field_list);
             for(let item of keys){
-                if(this.field_list[item]['showComponent']){
+                if(this.field_list[item]['viewComponent']){
                     return true;
                 }
             }
@@ -240,15 +242,15 @@ export default{
         },
     },
     methods:{
-        importshowComponent(){
+        importviewComponent(){
             if(this.hasAsyncComponent){
                 let keys = Object.keys(this.field_list);
                 let components = [];
                 for(let item of keys){
-                    if(this.field_list[item]['showComponent']){
+                    if(this.field_list[item]['viewComponent']){
                         components.push({
-                            name:this.field_list[item]['showComponent']['name'],
-                            path:this.field_list[item]['showComponent']['path'],
+                            name:this.field_list[item]['viewComponent']['name'],
+                            path:this.field_list[item]['viewComponent']['path'],
                         });
                     }
                 }
@@ -345,7 +347,7 @@ export default{
     watch:{
         field_list(){
             this.reset();
-            this.importshowComponent();
+            this.importviewComponent();
             this.getListInfo();
         },
     },

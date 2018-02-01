@@ -29,14 +29,33 @@
 
 field_list是一个字段集合，每一个键是对应的字段名，值是关于这个字段相关的描述。
 
-label描述是这个字段的展示名
+关于字段的描述可以自行扩展，目前支持以下描述：
 
-editorComponent是这个字段编辑相关的配置，包括name(组件名),config(对组件的配置项),path(自定义组件的路径),default(默认值)。我提供了一些[通用业务组件](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)
+* label 这个字段的展示名
 
-showComponent是展示时对应的组件，他用在列表页和详情模态框中(info组件)。它的声明格式如下：
+* editorComponent 这个字段编辑相关的配置，包括name(组件名),config(对组件的配置项),path(自定义组件的路径),default(默认值)。我提供了一些[通用业务组件](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)。声明示例如下：
 
 ```javascript
-showComponent:{
+editorComponent:{
+    name:"field_naive",
+    path:"components/test/field_naive",
+    config:{
+        placeholder:'请输入用户名',
+    },
+    createConfig:{
+
+    },
+    editConfig:{
+        placeholder:"测试editconfig"
+    },
+    default:'',
+},
+```
+
+* viewComponent 展示时对应的组件，他用在列表页和详情模态框中(info组件)。它的声明格式如下：
+
+```javascript
+viewComponent:{
     // 组件名
     name:"showusername",
     // 组件路径
@@ -48,9 +67,22 @@ showComponent:{
 },
 ```
 
-validator 表单验证用的
+* viewTransform 也是用在展示上的，但是不是组件而是函数，它的唯一参数是对应的字段值。
 
-tip是展示在表单元素下面的用来提示用户的信息。
+* validator 表单验证用的
+
+* tip 展示在表单元素下面的用来提示用户的信息。
+
+* colspan 用于info edit create 组件中的，用来控制组件对应的colspan。声明格式如下：
+
+```javascript
+colspan:{
+    // 在create组件的colspan配置
+    create:3,
+    // 在edit组件的colspan配置 
+    edit:3,
+}
+```
 
 ## filters
 

@@ -22,15 +22,19 @@
                     <template v-for="item in row">
                         <td>{{field_list[item.field]['label']}}</td>
                         <td :colspan="(field_list[item.field].colspan && field_list[item.field].colspan.info) || 1">
-                            <template v-if="!field_list[item.field]['showComponent']">
+
+                            <component 
+                                v-if="field_list[item.field].viewComponent"
+                                :is="field_list[item.field]['viewComponent']['name']"
+                                :data="item.value"
+                                v-bind="mergeAttrsConfig(field_list[item.field]['viewComponent']['config'])"
+                            ></component>
+                            <template v-else-if="field_list[item.field].viewTransform && (typeof field_list[item.field].viewTransform === 'function')">
+                                {{field_list[item.field].viewTransform(item.value)}}
+                            </template>
+                            <template v-else>
                                 {{item.value}}
                             </template>
-                            <component
-                                v-else
-                                :is="field_list[item.field]['showComponent']['name']"
-                                :data="item.value"
-                                v-bind="mergeAttrsConfig(field_list[item.field]['showComponent']['config'])"
-                            ></component>
                         </td>
                     </template>
                     <td v-if="restCols[rowIndex]" :colspan="restCols[rowIndex]"></td>
@@ -97,7 +101,7 @@ export default{
         hasAsyncComponent(){
             let keys = Object.keys(this.field_list);
             for(let item of keys){
-                if(this.field_list[item]['showComponent']){
+                if(this.field_list[item]['viewComponent']){
                     return true;
                 }
             }
@@ -134,7 +138,7 @@ export default{
     methods:{
         handleClick(){
             if(!this.isComponentsLoaded){
-                this.importshowComponent();
+                this.importviewComponent();
             }
 
             new Promise((resolve,reject)=>{
@@ -144,15 +148,15 @@ export default{
                 this.isShowLightbox = true;
             }).catch(logError);
         },
-        importshowComponent(){
+        importviewComponent(){
             if(this.hasAsyncComponent){
                 let keys = Object.keys(this.field_list);
                 let components = [];
                 for(let item of keys){
-                    if(this.field_list[item]['showComponent']){
+                    if(this.field_list[item]['viewComponent']){
                         components.push({
-                            name:this.field_list[item]['showComponent']['name'],
-                            path:this.field_list[item]['showComponent']['path'],
+                            name:this.field_list[item]['viewComponent']['name'],
+                            path:this.field_list[item]['viewComponent']['path'],
                         });
                     }
                 }

@@ -6,7 +6,7 @@
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-| data   | 是 | String Number | 真实值 | 作为showComponent时该值自动传入   |
+| data   | 是 | String Number | 真实值 | 作为viewComponent时该值自动传入   |
 | enums  |  是  | Object    | 枚举配置项 | - |
 
 ## view_staticpath
