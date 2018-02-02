@@ -61,18 +61,23 @@
                 :sortable="sortFields.includes(field)?'custom':false"
             >
                 <template slot-scope="scope">
-                    <component 
-                        v-if="field_list[field].view && field_list[field].view.component"
-                        :is="field_list[field].view.component"
-                        :data="scope.row[field]"
-                        v-bind="mergeAttrsConfig(field_list[field].view.config || {})"
-                    ></component>
-                    <template v-else-if="field_list[field].view && field_list[field].view.function">
-                        {{field_list[field].view.function(scope.row[field],field_list[field].view.config || {} )}}
-                    </template>
-                    <template v-else>
-                        {{scope.row[field]}}
-                    </template>
+                    
+                    <views
+                        :descriptor="field_list[field]"
+                        :record="scope.row"
+                        :field="field"
+                    >
+                        <template
+                            v-if="field_list[field].view && field_list[field].view.component"
+                            slot-scope="viewScope"
+                        >
+                            <component
+                                :is="field_list[field].view.component"
+                                v-bind="viewScope"
+                            ></component>
+                        </template>
+                    </views>
+
                 </template>
             </el-table-column>
             <el-table-column
@@ -114,7 +119,7 @@
 <script>
 import filters from "@/editor/filters.vue"
 import operators from "@/components/common/operators/operators.vue"
-
+import views from "@/components/common/views/views"
 
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
@@ -129,6 +134,7 @@ export default{
     components:{
         filters,
         operators,
+        views,
     },
     data(){
         return {

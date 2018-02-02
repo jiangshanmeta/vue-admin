@@ -23,18 +23,21 @@
                         <td>{{field_list[item.field]['label']}}</td>
                         <td :colspan="(field_list[item.field].colspan && field_list[item.field].colspan.info) || 1">
 
-                            <component 
-                                v-if="field_list[item.field].view && field_list[item.field].view.component"
-                                :is="field_list[item.field].view.component"
-                                :data="item.value"
-                                v-bind="mergeAttrsConfig(field_list[item.field].view.config || {})"
-                            ></component>
-                            <template v-else-if="field_list[item.field].view && field_list[item.field].view.function">
-                                {{field_list[item.field].view.function(item.value,field_list[item.field].view.config || {} )}}
-                            </template>
-                            <template v-else>
-                                {{item.value}}
-                            </template>
+                            <views
+                                :descriptor="field_list[item.field]"
+                                :record="record"
+                                :field="item.field"
+                            >
+                                <template
+                                    v-if="field_list[item.field].view && field_list[item.field].view.component"
+                                    slot-scope="viewScope"
+                                >
+                                    <component
+                                        :is="field_list[item.field].view.component"
+                                        v-bind="viewScope"
+                                    ></component>
+                                </template>
+                            </views>
                         </td>
                     </template>
                     <td v-if="restCols[rowIndex]" :colspan="restCols[rowIndex]"></td>
@@ -45,12 +48,16 @@
 </template>
 
 <script>
+import views from "@/components/common/views/views"
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import _id_mixin from "@/mixins/common/_id_mixin.js"
 import {getDetailInfo} from "@/server/common.js"
 import {logError} from "@/widget/utility.js"
 export default{
+    components:{
+        views,
+    },
     mixins:[
         dynamicImportComponent,
         mergeAttrsConfig,
@@ -98,6 +105,14 @@ export default{
         },
     },
     computed:{
+        record(){
+            return this.infoData.reduce((obj,row)=>{
+                row.forEach((item)=>{
+                    obj[item.field] = item.value;
+                });
+                return obj;
+            },{});
+        },
         hasAsyncComponent(){
             let keys = Object.keys(this.field_list);
             for(let item of keys){
