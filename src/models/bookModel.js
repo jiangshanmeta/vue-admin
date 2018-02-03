@@ -74,6 +74,20 @@ export default{
                 default:"",
             },
         },
+        nameAddress:{
+            label:"用户名&收货地址",
+            view:{
+                join:{
+                    customername:"name",
+                    address:"position"
+                },
+                component:"test_view_join",
+                componentPath:"components/book/views/test_view_join",
+                config:{
+                    glue:" 的收货地址是 ",
+                },
+            },
+        }
     },
     staticOperators:[
         {

@@ -5,11 +5,35 @@ export default{
         
         if(props.descriptor.view){
             let config = props.descriptor.view.config || {};
+            let isJoinField = false;
+            if(typeof props.descriptor.view.join === 'object'){
+                isJoinField = true;
+                if(Array.isArray(props.descriptor.view.join)){
+                    info = props.descriptor.view.join.reduce((obj,field)=>{
+                        obj[field] = props.record[field];
+                        return obj;
+                    },{});
+                }else{
+                    info = Object.keys(props.descriptor.view.join).reduce((obj,originalField)=>{
+                        obj[props.descriptor.view.join[originalField]] = props.record[originalField];
+                        return obj;
+                    },{});
+                }
+            }
             if(props.descriptor.view.component){
-                return data.scopedSlots.default({
-                    data:info,
-                    ...config,
-                })
+                let scopedSlotsData;
+                if(isJoinField){
+                    scopedSlotsData = {
+                        ...info,
+                        ...config
+                    }
+                }else{
+                    scopedSlotsData = {
+                        data:info,
+                        ...config,
+                    }
+                }
+                return data.scopedSlots.default(scopedSlotsData)
             }else if(props.descriptor.view.function){
                 return (
                     <span>

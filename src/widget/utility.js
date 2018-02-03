@@ -18,11 +18,14 @@ function logError(e){
 
 import fileSaver from 'file-saver';
 
-function download(data,name="template",options){
-    if(typeof data === 'string'){
-        data = [data];
+function download(blob,name="template",options){
+    if(!(blob instanceof Blob)){
+        if(typeof blob === 'string'){
+            blob = [blob];
+        }
+        blob = new Blob(blob,options);
     }
-    let blob = new Blob(data,options);
+
     fileSaver.saveAs(blob,name);
 }
 

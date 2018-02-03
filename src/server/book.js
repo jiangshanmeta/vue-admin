@@ -80,7 +80,7 @@ function createBook(cb,data){
 
 function getBookList(cb,params){
     let data = bookTable;
-    let fields = ["customername","totalprice","address"];
+    let fields = ["customername","totalprice","address","nameAddress"];
     let total = data.length;
     cb({
         data,

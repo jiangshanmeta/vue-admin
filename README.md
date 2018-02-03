@@ -80,6 +80,32 @@ view:{
 },
 ```
 
+对于view还有个特殊属性join,这个属性是为了把多个字段的信息当成一个字段展示而设计的，示例如下：
+
+```javascript
+view:{
+    // 联合customername和address字段，但是传递给组件的时候名称分别为name和position
+    join:{
+        customername:"name",
+        address:"position"
+    },
+    component:"test_view_join",
+    componentPath:"components/book/views/test_view_join",
+    config:{
+        glue:" 的收货地址是 ",
+    },
+},
+view:{
+    // 数组形式声明，不需要改变字段的名称
+    join:["customername","address"],
+    function(data,config){
+        return `${data.customername} ${config.glue} ${data.address}`;
+    },
+    config:{
+        glue:" 的收货地址是 ",
+    },
+},
+```
 
 * validator 表单验证用的
 
