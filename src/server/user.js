@@ -168,20 +168,23 @@ function getEditUserInfo(cb){
     let id = this.id;
     for(let item of userTable){
         if(item.id === id){
-            let rst = editFields.reduce((arr,row)=>{
-                let rowInfo = row.reduce((arr2,field)=>{
-                    arr2.push({
-                        field,
-                        value:item[field],
-                    })
+            // let rst = editFields.reduce((arr,row)=>{
+            //     let rowInfo = row.reduce((arr2,field)=>{
+            //         arr2.push({
+            //             field,
+            //             value:item[field],
+            //         })
 
-                    return arr2;
-                },[]);
+            //         return arr2;
+            //     },[]);
 
-                arr.push(rowInfo);
-                return arr;
-            },[])
-            cb(rst);
+            //     arr.push(rowInfo);
+            //     return arr;
+            // },[])
+            cb({
+                fields:editFields,
+                record:JSON.parse(JSON.stringify(item)),
+            });
             return;
         }
     }

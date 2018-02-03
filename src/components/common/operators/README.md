@@ -59,12 +59,21 @@
 * getEditInfo(resolve) , 一般情况下该函数的this指向edit组件实例，，编辑需要的信息通过resolve传入，示例如下：
 
 ```
-[
-    [{"field":"name","value":"张三"}],
-    [{"field":"gender","value":0},{"field":"typ","value":1}],
-    [{"field":"privilege"}],
-    [{"field":"desc","value":"假装有段描述"}]
-]
+{
+    "fields":[
+        ["name"],
+        ["gender","typ"],
+        ["privilege"],
+        ["desc"]
+    ],
+    "record":{
+        "name":"张三",
+        "gender":"0",
+        "typ":1,
+        "privilege":[],
+        "desc":"假装有段描述"
+    }
+}
 ```
 
 * transformData(data) data为表单中的数据，需要返回一个对象(处理后的数据)

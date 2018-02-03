@@ -13,7 +13,9 @@
             size="large"
         >
             <editor 
-                :fields="create_editor"
+                :fields="fields"
+                :field_list="field_list"
+                :record="record"
                 :autoValidate="autoValidate"
                 ref="createbox"
                 mode="create"
@@ -47,8 +49,8 @@ export default{
     data (){
         return {
             isShowCreatebox:false,
-            create_fields:[],
-            create_editor:[],
+            fields:[],
+            record:{},
         }
     },
     props:{
@@ -107,58 +109,34 @@ export default{
     },
     watch:{
         field_list(){
-            this.init();
+            this.fields = [];
         },
     },
     methods:{
         showDialog(){
             this.isShowCreatebox = true;
         },
-        init(){
-            this.create_fields = [];
-            this.create_editor = [];
-        },
-        initEditor(){
-            this.create_editor = this.create_fields.map((row)=>{
-                return row.map((field)=>{
+        resetRecord(){
+            this.record = this.fields.reduce((obj,row)=>{
+                row.forEach((field)=>{
                     let configDefault = this.field_list[field].editorComponent.default;
-                    let value = typeof configDefault === 'function'?configDefault() : configDefault;
-
-                    return {
-                        field,
-                        value,
-                        label:this.field_list[field].label,
-                        editorComponent:this.field_list[field].editorComponent,
-                        tip:this.field_list[field].tip,
-                        validator:this.field_list[field].validator,
-                        default:configDefault,
-                        colspan:(this.field_list[field].colspan && this.field_list[field].colspan.create) || 1,
-                    }
+                    obj[field] = typeof configDefault === 'function'?configDefault():configDefault;
                 })
-            })
-
-        },
-        resetEditor(){
-            this.create_editor.forEach((row)=>{
-                row.forEach((item)=>{
-                    item.value = typeof item.default==='function'?item.default():item.default;
-                })
-            });
-            // 使editor重置
-            this.create_editor.splice(0,0);
+                return obj;
+            },{});
         },
         handleClick(){
-            if(this.create_fields.length === 0){
+            if(this.fields.length === 0){
                 new Promise((resolve,reject)=>{
                     this.getCreateFields(resolve)
                 }).then((fields)=>{
-                    this.create_fields = fields;
-                    this.initEditor();
+                    this.fields = fields;
+                    this.resetRecord();
                     this.showDialog();
                 }).catch(logError)
 
             }else{
-                this.resetEditor();
+                this.resetRecord();
                 this.showDialog()
             }    
         },

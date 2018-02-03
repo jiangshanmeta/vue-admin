@@ -13,7 +13,9 @@
             size="large"
         >
             <editor
-                :fields="edit_editor"
+                :fields="fields"
+                :record="record"
+                :field_list="field_list"
                 :autoValidate="autoValidate"
                 mode="edit"
                 ref="editbox"
@@ -51,7 +53,8 @@ export default {
     data(){
         return {
             isShowEditbox:false,
-            edit_editor:[],
+            fields:[],
+            record:{},
         }
     },
     props:{
@@ -119,27 +122,9 @@ export default {
         getEditFields(){
             new Promise((resolve,reject)=>{
                 this.getEditInfo(resolve);
-            }).then((fields)=>{
-
-                this.edit_editor = fields.map((row)=>{
-                    return row.map((fieldInfo)=>{
-                        let field = fieldInfo.field;
-                        let configDefault = this.field_list[field].editorComponent.default;
-                        let value = fieldInfo.hasOwnProperty('value')?fieldInfo.value:(typeof configDefault === 'function'? configDefault():configDefault );
-
-                        return {
-                            field,
-                            value,
-                            label:this.field_list[field].label,
-                            editorComponent:this.field_list[field].editorComponent,
-                            tip:this.field_list[field].tip,
-                            validator:this.field_list[field].validator,
-                            colspan:(this.field_list[field].colspan && this.field_list[field].colspan.edit) || 1,
-                        }
-                    });
-
-                });
-
+            }).then(({fields,record})=>{
+                this.fields = fields;
+                this.record = record;
                 this.showDialog();
             }).catch(logError);
         },

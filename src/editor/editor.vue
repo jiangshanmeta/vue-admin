@@ -4,25 +4,25 @@
         v-if="!hasAsyncComponent || isComponentsLoaded"
     >
         <tr v-for="(row,rowIndex) in fields">
-            <template v-for="item in row">
-                <td>{{item.label}}</td>
-                <td :colspan="item.colspan || 1">
+            <template v-for="field in row">
+                <td>{{field_list[field].label}}</td>
+                <td :colspan="(field_list[field].colspan && field_list[field].colspan[mode]) || 1">
                     <component
-                        :is="item.editorComponent.name" 
-                        v-model="item.value" 
-                        v-bind="mergeAttrsConfig(item.editorComponent.config,item.editorComponent[mode + 'Config'])"
+                        :is="field_list[field].editorComponent.name" 
+                        v-model="record[field]" 
+                        v-bind="mergeAttrsConfig(field_list[field].editorComponent.config,field_list[field].editorComponent[mode + 'Config'])"
                     ></component>
                     <p 
-                        v-if="item.tip" 
+                        v-if="field_list[field].tip" 
                         class="form-helper"
                     >
-                        {{item.tip}}
+                        {{field_list[field].tip}}
                     </p>
                     <p 
-                        v-if="validators[item.field] && validators[item.field]['hasErr']"
+                        v-if="validators[field] && validators[field]['hasErr']"
                         class="text-danger form-helper"
                     >
-                        {{validators[item.field]['errMsg']}}
+                        {{validators[field]['errMsg']}}
                     </p>
                 </td>
             </template>
@@ -78,7 +78,7 @@ export default{
     ],
     data(){
         return {
-            proxyFields:{},
+            // proxyFields:{},
             validators:{},
             isComponentsLoaded:false,
             hasValidateListener:false,
@@ -119,18 +119,18 @@ export default{
     },
     computed:{
         formData(){
-            return this.fields.reduce((obj,item)=>{
-                item.reduce((obj,item)=>{
-                    obj[item.field] = item.value;
+            return this.fields.reduce((obj,row)=>{
+                row.reduce((obj,field)=>{
+                    obj[field] = this.record[field];
                     return obj;
-                },obj)
+                },obj);
                 return obj;
             },{});
         },
         hasAsyncComponent(){
             for(let row of this.fields){
-                for(let item of row){
-                    if(item.editorComponent && item.editorComponent.path){
+                for(let field of row){
+                    if(this.field_list[field].editorComponent && this.field_list[field].editorComponent.path){
                         return true;
                     }
                 }
@@ -141,8 +141,8 @@ export default{
             let max = 2;
             for(let row of this.fields){
                 let rowCol = 0;
-                for(let item of row){
-                    rowCol += ( (item.colspan || 1) + 1 );
+                for(let field of row){
+                    rowCol += ( ( (this.field_list[field].colspan && this.field_list[field].colspan[this.mode]) || 1) + 1 );
                 }
                 if(rowCol>max){
                     max = rowCol;
@@ -156,8 +156,8 @@ export default{
             const max = this.maxCol;
             for(let row of this.fields){
                 let rowCol = 0;
-                for(let item of row){
-                    rowCol += ( (item.colspan || 1) + 1 );
+                for(let field of row){
+                    rowCol += ( ( (this.field_list[field].colspan && this.field_list[field].colspan[this.mode]) || 1) + 1 );
                 }
                 arr.push(max - rowCol);
             }
@@ -168,11 +168,11 @@ export default{
         importEditor(){
             if(this.hasAsyncComponent){
                 let components = this.fields.reduce((arr,row)=>{
-                    for(let item of row){
-                        if(item.editorComponent && item.editorComponent.path){
+                    for(let field of row){
+                        if(this.field_list[field].editorComponent && this.field_list[field].editorComponent.path){
                             arr.push({
-                                name:item.editorComponent.name,
-                                path:item.editorComponent.path,
+                                name:this.field_list[field].editorComponent.name,
+                                path:this.field_list[field].editorComponent.path,
                             })
                         }
                     }
@@ -224,39 +224,29 @@ export default{
         },
         addValidateInputListener(field){
             return this.$watch(()=>{
-                return this.proxyFields[field]
+                return this.record[field]
             },(value)=>{
                 this.validateField.call(this,field,value).catch(()=>{})
             })
         },
-        initRelates(newFields){
-            newFields.forEach((row)=>{
-                row.forEach((item)=>{
-                    Object.defineProperty(this.proxyFields,item.field,{
-                        get(){
-                            return item.value
-                        },
-                        set(){
+        initRelates(){
+            this.fields.forEach((row)=>{
+                row.forEach((field)=>{
 
-                        },
-                        enumerable:true,
-                        configurable:true,
-                    })
-
-                    if(item.editorComponent && item.editorComponent.config && item.editorComponent.config.relates){
-                        observe_relates(item.editorComponent.config.relates,this.proxyFields)
+                    if(this.field_list[field].editorComponent && this.field_list[field].editorComponent.config && this.field_list[field].editorComponent.config.relates){
+                        observe_relates(this.field_list[field].editorComponent.config.relates,this.record)
                     }
 
                 })
             });
         },
-        initValidate(newFields){
-            newFields.forEach((row)=>{
-                row.forEach((item)=>{
-                    if(item.validator){
-                        let asyncValidator = new AsyncValidator({[item.field]:item.validator});
+        initValidate(){
+            this.fields.forEach((row)=>{
+                row.forEach((field)=>{
+                    if(this.field_list[field].validator){
+                        let asyncValidator = new AsyncValidator({[field]:this.field_list[field].validator});
 
-                        this.$set(this.validators,item.field,{
+                        this.$set(this.validators,field,{
                             hasErr:false,
                             errMsg:'',
                             validator:asyncValidator,
@@ -264,7 +254,7 @@ export default{
                         })
 
                         if(this.autoValidate){
-                            this.validators[item.field].unwatch = this.addValidateInputListener(item.field);
+                            this.validators[field].unwatch = this.addValidateInputListener(field);
                         }
                     }
                 })
@@ -276,10 +266,9 @@ export default{
         }
     },
     watch:{
-        fields:{
+        record:{
             immediate:true,
             handler(newFields){
-                this.proxyFields = {};
                 Object.keys(this.validators).forEach((field)=>{
                     this.validators[field].unwatch && this.validators[field].unwatch();
                 })
@@ -287,8 +276,8 @@ export default{
                 this.isComponentsLoaded = false;
                 this.hasValidateListener = false;
                 this.importEditor();
-                this.initRelates(newFields);
-                this.initValidate(newFields);
+                this.initRelates();
+                this.initValidate();
             }
         },
     },
@@ -296,6 +285,14 @@ export default{
         fields:{
             type:Array,
             required:true
+        },
+        record:{
+            type:Object,
+            required:true,
+        },
+        field_list:{
+            type:Object,
+            required:true,
         },
         autoValidate:{
             type:Boolean,
