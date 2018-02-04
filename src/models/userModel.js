@@ -275,6 +275,22 @@ export default{
                 doDeleteRequest:delUser,
                 triggerText:"删除用户",
             }
+        },
+        {
+            component:"toggle",
+            componentPath:"components/common/operators/toggle",
+            config:{
+                descriptor:[
+                    {value:0,text:"更改性别为男",type:"warning"},
+                    {value:1,text:"更改性别为女",type:"danger"},
+                ],
+                field:"gender",
+                handleToggle(resolve,data){
+                    console.log(data);
+                    resolve();
+                },
+                reserveFields:['id'],
+            }
         }
 
     ],

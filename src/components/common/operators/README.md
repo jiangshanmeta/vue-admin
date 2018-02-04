@@ -121,10 +121,18 @@
 | :---:  | :--:  | :--: | :-----:  | :--: |
 | data | 是 | Object | 这一条记录的数据  | 对于操作组件是自动传入的 |
 | field | 是  | String | 反转状态的字段名 | - |
-| typeMap | 是 | Object | 根据状态对应的按钮颜色 | - |
-| textMap | 是 | Object | 根据状态决定的文字 | - |
+| descriptor | 是 | Array | toggle状态描述 | - |
+| reserveFields | 否 | Array | 提交时需要保留的字段，通edit组件 | - |
 | handleToggle | 是 | Function | 对数据处理，第一个参数是resolve回调，第二个参数是这一条记录 | - |
 | type | 否 | String | 按钮颜色 | 默认为 primary 蓝色 |
 | size | 否 | String | 按钮大小 | 默认为正常大小 | 
 
 
+descriptor字段实例：
+
+```javascript
+descriptor:[
+    {value:0,text:"更改性别为男",type:"warning"},
+    {value:1,text:"更改性别为女",type:"danger"},
+],
+```
