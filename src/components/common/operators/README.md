@@ -53,6 +53,7 @@
 | doEditRequest | 否 | Function | 编辑操作的方法 | - |
 | autoValidate | 否 | Boolean | 是否自动表单验证 | 默认为false,第一次点提交时才自动表单验证 |
 | transformData | 否 | Function | 在doEditRequest前对表单数据做一次转换 |
+| reserveFields | 否 | Array | 不需要编辑但是需要提交的字段，例如id |
 | idfield | 否 | String | 指明id字段 | 默认是id |
 | title | 否 | String | 编辑对话框的标题 | 默认为编辑 |
 | triggerText | 否 | String | 触发按钮文字 | 默认为 "编辑" |

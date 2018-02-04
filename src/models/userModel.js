@@ -251,6 +251,7 @@ export default{
                 getEditInfo:getEditUserInfo,
                 doEditRequest:editUser,
                 autoValidate:false,
+                reserveFields:['id'],
             }
         },
         {

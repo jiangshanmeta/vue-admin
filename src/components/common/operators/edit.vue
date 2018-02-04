@@ -90,6 +90,12 @@ export default {
                 return data;
             }
         },
+        reserveFields:{
+            type:Array,
+            default:function(){
+                return [];
+            },
+        },
         title:{
             type:String,
             default:"编辑",
@@ -130,6 +136,10 @@ export default {
         },
         doEdit(){
             this.$refs.editbox.validate().then((data)=>{
+                this.reserveFields.forEach((field)=>{
+                    data[field] = this.record[field];
+                });
+                
                 new Promise((resolve,reject)=>{
                     this.doEditRequest(resolve,this.transformData(data))
                 }).then(()=>{
