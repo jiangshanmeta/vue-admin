@@ -141,17 +141,10 @@ function getUserDetail(cb){
     let id = this.id;
     for(let item of userTable){
         if(item.id === id){
-            let rst = detailFields.reduce((arr,row)=>{
-                let rowInfo = row.reduce((arr2,field)=>{
-                    let value = item[field];
-                    arr2.push({field,value});
-                    return arr2;
-                },[])
-                arr.push(rowInfo);
-                return arr;
-            },[]);
-
-            cb(rst)
+            cb({
+                fields:detailFields,
+                record:JSON.parse(JSON.stringify(item)),
+            })
             return;
         }
     }
@@ -168,19 +161,6 @@ function getEditUserInfo(cb){
     let id = this.id;
     for(let item of userTable){
         if(item.id === id){
-            // let rst = editFields.reduce((arr,row)=>{
-            //     let rowInfo = row.reduce((arr2,field)=>{
-            //         arr2.push({
-            //             field,
-            //             value:item[field],
-            //         })
-
-            //         return arr2;
-            //     },[]);
-
-            //     arr.push(rowInfo);
-            //     return arr;
-            // },[])
             cb({
                 fields:editFields,
                 record:JSON.parse(JSON.stringify(item)),

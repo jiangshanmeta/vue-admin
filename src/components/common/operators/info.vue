@@ -17,23 +17,23 @@
                 v-if="!hasAsyncComponent || isComponentsLoaded"
             >
                 <tr
-                    v-for="(row,rowIndex) in infoData"
+                    v-for="(row,rowIndex) in fields"
                 >
-                    <template v-for="item in row">
-                        <td>{{field_list[item.field]['label']}}</td>
-                        <td :colspan="(field_list[item.field].colspan && field_list[item.field].colspan.info) || 1">
+                    <template v-for="field in row">
+                        <td>{{field_list[field]['label']}}</td>
+                        <td :colspan="(field_list[field].colspan && field_list[field].colspan.info) || 1">
 
                             <views
-                                :descriptor="field_list[item.field]"
+                                :descriptor="field_list[field]"
                                 :record="record"
-                                :field="item.field"
+                                :field="field"
                             >
                                 <template
-                                    v-if="field_list[item.field].view && field_list[item.field].view.component"
+                                    v-if="field_list[field].view && field_list[field].view.component"
                                     slot-scope="viewScope"
                                 >
                                     <component
-                                        :is="field_list[item.field].view.component"
+                                        :is="field_list[field].view.component"
                                         v-bind="viewScope"
                                     ></component>
                                 </template>
@@ -67,8 +67,9 @@ export default{
     data(){
         return {
             isShowLightbox:false,
-            infoData:[],
             isComponentsLoaded:false,
+            fields:[],
+            record:{},
         }
     },
     props:{
@@ -105,14 +106,6 @@ export default{
         },
     },
     computed:{
-        record(){
-            return this.infoData.reduce((obj,row)=>{
-                row.forEach((item)=>{
-                    obj[item.field] = item.value;
-                });
-                return obj;
-            },{});
-        },
         hasAsyncComponent(){
             let keys = Object.keys(this.field_list);
             for(let item of keys){
@@ -124,10 +117,9 @@ export default{
         },
         maxCol(){
             let max = 2;
-            for(let row of this.infoData){
+            for(let row of this.fields){
                 let rowCol = 0;
-                for(let item of row){
-                    let field = item.field;
+                for(let field of row){
                     rowCol += ( (this.field_list[field].colspan && this.field_list[field].colspan.info) || 1) + 1;
                 }
                 if(rowCol>max){
@@ -139,10 +131,9 @@ export default{
         restCols(){
             let arr = [];
             const max = this.maxCol;
-            for(let row of this.infoData){
+            for(let row of this.fields){
                 let rowCol = 0;
-                for(let item of row){
-                    let field = item.field;
+                for(let field of row){
                     rowCol += ( (this.field_list[field].colspan && this.field_list[field].colspan.info) || 1) + 1;
                 }
                 arr.push(max - rowCol);
@@ -158,8 +149,9 @@ export default{
 
             new Promise((resolve,reject)=>{
                 this.getDetailInfo(resolve);
-            }).then((infoData)=>{
-                this.infoData = infoData;
+            }).then(({fields,record})=>{
+                this.fields = fields;
+                this.record = record;
                 this.isShowLightbox = true;
             }).catch(logError);
         },

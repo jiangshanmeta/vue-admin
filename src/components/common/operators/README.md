@@ -21,11 +21,19 @@
 * getDetailInfo(resolve) 一般情况下该函数的this指向info组件实例，详情信息通过resolve方法传入，格式如下：
 
 ```
-[
-    [{"field":"name","value":"张三"}],
-    [{"field":"gender","value":0},{"field":"typ","value":"店小二"}],
-    [{"field":"desc","value":"假装有段描述"}]
-]
+{
+    "fields":[
+        ["name"],
+        ["gender","typ"],
+        ["desc"]
+    ],
+    "record":{
+        "name":"张三",
+        "gender":0,
+        "typ":"店小二",
+        "desc":"假装有段描述",
+    }
+}
 ```
 
 
