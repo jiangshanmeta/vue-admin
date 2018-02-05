@@ -13,7 +13,7 @@
                     <slot 
                         name="beforeFilters" 
                         :formData="scope.formData"
-                        :data="multipleSelection"
+                        :data="selection?multipleSelection:data"
                     ></slot>
                 </portal>
 
@@ -31,7 +31,7 @@
                     <slot
                         name="afterFilters" 
                         :formData="scope.formData"
-                        :data="multipleSelection"
+                        :data="selection?multipleSelection:data"
                     ></slot>
                 </portal>
             </template>
