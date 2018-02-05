@@ -49,9 +49,9 @@
 </template>
 
 <script>
-import field_file from "@/editor/field_file.vue"
-import field_images from "@/editor/field_images.vue"
-import field_image from "@/editor/field_image"
+import field_file from "@/components/common/editor/field_file.vue"
+import field_images from "@/components/common/editor/field_images.vue"
+import field_image from "@/components/common/editor/field_image"
 export default{
     config:{
         uri:"http://www.ci.com/index.php/index/upload",

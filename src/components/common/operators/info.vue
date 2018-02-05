@@ -12,43 +12,40 @@
             :visible.sync="isShowLightbox"
             size="large"
         >
-            <table 
-                class="table"
+            <meta-table
                 v-if="!hasAsyncComponent || isComponentsLoaded"
+                :field_list="field_list"
+                :fields="fields"
+                mode="info"
             >
-                <tr
-                    v-for="(row,rowIndex) in fields"
-                >
-                    <template v-for="field in row">
-                        <td>{{field_list[field]['label']}}</td>
-                        <td :colspan="(field_list[field].colspan && field_list[field].colspan.info) || 1">
-
-                            <views
-                                :descriptor="field_list[field]"
-                                :record="record"
-                                :field="field"
-                            >
-                                <template
-                                    v-if="field_list[field].view && field_list[field].view.component"
-                                    slot-scope="viewScope"
-                                >
-                                    <component
-                                        :is="field_list[field].view.component"
-                                        v-bind="viewScope"
-                                    ></component>
-                                </template>
-                            </views>
-                        </td>
-                    </template>
-                    <td v-if="restCols[rowIndex]" :colspan="restCols[rowIndex]"></td>
-                </tr>
-            </table>
+                <template slot="label" slot-scope="scope">
+                    {{field_list[scope.field].label}}
+                </template>
+                <template slot-scope="scope">
+                    <views
+                        :descriptor="field_list[scope.field]"
+                        :record="record"
+                        :field="scope.field"
+                    >
+                        <template
+                            v-if="field_list[scope.field].view && field_list[scope.field].view.component"
+                            slot-scope="viewScope"
+                        >
+                            <component
+                                :is="field_list[scope.field].view.component"
+                                v-bind="viewScope"
+                            ></component>
+                        </template>
+                    </views>
+                </template>
+            </meta-table>
         </el-dialog>
     </div>
 </template>
 
 <script>
 import views from "@/components/common/views/views"
+import metaTable from "@/components/common/meta-table"
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import _id_mixin from "@/mixins/common/_id_mixin.js"
@@ -57,6 +54,7 @@ import {logError} from "@/widget/utility.js"
 export default{
     components:{
         views,
+        metaTable,
     },
     mixins:[
         dynamicImportComponent,

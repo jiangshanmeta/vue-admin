@@ -65,11 +65,11 @@
 </template>
 
 <script>
-import field_number from "@/editor/field_number"
-import field_int from "@/editor/field_int"
-import field_string from "@/editor/field_string"
-import field_text from "@/editor/field_text"
-import field_pwd from "@/editor/field_pwd"
+import field_number from "@/components/common/editor/field_number"
+import field_int from "@/components/common/editor/field_int"
+import field_string from "@/components/common/editor/field_string"
+import field_text from "@/components/common/editor/field_text"
+import field_pwd from "@/components/common/editor/field_pwd"
 
 export default{
     components:{

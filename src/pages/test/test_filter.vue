@@ -70,10 +70,10 @@
 </template>
 
 <script>
-import filter_enum from "@/editor/filter_enum"
-import filter_model from "@/editor/filter_model"
-import filter_async_enum from "@/editor/filter_async_enum"
-import filter_async_model from "@/editor/filter_async_model"
+import filter_enum from "@/components/common/editor/filter_enum"
+import filter_model from "@/components/common/editor/filter_model"
+import filter_async_enum from "@/components/common/editor/filter_async_enum"
+import filter_async_model from "@/components/common/editor/filter_async_model"
 
 export default{
     config:{

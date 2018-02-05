@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import editor from "@/editor/editor"
+import editor from "@/components/common/editor/editor"
 import {getCreateFields,doCreateRequest} from "@/server/common.js"
 import {logError} from "@/widget/utility.js"
 export default{

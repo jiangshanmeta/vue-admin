@@ -184,38 +184,38 @@
 </template>
 
 <script>
-import field_string from "@/editor/field_string"
-import field_text from "@/editor/field_text"
-import field_pwd from "@/editor/field_pwd"
-import field_tag from "@/editor/field_tag"
-import field_enum_select from "@/editor/field_enum_select"
-import field_enum_radio from "@/editor/field_enum_radio"
-import field_bool from "@/editor/field_bool"
-import field_sex from "@/editor/field_sex"
-import field_model from "@/editor/field_model"
+import field_string from "@/components/common/editor/field_string"
+import field_text from "@/components/common/editor/field_text"
+import field_pwd from "@/components/common/editor/field_pwd"
+import field_tag from "@/components/common/editor/field_tag"
+import field_enum_select from "@/components/common/editor/field_enum_select"
+import field_enum_radio from "@/components/common/editor/field_enum_radio"
+import field_bool from "@/components/common/editor/field_bool"
+import field_sex from "@/components/common/editor/field_sex"
+import field_model from "@/components/common/editor/field_model"
 
-import field_async_tag from "@/editor/field_async_tag"
-import field_async_enum_select from "@/editor/field_async_enum_select"
-import field_async_enum_radio from "@/editor/field_async_enum_radio"
-import field_async_model from "@/editor/field_async_model"
+import field_async_tag from "@/components/common/editor/field_async_tag"
+import field_async_enum_select from "@/components/common/editor/field_async_enum_select"
+import field_async_enum_radio from "@/components/common/editor/field_async_enum_radio"
+import field_async_model from "@/components/common/editor/field_async_model"
 
-import field_array_model from "@/editor/field_array_model"
-import field_async_array_model from "@/editor/field_async_array_model"
+import field_array_model from "@/components/common/editor/field_array_model"
+import field_async_array_model from "@/components/common/editor/field_async_array_model"
 
-import field_relates_enum_select from "@/editor/field_relates_enum_select"
-import field_relates_enum_radio from "@/editor/field_relates_enum_radio"
-import field_relates_tag from "@/editor/field_relates_tag"
+import field_relates_enum_select from "@/components/common/editor/field_relates_enum_select"
+import field_relates_enum_radio from "@/components/common/editor/field_relates_enum_radio"
+import field_relates_tag from "@/components/common/editor/field_relates_tag"
 
-import field_relates_model from "@/editor/field_relates_model.vue"
-import field_relates_array_model from "@/editor/field_relates_array_model"
+import field_relates_model from "@/components/common/editor/field_relates_model.vue"
+import field_relates_array_model from "@/components/common/editor/field_relates_array_model"
 
-import field_ts from "@/editor/field_ts"
-import field_year from "@/editor/field_year"
-import field_month from "@/editor/field_month"
-import field_day from "@/editor/field_day"
-import field_number from "@/editor/field_number"
+import field_ts from "@/components/common/editor/field_ts"
+import field_year from "@/components/common/editor/field_year"
+import field_month from "@/components/common/editor/field_month"
+import field_day from "@/components/common/editor/field_day"
+import field_number from "@/components/common/editor/field_number"
 
-import {observe_relates} from "@/editor/field_relates_helper.js"
+import {observe_relates} from "@/components/common/editor/field_relates_helper.js"
 
 
 

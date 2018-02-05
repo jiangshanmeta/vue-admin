@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import filters from "@/editor/filters.vue"
+import filters from "@/components/common/editor/filters.vue"
 import operators from "@/components/common/operators/operators.vue"
 import views from "@/components/common/views/views"
 

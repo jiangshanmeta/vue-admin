@@ -87,15 +87,15 @@
 </template>
 
 <script>
-import field_tag from "@/editor/field_tag"
-import field_async_tag from "@/editor/field_async_tag"
-import field_array_model from "@/editor/field_array_model"
-import field_async_array_model from "@/editor/field_async_array_model"
+import field_tag from "@/components/common/editor/field_tag"
+import field_async_tag from "@/components/common/editor/field_async_tag"
+import field_array_model from "@/components/common/editor/field_array_model"
+import field_async_array_model from "@/components/common/editor/field_async_array_model"
 
-import field_relates_tag from "@/editor/field_relates_tag"
-import field_relates_array_model from "@/editor/field_relates_array_model"
+import field_relates_tag from "@/components/common/editor/field_relates_tag"
+import field_relates_array_model from "@/components/common/editor/field_relates_array_model"
 
-import {observe_relates} from "@/editor/field_relates_helper.js"
+import {observe_relates} from "@/components/common/editor/field_relates_helper.js"
 export default{
     config:{
         field_tag_candidate:[

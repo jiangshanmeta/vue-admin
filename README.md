@@ -10,7 +10,7 @@
 
 一个model由以下几个部分构成：
 
-* field_list 字段，是一个model最基础的配置项，具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)，然后看下面的具体描述
+* field_list 字段，是一个model最基础的配置项，具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/editor)，然后看下面的具体描述
 
 * listConfig，[列表组件的配置项](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common#listinfo)
 
@@ -18,7 +18,7 @@
 
 * staticOperators 类似于operators，但staticOperators不针对于一条特定的记录，它对应的data是选中的数据数组。创建功能应该放在这里。
 
-* filters，筛选组件的配置项。具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)，然后看下面的具体描述
+* filters，筛选组件的配置项。具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/editor)，然后看下面的具体描述
 
 * filterOperators 类似于operators，是为了拓展筛选功能设计的(目前没发现什么特别的用途)，除了传入代表筛选参数的data属性，它还传入了filters属性。
 

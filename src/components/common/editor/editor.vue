@@ -1,34 +1,33 @@
 <template>
-    <table 
-        class="table"
+    <meta-table
         v-if="!hasAsyncComponent || isComponentsLoaded"
+        :field_list="field_list"
+        :mode="mode"
+        :fields="fields"
     >
-        <tr v-for="(row,rowIndex) in fields">
-            <template v-for="field in row">
-                <td>{{field_list[field].label}}</td>
-                <td :colspan="(field_list[field].colspan && field_list[field].colspan[mode]) || 1">
-                    <component
-                        :is="field_list[field].editorComponent.name" 
-                        v-model="record[field]" 
-                        v-bind="mergeAttrsConfig(field_list[field].editorComponent.config,field_list[field].editorComponent[mode + 'Config'])"
-                    ></component>
-                    <p 
-                        v-if="field_list[field].tip" 
-                        class="form-helper"
-                    >
-                        {{field_list[field].tip}}
-                    </p>
-                    <p 
-                        v-if="validators[field] && validators[field]['hasErr']"
-                        class="text-danger form-helper"
-                    >
-                        {{validators[field]['errMsg']}}
-                    </p>
-                </td>
-            </template>
-            <td v-if="restCols[rowIndex]" :colspan="restCols[rowIndex]"></td>
-        </tr>
-    </table>
+        <template slot="label" slot-scope="scope">
+            {{field_list[scope.field].label}}
+        </template>
+        <template slot-scope="scope">
+            <component
+                :is="field_list[scope.field].editorComponent.name" 
+                v-model="record[scope.field]" 
+                v-bind="mergeAttrsConfig(field_list[scope.field].editorComponent.config,field_list[scope.field].editorComponent[mode + 'Config'])"
+            ></component>
+            <p 
+                v-if="field_list[scope.field].tip" 
+                class="form-helper"
+            >
+                {{field_list[scope.field].tip}}
+            </p>
+            <p 
+                v-if="validators[scope.field] && validators[scope.field]['hasErr']"
+                class="text-danger form-helper"
+            >
+                {{validators[scope.field]['errMsg']}}
+            </p>
+        </template>
+    </meta-table>
 </template>
 
 <script>
@@ -63,7 +62,7 @@ import field_text_rich from "./field_text_rich"
 import field_ts from "./field_ts"
 import field_year from "./field_year"
 
-
+import metaTable from "@/components/common/meta-table"
 
 import {observe_relates} from "./field_relates_helper.js"
 import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
@@ -78,7 +77,6 @@ export default{
     ],
     data(){
         return {
-            // proxyFields:{},
             validators:{},
             isComponentsLoaded:false,
             hasValidateListener:false,
@@ -114,8 +112,8 @@ export default{
         field_text,
         field_text_rich,
         field_ts,
-        field_year
-
+        field_year,
+        metaTable,
     },
     computed:{
         formData(){
@@ -136,32 +134,6 @@ export default{
                 }
             }
             return false;
-        },
-        maxCol(){
-            let max = 2;
-            for(let row of this.fields){
-                let rowCol = 0;
-                for(let field of row){
-                    rowCol += ( ( (this.field_list[field].colspan && this.field_list[field].colspan[this.mode]) || 1) + 1 );
-                }
-                if(rowCol>max){
-                    max = rowCol;
-                }
-            }
-
-            return max;
-        },
-        restCols(){
-            let arr = [];
-            const max = this.maxCol;
-            for(let row of this.fields){
-                let rowCol = 0;
-                for(let field of row){
-                    rowCol += ( ( (this.field_list[field].colspan && this.field_list[field].colspan[this.mode]) || 1) + 1 );
-                }
-                arr.push(max - rowCol);
-            }
-            return arr;
         },
     },
     methods:{
@@ -268,7 +240,7 @@ export default{
     watch:{
         record:{
             immediate:true,
-            handler(newFields){
+            handler(){
                 Object.keys(this.validators).forEach((field)=>{
                     this.validators[field].unwatch && this.validators[field].unwatch();
                 })

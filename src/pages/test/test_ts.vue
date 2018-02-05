@@ -57,10 +57,10 @@
 </template>
 
 <script>
-import field_ts from "@/editor/field_ts"
-import field_day from "@/editor/field_day"
-import field_month from "@/editor/field_month"
-import field_year from "@/editor/field_year"
+import field_ts from "@/components/common/editor/field_ts"
+import field_day from "@/components/common/editor/field_day"
+import field_month from "@/components/common/editor/field_month"
+import field_year from "@/components/common/editor/field_year"
 export default{
     components:{
         field_ts,

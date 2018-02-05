@@ -31,10 +31,10 @@
 </template>
 
 <script>
-import filter_enum from "@/editor/filter_enum"
-import filter_async_enum from "@/editor/filter_async_enum"
+import filter_enum from "@/components/common/editor/filter_enum"
+import filter_async_enum from "@/components/common/editor/filter_async_enum"
 
-import filters from "@/editor/filters.vue"
+import filters from "@/components/common/editor/filters.vue"
 export default{
     components:{
         filter_enum,

@@ -281,8 +281,8 @@ export default{
             componentPath:"components/common/operators/toggle",
             config:{
                 descriptor:[
-                    {value:0,text:"更改性别为男",type:"warning"},
-                    {value:1,text:"更改性别为女",type:"danger"},
+                    {value:0,text:"更改性别为女",type:"warning"},
+                    {value:1,text:"更改性别为男",type:"danger"},
                 ],
                 field:"gender",
                 handleToggle(resolve,data){

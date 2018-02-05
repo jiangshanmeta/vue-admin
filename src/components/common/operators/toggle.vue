@@ -45,14 +45,14 @@ export default{
     computed:{
         textMap(){
             let map = new Map();
-            map.set(this.descriptor[0].value,this.descriptor[1].text);
-            map.set(this.descriptor[1].value,this.descriptor[0].text);
+            map.set(this.descriptor[0].value,this.descriptor[0].text);
+            map.set(this.descriptor[1].value,this.descriptor[1].text);
             return map;
         },
         typeMap(){
             let map = new Map();
-            map.set(this.descriptor[0].value,this.descriptor[1].type);
-            map.set(this.descriptor[1].value,this.descriptor[0].type);
+            map.set(this.descriptor[0].value,this.descriptor[0].type);
+            map.set(this.descriptor[1].value,this.descriptor[1].type);
             return map;
         },
         valueMap(){
