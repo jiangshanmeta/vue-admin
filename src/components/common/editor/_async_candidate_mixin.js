@@ -1,4 +1,5 @@
 import {getAsyncCandidate} from "@/server/common.js"
+import {logError} from "@/widget/utility"
 export default{
     data(){
         return {
@@ -20,9 +21,7 @@ export default{
                 this.httpRequest(resolve)
             }).then((candidate)=>{
                 return this.candidate = candidate
-            }).catch((e)=>{
-                console.log(e)
-            })
+            }).catch(logError);
         },
     },
     created(){

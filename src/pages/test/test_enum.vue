@@ -46,6 +46,7 @@
                         v-model="field_enum_select"
                         :candidate="field_enum_candidate"
                         valuefield="valuefield"
+                        disabled
                     ></field_enum_select>
                 </td>
             </tr>

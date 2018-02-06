@@ -1,5 +1,5 @@
 import {getRelatesCandidate} from "@/server/common.js"
-
+import {logError} from "@/widget/utility"
 export default{
     props:{
         relates:{
@@ -39,12 +39,12 @@ export default{
             },{})
 
             new Promise((resolve,reject)=>{
+                this.isRequest = true;
                 this.httpRequest(resolve,query)
             }).then((candidate)=>{
+                this.isRequest = false;
                 this.setCacheOptions(candidate)
-            }).catch((e)=>{
-                console.log(e)
-            })
+            }).catch(logError);
 
         },
         setCacheOptions(options){
@@ -63,7 +63,7 @@ export default{
     },
     computed:{
         finalOptions(){
-            if(!this.hasValidIds || !this.hasCachedOptions ){
+            if(!this.hasValidIds || !this.hasCachedOptions || this.isRequest){
                 return [];
             }
             let length = this.relates.length;
@@ -129,6 +129,7 @@ export default{
     data(){
         return {
             optionsCache:{},
+            isRequest:false,
         }
     },
     watch:{

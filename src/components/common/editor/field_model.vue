@@ -29,13 +29,13 @@ export default{
         }
     },
     computed:{
-        valueLabelHash(){
+        valueLabelMap(){
             let valuefield = this.valuefield;
             let labelfield = this.labelfield;
-            return this.candidate.reduce((obj,item)=>{
-                obj[item[valuefield]] = item[labelfield];
-                return obj;
-            },{})
+            return this.candidate.reduce((map,item)=>{
+                map.set(item[valuefield],item[labelfield]);
+                return map;
+            },new Map());
         },
     },
     props:{
@@ -60,8 +60,8 @@ export default{
         },
         setShowValueByValue(){
             let value = this.value;
-            if(this.valueLabelHash.hasOwnProperty(value)){
-                this.setShowValue(this.valueLabelHash[value]);
+            if(this.valueLabelMap.has(value)){
+                this.setShowValue(this.valueLabelMap.get(value));
             }
         },
         setShowValue(val){

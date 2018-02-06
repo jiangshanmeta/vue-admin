@@ -4,7 +4,7 @@
         :candidate="candidate"
         v-bind="$attrs"
     >
-        <template v-if="$slots.default">
+        <template>
             <slot></slot>
         </template>
     </field_enum_select>
