@@ -79,6 +79,7 @@ const privilegeEnum = [
 function getPrivilege(cb,data){
     let typ = data.req_typ;
     let rst;
+    console.log(typ)
     switch(typ){
         case 0:
             rst = privilegeEnum.slice(0,1);

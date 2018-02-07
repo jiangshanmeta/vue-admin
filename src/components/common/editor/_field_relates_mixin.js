@@ -32,27 +32,28 @@ export default{
                 return;
             }
 
-            let query = this.relates.reduce((obj,item)=>{
-                let key = item.hasOwnProperty('requestField')?item.requestField : item.relateField;
-                obj[key] = item.value;
-                return obj;
-            },{})
+            let queryObj = {};
+            let cacheObj = {};
+
+            this.relates.forEach((item)=>{
+                let queryKey = item.hasOwnProperty("requestField")?item.requestField:item.relateField;
+                queryObj[queryKey] = item.value;
+                cacheObj[item.relateField] = item.value;
+            });
 
             new Promise((resolve,reject)=>{
-                this.isRequest = true;
-                this.httpRequest(resolve,query)
+                this.httpRequest(resolve,queryObj)
             }).then((candidate)=>{
-                this.isRequest = false;
-                this.setCacheOptions(candidate)
+                this.setCacheOptions(candidate,cacheObj)
             }).catch(logError);
 
         },
-        setCacheOptions(options){
+        setCacheOptions(options,cacheObj){
             let start = this.optionsCache;
             let len = this.relates.length;
             let counter = 0;
             while(counter<len-1){
-                let cacheKey = this.relates[counter++]['value'];
+                let cacheKey = cacheObj[this.relates[counter++].relateField];
                 if(!start.hasOwnProperty(cacheKey)){
                     this.$set(start,cacheKey,{});
                 }
@@ -63,7 +64,7 @@ export default{
     },
     computed:{
         finalOptions(){
-            if(!this.hasValidIds || !this.hasCachedOptions || this.isRequest){
+            if(!this.hasValidIds || !this.hasCachedOptions){
                 return [];
             }
             let length = this.relates.length;
@@ -129,7 +130,6 @@ export default{
     data(){
         return {
             optionsCache:{},
-            isRequest:false,
         }
     },
     watch:{
