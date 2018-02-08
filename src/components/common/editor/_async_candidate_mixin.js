@@ -4,6 +4,7 @@ export default{
     data(){
         return {
             candidate:[],
+            isRequest:false,
         }
     },
     props:{
@@ -18,8 +19,10 @@ export default{
     methods:{
         getCandidate(){
             return new Promise((resolve,reject)=>{
-                this.httpRequest(resolve)
+                this.isRequest = true;
+                this.httpRequest(resolve);
             }).then((candidate)=>{
+                this.isRequest = false;
                 return this.candidate = candidate
             }).catch(logError);
         },

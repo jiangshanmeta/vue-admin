@@ -15,6 +15,8 @@ import _props_disabled_mixin from "./_props_disabled_mixin.js"
 import _props_label_value_mixin from "./_props_label_value_mixin"
 import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
 import _props_value_mixin from "./_props_value_mixin"
+import _computed_value_label_map_mixin from './_computed_value_label_map_mixin'
+
 export default{
     name:'field_model',
     mixins:[
@@ -22,21 +24,12 @@ export default{
         _props_label_value_mixin,
         _props_placeholder_mixin,
         _props_value_mixin,
+        _computed_value_label_map_mixin,
     ],
     data(){
         return {
             showValue:'',
         }
-    },
-    computed:{
-        valueLabelMap(){
-            let valuefield = this.valuefield;
-            let labelfield = this.labelfield;
-            return this.candidate.reduce((map,item)=>{
-                map.set(item[valuefield],item[labelfield]);
-                return map;
-            },new Map());
-        },
     },
     props:{
         candidate:{

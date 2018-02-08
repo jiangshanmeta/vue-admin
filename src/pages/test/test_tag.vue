@@ -140,12 +140,12 @@ export default{
     data(){
         return {
             relates:"",
-            field_tag:[],
-            field_async_tag:[],
-            field_array_model:[],
-            field_async_array_model:[],
-            field_relates_tag:[],
-            field_relates_array_model:[],
+            field_tag:[1,1,5,7],
+            field_async_tag:[1,1],
+            field_array_model:[2,2,8],
+            field_async_array_model:[2,2,8],
+            field_relates_tag:[2,2,8],
+            field_relates_array_model:[2,2,8],
         }
     },
     created(){
@@ -153,9 +153,9 @@ export default{
         observe_relates(this.field_relates_model_relates,this)
 
         setTimeout(()=>{
-            this.field_tag = [1,5];
-            this.field_async_tag = [5];
-            this.field_async_array_model = [2]
+            // this.field_tag = [1,1,5,7];
+            // this.field_async_tag = [5];
+            // this.field_async_array_model = [2]
         },1000)
     }
 }

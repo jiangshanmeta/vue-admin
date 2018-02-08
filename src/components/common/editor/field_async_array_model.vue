@@ -2,6 +2,7 @@
     <field_array_model
         v-model="model"
         :candidate="candidate"
+        :validCandidate="!isRequest"
         v-bind="$attrs"
     ></field_array_model>
 </template>
