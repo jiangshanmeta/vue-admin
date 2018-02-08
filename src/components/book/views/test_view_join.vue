@@ -16,7 +16,7 @@ export default{
         glue:{
             type:String,
             default:","
-        }
+        },
     },
 }
 </script>

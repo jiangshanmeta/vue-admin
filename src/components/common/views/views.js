@@ -31,13 +31,14 @@ export default{
                     scopedSlotsData = {
                         data:info,
                         ...config,
+                        record:props.record,
                     }
                 }
                 return data.scopedSlots.default(scopedSlotsData)
             }else if(props.descriptor.view.function){
                 return (
                     <span>
-                        {props.descriptor.view.function(info,config)}
+                        {props.descriptor.view.function(info,config,props.record)}
                     </span>
                 )
             }
