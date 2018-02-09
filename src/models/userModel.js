@@ -28,7 +28,7 @@ export default{
             },
             view:{
                 function(data,config,record){
-                    console.log(record);
+                    // console.log(record);
                     return config.prefix + data;
                 },
                 config:{

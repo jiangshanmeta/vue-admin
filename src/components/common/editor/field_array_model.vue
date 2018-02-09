@@ -10,13 +10,13 @@
         </li>
     </ul>
     <field_model
-        v-model="selectedId"
+        :value="selectedId"
         :valuefield="valuefield"
         :labelfield="labelfield"
         :candidate="candidate"
+        @input="addItem"
         v-bind="$attrs"
     ></field_model>
-    <el-button type="success" @click="addItem">添加</el-button>
 </section>
 </template>
 
@@ -51,11 +51,24 @@ export default{
         removeItem(index){
             this.value.splice(index,1)
         },
-        addItem(){
-            if(!this.value.includes(this.selectedId)){
-                this.value.push(this.selectedId);
+        addItem(selectedId){
+            this.selectedId = selectedId;
+            if(!this.value.includes(selectedId)){
+                this.value.push(selectedId);
             }
         },
     },
 }
 </script>
+
+<style scoped>
+.list-group-item{
+    font-size:14px;
+    padding:6px 12px;
+}
+.list-group-item .el-icon-close{
+    font-size:12px;
+    position:relative;
+    top:5px;
+}
+</style>

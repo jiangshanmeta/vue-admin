@@ -49,24 +49,24 @@ export default{
         },
         handleSelect(item){
             this.$emit('input',item[this.valuefield]);
-            this.setShowValueByValue()
+            this.setShowValueByValue();
         },
         setShowValueByValue(){
             let value = this.value;
             if(this.valueLabelMap.has(value)){
-                this.setShowValue(this.valueLabelMap.get(value));
+                this.showValue = this.valueLabelMap.get(value)
             }
         },
-        setShowValue(val){
-            this.showValue = val;
-        }
     },
     watch:{
-        value:"setShowValueByValue",
-        candidate:"setShowValueByValue"
+        value:{
+            handler:"setShowValueByValue",
+            immediate:true,
+        },
+        candidate:{
+            handler:"setShowValueByValue",
+            immediate:true,
+        },
     },
-    created(){
-        this.setShowValueByValue();
-    }
 }
 </script>
