@@ -22,6 +22,12 @@ export default{
                 },
                 default:'',
             },
+            view:{
+                join:['id'],
+                function(record){
+                    return `${record.customername}(${record.id})`
+                },
+            },
         },
         totalprice:{
             label:'金额',

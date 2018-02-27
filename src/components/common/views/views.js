@@ -8,17 +8,21 @@ export default{
             let isJoinField = false;
             if(typeof props.descriptor.view.join === 'object'){
                 isJoinField = true;
+
+                let obj = props.record.hasOwnProperty(props.field)?{[props.field]:info}:{};
+
                 if(Array.isArray(props.descriptor.view.join)){
                     info = props.descriptor.view.join.reduce((obj,field)=>{
                         obj[field] = props.record[field];
                         return obj;
-                    },{});
+                    },obj);
                 }else{
                     info = Object.keys(props.descriptor.view.join).reduce((obj,originalField)=>{
                         obj[props.descriptor.view.join[originalField]] = props.record[originalField];
                         return obj;
-                    },{});
+                    },obj);
                 }
+
             }
             if(props.descriptor.view.component){
                 let scopedSlotsData;
@@ -31,14 +35,13 @@ export default{
                     scopedSlotsData = {
                         data:info,
                         ...config,
-                        record:props.record,
                     }
                 }
                 return data.scopedSlots.default(scopedSlotsData)
             }else if(props.descriptor.view.function){
                 return (
                     <span>
-                        {props.descriptor.view.function(info,config,props.record)}
+                        {props.descriptor.view.function(info,config)}
                     </span>
                 )
             }
