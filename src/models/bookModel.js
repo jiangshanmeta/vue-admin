@@ -33,6 +33,18 @@ export default{
             label:'金额',
             editorComponent:{
                 name:"field_number",
+                config:{
+                    relates:[
+                        {
+                            relateField:["customername",'address'],
+                            handler(info){
+                                if(info.customername === 'lelouch' && info.address === 'area11'){
+                                    this.$emit('input',0);
+                                }
+                            },
+                        }
+                    ],
+                },
                 default:0,
             },
             view:{

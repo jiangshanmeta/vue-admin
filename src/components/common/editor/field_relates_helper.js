@@ -1,6 +1,8 @@
 export function observe_relates(relates,context){
     relates.forEach(function(item){
-        observe_item(item,context)
+        if(item.relateField && typeof item.relateField !== 'object'){
+            observe_item(item,context)
+        }
     })
 }
 

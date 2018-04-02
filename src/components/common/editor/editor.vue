@@ -10,6 +10,7 @@
         </template>
         <template slot-scope="scope">
             <component
+                :ref="scope.field"
                 :is="field_list[scope.field].editorComponent.name" 
                 v-model="record[scope.field]" 
                 v-bind="mergeAttrsConfig(field_list[scope.field].editorComponent.config,field_list[scope.field].editorComponent[mode + 'Config'])"
@@ -206,7 +207,29 @@ export default{
                 row.forEach((field)=>{
 
                     if(this.field_list[field].editorComponent && this.field_list[field].editorComponent.config && this.field_list[field].editorComponent.config.relates){
-                        observe_relates(this.field_list[field].editorComponent.config.relates,this.record)
+                        observe_relates(this.field_list[field].editorComponent.config.relates,this.record);
+
+                        let relates = this.field_list[field].editorComponent.config.relates;
+
+                        relates.forEach((relateItem)=>{
+
+                            if(typeof relateItem.handler === 'function'){
+                                this.$watch(()=>{
+                                    if(Array.isArray(relateItem.relateField)){
+                                        return relateItem.relateField.reduce((obj,field)=>{
+                                            obj[field] = this.record[field];
+                                            return obj;
+                                        },{});
+                                    }else{
+                                        return this.record[relateItem.relateField]
+                                    }
+                                },(newVal,oldVal)=>{
+                                    relateItem.handler.call(this.$refs[field],newVal,this.field_list[field],oldVal);
+                                })
+                            }
+                        });
+
+
                     }
 
                 })
@@ -274,6 +297,11 @@ export default{
             type:String,
             default:"create"
         }
+    },
+    mounted(){
+        this.$nextTick(()=>{
+            console.log(this.$refs)
+        })
     },
 }
 </script>
