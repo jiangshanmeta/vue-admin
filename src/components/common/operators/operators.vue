@@ -1,6 +1,9 @@
 <template>
-    <div v-if="(!hasAsyncComponent) || isComponentsLoaded" 
-    class="operator-container">
+    <div 
+        v-if="(!hasAsyncComponent) || isComponentsLoaded" 
+        class="operator-container"
+        ref="container"
+    >
         <template v-for="item in operators">
             <component
                 v-if="item.component"
@@ -76,7 +79,10 @@ export default{
                 },[])
                 this.dynamicImportComponent(components).then(()=>{
                     this.isComponentsLoaded = true;
+                    this.notifytWidth();
                 })
+            }else{
+                this.notifytWidth();
             }
         },
         handleOperatorClick(func){
@@ -88,7 +94,12 @@ export default{
         },
         notifyUpdate(){
             this.$emit('update');
-        }
+        },
+        notifytWidth(){
+            this.$nextTick(()=>{
+                this.$emit('setWidth',this.$refs.container.scrollWidth);
+            });
+        },
     },
     watch:{
         operators:{
@@ -103,16 +114,16 @@ export default{
 </script>
 
 <style scoped>
-.operator-container>*{
-    display:inline-block;
-}
-.operator-container>:first-child~*{
-    margin-left:10px;
-}
 .operator-container{
+    display:table;
+    width:max-content;
     white-space:nowrap;
 }
 .operator-container>*{
+    display:inline-block;
     white-space:normal;
+}
+.operator-container>:first-child~*{
+    margin-left:10px;
 }
 </style>

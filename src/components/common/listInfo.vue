@@ -83,7 +83,7 @@
             <el-table-column
                 label="操作"
                 v-if="operators.length && data.length"
-                :min-width="60*operators.length"
+                :min-width="operatorMinWidth"
             >
                 <template slot-scope="scope">
                     <operators
@@ -92,6 +92,7 @@
                         :data="scope.row"
                         :index="scope.$index"
                         @update="getListInfo"
+                        @setWidth="setOperatorWidth"
                     ></operators>
                 </template>
             </el-table-column>
@@ -146,6 +147,7 @@ export default{
             fields:[],
             isComponentsLoaded:false,
             multipleSelection:[],
+            operatorMinWidth:0,
         }
     },
     props:{
@@ -348,7 +350,13 @@ export default{
             this.sortOrder = '';
             this.isComponentsLoaded = false;
             this.multipleSelection = [];
-        }
+            this.operatorMinWidth = 0;
+        },
+        setOperatorWidth(width){
+            if(width>this.operatorMinWidth){
+                this.operatorMinWidth = width;
+            }
+        },
     },
     watch:{
         field_list(){

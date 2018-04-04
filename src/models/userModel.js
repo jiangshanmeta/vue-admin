@@ -231,9 +231,6 @@ export default{
     listConfig:{
         listRequest:getUserList,
         sortFields:['typ'],
-        async treatData(data){
-            return data
-        },
         pageSizes:[10,20,30,50],
     },
     operators:[
