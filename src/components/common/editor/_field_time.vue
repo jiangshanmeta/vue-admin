@@ -13,7 +13,11 @@ import _props_disabled_mixin from "./_props_disabled_mixin.js"
 import _props_value_mixin from "./_props_value_mixin.js"
 import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
 
-const formatOptions = ['timestamp','string','object'];
+const formatOptions = ['timestamp','string','object','custom'];
+
+function identity(value){
+    return value;
+}
 
 export default{
     data(){
@@ -38,10 +42,13 @@ export default{
                 return formatOptions.includes(value);
             }
         },
+        formatMethod:{
+            type:Function,
+            default:identity,
+        }
     },
     methods:{
         handleChange(newVal=''){
-            console.log('----')
             switch(this.format){
                 case 'timestamp':
                     newVal = new Date(newVal).getTime();
@@ -50,6 +57,9 @@ export default{
                     break;
                 case 'object':
                     newVal = new Date(newVal);
+                    break;
+                case 'custom':
+                    newVal = this.formatMethod(newVal);
                     break;
             }
 

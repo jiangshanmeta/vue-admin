@@ -16,6 +16,8 @@
                     <field_ts
                         v-model="field_ts"
                         placeholder="field_ts的placeholder"
+                        format="custom"
+                        :formatMethod="formatMethod"
                     ></field_ts>
                 </td>
             </tr>
@@ -67,6 +69,12 @@ export default{
         field_day,
         field_month,
         field_year
+    },
+    methods:{
+        formatMethod(value){
+            console.log(value);
+            return value;
+        },
     },
     data(){
         return {
