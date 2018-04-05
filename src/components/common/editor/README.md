@@ -320,6 +320,7 @@ filters组件是为了通用列表页的筛选条件所设计的
 * value 必传参数，值为空字符串或者*yyyy-MM-dd HH:mm:ss*格式的时间字符串
 * placeholder
 * disabled 是否禁用 默认为false
+* format 所获取的值的格式，有 timestamp string object三种。timestamp对应js时间戳，string和input框内容一致，object获得的是Date实例。默认为string。
 
 
 #### field_day
@@ -327,18 +328,21 @@ filters组件是为了通用列表页的筛选条件所设计的
 * value 必传参数，值为空字符串或者*yyyy-MM-dd*格式的时间字符串
 * placeholder
 * disabled 是否禁用 默认为false
+* format 所获取的值的格式，有 timestamp string object三种。timestamp对应js时间戳，string和input框内容一致，object获得的是Date实例。默认为string。
 
 #### field_month
 
 * value 必传参数，值为空字符串或者*yyyy-MM*格式的时间字符串
 * placeholder
 * disabled 是否禁用 默认为false
+* format 所获取的值的格式，有 timestamp string object三种。timestamp对应js时间戳，string和input框内容一致，object获得的是Date实例。默认为string。
 
 #### field_year
 
 * value 必传参数，值为空字符串或者*yyyy*格式的时间字符串
 * placeholder
 * disabled 是否禁用 默认为false
+* format 所获取的值的格式，有 timestamp string object三种。timestamp对应js时间戳，string和input框内容一致，object获得的是Date实例。默认为string。
 
 ### 上传
 

@@ -12,6 +12,9 @@
 import _props_disabled_mixin from "./_props_disabled_mixin.js"
 import _props_value_mixin from "./_props_value_mixin.js"
 import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
+
+const formatOptions = ['timestamp','string','object'];
+
 export default{
     data(){
         return {
@@ -28,9 +31,28 @@ export default{
             type:String,
             required:true,
         },
+        format:{
+            type:String,
+            default:"string",
+            validator(value){
+                return formatOptions.includes(value);
+            }
+        },
     },
     methods:{
         handleChange(newVal=''){
+            console.log('----')
+            switch(this.format){
+                case 'timestamp':
+                    newVal = new Date(newVal).getTime();
+                    break;
+                case 'string':
+                    break;
+                case 'object':
+                    newVal = new Date(newVal);
+                    break;
+            }
+
             this.$emit('input',newVal)
         },
     },
