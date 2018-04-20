@@ -7,12 +7,13 @@ Vue.use(Router)
 
 let routes = [];
 
-Object.keys(menu).forEach((moduleName)=>{
-    let pages = menu[moduleName].pages || [];
+menu.forEach((module)=>{
+    let pages = module.pages || [];
     pages.forEach((page)=>{
         routes.push(page);
     });
-});
+})
+
 
 
 const router = new Router({
