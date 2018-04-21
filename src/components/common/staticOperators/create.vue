@@ -38,13 +38,12 @@
 </template>
 
 <script>
-import editor from "@/components/common/editor/editor"
 import {getCreateFields,doCreateRequest} from "@/server/common.js"
 import {logError} from "@/widget/utility.js"
 export default{
     name:"create",
     components:{
-        editor,
+        editor:()=>import("@/components/common/editor/editor"),
     },
     data (){
         return {

@@ -29,10 +29,10 @@ import Element from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 Vue.use(Element)
 
-// canvas库
-import 'echarts'
-import ECharts from 'vue-echarts/components/ECharts.vue'
-Vue.component('chart', ECharts)
+// canvas库 考虑到主要实现的是 model，暂时用不到
+// import 'echarts'
+// import ECharts from 'vue-echarts/components/ECharts.vue'
+// Vue.component('chart', ECharts)
 
 Vue.config.productionTip = false
 

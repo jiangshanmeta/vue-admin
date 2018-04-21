@@ -29,6 +29,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env
     }),
+    new webpack.HashedModuleIdsPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false

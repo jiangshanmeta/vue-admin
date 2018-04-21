@@ -38,17 +38,17 @@
 </template>
 
 <script>
-import editor from "@/components/common/editor/editor";
 import _id_mixin from "@/mixins/common/_id_mixin.js"
 import {getEditInfo,doEditRequest} from "@/server/common.js"
 import {logError} from "@/widget/utility.js"
+
 export default {
     name:"edit",
     mixins:[
         _id_mixin,
     ],
     components:{
-        editor,
+        editor:()=>import("@/components/common/editor/editor"),
     },
     data(){
         return {
