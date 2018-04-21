@@ -265,11 +265,6 @@ export default{
             default:"create"
         }
     },
-    mounted(){
-        this.$nextTick(()=>{
-            console.log(this.$refs)
-        })
-    },
 }
 </script>
 
