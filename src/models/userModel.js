@@ -201,7 +201,9 @@ export default{
                             requestField:'req_typ',
                         }
                     ],
-
+                    handleInvalidRelateIds(){
+                        this.$emit("input","all");
+                    },
 
                 },
                 default:"all",

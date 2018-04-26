@@ -1,5 +1,8 @@
 import {getRelatesCandidate} from "@/server/common.js"
 import {logError} from "@/widget/utility"
+
+function noop(){}
+
 export default{
     props:{
         relates:{
@@ -23,12 +26,21 @@ export default{
         valuefield:{
             type:String,
             default:'value',
-        }
+        },
+        handleInvalidRelateIds:{
+            type:Function,
+            default:noop,
+        },
         
     },
     methods:{
         getOptions(){
-            if(!this.hasValidIds || this.hasCachedOptions){
+            if(!this.hasValidIds){
+                this.handleInvalidRelateIds();
+                return;
+            }
+
+            if(this.hasCachedOptions){
                 return;
             }
 
