@@ -17,6 +17,7 @@
                     <field_tag 
                         v-model="field_tag" 
                         :candidate="field_tag_candidate"
+                        :handleInvalidValue="handleTagInvalid"
                     ></field_tag>
                 </td>
             </tr>
@@ -27,6 +28,7 @@
                     <field_async_tag
                         v-model="field_async_tag"
                         uri="/test/field_async_tag"
+                        :handleInvalidValue="handleTagInvalid"
                     ></field_async_tag>
                 </td>
             </tr>
@@ -40,6 +42,7 @@
                         placeholder="placeholder2"
                         labelfield="name"
                         valuefield="id"
+                        :handleInvalidValue="handleTagInvalid"
                     ></field_array_model>
                 </td>
             </tr>
@@ -52,6 +55,7 @@
                         uri="/test/field_async_array_model"
                         labelfield="name"
                         valuefield="id"
+                        :handleInvalidValue="handleTagInvalid"
                     ></field_async_array_model>
                 </td>
             </tr>
@@ -65,6 +69,8 @@
                         uri='/test/field_relates_tag'
                         labelfield="name"
                         valuefield="id"
+                        :handleInvalidValue="handleTagInvalid"
+                        :handleInvalidRelateIds="handleInvalidRelateIds"
                     ></field_relates_tag>
                 </td>
             </tr>
@@ -78,6 +84,7 @@
                         labelfield="name"
                         valuefield="id"
                         uri='/test/field_relates_array_model'
+                        :handleInvalidValue="handleTagInvalid"
                     ></field_relates_array_model>
                 </td>
             </tr>
@@ -96,6 +103,9 @@ import field_relates_tag from "@/components/common/editor/field_relates_tag"
 import field_relates_array_model from "@/components/common/editor/field_relates_array_model"
 
 import {observe_relates} from "@/components/common/editor/field_relates_helper.js"
+
+import {unique,clearInvalidData} from "@/components/common/editor/_validate_option"
+
 export default{
     config:{
         field_tag_candidate:[
@@ -128,6 +138,12 @@ export default{
             },
 
         ],
+        handleTagInvalid:function(value,allvalue){
+            this.$emit('input',clearInvalidData(value,allvalue))
+        },
+        handleInvalidRelateIds:function(){
+            console.log(this)
+        }
     },
     components:{
         field_tag,
@@ -141,7 +157,7 @@ export default{
         return {
             relates:"",
             field_tag:[1,1,5,7],
-            field_async_tag:[1,1],
+            field_async_tag:[1,1,9],
             field_array_model:[2,2,8],
             field_async_array_model:[2,2,8],
             field_relates_tag:[2,2,8],

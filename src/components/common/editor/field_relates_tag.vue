@@ -5,7 +5,7 @@
         v-bind="$attrs"
         :labelfield="labelfield"
         :valuefield="valuefield"
-        :validCandidate="hasCachedOptions"
+        :isCandidateValid="hasCachedOptions"
     ></field_tag>
 </template>
 

@@ -5,7 +5,7 @@
         :candidate="finalOptions"
         :labelfield="labelfield"
         :valuefield="valuefield"
-        :validCandidate="hasCachedOptions"
+        :isCandidateValid="hasCachedOptions"
     ></field_array_model>
 </template>
 
