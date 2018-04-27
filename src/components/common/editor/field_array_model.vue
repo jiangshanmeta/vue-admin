@@ -23,7 +23,6 @@
 <script>
 import field_model from "./field_model.vue"
 
-// import _tag_validate_mixin from "./_tag_validate_mixin"
 import _validate_option_multi from "./_validate_option_multi"
 import _props_value_array_mixin from "./_props_value_array_mixin.js"
 import _props_label_value_mixin from "./_props_label_value_mixin.js"
@@ -35,7 +34,6 @@ export default{
     inheritAttrs:true,
     mixins:[
         _validate_option_multi,
-        // _tag_validate_mixin,
         _props_value_array_mixin,
         _props_label_value_mixin,
         _props_candidate_mixin,

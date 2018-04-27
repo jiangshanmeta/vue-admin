@@ -20,6 +20,7 @@ import _computed_model_mixin from "./_computed_model_mixin.js"
 import _props_disabled_mixin from "./_props_disabled_mixin.js"
 import _props_label_value_mixin from "./_props_label_value_mixin.js"
 import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
+import _validate_option_mono from "./_validate_option_mono"
 
 export default{
     name:'field_enum_select',
@@ -29,6 +30,7 @@ export default{
         _props_disabled_mixin,
         _props_label_value_mixin,
         _props_placeholder_mixin,
+        _validate_option_mono,
     ],
 }
 </script>

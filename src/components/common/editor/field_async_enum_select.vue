@@ -2,6 +2,7 @@
     <field_enum_select
         v-model="model"
         :candidate="candidate"
+        :isCandidateValid="!isRequest"
         v-bind="$attrs"
     >
         <template>

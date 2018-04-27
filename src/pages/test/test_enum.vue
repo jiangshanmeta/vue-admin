@@ -35,6 +35,7 @@
                         v-model="field_enum_radio"
                         :candidate="field_enum_candidate"
                         valuefield="valuefield"
+                        :handleInvalidValue="handleInvalidValue"
                     ></field_enum_radio>
                 </td>
             </tr>
@@ -47,6 +48,7 @@
                         :candidate="field_enum_candidate"
                         valuefield="valuefield"
                         disabled
+                        :handleInvalidValue="handleInvalidValue"
                     ></field_enum_select>
                 </td>
             </tr>
@@ -59,6 +61,7 @@
                         :candidate="field_enum_candidate"
                         valuefield="valuefield"
                         placeholder="field_model的placeholder"
+                        :handleInvalidValue="handleInvalidValue"
                     ></field_model>
                 </td>
             </tr>
@@ -71,6 +74,7 @@
                         uri="/test/field_async_enum_radio"
                         labelfield="name"
                         valuefield="id"
+                        :handleInvalidValue="handleInvalidValue"
                     ></field_async_enum_radio>
                 </td>
             </tr>
@@ -84,6 +88,7 @@
                         labelfield="name"
                         valuefield="id"
                         placeholder="the placeholder"
+                        :handleInvalidValue="handleInvalidValue"
                     ></field_async_enum_select>
                 </td>
             </tr>
@@ -97,6 +102,7 @@
                         labelfield='name'
                         valuefield='id'
                         placeholder="placeholder"
+                        :handleInvalidValue="handleInvalidValue"
                     ></field_async_model>
                 </td>
             </tr>
@@ -110,6 +116,7 @@
                         uri='/test/field_relates_enum_radio'
                         labelfield="name"
                         valuefield="id"
+                        :handleInvalidValue="handleInvalidValue"
                     ></field_relates_enum_radio>
                 </td>
             </tr>
@@ -123,6 +130,7 @@
                         uri='/test/field_relates_enum_select'
                         labelfield="name"
                         valuefield="id"
+                        :handleInvalidValue="handleInvalidValue"
                     ></field_relates_enum_select>
                 </td>
             </tr>
@@ -136,6 +144,7 @@
                         uri="/test/field_relates_model"
                         labelfield="name"
                         valuefield="id"
+                        :handleInvalidValue="handleInvalidValue"
                     ></field_relates_model>
                 </td>
             </tr>
@@ -192,8 +201,11 @@ export default{
                 relateField:"field_enum_radio"
             }
 
-        ]
-
+        ],
+        handleInvalidValue:function(value,options){
+            this.$emit('input',options[Math.floor(Math.random()*options.length)]);
+            // console.log(value,options);
+        },
 
     },
     data(){
@@ -205,23 +217,23 @@ export default{
             field_model:"",
             field_async_enum_radio:"",
             field_async_enum_select:"",
-            field_async_model:"",
-            field_relates_enum_radio:"",
-            field_relates_enum_select:"",
-            field_relates_model:"",
+            field_async_model:1,
+            field_relates_enum_radio:1,
+            field_relates_enum_select:2,
+            field_relates_model:3,
         }
     },
     created(){
         observe_relates(this.field_relates_enum_radio_relates,this)
 
-        setTimeout(()=>{
-            this.field_sex = 1;
-            this.field_bool = 1;
-            this.field_enum_radio = 1;
-            this.field_enum_select = 2;
-            this.field_model = 3;
+        // setTimeout(()=>{
+        //     this.field_sex = 1;
+        //     this.field_bool = 1;
+        //     this.field_enum_radio = 1;
+        //     this.field_enum_select = 2;
+        //     this.field_model = 3;
 
-        },2000)
+        // },2000)
     }
 }
 </script>

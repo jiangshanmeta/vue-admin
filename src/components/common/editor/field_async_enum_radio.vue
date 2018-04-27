@@ -2,6 +2,7 @@
     <field_enum_radio
         v-model="model"
         :candidate="candidate"
+        :isCandidateValid="!isRequest"
         v-bind="$attrs"
     ></field_enum_radio>
 </template>

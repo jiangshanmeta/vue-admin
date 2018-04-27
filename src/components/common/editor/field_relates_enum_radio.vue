@@ -5,6 +5,7 @@
         v-bind="$attrs"
         :labelfield="labelfield"
         :valuefield="valuefield"
+        :isCandidateValid="hasCachedOptions"
     ></field_enum_radio>
 </template>
 
