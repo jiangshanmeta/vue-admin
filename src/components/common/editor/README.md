@@ -154,6 +154,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * disabled 是否禁用，默认为false
+* handleInvalidValue 当值有误时(不在可选项中)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
 
 #### field_enum_select
 
@@ -163,6 +166,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * valuefield 默认为value
 * placeholder
 * disabled 是否禁用 默认为false
+* handleInvalidValue 当值有误时(不在可选项中)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
 
 #### field_model
 
@@ -172,6 +178,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * valuefield 默认为value
 * placeholder
 * disabled 是否禁用 默认为false
+* handleInvalidValue 当值有误时(不在可选项中)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
 
 #### field_async_enum_radio
 
@@ -182,6 +191,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * disabled 是否禁用 默认为false
 * httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
+* handleInvalidValue 当值有误时(不在可选项中)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
 
 #### field_async_enum_select
 
@@ -193,6 +205,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * disabled 是否禁用 默认为false
 * httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
+* handleInvalidValue 当值有误时(不在可选项中)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
 
 #### field_async_model
 
@@ -204,7 +219,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * disabled 是否禁用 默认为false
 * httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
-
+* handleInvalidValue 当值有误时(不在可选项中)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
 
 #### field_relates_enum_radio
 
@@ -217,7 +234,10 @@ filters组件是为了通用列表页的筛选条件所设计的
 * httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
     * data，查询参数，一个对象
-    
+* handleInvalidRelateIds 当关联字段数据无效时调用，函数类型，this指向当前组件
+* handleInvalidValue 当值有误时(不在可选项中)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
 
 #### field_relates_enum_select
 
@@ -231,7 +251,10 @@ filters组件是为了通用列表页的筛选条件所设计的
 * httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
     * data，查询参数，一个对象
-    
+* handleInvalidRelateIds 当关联字段数据无效时调用，函数类型，this指向当前组件
+* handleInvalidValue 当值有误时(不在可选项中)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
 
 #### field_relates_model
 
@@ -245,8 +268,10 @@ filters组件是为了通用列表页的筛选条件所设计的
 * httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
     * data，查询参数，一个对象
-    
-
+* handleInvalidRelateIds 当关联字段数据无效时调用，函数类型，this指向当前组件    
+* handleInvalidValue 当值有误时(不在可选项中)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
 
 ### 多选
 
@@ -257,6 +282,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * disabled 是否禁用 默认为false
+* handleInvalidValue 当值有误时(不在可选项中，或者有重复)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
 
 #### field_array_model
 
@@ -265,6 +293,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * labelfield 默认为label
 * valuefield 默认为value
 * placeholder
+* handleInvalidValue 当值有误时(不在可选项中，或者有重复)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
 
 #### field_async_tag
 
@@ -275,7 +306,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * disabled 是否禁用 默认为false
 * httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
-
+* handleInvalidValue 当值有误时(不在可选项中，或者有重复)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
 
 #### field_async_array_model
 
@@ -286,7 +319,9 @@ filters组件是为了通用列表页的筛选条件所设计的
 * placeholder
 * httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
-
+* handleInvalidValue 当值有误时(不在可选项中，或者有重复)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
 
 #### field_relates_tag
 
@@ -299,6 +334,10 @@ filters组件是为了通用列表页的筛选条件所设计的
 * httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
     * data，查询参数，一个对象
+* handleInvalidRelateIds 当关联字段数据无效时调用，函数类型，this指向当前组件
+* handleInvalidValue 当值有误时(不在可选项中，或者有重复)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
 
 #### field_relates_array_model
 
@@ -311,6 +350,10 @@ filters组件是为了通用列表页的筛选条件所设计的
 * httpRequest httpRequest 请求接口方法，默认返回json格式在上面，参数如下：
     * cb，你需要调用该方法传入选项数组
     * data，查询参数，一个对象
+* handleInvalidRelateIds 当关联字段数据无效时调用，函数类型，this指向当前组件
+* handleInvalidValue 当值有误时(不在可选项中，或者有重复)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
 
 
 ### 时间
