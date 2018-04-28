@@ -15,12 +15,14 @@
                     <td>
                         <field_file 
                             v-model="field_file"
-                            :uri="uri"
-                            valuefield="uri"
+                            :action="uri"
+                            :getName="getName"
+                            :getUrl="getUrl"
+                            :getInfoFromResponse="getInfoFromResponse"
                         ></field_file>
                     </td>
                 </tr>
-                <tr>
+<!--                 <tr>
                     <td>field_images</td>
                     <td>{{field_images}}</td>
                     <td>
@@ -41,7 +43,7 @@
                             valuefield="uri"
                         ></field_image>
                     </td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
 
@@ -55,6 +57,15 @@ import field_image from "@/components/common/editor/field_image"
 export default{
     config:{
         uri:"http://www.ci.com/index.php/index/upload",
+        getInfoFromResponse:function(response){
+            return response.data;
+        },
+        getName(item){
+            return item.name;
+        },
+        getUrl(item){
+            return item.uri;
+        }
     },
     components:{
         field_file,

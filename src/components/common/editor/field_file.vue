@@ -1,24 +1,27 @@
 <template>
-    <el-upload
-        :file-list="model"
-        :action="uri"
-        :on-success="handleSuccess"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :multiple="false"
+    <field_upload
+        v-model="model"
+        v-bind="$attrs"
     >
         <el-button size="small" type="primary">点击上传</el-button>
         <div slot="tip" class="el-upload__tip">由于底层框架问题一次只能上传一个文件</div>
-    </el-upload>
+    </field_upload>
 </template>
 
 <script>
-import _props_value_array_mixin from "./_props_value_array_mixin.js"
-import _upload_mixin from "./_upload_mixin.js"
+import field_upload from "./_field_upload"
+import _props_value_array_mixin from "./_props_value_array_mixin"
+import _computed_model_mixin from "./_computed_model_mixin"
+
 export default{
+    name:"field_file",
+    inheritAttrs:true,
+    components:{
+        field_upload,
+    },
     mixins:[
         _props_value_array_mixin,
-        _upload_mixin,
+        _computed_model_mixin,
     ],
 }
 </script>
