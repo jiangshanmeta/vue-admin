@@ -87,7 +87,7 @@ export default{
             get(){
                 return this.value.map((item)=>{
                     let name = this.getName(item);
-                    let url = this.getName(item);
+                    let url = this.getUrl(item);
                     let target = JSON.parse(JSON.stringify(item));
                     target['name'] = name;
                     target['url'] = url;
@@ -109,10 +109,9 @@ export default{
             this.onSuccess && this.onSuccess(response,file,fileList);
         },
         handleRemove(file){
-            let valuefield = this.valuefield;
             let url = file.url;
             let index = this.value.findIndex((item)=>{
-                return item[valuefield] === url
+                return this.getUrl(item) === url
             });
 
             let [...newArr] = this.value;
