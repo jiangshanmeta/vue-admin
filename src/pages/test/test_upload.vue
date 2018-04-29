@@ -22,7 +22,7 @@
                         ></field_file>
                     </td>
                 </tr> -->
-                <tr>
+<!--                 <tr>
                     <td>field_file_mono</td>
                     <td>{{field_file_mono}}</td>
                     <td>
@@ -35,9 +35,23 @@
                             :isMonoValid="isMonoValid"
                         ></field_file_mono>
                     </td>
+                </tr> -->
+
+                <tr>
+                    <td>field_file_mono_json</td>
+                    <td>{{field_file_mono_json}} || {{typeof field_file_mono_json}}</td>
+                    <td>
+                        <field_file_mono_json 
+                            v-model="field_file_mono_json"
+                            :action="uri"
+                            :getName="getName"
+                            :getUrl="getUrl"
+                            :getInfoFromResponse="getInfoFromResponse"
+                            :isMonoValid="isMonoValid"
+                            
+                        ></field_file_mono_json>
+                    </td>
                 </tr>
-
-
 
 <!--                 <tr>
                     <td>field_images</td>
@@ -70,6 +84,7 @@
 <script>
 import field_file from "@/components/common/editor/field_file.vue"
 import field_file_mono from "@/components/common/editor/field_file_mono"
+import field_file_mono_json from "@/components/common/editor/field_file_mono_json"
 
 
 import field_images from "@/components/common/editor/field_images.vue"
@@ -89,10 +104,16 @@ export default{
         isMonoValid(item){
             return item.hasOwnProperty('uri');
         },
+        fileMonoStruct(){
+            return {}
+        },
     },
     components:{
         field_file,
         field_file_mono,
+        field_file_mono_json,
+
+
         field_images,
         field_image,
     },
@@ -103,6 +124,7 @@ export default{
                 name:"abc.jpg",
                 uri:"http://www.ci.com/uploads/1.jpg",
             },
+            field_file_mono_json:{},
             field_images:[],
             field_image:[],
         }

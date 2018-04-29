@@ -1,7 +1,6 @@
 <template>
     <field_file
         v-model="model"
-        
         v-bind="$attrs"
     ></field_file>
 </template>

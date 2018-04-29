@@ -85,7 +85,6 @@ export default{
     computed:{
         model:{
             get(){
-                console.log(this.value)
                 return this.value.map((item)=>{
                     let name = this.getName(item);
                     let url = this.getName(item);
