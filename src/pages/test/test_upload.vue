@@ -9,20 +9,35 @@
                 </tr>
             </thead>
             <tbody>
-<!--                 <tr>
-                    <td>field_file</td>
-                    <td>{{field_file}}</td>
+                <tr>
+                    <td>field_file_multi</td>
+                    <td>{{field_file_multi}}</td>
                     <td>
-                        <field_file 
-                            v-model="field_file"
+                        <field_file_multi 
+                            v-model="field_file_multi"
                             :action="uri"
                             :getName="getName"
                             :getUrl="getUrl"
                             :getInfoFromResponse="getInfoFromResponse"
-                        ></field_file>
+                        ></field_file_multi>
                     </td>
-                </tr> -->
-<!--                 <tr>
+                </tr>
+                <tr>
+                    <td>field_file_multi_json</td>
+                    <td>{{field_file_multi_json}} || {{typeof field_file_multi_json}}</td>
+                    <td>
+                        <field_file_multi_json 
+                            v-model="field_file_multi_json"
+                            :action="uri"
+                            :getName="getName"
+                            :getUrl="getUrl"
+                            :getInfoFromResponse="getInfoFromResponse"
+                        ></field_file_multi_json>
+                    </td>
+                </tr>
+
+
+                <tr>
                     <td>field_file_mono</td>
                     <td>{{field_file_mono}}</td>
                     <td>
@@ -35,7 +50,7 @@
                             :isMonoValid="isMonoValid"
                         ></field_file_mono>
                     </td>
-                </tr> -->
+                </tr>
 
                 <tr>
                     <td>field_file_mono_json</td>
@@ -82,7 +97,8 @@
 </template>
 
 <script>
-import field_file from "@/components/common/editor/field_file.vue"
+import field_file_multi from "@/components/common/editor/field_file_multi"
+import field_file_multi_json from "@/components/common/editor/field_file_multi_json"
 import field_file_mono from "@/components/common/editor/field_file_mono"
 import field_file_mono_json from "@/components/common/editor/field_file_mono_json"
 
@@ -109,7 +125,8 @@ export default{
         },
     },
     components:{
-        field_file,
+        field_file_multi,
+        field_file_multi_json,
         field_file_mono,
         field_file_mono_json,
 
@@ -119,7 +136,8 @@ export default{
     },
     data(){
         return {
-            field_file:[{name:"abc.jpg",uri:"http://www.ci.com/uploads/1.jpg"}],
+            field_file_multi:[{name:"abc.jpg",uri:"http://www.ci.com/uploads/1.jpg"}],
+            field_file_multi_json:JSON.stringify([]),
             field_file_mono:{
                 name:"abc.jpg",
                 uri:"http://www.ci.com/uploads/1.jpg",

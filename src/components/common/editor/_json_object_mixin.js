@@ -6,6 +6,9 @@ export default{
                 return [];
             },
         },
+        value:{
+            required:true,
+        }
     },
     computed:{
         model:{

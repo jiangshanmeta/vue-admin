@@ -22,7 +22,7 @@ import _props_value_array_mixin from "./_props_value_array_mixin"
 import _computed_model_mixin from "./_computed_model_mixin"
 
 export default{
-    name:"field_file",
+    name:"field_file_multi",
     inheritAttrs:true,
     components:{
         field_upload,
