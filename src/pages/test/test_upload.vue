@@ -9,7 +9,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+<!--                 <tr>
                     <td>field_file</td>
                     <td>{{field_file}}</td>
                     <td>
@@ -21,7 +21,24 @@
                             :getInfoFromResponse="getInfoFromResponse"
                         ></field_file>
                     </td>
+                </tr> -->
+                <tr>
+                    <td>field_file_mono</td>
+                    <td>{{field_file_mono}}</td>
+                    <td>
+                        <field_file_mono 
+                            v-model="field_file_mono"
+                            :action="uri"
+                            :getName="getName"
+                            :getUrl="getUrl"
+                            :getInfoFromResponse="getInfoFromResponse"
+                            :isMonoValid="isMonoValid"
+                        ></field_file_mono>
+                    </td>
                 </tr>
+
+
+
 <!--                 <tr>
                     <td>field_images</td>
                     <td>{{field_images}}</td>
@@ -52,6 +69,9 @@
 
 <script>
 import field_file from "@/components/common/editor/field_file.vue"
+import field_file_mono from "@/components/common/editor/field_file_mono"
+
+
 import field_images from "@/components/common/editor/field_images.vue"
 import field_image from "@/components/common/editor/field_image"
 export default{
@@ -65,16 +85,24 @@ export default{
         },
         getUrl(item){
             return item.uri;
-        }
+        },
+        isMonoValid(item){
+            return item.hasOwnProperty('uri');
+        },
     },
     components:{
         field_file,
+        field_file_mono,
         field_images,
         field_image,
     },
     data(){
         return {
             field_file:[{name:"abc.jpg",uri:"http://www.ci.com/uploads/1.jpg"}],
+            field_file_mono:{
+                name:"abc.jpg",
+                uri:"http://www.ci.com/uploads/1.jpg",
+            },
             field_images:[],
             field_image:[],
         }

@@ -3,8 +3,16 @@
         v-model="model"
         v-bind="$attrs"
     >
-        <el-button size="small" type="primary">点击上传</el-button>
-        <div slot="tip" class="el-upload__tip">由于底层框架问题一次只能上传一个文件</div>
+        <template slot="default">
+            <slot name="default">
+                <el-button size="small" type="primary">点击上传</el-button>
+            </slot>
+        </template>
+        <template name="tip">
+            <slot name="tip">
+                <div slot="tip" class="el-upload__tip">由于底层框架问题一次只能上传一个文件</div>
+            </slot>
+        </template>
     </field_upload>
 </template>
 
