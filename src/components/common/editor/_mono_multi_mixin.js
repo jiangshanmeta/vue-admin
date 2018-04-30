@@ -6,6 +6,12 @@ export default{
                 return true;
             },
         },
+        monoStruct:{
+            type:Function,
+            default(){
+                return {};
+            }
+        },
     },
     computed:{
         model:{
@@ -16,7 +22,11 @@ export default{
                 return [];
             },
             set(val){
-                this.$emit('input',val[val.length-1])
+                if(!val.length){
+                    this.$emit('input',this.monoStruct());
+                }else{
+                    this.$emit('input',val[val.length-1]);
+                }
             },
         },
     },

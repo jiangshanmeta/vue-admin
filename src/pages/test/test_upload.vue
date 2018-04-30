@@ -9,7 +9,7 @@
                 </tr>
             </thead>
             <tbody>
-<!--                 <tr>
+                <tr>
                     <td>field_file_multi</td>
                     <td>{{field_file_multi}}</td>
                     <td>
@@ -66,7 +66,7 @@
                             
                         ></field_file_mono_json>
                     </td>
-                </tr> -->
+                </tr>
 
 
 
@@ -84,6 +84,24 @@
 
                     </td>
                 </tr>
+
+
+
+                <tr>
+                    <td>field_image_mono</td>
+                    <td>{{field_image_mono}}</td>
+                    <td>
+                        <field_image_mono 
+                            v-model="field_image_mono"
+                            :action="uri"
+                            :getName="getName"
+                            :getUrl="getUrl"
+                            :getInfoFromResponse="getInfoFromResponse"
+                            :isMonoValid="isMonoValid"
+                        ></field_image_mono>
+                    </td>
+                </tr>
+                
 
 <!--                 <tr>
                     <td>field_images</td>
@@ -121,6 +139,7 @@ import field_file_mono_json from "@/components/common/editor/field_file_mono_jso
 
 import field_image_multi from "@/components/common/editor/field_image_multi"
 
+import field_image_mono from "@/components/common/editor/field_image_mono"
 
 
 import field_images from "@/components/common/editor/field_images.vue"
@@ -151,6 +170,8 @@ export default{
         field_file_mono_json,
 
         field_image_multi,
+
+        field_image_mono,
         // field_images,
         // field_image,
     },
@@ -159,12 +180,14 @@ export default{
             field_file_multi:[{name:"abc.jpg",uri:"http://www.ci.com/uploads/1.jpg"}],
             field_file_multi_json:[],
             field_file_mono:{
-                name:"abc.jpg",
-                uri:"http://www.ci.com/uploads/1.jpg",
+                // name:"abc.jpg",
+                // uri:"http://www.ci.com/uploads/1.jpg",
             },
             field_file_mono_json:{},
 
             field_image_multi:[],
+
+            field_image_mono:{},
 
             // field_images:[],
             // field_image:[],
