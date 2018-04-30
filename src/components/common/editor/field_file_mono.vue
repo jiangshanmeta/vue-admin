@@ -17,11 +17,5 @@ export default{
     mixins:[
         _mono_multi_mixin,
     ],
-    props:{
-        value:{
-            type:[Object,String],
-            required:true,
-        },
-    },
 }
 </script>

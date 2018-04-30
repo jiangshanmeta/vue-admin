@@ -84,7 +84,20 @@
 
                     </td>
                 </tr>
+                <tr>
+                    <td>field_image_multi_json</td>
+                    <td>{{field_image_multi_json}}</td>
+                    <td>
+                        <field_image_multi_json
+                            v-model="field_image_multi_json"
+                            :action="uri"
+                            :getName="getName"
+                            :getUrl="getUrl"
+                            :getInfoFromResponse="getInfoFromResponse"
+                        ></field_image_multi_json>
 
+                    </td>
+                </tr>
 
 
                 <tr>
@@ -101,30 +114,21 @@
                         ></field_image_mono>
                     </td>
                 </tr>
-                
-
-<!--                 <tr>
-                    <td>field_images</td>
-                    <td>{{field_images}}</td>
+                <tr>
+                    <td>field_image_mono_json</td>
+                    <td>{{field_image_mono_json}}</td>
                     <td>
-                        <field_images
-                            v-model="field_images"
-                            :uri="uri"
-                            valuefield="uri"
-                        ></field_images>
+                        <field_image_mono_json 
+                            v-model="field_image_mono_json"
+                            :action="uri"
+                            :getName="getName"
+                            :getUrl="getUrl"
+                            :getInfoFromResponse="getInfoFromResponse"
+                            :isMonoValid="isMonoValid"
+                        ></field_image_mono_json>
                     </td>
                 </tr>
-                <tr>
-                    <td>field_image</td>
-                    <td>{{field_image}}</td>
-                    <td>
-                        <field_image
-                            v-model="field_image"
-                            :uri="uri"
-                            valuefield="uri"
-                        ></field_image>
-                    </td>
-                </tr> -->
+
             </tbody>
         </table>
 
@@ -138,12 +142,10 @@ import field_file_mono from "@/components/common/editor/field_file_mono"
 import field_file_mono_json from "@/components/common/editor/field_file_mono_json"
 
 import field_image_multi from "@/components/common/editor/field_image_multi"
-
+import field_image_multi_json from "@/components/common/editor/field_image_multi_json"
 import field_image_mono from "@/components/common/editor/field_image_mono"
+import field_image_mono_json from "@/components/common/editor/field_image_mono_json"
 
-
-import field_images from "@/components/common/editor/field_images.vue"
-import field_image from "@/components/common/editor/field_image"
 export default{
     config:{
         uri:"http://www.ci.com/index.php/index/upload",
@@ -170,10 +172,9 @@ export default{
         field_file_mono_json,
 
         field_image_multi,
-
+        field_image_multi_json,
         field_image_mono,
-        // field_images,
-        // field_image,
+        field_image_mono_json,
     },
     data(){
         return {
@@ -186,11 +187,9 @@ export default{
             field_file_mono_json:{},
 
             field_image_multi:[],
-
+            field_image_multi_json:{},
             field_image_mono:{},
-
-            // field_images:[],
-            // field_image:[],
+            field_image_mono_json:{},
         }
     }
 }

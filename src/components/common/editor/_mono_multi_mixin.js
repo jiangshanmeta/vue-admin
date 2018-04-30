@@ -1,5 +1,9 @@
 export default{
     props:{
+        value:{
+            type:[Object,String],
+            required:true,
+        },
         isMonoValid:{
             type:[Boolean,Function],
             default(){
