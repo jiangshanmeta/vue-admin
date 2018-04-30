@@ -9,7 +9,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+<!--                 <tr>
                     <td>field_file_multi</td>
                     <td>{{field_file_multi}}</td>
                     <td>
@@ -66,6 +66,23 @@
                             
                         ></field_file_mono_json>
                     </td>
+                </tr> -->
+
+
+
+                <tr>
+                    <td>field_image_multi</td>
+                    <td>{{field_image_multi}}</td>
+                    <td>
+                        <field_image_multi
+                            v-model="field_image_multi"
+                            :action="uri"
+                            :getName="getName"
+                            :getUrl="getUrl"
+                            :getInfoFromResponse="getInfoFromResponse"
+                        ></field_image_multi>
+
+                    </td>
                 </tr>
 
 <!--                 <tr>
@@ -102,6 +119,9 @@ import field_file_multi_json from "@/components/common/editor/field_file_multi_j
 import field_file_mono from "@/components/common/editor/field_file_mono"
 import field_file_mono_json from "@/components/common/editor/field_file_mono_json"
 
+import field_image_multi from "@/components/common/editor/field_image_multi"
+
+
 
 import field_images from "@/components/common/editor/field_images.vue"
 import field_image from "@/components/common/editor/field_image"
@@ -130,21 +150,24 @@ export default{
         field_file_mono,
         field_file_mono_json,
 
-
-        field_images,
-        field_image,
+        field_image_multi,
+        // field_images,
+        // field_image,
     },
     data(){
         return {
             field_file_multi:[{name:"abc.jpg",uri:"http://www.ci.com/uploads/1.jpg"}],
-            field_file_multi_json:JSON.stringify([]),
+            field_file_multi_json:[],
             field_file_mono:{
                 name:"abc.jpg",
                 uri:"http://www.ci.com/uploads/1.jpg",
             },
             field_file_mono_json:{},
-            field_images:[],
-            field_image:[],
+
+            field_image_multi:[],
+
+            // field_images:[],
+            // field_image:[],
         }
     }
 }
