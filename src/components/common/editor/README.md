@@ -36,7 +36,7 @@
 
 * field_sex、field_bool是特异化的field_enum_select
 
-* field_file 是基础的上传组件，field_images限定只能传图片,field_image限定只能传一张图
+* field_file_multi 是基础的上传组件，用于上传多个文件，field_file_mono限定只能上传一个文件; field_file_multi_json和field_file_mono_json是对前面两个组件的包装，它们的value类型都是json字符串; field_image_multi是限定了上传内容为图片，field_image_mono限定了只能是一个图片; field_image_multi_json和 field_image_mono_json是对前两个组件的包装，value是json字符串。
 
 ## editor
 
@@ -392,23 +392,73 @@ filters组件是为了通用列表页的筛选条件所设计的
 
 ### 上传
 
-#### field_file
+#### field_file_multi
 
 * value 必传参数，数组类型
-* uri 上传路径
-* labelfield 名称字段，默认为name
-* valuefield 路径字段，默认为url
+* getInfoFromResponse 函数，从后端返回的结果中解析出要添加到数组的信息。第一个参数是后端返回的结果。默认是原样返回。
+* getName 函数，用来从列表中每一项解析出展示名称。第一个参数是列表的一项。默认是原样返回。
+* getUrl 类似于getName，用来从每一项中获取文件的地址。
 
-#### field_images
-
-* value 必传参数，数组类型
-* uri 上传路径
-* labelfield 名称字段，默认为name
-* valuefield 路径字段，默认为url
-
-#### field_image
+#### field_file_multi_json
 
 * value 必传参数，数组类型
-* uri 上传路径
-* labelfield 名称字段，默认为name
-* valuefield 路径字段，默认为url
+* getInfoFromResponse 函数，从后端返回的结果中解析出要添加到数组的信息。第一个参数是后端返回的结果。默认是原样返回。
+* getName 函数，用来从列表中每一项解析出展示名称。第一个参数是列表的一项。默认是原样返回。
+* getUrl 类似于getName，用来从每一项中获取文件的地址。
+* struct 函数，当传入的json解析失败时调用，默认返回一个空数组
+
+#### field_file_mono
+
+* value 必传参数，可以是对象或者字符串
+* isMonoValid 函数，判断当前组件值是否有效(在组件初始化时有用)
+* getInfoFromResponse 函数，从后端返回的结果中解析出组件的值。第一个参数是后端返回的结果。默认是原样返回。
+* getName 从组件值中解析出展示名称
+* getUrl 从组件值中解析出路径
+* monoStruct 函数，当删除时调用，返回值作为组件值
+
+#### field_file_mono_json
+
+* value 必传参数，可以是对象或者字符串
+* isMonoValid 函数，判断当前组件值是否有效(在组件初始化时有用)
+* getInfoFromResponse 函数，从后端返回的结果中解析出组件的值。第一个参数是后端返回的结果。默认是原样返回。
+* getName 从组件值中解析出展示名称
+* getUrl 从组件值中解析出路径
+* monoStruct 函数，当删除时调用，返回值作为组件值
+* struct 函数，当传入的json解析失败时调用，默认返回一个空数组
+
+
+#### field_image_multi
+
+* value 必传参数，数组类型
+* getInfoFromResponse 函数，从后端返回的结果中解析出要添加到数组的信息。第一个参数是后端返回的结果。默认是原样返回。
+* getName 函数，用来从列表中每一项解析出展示名称。第一个参数是列表的一项。默认是原样返回。
+* getUrl 类似于getName，用来从每一项中获取文件的地址。
+
+
+#### field_image_multi_json
+
+* value 必传参数，数组类型
+* getInfoFromResponse 函数，从后端返回的结果中解析出要添加到数组的信息。第一个参数是后端返回的结果。默认是原样返回。
+* getName 函数，用来从列表中每一项解析出展示名称。第一个参数是列表的一项。默认是原样返回。
+* getUrl 类似于getName，用来从每一项中获取文件的地址。
+* struct 函数，当传入的json解析失败时调用，默认返回一个空数组
+
+
+#### field_image_mono
+
+* value 必传参数，可以是对象或者字符串
+* isMonoValid 函数，判断当前组件值是否有效(在组件初始化时有用)
+* getInfoFromResponse 函数，从后端返回的结果中解析出组件的值。第一个参数是后端返回的结果。默认是原样返回。
+* getName 从组件值中解析出展示名称
+* getUrl 从组件值中解析出路径
+* monoStruct 函数，当删除时调用，返回值作为组件值
+
+#### field_image_mono_json
+
+* value 必传参数，可以是对象或者字符串
+* isMonoValid 函数，判断当前组件值是否有效(在组件初始化时有用)
+* getInfoFromResponse 函数，从后端返回的结果中解析出组件的值。第一个参数是后端返回的结果。默认是原样返回。
+* getName 从组件值中解析出展示名称
+* getUrl 从组件值中解析出路径
+* monoStruct 函数，当删除时调用，返回值作为组件值
+* struct 函数，当传入的json解析失败时调用，默认返回一个空数组
