@@ -12,8 +12,11 @@ export default{
     name:"field_text_rich",
     inheritAttrs:true,
     components:{
-        quillEditor,
-        quillEditor:import("vue-quill-editor"),
+        quillEditor(promise){
+            return import("vue-quill-editor").then((rst)=>{
+                return rst.quillEditor
+            })
+        }
     },
     mixins:[
         _computed_model_mixin,
