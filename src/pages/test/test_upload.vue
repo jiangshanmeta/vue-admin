@@ -149,6 +149,8 @@ import field_image_mono_json from "@/components/common/editor/field_image_mono_j
 export default{
     config:{
         uri:"http://www.ci.com/index.php/index/upload",
+    },
+    staticMethod:{
         getInfoFromResponse:function(response){
             return response.data;
         },

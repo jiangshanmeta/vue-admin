@@ -1,19 +1,29 @@
 export default {
-    install(Vue){
+    install(Vue,options={key:['config']}){
+
+        // 添加key参数，可以配置名称，支持多个config参数(更加语义化)
+
         // mixin的时候会用到
-        Vue.config.optionMergeStrategies.config = Vue.config.optionMergeStrategies.computed;
+        options.key.forEach((key)=>{
+            Vue.config.optionMergeStrategies[key] = Vue.config.optionMergeStrategies.computed;
+        });
 
         Vue.mixin({
             beforeCreate:function(){
-                const config = this.$options.config;
-                if(config && typeof config === 'object'){
-                    let keys = Object.keys(config);
-                    keys.forEach((key)=>{
-                        Object.defineProperty(this,key,{
-                            value:config[key]
+
+                options.key.forEach((optionKey)=>{
+                    const config = this.$options[optionKey];
+                    if(config && typeof config === 'object'){
+                        let keys = Object.keys(config);
+                        keys.forEach((key)=>{
+                            Object.defineProperty(this,key,{
+                                value:config[key]
+                            })
                         })
-                    })
-                }
+                    }
+                });
+
+
             }
         })
     }

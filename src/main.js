@@ -11,7 +11,9 @@ Vue.use(VueLocalStorage)
 // 因为调用了Vue.mixin，会重写Vue.options，所以要在创建子类之前调用
 // import "@/widget/vue-config.js"
 import VueConfig from "@/widget/vue-config.js"
-Vue.use(VueConfig)
+Vue.use(VueConfig,{
+    key:['config','staticMethod']
+})
 
 import PortalVue from 'portal-vue'
 Vue.use(PortalVue)
