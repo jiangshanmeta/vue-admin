@@ -22,6 +22,20 @@
                 </td>
             </tr>
             <tr>
+                <td>field_tag_json</td>
+                <td>{{field_tag_json}} || {{typeof field_tag_json}}</td>
+                <td>
+                    <field_tag_json 
+                        v-model="field_tag_json" 
+                        :candidate="field_tag_candidate"
+                        :handleInvalidValue="handleTagInvalid"
+                    ></field_tag_json>
+                </td>
+            </tr>
+
+
+
+            <tr>
                 <td>field_async_tag</td>
                 <td>{{field_async_tag}}</td>
                 <td>
@@ -95,6 +109,9 @@
 
 <script>
 import field_tag from "@/components/common/editor/field_tag"
+import field_tag_json from "@/components/common/editor/field_tag_json"
+
+
 import field_async_tag from "@/components/common/editor/field_async_tag"
 import field_array_model from "@/components/common/editor/field_array_model"
 import field_async_array_model from "@/components/common/editor/field_async_array_model"
@@ -147,6 +164,7 @@ export default{
     },
     components:{
         field_tag,
+        field_tag_json,
         field_async_tag,
         field_array_model,
         field_async_array_model,
@@ -157,6 +175,7 @@ export default{
         return {
             relates:"",
             field_tag:[1,1,5,7],
+            field_tag_json:"",
             field_async_tag:[1,1,9],
             field_array_model:[2,2,8],
             field_async_array_model:[2,2,8],

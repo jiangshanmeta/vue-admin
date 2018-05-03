@@ -32,6 +32,8 @@
 
 * field_tag对应多选，现形式上对应checkbox。field_async_tag是异步加载选项的field_tag。field_array_model是选项较多时的版本，field_array_model的异步版本是field_async_array_model。field_relates_tag和field_relates_array_model是关联查询版的多选。
 
+* field_tag_json是对field_tag的包装，它把组件值处理成了json字符串。
+
 * field_ts、field_day、field_month、field_year是关于时间的筛选框
 
 * field_sex、field_bool是特异化的field_enum_select
@@ -285,6 +287,18 @@ filters组件是为了通用列表页的筛选条件所设计的
 * handleInvalidValue 当值有误时(不在可选项中，或者有重复)调用,this指向当前组件，参数如下：
     * value 当前组件的值，一个数组
     * options 可选值数组
+
+#### field_tag_json
+
+* value 必传参数，类型为数组
+* candidate 必传参数，类型为数组，选项数组
+* labelfield 默认为label
+* valuefield 默认为value
+* disabled 是否禁用 默认为false
+* handleInvalidValue 当值有误时(不在可选项中，或者有重复)调用,this指向当前组件，参数如下：
+    * value 当前组件的值，一个数组
+    * options 可选值数组
+* struct 函数，当传入的json解析失败时调用，默认返回一个空数组
 
 #### field_array_model
 
