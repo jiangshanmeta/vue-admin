@@ -61,6 +61,24 @@
                 </td>
             </tr>
             <tr>
+                <td>field_array_model_json</td>
+                <td>{{field_array_model_json}}</td>
+                <td>
+                    <field_array_model_json
+                        v-model="field_array_model_json"
+                        :candidate="field_array_model_candidate"
+                        placeholder="placeholder2"
+                        labelfield="name"
+                        valuefield="id"
+                        :handleInvalidValue="handleTagInvalid"
+                    ></field_array_model_json>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
                 <td>field_async_array_model</td>
                 <td>{{field_async_array_model}}</td>
                 <td>
@@ -113,7 +131,10 @@ import field_tag_json from "@/components/common/editor/field_tag_json"
 
 
 import field_async_tag from "@/components/common/editor/field_async_tag"
+
 import field_array_model from "@/components/common/editor/field_array_model"
+import field_array_model_json from "@/components/common/editor/field_array_model_json"
+
 import field_async_array_model from "@/components/common/editor/field_async_array_model"
 
 import field_relates_tag from "@/components/common/editor/field_relates_tag"
@@ -167,6 +188,7 @@ export default{
         field_tag_json,
         field_async_tag,
         field_array_model,
+        field_array_model_json,
         field_async_array_model,
         field_relates_tag,
         field_relates_array_model,
@@ -178,6 +200,7 @@ export default{
             field_tag_json:"",
             field_async_tag:[1,1,9],
             field_array_model:[2,2,8],
+            field_array_model_json:"",
             field_async_array_model:[2,2,8],
             field_relates_tag:[2,2,8],
             field_relates_array_model:[2,2,8],
