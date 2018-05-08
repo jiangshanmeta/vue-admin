@@ -106,6 +106,23 @@
                 </td>
             </tr>
             <tr>
+                <td>field_async_array_model_json</td>
+                <td>{{field_async_array_model_json}} || {{typeof field_async_array_model_json}}</td>
+                <td>
+                    <field_async_array_model_json
+                        v-model="field_async_array_model_json"
+                        uri="/test/field_async_array_model"
+                        labelfield="name"
+                        valuefield="id"
+                        :handleInvalidValue="handleTagInvalid"
+                    ></field_async_array_model_json>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
                 <td>field_relates_tag</td>
                 <td>{{field_relates_tag}}</td>
                 <td>
@@ -151,6 +168,8 @@ import field_array_model from "@/components/common/editor/field_array_model"
 import field_array_model_json from "@/components/common/editor/field_array_model_json"
 
 import field_async_array_model from "@/components/common/editor/field_async_array_model"
+import field_async_array_model_json from "@/components/common/editor/field_async_array_model_json"
+
 
 import field_relates_tag from "@/components/common/editor/field_relates_tag"
 import field_relates_array_model from "@/components/common/editor/field_relates_array_model"
@@ -206,6 +225,7 @@ export default{
         field_array_model,
         field_array_model_json,
         field_async_array_model,
+        field_async_array_model_json,
         field_relates_tag,
         field_relates_array_model,
     },
@@ -219,6 +239,7 @@ export default{
             field_array_model:[2,2,8],
             field_array_model_json:"",
             field_async_array_model:[2,2,8],
+            field_async_array_model_json:"",
             field_relates_tag:[2,2,8],
             field_relates_array_model:[2,2,8],
         }
