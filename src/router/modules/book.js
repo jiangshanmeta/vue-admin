@@ -6,7 +6,7 @@ export default{
         {
             path:"/book/index",
             label:"订单列表",
-            component:()=>import('@/pages/book/index.js'),
+            component:()=>import('@/pages/common/listView.js'),
             meta:{
                 privilege:[73,999],
                 model:"bookModel",
