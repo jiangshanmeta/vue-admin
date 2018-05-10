@@ -138,6 +138,24 @@
                 </td>
             </tr>
             <tr>
+                <td>field_relates_tag_json</td>
+                <td>{{field_relates_tag_json}} || {{typeof field_relates_tag_json}}</td>
+                <td>
+                    <field_relates_tag_json
+                        v-model="field_relates_tag_json"
+                        :relates="field_relates_tag_relates"
+                        uri='/test/field_relates_tag'
+                        labelfield="name"
+                        valuefield="id"
+                        :handleInvalidValue="handleTagInvalid"
+                        :handleInvalidRelateIds="handleInvalidRelateIds"
+                    ></field_relates_tag_json>
+                </td>
+            </tr>
+
+
+
+            <tr>
                 <td>field_relates_array_model</td>
                 <td>{{field_relates_array_model}}</td>
                 <td>
@@ -172,6 +190,8 @@ import field_async_array_model_json from "@/components/common/editor/field_async
 
 
 import field_relates_tag from "@/components/common/editor/field_relates_tag"
+import field_relates_tag_json from "@/components/common/editor/field_relates_tag_json"
+
 import field_relates_array_model from "@/components/common/editor/field_relates_array_model"
 
 import {observe_relates} from "@/components/common/editor/field_relates_helper.js"
@@ -227,6 +247,7 @@ export default{
         field_async_array_model,
         field_async_array_model_json,
         field_relates_tag,
+        field_relates_tag_json,
         field_relates_array_model,
     },
     data(){
@@ -241,6 +262,7 @@ export default{
             field_async_array_model:[2,2,8],
             field_async_array_model_json:"",
             field_relates_tag:[2,2,8],
+            field_relates_tag_json:"[2,2,8]",
             field_relates_array_model:[2,2,8],
         }
     },
