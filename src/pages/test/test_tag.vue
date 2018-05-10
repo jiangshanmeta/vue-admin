@@ -169,6 +169,23 @@
                     ></field_relates_array_model>
                 </td>
             </tr>
+            <tr>
+                <td>field_relates_array_model_json</td>
+                <td>{{field_relates_array_model_json}} || {{typeof field_relates_array_model_json}}</td>
+                <td>
+                    <field_relates_array_model_json
+                        v-model="field_relates_array_model_json"
+                        :relates="field_relates_model_relates"
+                        labelfield="name"
+                        valuefield="id"
+                        uri='/test/field_relates_array_model'
+                        :handleInvalidValue="handleTagInvalid"
+                    ></field_relates_array_model_json>
+                </td>
+            </tr>
+
+
+
         </tbody>
     </table>
 </section>
@@ -193,6 +210,8 @@ import field_relates_tag from "@/components/common/editor/field_relates_tag"
 import field_relates_tag_json from "@/components/common/editor/field_relates_tag_json"
 
 import field_relates_array_model from "@/components/common/editor/field_relates_array_model"
+import field_relates_array_model_json from "@/components/common/editor/field_relates_array_model_json"
+
 
 import {observe_relates} from "@/components/common/editor/field_relates_helper.js"
 
@@ -249,6 +268,7 @@ export default{
         field_relates_tag,
         field_relates_tag_json,
         field_relates_array_model,
+        field_relates_array_model_json,
     },
     data(){
         return {
@@ -264,6 +284,7 @@ export default{
             field_relates_tag:[2,2,8],
             field_relates_tag_json:"[2,2,8]",
             field_relates_array_model:[2,2,8],
+            field_relates_array_model_json:"[2,2,8]",
         }
     },
     created(){
