@@ -16,15 +16,27 @@
             ></component>
         </el-form-item>
         <el-form-item>
-            <el-button 
-                type="primary"
-                @click="search"
-                v-if="filters.length"
-                style="margin-right:10px;"
-            >
-                查询
-            </el-button>
-            <slot :formData="formData"></slot>
+            <section>
+                <el-button 
+                    type="primary"
+                    @click="search"
+                    v-if="filters.length"
+                    style="margin-right:10px;"
+                >
+                    查询
+                </el-button>
+
+                <operators
+                    :field_list="field_list"
+                    :operators="filterOperators"
+                    :data="formData"
+                    :filters="filters"
+                    @update="search"
+                    style="display:inline-block;"
+                ></operators>
+
+                <slot :formData="formData"></slot>
+            </section>
         </el-form-item>
     </el-form>
 </template>
@@ -80,6 +92,8 @@ export default{
         field_number,
         field_relates_enum_select,
         field_relates_model,
+
+        operators:()=>import("@/components/common/operators/operators"),
     },
     data(){
         return {
@@ -92,6 +106,16 @@ export default{
         filters:{
             type:Array,
             required:true,
+        },
+        field_list:{
+            type:Object,
+            required:true,
+        },
+        filterOperators:{
+            type:Array,
+            default(){
+                return [];
+            },
         },
     },
     watch:{
@@ -127,6 +151,7 @@ export default{
     },
     methods:{
         search(){
+            console.log(this)
             this.$emit('search',this.formData);
         },
         importFilter(){

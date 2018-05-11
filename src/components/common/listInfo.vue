@@ -5,6 +5,8 @@
         ></portal-target>
         <filters
             :filters="filters"
+            :field_list="field_list"
+            :filterOperators="filterOperators"
             @search="getListInfo"
             ref="filters"
         >
@@ -16,16 +18,6 @@
                         :data="selection?multipleSelection:data"
                     ></slot>
                 </portal>
-
-                <operators
-                    :field_list="field_list"
-                    :operators="filterOperators"
-                    :data="scope.formData"
-                    :filters="filters"
-                    @update="getListInfo"
-                    slot="filters"
-                    style="display:inline-block;"
-                ></operators>
 
                 <portal to="afterFilters">
                     <slot
