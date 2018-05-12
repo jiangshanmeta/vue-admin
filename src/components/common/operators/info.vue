@@ -13,7 +13,7 @@
             size="large"
         >
             <meta-table
-                v-if="!hasAsyncComponent || isComponentsLoaded"
+                v-if="!hasAsyncComponent || $asyncComponent.$all"
                 :field_list="field_list"
                 :fields="fields"
                 mode="info"
@@ -32,7 +32,7 @@
                             slot-scope="viewScope"
                         >
                             <component
-                                :is="field_list[scope.field].view.component"
+                                :is="field_list[scope.field].view.name"
                                 v-bind="viewScope"
                             ></component>
                         </template>
@@ -46,7 +46,7 @@
 <script>
 import views from "@/components/common/views/views"
 import metaTable from "@/components/common/meta-table"
-import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
+
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import _id_mixin from "@/mixins/common/_id_mixin.js"
 import {getDetailInfo} from "@/server/common.js"
@@ -57,7 +57,7 @@ export default{
         metaTable,
     },
     mixins:[
-        dynamicImportComponent,
+
         mergeAttrsConfig,
         _id_mixin,
     ],
@@ -65,7 +65,7 @@ export default{
     data(){
         return {
             isShowLightbox:false,
-            isComponentsLoaded:false,
+
             fields:[],
             record:{},
         }
@@ -160,15 +160,13 @@ export default{
                 for(let item of keys){
                     if(this.field_list[item].view && this.field_list[item].view.component){
                         components.push({
-                            name:this.field_list[item].view.component,
-                            path:this.field_list[item].view.componentPath,
+                            name:this.field_list[item].view.name,
+                            component:this.field_list[item].view.component,
                         });
                     }
                 }
 
-                this.dynamicImportComponent(components).then(()=>{
-                    this.isComponentsLoaded = true;
-                })
+                this.$resetAsyncComponent(components);
             }
         },
     },

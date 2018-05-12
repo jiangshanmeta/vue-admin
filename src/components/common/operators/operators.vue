@@ -1,13 +1,13 @@
 <template>
     <div 
-        v-if="(!hasAsyncComponent) || isComponentsLoaded" 
+        v-if="(!hasAsyncComponent) || $asyncComponent.$all" 
         class="operator-container"
         ref="container"
     >
         <template v-for="item in operators">
             <component
                 v-if="item.component"
-                :is="item.component"
+                :is="item.name"
                 :data="data"
                 v-bind="mergeAttrsConfig(item.config)"
                 @update="notifyUpdate"
@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import {logError} from "@/widget/utility.js"
 
@@ -33,7 +32,6 @@ export default{
     name:"operators",
     inheritAttrs:true,
     mixins:[
-        dynamicImportComponent,
         mergeAttrsConfig,
     ],
     props:{
@@ -54,7 +52,7 @@ export default{
     },
     data(){
         return {
-            isComponentsLoaded:false,
+
         }
     },
     computed:{
@@ -71,16 +69,16 @@ export default{
                 let components = this.operators.reduce((arr,item)=>{
                     if(item.component){
                         arr.push({
-                            name:item.component,
-                            path:item.componentPath,
+                            name:item.name,
+                            component:item.component,
                         })
                     }
                     return arr
                 },[])
-                this.dynamicImportComponent(components).then(()=>{
-                    this.isComponentsLoaded = true;
+
+                this.$resetAsyncComponent(components).then(()=>{
                     this.notifytWidth();
-                })
+                });
             }else{
                 this.notifytWidth();
             }
@@ -105,7 +103,6 @@ export default{
         operators:{
             immediate:true,
             handler:function(){
-                this.isComponentsLoaded = false;
                 this.importOperator();
             }
         }

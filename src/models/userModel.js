@@ -76,8 +76,8 @@ export default{
                 default:0,
             },
             view:{
-                component:"view_enum2",
-                componentPath:"components/common/views/view_enum",
+                name:"view_enum2",
+                component:import("@/components/common/views/view_enum"),
                 config:{
                     enums:genderEnum,
                 },
@@ -96,8 +96,8 @@ export default{
                 default:0,
             },
             view:{
-                component:"view_enum",
-                componentPath:"components/common/views/view_enum",
+                name:"view_enum",
+                component:import("@/components/common/views/view_enum"),
                 config:{
                     enums:typHash
                 },
@@ -135,8 +135,8 @@ export default{
                 default:"这是富文本编辑器蛤",
             },
             view:{
-                component:"view_html",
-                componentPath:"components/common/views/view_html",
+                name:"view_html",
+                component:import("@/components/common/views/view_html"),
             },
             colspan:{
                 create:3,
@@ -147,8 +147,8 @@ export default{
     },
     staticOperators:[
         {
-            component:"create",
-            componentPath:"components/common/staticOperators/create",
+            name:"create",
+            component:import("@/components/common/staticOperators/create"),
             config:{
                 getCreateFields:getCreateFields,
                 doCreateRequest:createUser,
@@ -217,7 +217,8 @@ export default{
                 config:{
                     msg:"测试自定义filter",
                 },
-                path:"components/user/test_custom_filter",
+                component:import("@/components/user/test_custom_filter"),
+                // path:"components/user/test_custom_filter",
                 default:"test",
             },
             watch:true,
@@ -225,9 +226,8 @@ export default{
     ],
     filterOperators:[
         {
-            component:"reset",
-            componentPath:"components/common/filterOperators/reset",
-
+            name:"reset",
+            component:import("@/components/common/filterOperators/reset"),
         },
     ],
     listConfig:{
@@ -237,16 +237,16 @@ export default{
     },
     operators:[
         {
-            component:"info",
-            componentPath:"components/common/operators/info.vue",
+            name:"info",
+            component:import("@/components/common/operators/info"),
             config:{
                 title:"用户详情",
                 getDetailInfo:getUserDetail,
             },
         },
         {
-            component:"edit",
-            componentPath:"components/common/operators/edit",
+            name:"edit",
+            component:import("@/components/common/operators/edit"),
             config:{
                 getEditInfo:getEditUserInfo,
                 doEditRequest:editUser,
@@ -269,16 +269,16 @@ export default{
             },
         },
         {
-            component:"delete",
-            componentPath:"components/common/operators/delete",
+            name:"delete",
+            component:import("@/components/common/operators/delete"),
             config:{
                 doDeleteRequest:delUser,
                 triggerText:"删除用户",
             }
         },
         {
-            component:"toggle",
-            componentPath:"components/common/operators/toggle",
+            name:"toggle",
+            component:import("@/components/common/operators/toggle"),
             config:{
                 descriptor:[
                     {value:0,text:"更改性别为女",type:"warning"},

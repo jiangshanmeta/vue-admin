@@ -31,14 +31,11 @@
 </template>
 
 <script>
-import listInfo from "@/components/common/listInfo.vue"
-import operators from "@/components/common/operators/operators.vue"
-
 export default{
     inheritAttrs:true,
     components:{
-        listInfo,
-        operators,
+        listInfo:()=>import("@/components/common/listInfo"),
+        operators:()=>import("@/components/common/operators/operators"),
     },
     props:{
         field_list:{

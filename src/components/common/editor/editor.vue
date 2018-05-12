@@ -1,6 +1,6 @@
 <template>
     <meta-table
-        v-if="!hasAsyncComponent || isComponentsLoaded"
+        v-if="!hasAsyncComponent || $asyncComponent.$all"
         :field_list="field_list"
         :mode="mode"
         :fields="fields"
@@ -33,20 +33,18 @@
 
 <script>
 import {observe_relates} from "./field_relates_helper.js"
-import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
+
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 
 import AsyncValidator from 'async-validator';
 
 export default{
     mixins:[
-        dynamicImportComponent,
         mergeAttrsConfig,
     ],
     data(){
         return {
             validators:{},
-            isComponentsLoaded:false,
             hasValidateListener:false,
         }
     },
@@ -107,7 +105,7 @@ export default{
         hasAsyncComponent(){
             for(let row of this.fields){
                 for(let field of row){
-                    if(this.field_list[field].editorComponent && this.field_list[field].editorComponent.path){
+                    if(this.field_list[field].editorComponent && this.field_list[field].editorComponent.component){
                         return true;
                     }
                 }
@@ -123,16 +121,14 @@ export default{
                         if(this.field_list[field].editorComponent && this.field_list[field].editorComponent.path){
                             arr.push({
                                 name:this.field_list[field].editorComponent.name,
-                                path:this.field_list[field].editorComponent.path,
+                                component:this.field_list[field].editorComponent.component,
                             })
                         }
                     }
                     return arr;
                 },[]);
 
-                this.dynamicImportComponent(components).then(()=>{
-                    this.isComponentsLoaded = true;
-                })
+                this.$resetAsyncComponent(components);
             }
         },
         validate(){
@@ -246,7 +242,6 @@ export default{
                     this.validators[field].unwatch && this.validators[field].unwatch();
                 })
                 this.validators = {};
-                this.isComponentsLoaded = false;
                 this.hasValidateListener = false;
                 this.importEditor();
                 this.initRelates();

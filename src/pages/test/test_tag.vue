@@ -192,27 +192,6 @@
 </template>
 
 <script>
-import field_tag from "@/components/common/editor/field_tag"
-import field_tag_json from "@/components/common/editor/field_tag_json"
-
-
-import field_async_tag from "@/components/common/editor/field_async_tag"
-import field_async_tag_json from "@/components/common/editor/field_async_tag_json"
-
-import field_array_model from "@/components/common/editor/field_array_model"
-import field_array_model_json from "@/components/common/editor/field_array_model_json"
-
-import field_async_array_model from "@/components/common/editor/field_async_array_model"
-import field_async_array_model_json from "@/components/common/editor/field_async_array_model_json"
-
-
-import field_relates_tag from "@/components/common/editor/field_relates_tag"
-import field_relates_tag_json from "@/components/common/editor/field_relates_tag_json"
-
-import field_relates_array_model from "@/components/common/editor/field_relates_array_model"
-import field_relates_array_model_json from "@/components/common/editor/field_relates_array_model_json"
-
-
 import {observe_relates} from "@/components/common/editor/field_relates_helper.js"
 
 import {unique,clearInvalidData} from "@/components/common/editor/_validate_option"
@@ -257,18 +236,18 @@ export default{
         }
     },
     components:{
-        field_tag,
-        field_tag_json,
-        field_async_tag,
-        field_async_tag_json,
-        field_array_model,
-        field_array_model_json,
-        field_async_array_model,
-        field_async_array_model_json,
-        field_relates_tag,
-        field_relates_tag_json,
-        field_relates_array_model,
-        field_relates_array_model_json,
+        field_tag:()=>import("@/components/common/editor/field_tag"),
+        field_tag_json:()=>import("@/components/common/editor/field_tag_json"),
+        field_async_tag:()=>import("@/components/common/editor/field_async_tag"),
+        field_async_tag_json:()=>import("@/components/common/editor/field_async_tag_json"),
+        field_array_model:()=>import("@/components/common/editor/field_array_model"),
+        field_array_model_json:()=>import("@/components/common/editor/field_array_model_json"),
+        field_async_array_model:()=>import("@/components/common/editor/field_async_array_model"),
+        field_async_array_model_json:()=>import("@/components/common/editor/field_async_array_model_json"),
+        field_relates_tag:()=>import("@/components/common/editor/field_relates_tag"),
+        field_relates_tag_json:()=>import("@/components/common/editor/field_relates_tag_json"),
+        field_relates_array_model:()=>import("@/components/common/editor/field_relates_array_model"),
+        field_relates_array_model_json:()=>import("@/components/common/editor/field_relates_array_model_json"),
     },
     data(){
         return {

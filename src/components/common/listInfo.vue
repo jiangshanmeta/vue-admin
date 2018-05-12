@@ -1,5 +1,5 @@
 <template>
-    <section v-if="Object.keys(field_list).length && (!hasAsyncComponent || isComponentsLoaded)">
+    <section v-if="Object.keys(field_list).length && (!hasAsyncComponent || $asyncComponent.$all)">
         <portal-target
             name="beforeFilters"
         ></portal-target>
@@ -64,7 +64,7 @@
                             slot-scope="viewScope"
                         >
                             <component
-                                :is="field_list[field].view.component"
+                                :is="field_list[field].view.name"
                                 v-bind="viewScope"
                             ></component>
                         </template>
@@ -110,18 +110,16 @@
 </template>
 
 <script>
-import filters from "@/components/common/editor/filters.vue"
-import operators from "@/components/common/operators/operators.vue"
+import filters from "@/components/common/editor/filters"
+import operators from "@/components/common/operators/operators"
 import views from "@/components/common/views/views"
 
-import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import {getListInfo} from "@/server/common.js"
 import {logError} from "@/widget/utility.js"
 
 export default{
     mixins:[
-        dynamicImportComponent,
         mergeAttrsConfig,
     ],
     components:{
@@ -137,7 +135,6 @@ export default{
             sortOrder:'',
             total:0,
             fields:[],
-            isComponentsLoaded:false,
             multipleSelection:[],
             operatorMinWidth:0,
         }
@@ -242,22 +239,20 @@ export default{
         },
     },
     methods:{
-        importviewComponent(){
+        importViewComponent(){
             if(this.hasAsyncComponent){
                 let keys = Object.keys(this.field_list);
                 let components = [];
                 for(let item of keys){
                     if(this.field_list[item].view && this.field_list[item].view.component){
                         components.push({
-                            name:this.field_list[item].view.component,
-                            path:this.field_list[item].view.componentPath,
+                            name:this.field_list[item].view.name,
+                            component:this.field_list[item].view.component,
                         });
                     }
                 }
 
-                this.dynamicImportComponent(components).then(()=>{
-                    this.isComponentsLoaded = true;
-                })
+                this.$resetAsyncComponent(components);
             }
         },
         handleSortChange(sortInfo){
@@ -340,7 +335,7 @@ export default{
             this.pageIndex = 1;
             this.sortField = '';
             this.sortOrder = '';
-            this.isComponentsLoaded = false;
+
             this.multipleSelection = [];
             this.operatorMinWidth = 0;
         },
@@ -351,10 +346,13 @@ export default{
         },
     },
     watch:{
-        field_list(){
-            this.reset();
-            this.importviewComponent();
-            this.getListInfo();
+        field_list:{
+            handler(){
+                this.reset();
+                this.importViewComponent();
+                this.getListInfo();
+            },
+            immediate:true,
         },
     },
 

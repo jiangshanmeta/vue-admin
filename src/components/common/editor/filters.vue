@@ -1,6 +1,6 @@
 <template>
     <el-form :inline="true"
-        v-if="!hasAsyncComponent || isComponentsLoaded"
+        v-if="!hasAsyncComponent || $asyncComponent.$all"
         class="filters"
         v-show="filters.length"
     >
@@ -42,62 +42,38 @@
 </template>
 
 <script>
-import filter_enum from "./filter_enum.vue"
-import filter_async_enum from "./filter_async_enum.vue"
-import filter_model from "./filter_model.vue"
-import filter_async_model from "./filter_async_model.vue"
-import filter_relates_enum from "./filter_relates_enum.vue"
-
-import field_enum_select from "./field_enum_select.vue"
-import field_async_enum_select from "./field_async_enum_select.vue"
-import field_model from "./field_model.vue"
-import field_async_model from "./field_async_model.vue"
-import field_year from "./field_year.vue"
-import field_month from "./field_month.vue"
-import field_day from "./field_day.vue"
-import field_string from "./field_string.vue"
-
-import field_relates_enum_select from "./field_relates_enum_select.vue"
-import field_relates_model from "./field_relates_model.vue"
-
-import field_number from "./field_number"
-
 import {observe_relates} from "./field_relates_helper.js"
-import dynamicImportComponent from "@/mixins/common/dynamicImportComponent.js"
+
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 export default{
     name:"filters",
     inheritAttrs:true,
     mixins:[
-        dynamicImportComponent,
         mergeAttrsConfig,
     ],
     components:{
-        filter_enum,
-        filter_async_enum,
-        filter_model,
-        filter_async_model,
-        filter_relates_enum,
+        filter_enum:()=>import("./filter_enum"),
+        filter_async_enum:()=>import("./filter_async_enum"),
+        filter_model:()=>import("./filter_model"),
+        filter_async_model:()=>import("./filter_async_model"),
+        filter_relates_enum:()=>import("./filter_relates_enum"),
 
-
-
-        field_enum_select,
-        field_async_enum_select,
-        field_model,
-        field_async_model,
-        field_year,
-        field_month,
-        field_day,
-        field_string,
-        field_number,
-        field_relates_enum_select,
-        field_relates_model,
+        field_enum_select:()=>import("./field_enum_select"),
+        field_async_enum_select:()=>import("./field_async_enum_select"),
+        field_model:()=>import("./field_model"),
+        field_async_model:()=>import("./field_async_model"),
+        field_year:()=>import("./field_year"),
+        field_month:()=>import("./field_month"),
+        field_day:()=>import("./field_day"),
+        field_string:()=>import("./field_string"),
+        field_number:()=>import("./field_number"),
+        field_relates_enum_select:()=>import("./field_relates_enum_select"),
+        field_relates_model:()=>import("./field_relates_model"),
 
         operators:()=>import("@/components/common/operators/operators"),
     },
     data(){
         return {
-            isComponentsLoaded:false,
             proxyFields:{},
             unwatchs:[],
         }
@@ -145,7 +121,7 @@ export default{
         },
         hasAsyncComponent(){
             return this.filters.some((item)=>{
-                return item.editorComponent.path;
+                return item.editorComponent.component;
             })
         }
     },
@@ -156,19 +132,17 @@ export default{
         },
         importFilter(){
             if(this.hasAsyncComponent){
-                let componentPaths = this.filters.reduce((arr,item)=>{
-                    if(item.editorComponent.path){
+                let components = this.filters.reduce((arr,item)=>{
+                    if(item.editorComponent.component){
                         arr.push({
                             name:item.editorComponent.name,
-                            path:item.editorComponent.path,
+                            component:item.editorComponent.component,
                         })
                     }
                     return arr;
                 },[]);
 
-                this.dynamicImportComponent(componentPaths).then(()=>{
-                    this.isComponentsLoaded = true;
-                })
+                this.$resetAsyncComponent(components);
             }
         },
         resetValue(){

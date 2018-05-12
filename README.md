@@ -2,7 +2,7 @@
 
 这个项目是基于vue-cli构建的针对于后台业务的通用业务层，UI库采用了element-ui。
 
-本项目的核心页面是 */src/pages/common/list_view* ，这个页面涵盖了后台页面最常见的增删查改功能。
+本项目的核心页面是 */src/pages/common/list_view* 。
 
 ## model
 
@@ -22,7 +22,7 @@
 
 * filterOperators 类似于operators，是为了拓展筛选功能设计的(目前没发现什么特别的用途)，除了传入代表筛选参数的data属性，它还传入了filters属性。
 
-声明了一个model后，我们还需要在vue-router配置中指明用了哪个model，因而用到了vue-router的meta属性。具体的声明请看 */src/router/menu.js* 文件
+声明了一个model后，我们还需要在vue-router配置中指明用了哪个model，因而用到了vue-router的meta属性。
 
 
 ## field_list
@@ -33,12 +33,12 @@ field_list是一个字段集合，每一个键是对应的字段名，值是关�
 
 * label 这个字段的展示名
 
-* editorComponent 这个字段编辑相关的配置，包括name(组件名),config(对组件的配置项),path(自定义组件的路径),default(默认值)。我提供了一些[通用业务组件](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)。声明示例如下：
+* editorComponent 这个字段编辑相关的配置，包括name(组件名),config(对组件的配置项),component(自定义组件，一般是结合动态导入import()方法),default(默认值)。我提供了一些[通用业务组件](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)。声明示例如下：
 
 ```javascript
 editorComponent:{
     name:"field_naive",
-    path:"components/test/field_naive",
+    component:import("@/components/test/field_naive"),
     config:{
         placeholder:'请输入用户名',
     },
@@ -57,9 +57,9 @@ editorComponent:{
 ```javascript
 view:{
     // 组件名
-    component:"view_enum",
+    name:"view_enum",
     // 组件路径
-    componentPath:"components/common/views/view_enum",
+    component:import("@/components/common/views/view_enum"),
     // 组件配置项
     config:{
         enums:typHash
@@ -89,8 +89,8 @@ view:{
         customername:"name",
         address:"position"
     },
-    component:"test_view_join",
-    componentPath:"components/book/views/test_view_join",
+    name:"test_view_join",
+    component:import("@/components/book/views/test_view_join"),
     config:{
         glue:" 的收货地址是 ",
     },
@@ -135,7 +135,7 @@ filters是筛选的配置项，它是一个数组，其组成元素示例如下�
         config:{
             msg:"测试自定义filter",
         },
-        path:"components/user/test_custom_filter",
+        component:import("@/components/user/test_custom_filter"),
         default:"test",
     },
     watch:true,
@@ -144,7 +144,7 @@ filters是筛选的配置项，它是一个数组，其组成元素示例如下�
 
 * label是展示名
 * field是请求时的key
-* editorComponent是编辑组件相关配置项，name是编辑组件名称，config是对这个编辑组件的配置项，path是编辑组件的路径，用于自定义编辑组件时动态引入，default是编辑组件的默认值
+* editorComponent是编辑组件相关配置项，name是编辑组件名称，config是对这个编辑组件的配置项，component是传入自定义组件，用于自定义编辑组件时动态引入，default是编辑组件的默认值
 * watch是用来实现当一个编辑组件变化时就触发查询(默认是有个查询按钮，点击才查询)，值为true则开启此功能。
 
 
@@ -176,8 +176,8 @@ filters是筛选的配置项，它是一个数组，其组成元素示例如下�
 
 ```javascript
 {
-    component:"delete",
-    componentPath:"components/common/operators/delete",
+    name:"delete",
+    component:import("@/components/common/operators/delete"),
     config:{
         // delete组件有个名为uri的props属性
         uri:"/user/delete",
@@ -185,7 +185,7 @@ filters是筛选的配置项，它是一个数组，其组成元素示例如下�
 }
 ```
 
-component字段是组件名，对应组件的name属性，**使用这一模式时务必声明组件的name属性**。componentPath是组件相对于src目录的路径，推荐放在src目录下的components目录下，并保持文件名和组件name属性一致。考虑到组件复用问题，还有一个config参数，用来向这些子组件传递配置参数。在这种模式下，仅需声明这三项，其余的operators组件会自动处理。
+name字段是组件名，对应组件的name属性。component是要传入的组件，一般结合动态导入import()使用。考虑到组件复用问题，还有一个config参数，用来向这些子组件传递配置参数。在这种模式下，仅需声明这三项，其余的operators组件会自动处理。
 
 在这种声明情况下，一个data参数会被自动传入。data对于operators、staticOperators和filterOperators含义是不同的，对于operators，data是这条记录的信息(一个对象)，对于staticOperators，data是一组被选中的记录(一个数组)，对于filterOperators，data是筛选框的数据集合(一个对象)。
 
