@@ -30,9 +30,9 @@ Object.defineProperty(Vue.prototype,'$axios',{
 })
 
 // 处理element ui库
-import Element from 'element-ui'
+// import Element from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
-Vue.use(Element)
+// Vue.use(Element)
 
 // canvas库 考虑到主要实现的是 model，暂时用不到
 // import 'echarts'
@@ -53,9 +53,14 @@ let instance = new Vue({
     router,
     store,
     render(h){
-        return h('App');
+        if(this.$asyncPlugin.$all){
+            return h('App');
+        }
     },
     components:{
         App,
+    },
+    asyncPlugin:{
+        'element-ui':import("element-ui"),
     },
 })
