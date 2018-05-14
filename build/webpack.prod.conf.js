@@ -9,14 +9,60 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
+var extractAppCSSPlugin = new ExtractTextPlugin({
+  filename:utils.assetsPath('css/app.[contenthash].css'),
+});
+var extractElementUICSSPlugin = new ExtractTextPlugin({
+  filename:utils.assetsPath('css/element-ui.[contenthash].css'),
+  allChunks:true
+});
+var extractQuillCSSPlugin = new ExtractTextPlugin({
+  filename:utils.assetsPath('css/quill.[contenthash].css'),
+  allChunks:true
+})
+
 var env = config.build.env
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
-    rules: utils.styleLoaders({
-      sourceMap: config.build.productionSourceMap,
-      extract: true
-    })
+    // rules: utils.styleLoaders({
+    //   sourceMap: config.build.productionSourceMap,
+    //   extract: true
+    // })
+    rules:[].concat([
+      {
+        test:/\.css/,
+        exclude:/node_modules/,
+        loader:extractAppCSSPlugin.extract({
+          use:['css-loader'],
+          fallback: 'vue-style-loader',
+        })
+      },
+      {
+        test:/\.css/,
+        include:[
+          resolve('node_modules/element-ui'),
+        ],
+        loader:extractElementUICSSPlugin.extract({
+          use:['css-loader'],
+          fallback: 'vue-style-loader',
+        })
+      },
+      {
+        test:/\.css/,
+        include:[
+          resolve('node_modules/quill')
+        ],
+        loader:extractQuillCSSPlugin.extract({
+          use:['css-loader'],
+          fallback: 'vue-style-loader',
+        })
+      },
+    ])
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
@@ -37,9 +83,15 @@ var webpackConfig = merge(baseWebpackConfig, {
       sourceMap: true
     }),
     // extract css into its own file
-    new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[contenthash].css')
-    }),
+    extractAppCSSPlugin,
+    extractElementUICSSPlugin,
+    extractQuillCSSPlugin,
+    // extractQuillPlugin,
+    // extractAppPlugin,
+    // new ExtractTextPlugin({
+    //   filename: utils.assetsPath('css/[name].[contenthash].css'),
+    //   allChunks:true,
+    // }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({

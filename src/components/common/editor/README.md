@@ -176,6 +176,8 @@ relates:[
 
 这其实是更通用版的组件间关联了。relateField可以是一个字符串(对应一个字段),也可以是一个数组(对应多个字段)。这意味着任何两个组件间都可以通过relates参数关联起来。
 
+对于关联组件还有一个参数handleInvalidRelateIds方法，当其关联的值满足invalidValue时触发，默认什么都不做
+
 
 #### 多选组件值json化
 
