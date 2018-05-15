@@ -86,10 +86,10 @@ export default{
     },
     mounted(){
         setTimeout(()=>{
-            this.field_ts = "2019-03-12 17:08:11";
+            this.field_ts = Date.now();
             this.field_day = "2019-03-12";
             this.field_month = "2019-03";
-            this.field_year = "2019";  
+            this.field_year = 2011
         },1000)
     }
 }

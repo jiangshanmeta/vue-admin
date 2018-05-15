@@ -45,7 +45,13 @@ export default{
         formatMethod:{
             type:Function,
             default:identity,
-        }
+        },
+        parseDateFromValue:{
+            type:Function,
+            default(date){
+                return new Date(date);
+            },
+        },
     },
     methods:{
         handleChange(newVal=''){
@@ -70,7 +76,7 @@ export default{
         value:{
             immediate:true,
             handler(newVal){
-                this.currentValue = newVal
+                this.currentValue = this.parseDateFromValue(newVal)
             }
         }
     },

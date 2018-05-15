@@ -112,6 +112,7 @@ field_int是对field_number的封装，未提供新的参数
 * disabled 是否禁用 默认为false
 * format 所获取的值的格式，有 timestamp string object custom三种。timestamp对应js时间戳，string和input框内容一致，object获得的是Date实例，custom允许自定义格式化方法，需要结合 formatMethod 参数。默认为string。
 * formatMethod 函数类型，当format为custom时需要此方法，传入的参数与input框中内容一致。
+* parseDateFromValue 从value中解析出parse对象，入参是value值。考虑到最终存储数据格式的复杂性而设计。
 
 #### 上传
 
