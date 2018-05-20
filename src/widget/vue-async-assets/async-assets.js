@@ -61,7 +61,7 @@ export default function(Vue){
                     this.$set(this[prefix + asset],item.name,false);
 
                     item[asset].then((rst)=>{
-                        this.constructor[asset](item.name,rst);
+                        this.$options[asset + 's'][item.name] = rst;
                         this[prefix + asset][item.name] = true;
                     })
                 });
