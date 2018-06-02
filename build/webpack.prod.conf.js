@@ -86,12 +86,6 @@ var webpackConfig = merge(baseWebpackConfig, {
     extractAppCSSPlugin,
     extractElementUICSSPlugin,
     extractQuillCSSPlugin,
-    // extractQuillPlugin,
-    // extractAppPlugin,
-    // new ExtractTextPlugin({
-    //   filename: utils.assetsPath('css/[name].[contenthash].css'),
-    //   allChunks:true,
-    // }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({
