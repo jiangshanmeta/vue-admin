@@ -49,7 +49,7 @@ export default{
             },
             view:{
                 name:"view_transform",
-                component:import("@/components/common/views/view_transform"),
+                component:import("@/components/common/views/view_transform").then((rst)=>rst.default),
                 config:{
                     transform:function(data){
                         return "¥" + data;
@@ -100,7 +100,7 @@ export default{
                     address:"position"
                 },
                 name:"test_view_join",
-                component:import("@/components/book/views/test_view_join"),
+                component:import("@/components/book/views/test_view_join").then((rst)=>rst.default),
                 config:{
                     glue:" 的收货地址是 ",
                 },
@@ -110,7 +110,7 @@ export default{
     staticOperators:[
         {
             name:"create",
-            component:import("@/components/common/staticOperators/create"),
+            component:import("@/components/common/staticOperators/create").then((rst)=>rst.default),
             config:{
                 getCreateFields:getCreateFields,
                 doCreateRequest:createBook,
@@ -131,7 +131,7 @@ export default{
         },
         {
             name:"csv",
-            component:import("@/components/common/staticOperators/csv"),
+            component:import("@/components/common/staticOperators/csv").then((rst)=>rst.default),
             config:{
                 text:"导入csv数据",
                 type:"warning",

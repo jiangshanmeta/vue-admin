@@ -1,14 +1,16 @@
-var path = require('path')
-var utils = require('./utils')
-var config = require('../config')
-var vueLoaderConfig = require('./vue-loader.conf')
-var webpack = require('webpack')
+const path = require('path')
+const webpack = require('webpack')
+const { VueLoaderPlugin } = require('vue-loader')
 
-var env = process.env.NODE_ENV;
-var defineBaseConfig = require("../config/define.base.conf.js");
-var defineEnvConfig = require("../config/define." + (env === 'development'? 'dev':'prod') + ".conf.js" );
-var defineConfig = Object.assign({},defineBaseConfig,defineEnvConfig);
-var defineKeys = Object.keys(defineConfig);
+const utils = require('./utils')
+const config = require('../config')
+const vueLoaderConfig = require('./vue-loader.conf')
+
+const env = process.env.NODE_ENV;
+const defineBaseConfig = require("../config/define.base.conf.js");
+const defineEnvConfig = require("../config/define." + (env === 'development'? 'dev':'prod') + ".conf.js" );
+const defineConfig = Object.assign({},defineBaseConfig,defineEnvConfig);
+const defineKeys = Object.keys(defineConfig);
 defineKeys.forEach(function(field){
   defineConfig[field] = JSON.stringify(defineConfig[field])
 })
@@ -44,7 +46,7 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: vueLoaderConfig
+        // options: vueLoaderConfig
       },
       {
         test: /\.js$/,
@@ -81,6 +83,7 @@ module.exports = {
     ]
   },
   plugins:[
+    new VueLoaderPlugin(),
     new webpack.DefinePlugin(defineConfig),
     // new webpack.DefinePlugin({
     //   'process.env.baseUrl':JSON.stringify(process.env['npm_package_config_'+ process.env.NODE_ENV + '_baseUrl'])
