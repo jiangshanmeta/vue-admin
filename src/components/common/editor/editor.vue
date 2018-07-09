@@ -118,7 +118,7 @@ export default{
             if(this.hasAsyncComponent){
                 let components = this.fields.reduce((arr,row)=>{
                     for(let field of row){
-                        if(this.field_list[field].editorComponent && this.field_list[field].editorComponent.path){
+                        if(this.field_list[field].editorComponent && this.field_list[field].editorComponent.component){
                             arr.push({
                                 name:this.field_list[field].editorComponent.name,
                                 component:this.field_list[field].editorComponent.component,
