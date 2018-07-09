@@ -199,7 +199,7 @@ export default{
                                     }
                                 },(newVal,oldVal)=>{
                                     relateItem.handler.call(this.$refs[field],newVal,this.field_list[field],oldVal);
-                                })
+                                },relateItem.config)
                             }
                         });
 

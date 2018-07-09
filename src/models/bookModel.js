@@ -38,9 +38,13 @@ export default{
                         {
                             relateField:["customername",'address'],
                             handler(info){
+                                console.log(info)
                                 if(info.customername === 'lelouch' && info.address === 'area11'){
                                     this.$emit('input',0);
                                 }
+                            },
+                            config:{
+                                immediate:true,
                             },
                         }
                     ],
