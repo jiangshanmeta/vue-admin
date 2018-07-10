@@ -39,6 +39,7 @@
             style="width:100%;"
             @sort-change="handleSortChange"
             @selection-change="handleSelectionChange"
+            v-bind="tableConfig"
         >
             <el-table-column
                 v-if="selection"
@@ -99,10 +100,9 @@
             v-if="paginated && data.length"
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
+            v-bind="paginationConfig"
             :current-page.sync="pageIndex"
-            :page-sizes="pageSizes"
             :page-size="pageSize"
-            layout="total, sizes, prev, pager, next, jumper"
             :total="total"
             style="display:table;margin-left:auto;margin-right:auto;"
         ></el-pagination>
@@ -137,6 +137,7 @@ export default{
             fields:[],
             multipleSelection:[],
             operatorMinWidth:0,
+            localPageSize:0,
         }
     },
     props:{
@@ -210,12 +211,6 @@ export default{
             type:Number,
             default:20
         },
-        pageSizes:{
-            type:Array,
-            default:function(){
-                return [10,20,30,40];
-            }
-        },
         emptyText:{
             type:String,
             default:"暂无数据"
@@ -225,6 +220,18 @@ export default{
             default:function(){
                 return [];
             }
+        },
+        tableConfig:{
+            type:Object,
+            default(){
+                return {};
+            }
+        },
+        paginationConfig:{
+            type:Object,
+            default(){
+                return {}
+            },
         },
     },
     computed:{
@@ -270,7 +277,7 @@ export default{
             this.getListInfo();
         },
         handleSizeChange(newPageSize){
-            this.pageSize = newPageSize;
+            this.localPageSize = newPageSize;
             this.getListInfo();
         },
         handleSelectionChange(section){
@@ -304,7 +311,9 @@ export default{
 
             if(this.paginated){
                 params[this.pageIndexReqName] = this.pageIndex;
-                params[this.pageSizeReqName] = this.pageSize;
+                params[this.pageSizeReqName] = this.localPageSize<=0?
+                    this.pageSize:
+                    this.localPageSize ;
             }
             
             params[this.sortFieldReqName] = this.sortField;
@@ -338,6 +347,7 @@ export default{
 
             this.multipleSelection = [];
             this.operatorMinWidth = 0;
+            this.localPageSize = 0;
         },
         setOperatorWidth(width){
             if(width>this.operatorMinWidth){

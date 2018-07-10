@@ -232,6 +232,11 @@ export default{
     listConfig:{
         listRequest:getUserList,
         sortFields:['typ'],
+        paginationConfig:{
+            layout:"total, sizes, prev, pager, next, jumper"
+        },
+
+
         pageSizes:[10,20,30,50],
     },
     operators:[
