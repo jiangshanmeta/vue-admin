@@ -187,6 +187,16 @@ export default{
 
                         relates.forEach((relateItem)=>{
 
+                            let callback = function(newVal,oldVal){
+                                if(this.$refs[field]){
+                                    relateItem.handler.call(this.$refs[field],newVal,this.field_list[field],oldVal);
+                                }else{
+                                    setTimeout(()=>{
+                                        callback.call(this,newVal,oldVal)
+                                    },0)
+                                }
+                            }
+
                             if(typeof relateItem.handler === 'function'){
                                 this.$watch(()=>{
                                     if(Array.isArray(relateItem.relateField)){
@@ -197,9 +207,7 @@ export default{
                                     }else{
                                         return this.record[relateItem.relateField]
                                     }
-                                },(newVal,oldVal)=>{
-                                    relateItem.handler.call(this.$refs[field],newVal,this.field_list[field],oldVal);
-                                },relateItem.config)
+                                },callback,relateItem.config)
                             }
                         });
 
