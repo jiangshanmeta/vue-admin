@@ -7,15 +7,21 @@
     ></el-input-number>
 </template>
 
-<script>
-import _props_value_number_mixin from "./_props_value_number_mixin.js"
-import _computed_model_mixin from "./_computed_model_mixin.js"
-export default{
-    name:'field_number',
+<script lang="ts">
+import { Vue, Component} from 'vue-property-decorator'
+
+import _computed_model_mixin from "./_computed_model_mixin"
+import _props_value_number_mixin from "./_props_value_number_mixin"
+
+@Component({
+    name:"field_number",
     inheritAttrs:true,
     mixins:[
-        _props_value_number_mixin,
         _computed_model_mixin,
+        _props_value_number_mixin,
     ],
+})
+export default class field_number extends Vue{
+
 }
 </script>
