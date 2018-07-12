@@ -1,7 +1,7 @@
 <template>
     <section v-if="Object.keys(field_list).length && (!hasAsyncComponent || $asyncComponent.$all)">
         <portal-target
-            name="beforeFilters"
+            :name="name + 'beforeFilters'"
         ></portal-target>
         <filters
             :filters="filters"
@@ -11,7 +11,7 @@
             ref="filters"
         >
             <template slot-scope="scope" >
-                <portal to="beforeFilters">
+                <portal :to="name + 'beforeFilters'">
                     <slot 
                         name="beforeFilters" 
                         :formData="scope.formData"
@@ -19,7 +19,7 @@
                     ></slot>
                 </portal>
 
-                <portal to="afterFilters">
+                <portal :to="name + 'afterFilters'">
                     <slot
                         name="afterFilters" 
                         :formData="scope.formData"
@@ -30,7 +30,7 @@
         </filters>
 
         <portal-target
-            name="afterFilters"
+            :name="name + 'afterFilters'"
         ></portal-target>
 
         <el-table
@@ -141,6 +141,10 @@ export default{
         }
     },
     props:{
+        name:{
+            type:String,
+            required:true,
+        },
         field_list:{
             type:Object,
             required:true,

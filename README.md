@@ -10,6 +10,8 @@
 
 一个model由以下几个部分构成：
 
+* name 名称，与model名(文件名保持一致即可),当你需要在一个页面存在多个list_view时需要该选项
+
 * field_list 字段，是一个model最基础的配置项，具体的请先看[关于editor的介绍](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/editor)，然后看下面的具体描述
 
 * listConfig，[列表组件的配置项](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common#listinfo)

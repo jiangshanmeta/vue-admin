@@ -9,6 +9,7 @@ import {
 import {download} from "@/widget/utility.js"
 
 export default{
+    name:"bookModel",
     field_list:{
         customername:{
             label:'客户名',

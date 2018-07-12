@@ -7,6 +7,7 @@
         :filters="filters"
         :operators="operators"
         :filterOperators="filterOperators"
+        :name="name"
         v-bind="listConfig"
         ref="listInfo"
     >
@@ -73,6 +74,10 @@ export default{
             default:function(){
                 return [];
             }
+        },
+        name:{
+            type:String,
+            default:"",
         },
     },
     methods:{

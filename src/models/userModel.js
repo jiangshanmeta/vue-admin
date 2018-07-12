@@ -13,6 +13,7 @@ import {
 } from "@/server/user.js"
 
 export default{
+    name:"userModel",
     field_list:{
         name:{
             label:'用户名',
