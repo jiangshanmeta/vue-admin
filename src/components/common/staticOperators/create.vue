@@ -3,14 +3,13 @@
         <el-button
             :type="type"  
             @click="handleClick"
-            :size="size"
+            v-bind="triggerConfig"
         >
             {{triggerText}}
         </el-button>
         <el-dialog
-            :title="title"
             :visible.sync="isShowCreatebox"
-            size="large"
+            v-bind="dialogConfig"
         >
             <editor 
                 :fields="fields"
@@ -77,10 +76,6 @@ export default{
                 return data;
             }
         },
-        title:{
-            type:String,
-            default:"创建"
-        },
         triggerText:{
             type:String,
             default:"新建"
@@ -97,13 +92,21 @@ export default{
             type:String,
             default:"primary",
         },
-        size:{
-            type:String,
-            default:"",
-        },
         autoValidate:{
             type:Boolean,
             default:false,
+        },
+        triggerConfig:{
+            type:Object,
+            default(){
+                return {}
+            },
+        },
+        dialogConfig:{
+            type:Object,
+            default(){
+                return {}
+            }
         },
     },
     watch:{
@@ -119,7 +122,7 @@ export default{
             this.record = this.fields.reduce((obj,row)=>{
                 row.forEach((field)=>{
                     let configDefault = this.field_list[field].editorComponent.default;
-                    obj[field] = typeof configDefault === 'function'?configDefault():configDefault;
+                    obj[field] = typeof configDefault === 'function'?configDefault.call(this,field):configDefault;
                 })
                 return obj;
             },{});
