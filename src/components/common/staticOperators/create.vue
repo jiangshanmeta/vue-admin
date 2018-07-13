@@ -108,6 +108,12 @@ export default{
                 return {}
             }
         },
+        data:{
+            type:Array,
+            default(){
+                return [];
+            },
+        },
     },
     watch:{
         field_list(){

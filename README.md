@@ -124,6 +124,9 @@ colspan:{
 }
 ```
 
+* tableColumnConfig 在表格中table column的配置项
+
+
 ## filters
 
 filters是筛选的配置项，它是一个数组，其组成元素示例如下：

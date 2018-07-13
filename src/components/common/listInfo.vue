@@ -52,6 +52,7 @@
                 :label="field_list[field]['label']"
                 :prop="field"
                 :sortable="sortFields.includes(field)?'custom':false"
+                v-bind="field_list[field].tableColumnConfig || {}"
             >
                 <template slot-scope="scope">
                     

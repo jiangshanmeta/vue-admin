@@ -84,6 +84,9 @@ export default{
                 },
             },
             tip:"暂不支持LGBT",
+            tableColumnConfig:{
+                align:"center"
+            },
         },
         typ:{
             label:'类型',
