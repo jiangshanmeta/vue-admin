@@ -14,8 +14,7 @@
         <template slot="beforeFilters" slot-scope="scope">
             <operators
                 :operators="staticOperators"
-                :data="scope.data"
-                :formData="scope.formData"
+                v-bind="scope"
                 :field_list="field_list"
                 @update="refreshListData"
                 size=""
@@ -24,7 +23,10 @@
         </template>
 
         <template slot="afterFilters" slot-scope="scope">
-            <slot name="afterFilters" :data="scope.data" :formData="scope.formData"></slot>
+            <slot 
+                name="afterFilters" 
+                v-bind="scope"
+            ></slot>
         </template>
     </list-info>
     <slot name="afterAll"></slot>

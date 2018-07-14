@@ -13,17 +13,19 @@
             <template slot-scope="scope" >
                 <portal :to="name + 'beforeFilters'">
                     <slot 
-                        name="beforeFilters" 
+                        name="beforeFilters"
+                        :data="data"
                         :formData="scope.formData"
-                        :data="selection?multipleSelection:data"
+                        :selectedData="selection?multipleSelection:[]"
                     ></slot>
                 </portal>
 
                 <portal :to="name + 'afterFilters'">
                     <slot
-                        name="afterFilters" 
+                        name="afterFilters"
+                        :data="data"
                         :formData="scope.formData"
-                        :data="selection?multipleSelection:data"
+                        :selectedData="selection?multipleSelection:[]"
                     ></slot>
                 </portal>
             </template>

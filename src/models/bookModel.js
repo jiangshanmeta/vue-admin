@@ -126,6 +126,8 @@ export default{
             type:"danger",
             function(resolve,selection){
                 console.log(this.$attrs.formData);
+                console.log(this.$attrs.selectedData)
+                console.log(this.data)
                 this.$message({
                     type:"warning",
                     message:"就把选中的取消选中"

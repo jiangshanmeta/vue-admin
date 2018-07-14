@@ -192,7 +192,9 @@ filters是筛选的配置项，它是一个数组，其组成元素示例如下�
 
 name字段是组件名，对应组件的name属性。component是要传入的组件，一般结合动态导入import()使用。考虑到组件复用问题，还有一个config参数，用来向这些子组件传递配置参数。在这种模式下，仅需声明这三项，其余的operators组件会自动处理。
 
-在这种声明情况下，一个data参数会被自动传入。data对于operators、staticOperators和filterOperators含义是不同的，对于operators，data是这条记录的信息(一个对象)，对于staticOperators，data是一组被选中的记录(一个数组)，对于filterOperators，data是筛选框的数据集合(一个对象)。
+在这种声明情况下，一个data参数会被自动传入。data对于operators、staticOperators和filterOperators含义是不同的，对于operators，data是这条记录的信息(一个对象)，对于staticOperators，data是列表中的所有数据(一个数组)，对于filterOperators，data是筛选框的数据集合(一个对象)。
+
+对于staticOperators，还有一个参数selectedData，对应被选择的数据(一个数组)。
 
 这种声明方式要想通知列表刷新需要手动触发update事件：
 
