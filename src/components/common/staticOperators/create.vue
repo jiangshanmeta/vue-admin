@@ -1,17 +1,16 @@
 <template>
     <div>
         <el-button
-            :type="type"  
             @click="handleClick"
             v-bind="triggerConfig"
         >
-            {{triggerText}}
+            {{triggerConfig.text}}
         </el-button>
         <el-dialog
             :visible.sync="isShowCreatebox"
             v-bind="dialogConfig"
         >
-            <editor 
+            <editor
                 :fields="fields"
                 :field_list="field_list"
                 :record="record"
@@ -20,16 +19,17 @@
                 mode="create"
             ></editor>
             <div slot="footer">
-                <el-button 
+                <el-button
                     @click="isShowCreatebox=false"
+                    v-bind="cancelBtnConfig"
                 >
-                    {{cancelText}}
+                    {{cancelBtnConfig.text}}
                 </el-button>
                 <el-button 
                     @click="doCreate" 
-                    type="success"
+                    v-bind="createBtnConfig"
                 >
-                    {{createText}}
+                    {{createBtnConfig.text}}
                 </el-button>
             </div>
         </el-dialog>
@@ -37,10 +37,11 @@
 </template>
 
 <script>
-import {getCreateFields,doCreateRequest} from "@/server/common.js"
+
 import {logError} from "@/widget/utility.js"
 export default{
     name:"create",
+    inheritAttrs:true,
     components:{
         editor:()=>import("@/components/common/editor/editor"),
     },
@@ -52,49 +53,17 @@ export default{
         }
     },
     props:{
-        getCreateFieldsUri:{
-
-        },
-        doCreateUri:{
-            
-        },
         field_list:{
             type:Object,
             required:true,
         },
         getCreateFields:{
             type:Function,
-            default:getCreateFields,
+            required:true,
         },
         doCreateRequest:{
             type:Function,
-            default:doCreateRequest
-        },
-        transformData:{
-            type:Function,
-            default:function(data){
-                return data;
-            }
-        },
-        triggerText:{
-            type:String,
-            default:"新建"
-        },
-        createText:{
-            type:String,
-            default:"确认创建"
-        },
-        cancelText:{
-            type:String,
-            default:"取消"
-        },
-        type:{
-            type:String,
-            default:"primary",
-        },
-        autoValidate:{
-            type:Boolean,
-            default:false,
+            required:true,
         },
         triggerConfig:{
             type:Object,
@@ -108,12 +77,29 @@ export default{
                 return {}
             }
         },
-        data:{
-            type:Array,
+        createBtnConfig:{
+            type:Object,
             default(){
-                return [];
+                return {};
             },
         },
+        cancelBtnConfig:{
+            type:Object,
+            default(){
+                return {};
+            }
+        },
+        transformData:{
+            type:Function,
+            default(data){
+                return data;
+            }
+        },
+        autoValidate:{
+            type:Boolean,
+            default:false,
+        },
+
     },
     watch:{
         field_list(){

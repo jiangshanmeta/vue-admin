@@ -6,14 +6,11 @@
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-| data   | 是    | Object | 一条记录  |  作为操作组件，该属性自动传入 |
-| field_list | 是 | Object | 字段列表 | - |
-| uri | 否 | String | 获得详情时请求地址 | 采用默认getDetailInfo时该参数必需 |
-| getDetailInfo | 否 | Function | 获得详情信息的方法 | 采用默认方法需要配合uri参数 |
-| title | 否 | String | 详情dialog的标题 | 默认为 “详情” | 
-| triggerText | 否 | String | 触发按钮文字 | 默认为 "详情" |
-| type | 否 | String | 按钮颜色 | 默认为 primary 蓝色 |
-| size | 否 | String | 按钮大小 | 默认为正常大小 | 
+| field_list | 是 | Object | 字段列表 | 自动传入 |
+| getDetailInfo | 是 | Function | 获得详情信息的方法 | - |
+| data | 是 | Object | 对应的记录信息 | 自动传入 |
+| triggerConfig | 否 | Object | 触发按钮的配置项 | 默认为空对象 |
+| dialogConfig | 否 | Object | 弹框组件的配置项 | 默认为空对象 |
 
 
 函数类型配置项的参数：
@@ -47,20 +44,20 @@
 | :---:  | :--:  | :--: | :-----:  | :--: |
 | data | 是 | Object | 这一条记录的数据  | 对于操作组件是自动传入的 |
 | field_list | 是 | Object | 字段列表 | 对于操作组件自动传入 |
-| editInfoUri | 否 | String | 获取编辑相关信息的请求地址 | getEditInfo采用默认方法时该属性必需 |
-| doEditUri | 否 | String | 编辑操作的请求地址 | doEditRequest采用默认值时该参数必需 |
-| getEditInfo | 否 | Function | 获取编辑相关信息 | - |
-| doEditRequest | 否 | Function | 编辑操作的方法 | - |
+| getEditInfo | 是 | Function | 获取编辑相关信息 | - |
+| doEditRequest | 是 | Function | 编辑操作的方法 | - |
+| triggerConfig | 否 | Object | 触发按钮的配置项 | 默认为空对象 |
+| dialogConfig | 否 | Object | 弹框组件的配置项 | 默认为空对象 |
+| editBtnConfig | 否 | Object | 取消按钮的配置项 | 默认为空对象 |
+| cancelBtnConfig | 否 | Object | 确认创建按钮的配置项 | 默认为空对象 |
 | autoValidate | 否 | Boolean | 是否自动表单验证 | 默认为false,第一次点提交时才自动表单验证 |
 | transformData | 否 | Function | 在doEditRequest前对表单数据做一次转换 |
 | reserveFields | 否 | Array | 不需要编辑但是需要提交的字段，例如id |
 | idfield | 否 | String | 指明id字段 | 默认是id |
-| title | 否 | String | 编辑对话框的标题 | 默认为编辑 |
-| triggerText | 否 | String | 触发按钮文字 | 默认为 "编辑" |
-| editText | 否 | String | 确认编辑按钮文字 | 默认为 "确认编辑" |
-| cancelText | 否 | String | 取消按钮文字 | 默认为 "取消" |
-| type | 否 | String | 按钮颜色 | 默认为 primary 蓝色 |
-| size | 否 | String | 按钮大小 | 默认为正常大小 | 
+
+
+
+
 
 
 函数类型配置项的参数：
@@ -97,12 +94,9 @@
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
 | data | 是 | Object | 这一条记录的数据  | 对于操作组件是自动传入的 |
-| uri | 否 | String | 删除时请求的uri | 配合doDeleteRequest使用 | 
-| doDeleteRequest | 否 | Function | 删除操作请求 | 默认方法需要结合uri，且删除的id作为路径的一部分 |
+| doDeleteRequest | 是 | Function | 删除操作请求 | - |
+| triggerConfig | 否 | Object | 触发按钮的配置项 | 默认为空对象 |
 | idfield | 否 | String | 指明id字段 | 默认是id |
-| triggerText | 否 | String | 触发按钮文案 | 默认是 "删除" |
-| type | 否 | String | 按钮颜色 | 默认为 primary 蓝色 |
-| size | 否 | String | 按钮大小 | 默认为正常大小 | 
 
 
 
@@ -124,8 +118,7 @@
 | descriptor | 是 | Array | toggle状态描述 | - |
 | reserveFields | 否 | Array | 提交时需要保留的字段，通edit组件 | - |
 | handleToggle | 是 | Function | 对数据处理，第一个参数是resolve回调，第二个参数是这一条记录 | - |
-| type | 否 | String | 按钮颜色 | 默认为 primary 蓝色 |
-| size | 否 | String | 按钮大小 | 默认为正常大小 | 
+| triggerConfig | 否 | Object | 触发按钮的配置项 | 默认为空对象 |
 
 
 descriptor字段实例：

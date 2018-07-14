@@ -139,7 +139,8 @@ const detailFields = [
 ];
 
 function getUserDetail(cb){
-    let id = this.id;
+    let id = this.data.id;
+
     for(let item of userTable){
         if(item.id === id){
             cb({
@@ -162,6 +163,7 @@ function getEditUserInfo(cb){
     let id = this.id;
     for(let item of userTable){
         if(item.id === id){
+            console.log(item);
             cb({
                 fields:editFields,
                 record:JSON.parse(JSON.stringify(item)),

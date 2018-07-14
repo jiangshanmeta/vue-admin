@@ -6,21 +6,19 @@
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-| canCreate | 否 | Boolean | 是否可以创建 | 默认为 true，可以创建 |
-| getCreateFieldsUri | 否 | String | 创建时获取可填写字段时的请求地址  |  当getCreateFields采用默认值时为必需值 |
-| doCreateUri | 否 | String | 创建时的请求地址 | 当采用默认doCreateRequest时为必需值  |
+
 | field_list | 是 | Object | 字段列表 | 在list_view中该字段为默认传入 |
-| getCreateFields | 否 | Function | 获取创建需要的字段的请求 | 默认是向后端请求，需要结合getCreateFieldsUri  |
-| doCreateRequest | 否 | Function | 创建需要进行的请求 | 默认值需要结合doCreateUri |
-| transformData | 否  | Function | 用来在doCreateRequest对表单数据进行一次处理，比如修改某个字段的格式 | 默认方法是原样返回表单数据 |
-| triggerText | 否 | String | 触发按钮的文字 | 默认为 "新建" |
-| createText  | 否 | String | 创建按钮的文字 | 默认为 "确认创建" |
-| cancelText  | 否 | String | 取消按钮的文字 | 默认为 "取消" |
-| autoValidate | 否 | Boolean | 是否一开始输入就表单验证 | 默认为false，第一次点击确定才开始表单验证 |
-| type | 否 | String | 按钮颜色 | 默认为 primary 蓝色 |
-| size | 否 | String | 按钮大小 | 默认为正常大小 | 
+| getCreateFields | 是 | Function | 获取创建需要的字段的请求 | - |
+| doCreateRequest | 是 | Function | 创建需要进行的请求 | - |
 | triggerConfig | 否 | Object | 触发弹框的按钮的配置项 | 默认为空对象 |
 | dialogConfig | 否 | Object | 弹框的配置项 | 默认为空对象 |
+| createBtnConfig | 否 | Object | 创建按钮的配置项 | 默认为空对象 |
+| cancelBtnConfig | 否 | Object | 取消配置项 | 默认为空对象 |
+| transformData | 否  | Function | 用来在doCreateRequest前对表单数据进行一次处理，比如修改某个字段的格式 | 默认方法是原样返回表单数据 |
+| autoValidate | 否 | Boolean | 是否一开始输入就表单验证 | 默认为false，第一次点击确定才开始表单验证 |
+
+
+注意，按钮的文案可以通过相应配置项的text属性配置
 
 
 
@@ -50,10 +48,8 @@
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-| text  |  否 | String | 显示文字 | 默认为 “导入csv” |
-| type  |  否 | String | 按钮类型 | 默认为 “success” |
-| size  |  否 | String | 按钮大小 | 默认为空，正常大小 |
 | handleData | 否 | Function | 对数据处理，第一个参数是回调resolve，第二个参数是数据数组 |
+| triggerConfig | 否 | Object | 触发弹框的按钮的配置项 | 默认为空对象 |
 
 
 调用resolve函数之后，列表会自动刷新

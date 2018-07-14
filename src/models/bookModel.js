@@ -119,11 +119,24 @@ export default{
             config:{
                 getCreateFields:getCreateFields,
                 doCreateRequest:createBook,
+                triggerConfig:{
+                    text:"新建订单",
+                    type:"primary",
+                },
+                dialogConfig:{
+                    size:"large",
+                    title:"新建订单",
+                },
+                createBtnConfig:{
+                    text:"确认创建",
+                    type:"success",
+                },
+                cancelBtnConfig:{
+                    text:"取消",
+                },
             },
         },
         {
-            label:"删除多项",
-            type:"danger",
             function(resolve,selection){
                 console.log(this.$attrs.formData);
                 console.log(this.$attrs.selectedData)
@@ -134,14 +147,20 @@ export default{
                 })
                 selection.splice(0,selection.length);
                 resolve();
+            },
+            triggerConfig:{
+                type:"danger",
+                text:"删除多项",
             }
         },
         {
             name:"csv",
             component:import("@/components/common/staticOperators/csv").then((rst)=>rst.default),
             config:{
-                text:"导入csv数据",
-                type:"warning",
+                triggerConfig:{
+                    text:"导入csv数据",
+                    type:"warning",
+                },
                 handleData:function(resolve,data){
                     console.log(data);
                     resolve();
@@ -149,8 +168,6 @@ export default{
             }
         },
         {
-            label:"下载CSV",
-            type:"primary",
             function(resolve,data){
                 const keys = ['customername','totalprice','address'];
                 let rst = data.map((item)=>{
@@ -161,6 +178,11 @@ export default{
                 
                 download(rst,"template.csv");
             },
+            triggerConfig:{
+                text:"下载CSV",
+                type:"primary",
+            },
+
         }
     ],
     listConfig:{
@@ -191,9 +213,7 @@ export default{
     ],
     operators:[
         {
-            label:"再来一单",
-            type:"success",
-            function(data,index,resolve){
+            handler(data,index,resolve){
                 this.$message({
                     message:`${data.customername}再来一单`,
                     type:"success",
@@ -202,7 +222,12 @@ export default{
                 setTimeout(()=>{
                     resolve();
                 },1000)
-            }
+            },
+            triggerConfig:{
+                text:"再来一单",
+                type:"success",
+                size:"small"
+            },
         },
     ],
 }

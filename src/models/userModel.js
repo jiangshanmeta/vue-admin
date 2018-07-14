@@ -25,7 +25,7 @@ export default{
                 editConfig:{
                     placeholder:"测试editconfig"
                 },
-                default:'',
+                default:'3',
             },
             view:{
                 function(data,config,record){
@@ -156,7 +156,23 @@ export default{
             config:{
                 getCreateFields:getCreateFields,
                 doCreateRequest:createUser,
-                triggerText:"新建用户",
+                triggerConfig:{
+                    text:"新建用户",
+                    type:"primary",   
+                },
+                dialogConfig:{
+                    size:"large",
+                    title:"新建用户",
+                },
+                createBtnConfig:{
+                    text:"确认创建",
+                    type:"success",
+                },
+                cancelBtnConfig:{
+                    text:"取消",
+                },
+
+
             }
         },
 
@@ -248,8 +264,15 @@ export default{
             name:"info",
             component:import("@/components/common/operators/info").then((rst)=>rst.default),
             config:{
-                title:"用户详情",
                 getDetailInfo:getUserDetail,
+                triggerConfig:{
+                    text:"查看详情",
+                    size:"small",
+                    type:"primary",
+                },
+                dialogConfig:{
+                    title:"用户详情",
+                },
             },
         },
         {
@@ -260,12 +283,26 @@ export default{
                 doEditRequest:editUser,
                 autoValidate:false,
                 reserveFields:['id'],
+                triggerConfig:{
+                    text:"编辑",
+                    size:"small",
+                    type:"primary",
+                },
+                dialogConfig:{
+                    size:"large",
+                    title:"编辑用户",
+                },
+                editBtnConfig:{
+                    type:"primary",
+                    text:"确定编辑",
+                },
+                cancelBtnConfig:{
+                    text:"取消",
+                },
             }
         },
         {
-            label:"搞个大新闻",
-            type:"warning",
-            function(resolve,data){
+            handler(resolve,data){
                 this.$message({
                     message:`${data.name}不要总想着搞个大新闻`,
                     type:"success",
@@ -275,13 +312,22 @@ export default{
                     resolve();
                 },1000)
             },
+            triggerConfig:{
+                text:"搞个大新闻",
+                type:"warning",
+                size:"small",
+            },
         },
         {
             name:"delete",
             component:import("@/components/common/operators/delete").then((rst)=>rst.default),
             config:{
                 doDeleteRequest:delUser,
-                triggerText:"删除用户",
+                triggerConfig:{
+                    text:"删除用户",
+                    type:"danger",
+                    size:"small",
+                },
             }
         },
         {
@@ -298,6 +344,9 @@ export default{
                     resolve();
                 },
                 reserveFields:['id'],
+                triggerConfig:{
+                    size:"small"
+                },
             }
         }
 

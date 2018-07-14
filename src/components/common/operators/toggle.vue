@@ -1,8 +1,8 @@
 <template>
     <el-button
         :type="typeMap.get(data[field])"
-        :size="size"
         @click="handleClick"
+        v-bind="triggerConfig"
     >
         {{textMap.get(data[field])}}
     </el-button>
@@ -37,9 +37,11 @@ export default{
 
             },
         },
-        size:{
-            type:String,
-            default:"small",
+        triggerConfig:{
+            type:Object,
+            default(){
+                return {};
+            },
         },
     },
     computed:{

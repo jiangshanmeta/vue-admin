@@ -1,16 +1,14 @@
 <template>
     <el-button
-        :type="type"
-        :size="size"
         @click="handleClick"
+        v-bind="triggerConfig"
     >
-        {{triggerText}}
+        {{triggerConfig.text}}
     </el-button>
 </template>
 
 <script>
 import _id_mixin from "@/mixins/common/_id_mixin.js"
-import {doDeleteRequest} from "@/server/common.js"
 import {logError} from "@/widget/utility.js"
 export default {
     name:"delete",
@@ -21,25 +19,16 @@ export default {
         data:{
             type:Object
         },
-        uri:{
-            type:String,
-        },
         doDeleteRequest:{
             type:Function,
-            default:doDeleteRequest
+            required:true,
         },
-        triggerText:{
-            type:String,
-            default:"删除",
+        triggerConfig:{
+            type:Object,
+            default(){
+                return {};
+            },
         },
-        type:{
-            type:String,
-            default:"danger",
-        },
-        size:{
-            type:String,
-            default:"small",
-        }
     },
     methods:{
         handleClick(){

@@ -2,15 +2,13 @@
     <div>
         <el-button
             @click="getEditFields"
-            :type="type"
-            :size="size"
+            v-bind="triggerConfig"
         >
-            {{triggerText}}
+            {{triggerConfig.text}}
         </el-button>
         <el-dialog
-            :title="title"
             :visible.sync="isShowEditbox"
-            size="large"
+            v-bind="dialogConfig"
         >
             <editor
                 :fields="fields"
@@ -23,14 +21,15 @@
             <section slot="footer">
                 <el-button 
                     @click="isShowEditbox=false"
+                    v-bind="cancelBtnConfig"
                 >
-                    {{cancelText}}
+                    {{cancelBtnConfig.text}}
                 </el-button>
                 <el-button
-                    type="danger"
                     @click="doEdit"
+                    v-bind="editBtnConfig"
                 >
-                    {{editText}}
+                    {{editBtnConfig.text}}
                 </el-button>
             </section>
         </el-dialog>
@@ -39,7 +38,6 @@
 
 <script>
 import _id_mixin from "@/mixins/common/_id_mixin.js"
-import {getEditInfo,doEditRequest} from "@/server/common.js"
 import {logError} from "@/widget/utility.js"
 
 export default {
@@ -66,23 +64,41 @@ export default {
             type:Object,
             required:true,
         },
-        editInfoUri:{
-
+        getEditInfo:{
+            type:Function,
+            required:true,
         },
-        doEditUri:{
-            type:String,
+        doEditRequest:{
+            type:Function,
+            required:true,
+        },
+        triggerConfig:{
+            type:Object,
+            default(){
+                return {};
+            },
+        },
+        dialogConfig:{
+            type:Object,
+            default(){
+                return {}
+            },
+        },
+        editBtnConfig:{
+            type:Object,
+            default(){
+                return {};
+            },
+        },
+        cancelBtnConfig:{
+            type:Object,
+            default(){
+                return {};
+            },
         },
         autoValidate:{
             type:Boolean,
             default:false,
-        },
-        getEditInfo:{
-            type:Function,
-            default:getEditInfo,
-        },
-        doEditRequest:{
-            type:Function,
-            default:doEditRequest
         },
         transformData:{
             type:Function,
@@ -96,30 +112,6 @@ export default {
                 return [];
             },
         },
-        title:{
-            type:String,
-            default:"编辑",
-        },
-        triggerText:{
-            type:String,
-            default:"编辑"
-        },
-        editText:{
-            type:String,
-            default:"确认编辑"
-        },
-        cancelText:{
-            type:String,
-            default:"取消"
-        },
-        type:{
-            type:String,
-            default:"primary",
-        },
-        size:{
-            type:String,
-            default:"small",
-        }
     },
     methods:{
         showDialog(){

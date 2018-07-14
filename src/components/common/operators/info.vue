@@ -1,16 +1,14 @@
 <template>
     <div>
         <el-button
-            :type="type"
-            :size="size"
             @click="handleClick"
+            v-bind="triggerConfig"
         >
-            {{triggerText}}
+            {{triggerConfig.text}}
         </el-button>
         <el-dialog
-            :title="title"
             :visible.sync="isShowLightbox"
-            size="large"
+            v-bind="dialogConfig"
         >
             <meta-table
                 v-if="!hasAsyncComponent || $asyncComponent.$all"
@@ -48,59 +46,49 @@ import views from "@/components/common/views/views"
 import metaTable from "@/components/common/meta-table"
 
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
-import _id_mixin from "@/mixins/common/_id_mixin.js"
-import {getDetailInfo} from "@/server/common.js"
+
 import {logError} from "@/widget/utility.js"
 export default{
+    name:"info",
+    inheritAttrs:true,
     components:{
         views,
         metaTable,
     },
     mixins:[
-
         mergeAttrsConfig,
-        _id_mixin,
     ],
-    name:"info",
     data(){
         return {
             isShowLightbox:false,
-
             fields:[],
             record:{},
         }
     },
     props:{
-        data:{
-            type:Object,
-            required:true,
-        },
         field_list:{
             type:Object,
             required:true,
         },
-        uri:{
-            type:String,
-        },
-        title:{
-            type:[String,Number],
-            default:"详情",
-        },
         getDetailInfo:{
             type:Function,
-            default:getDetailInfo
+            required:true,
         },
-        triggerText:{
-            type:String,
-            default:"详情"
+        data:{
+            type:Object,
+            required:true,
         },
-        type:{
-            type:String,
-            default:"primary",
+        triggerConfig:{
+            type:Object,
+            default(){
+                return {};
+            }
         },
-        size:{
-            type:String,
-            default:"small",
+        dialogConfig:{
+            type:Object,
+            default(){
+                return {};
+            },
         },
     },
     computed:{
@@ -113,31 +101,6 @@ export default{
             }
             return false;
         },
-        maxCol(){
-            let max = 2;
-            for(let row of this.fields){
-                let rowCol = 0;
-                for(let field of row){
-                    rowCol += ( (this.field_list[field].colspan && this.field_list[field].colspan.info) || 1) + 1;
-                }
-                if(rowCol>max){
-                    max = rowCol;
-                }
-            }
-            return max;
-        },
-        restCols(){
-            let arr = [];
-            const max = this.maxCol;
-            for(let row of this.fields){
-                let rowCol = 0;
-                for(let field of row){
-                    rowCol += ( (this.field_list[field].colspan && this.field_list[field].colspan.info) || 1) + 1;
-                }
-                arr.push(max - rowCol);
-            }
-            return arr;
-        }
     },
     methods:{
         handleClick(){

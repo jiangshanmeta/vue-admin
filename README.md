@@ -161,21 +161,25 @@ filters是筛选的配置项，它是一个数组，其组成元素示例如下�
 
 ```javascript
 {
-    label:"搞个大新闻",
-    type:"warning",
-    function(resolve,data){
-        console.log(data.name);
+    handler(resolve,data){
         this.$message({
-            message:"不要总想着搞个大新闻",
+            message:`${data.name}不要总想着搞个大新闻`,
             type:"success",
             duration:2000,
-        })
-        resolve();
+        });
+        setTimeout(()=>{
+            resolve();
+        },1000)
+    },
+    triggerConfig:{
+        text:"搞个大新闻",
+        type:"warning",
+        size:"small",
     },
 },
 ```
 
-这种声明方式被渲染为一个button，label是button显示的文字，type是按钮的类型(el-button的类型) ，function是点击按钮时的调用的函数，调用resolve方法,operators组件会自动通知父组件状态更新，列表页会自动刷新。注意这里的this指向的是这个operators组件。
+这种声明方式被渲染为一个button，triggerConfig.text是button显示的文字，triggerConfig.type是按钮的类型(el-button的类型) ，handler是点击按钮时的调用的函数，调用resolve方法,operators组件会自动通知父组件状态更新，列表页会自动刷新。注意这里的this指向的是这个operators组件。
 
 第二种声明方式示例如下：
 
@@ -205,139 +209,5 @@ this.$emit('update')
 
 ## TODO
 
-
-
-
-## 后端接口
-
-虽然这是个前端项目但我依然规定了后端接口的格式，毕竟统一的接口规范对大家来说都是件好事。这个接口规范只是推荐，默认请求是按照这个接口规范来的，我支持了自定义请求方法，只要最后结果满足需求即可。
-
-#### 列表
-
-列表请求使用GET方法，默认会带上的query参数有pageIndex、pageSize、sortField、sortOrder。如果有filters则会带上filters的query参数，请注意不要覆盖上面几个参数。
-
-响应json格式如下：
-
-```json
-{
-    "data":{
-        "data":[
-            {
-                "id":15,
-                "customername":"野比大雄",
-                "totalprice":500,
-                "address":"东京"
-            },
-            {
-                "id":17,
-                "customername":"鲁路修",
-                "totalprice":9999,
-                "address":"11区"
-            },
-            {
-                "id":19,
-                "customername":"坂本",
-                "totalprice":2345,
-                "address":"日本"
-            },
-            {
-                "id":121,
-                "customername":"凉风青叶",
-                "totalprice":555,
-                "address":"飞鹰跃动"
-            }
-
-        ],
-        "total":234,
-        "fields":["customername","totalprice","address"]
-    },
-    "rstno":1
-}
-```
-
-rstno为正数表示请求正常，data.data是查询出来的列表信息，data.total是分页用到的总记录条数，data.fields是要展示的字段。之所以有fields这个字段是考虑到了不同权限下看到的字段不一致。
-
-#### 新建
-
-新建对应两个接口：create_link、docreate_link。
-
-create_link是查询创建时允许设置的字段，请求方式为GET，响应json示例如下：
-
-```json
-{
-    "data":{
-        "fields":[
-            ["name","password"],
-            ["gender","typ"],
-            ["privilege"]
-
-        ]
-    },
-    "rstno":1
-}
-```
-
-docreate_link是创建时请求的接口，请求方式为POST。响应json示例如下：
-
-```json
-{
-    "data":{
-        "msg":"创建成功"
-    },
-    "rstno":1
-}
-```
-
-事实上我们仅仅需要rstno为正数。
-
-#### 更新
-
-类似于新建，更新也对应两个接口：edit_link、doedit_link
-
-edit_link是请求要更新的字段及其值，请求方式为GET，我把对应的id放到请求的路径中了，例如：```http://jiangshanmeta.github.io/user/edit/234``` ,其中234就是对应记录的id。
-
-响应json示例如下：
-
-```json
-{
-    "data":{
-        "fields":[
-            [{"field":"name","value":"张三"}],
-            [{"field":"gender","value":0},{"field":"typ","value":1}],
-            [{"field":"privilege"}]
-
-        ]
-    },
-    "rstno":1
-}
-```
-
-doedit_link是更新要请求的接口，请求方式为POST，id也是放在请求路径中了，响应json示例如下：
-
-```json
-{
-    "data":{
-        "msg":"更新成功"
-    },
-    "rstno":1
-}
-```
-
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+* typescript
+* elementUI 2

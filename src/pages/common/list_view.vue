@@ -17,7 +17,6 @@
                 v-bind="scope"
                 :field_list="field_list"
                 @update="refreshListData"
-                size=""
                 style="margin-bottom:8px;"
             ></operators>
         </template>

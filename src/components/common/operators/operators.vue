@@ -13,12 +13,11 @@
                 @update="notifyUpdate"
             ></component>
             <el-button
-                v-else-if="item.function"
-                @click="handleOperatorClick(item.function)"
-                :size="size"
-                :type="item.type"
+                v-else-if="item.handler"
+                @click="handleOperatorClick(item.handler)"
+                v-bind="item.triggerConfig || {}"
             >
-                {{item.label}}
+                {{(item.triggerConfig && item.triggerConfig.text) ||  item.label}}
             </el-button>
         </template>
     </div>
@@ -45,10 +44,6 @@ export default{
             type:[Object,Array],
             required:true,
         },
-        size:{
-            type:String,
-            default:"small"
-        }
     },
     data(){
         return {
