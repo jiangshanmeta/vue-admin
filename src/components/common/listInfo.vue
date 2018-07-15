@@ -118,7 +118,7 @@ import operators from "@/components/common/operators/operators"
 import views from "@/components/common/views/views"
 
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
-import {getListInfo} from "@/server/common.js"
+
 import {logError} from "@/widget/utility.js"
 
 export default{
@@ -168,10 +168,6 @@ export default{
                 return [];
             }
         },
-        baseUrl:{
-            type:String,
-            default:""
-        },
         transformRequestData:{
             type:Function,
             default:function(data){
@@ -180,7 +176,7 @@ export default{
         },
         listRequest:{
             type:Function,
-            default:getListInfo,
+            required:true,
         },
         pageIndexReqName:{
             type:String,

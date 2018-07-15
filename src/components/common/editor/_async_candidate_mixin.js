@@ -1,4 +1,3 @@
-import {getAsyncCandidate} from "@/server/common.js"
 import {logError} from "@/widget/utility"
 export default{
     data(){
@@ -8,12 +7,9 @@ export default{
         }
     },
     props:{
-        uri:{
-            type:String,
-        },
         httpRequest:{
             type:Function,
-            default:getAsyncCandidate
+            required:true,
         }
     },
     methods:{

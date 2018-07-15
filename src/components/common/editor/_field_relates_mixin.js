@@ -1,4 +1,3 @@
-import {getRelatesCandidate} from "@/server/common.js"
 import {logError} from "@/widget/utility"
 
 function noop(){}
@@ -11,13 +10,9 @@ export default{
                 return []
             }
         },
-        uri:{
-            type:String,
-            default:'',
-        },
         httpRequest:{
             type:Function,
-            default:getRelatesCandidate,
+            required:true,
         },
         labelfield:{
             type:String,
