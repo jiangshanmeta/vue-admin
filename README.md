@@ -2,7 +2,7 @@
 
 这个项目是基于vue-cli构建的针对于后台业务的通用业务层，UI库采用了element-ui。
 
-本项目的核心页面是 */src/pages/common/list_view* 。
+本项目的核心页面是 */src/components/list_view* 。
 
 ## model
 

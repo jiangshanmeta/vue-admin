@@ -1,14 +1,8 @@
-import list_view from "@/pages/common/list_view"
-import Vue from "vue"
-
-export default Vue.extend({
-    components:{
-        list_view
-    },
+export default{
     data(){
         return {
-            model:{},
-        }
+            model:{}
+        };
     },
     beforeRouteEnter(to, from, next){
         next((vm)=>{
@@ -20,9 +14,4 @@ export default Vue.extend({
             }
         })
     },
-    render(h){
-        return h('list_view',{
-            props:this.model
-        })
-    }
-})
+}
