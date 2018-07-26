@@ -15,8 +15,11 @@ Vue.use(VueConfig,{
     key:['config','staticMethod']
 })
 
-import VueAsyncAssets from "@/widget/vue-async-assets"
-Vue.use(VueAsyncAssets);
+// import VueAsyncAssets from "@/widget/vue-async-assets"
+// Vue.use(VueAsyncAssets);
+
+import injectComponents from "@/widget/injectComponents"
+Vue.use(injectComponents);
 
 import PortalVue from 'portal-vue'
 Vue.use(PortalVue)
@@ -30,14 +33,9 @@ Object.defineProperty(Vue.prototype,'$axios',{
 })
 
 // 处理element ui库
-// import Element from 'element-ui'
+import Element from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
-// Vue.use(Element)
-
-// canvas库 考虑到主要实现的是 model，暂时用不到
-// import 'echarts'
-// import ECharts from 'vue-echarts/components/ECharts.vue'
-// Vue.component('chart', ECharts)
+Vue.use(Element)
 
 Vue.config.productionTip = false
 
@@ -53,14 +51,9 @@ let instance = new Vue({
     router,
     store,
     render(h){
-        if(this.$asyncPlugin.$all){
-            return h('App');
-        }
+        return h('App');
     },
     components:{
         App,
-    },
-    asyncPlugin:{
-        'element-ui':import("element-ui"),
     },
 })

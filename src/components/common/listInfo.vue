@@ -1,5 +1,5 @@
 <template>
-    <section v-if="Object.keys(field_list).length && (!hasAsyncComponent || $asyncComponent.$all)">
+    <section v-if="Object.keys(field_list).length && (!hasAsyncComponent || $componentsInjected)">
         <portal-target
             :name="name + 'beforeFilters'"
         ></portal-target>
@@ -262,7 +262,7 @@ export default{
                     }
                 }
 
-                this.$resetAsyncComponent(components);
+                this.$injectComponents(components);
             }
         },
         handleSortChange(sortInfo){

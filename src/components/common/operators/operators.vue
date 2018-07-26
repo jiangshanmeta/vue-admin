@@ -1,6 +1,6 @@
 <template>
-    <div 
-        v-if="(!hasAsyncComponent) || $asyncComponent.$all" 
+    <div
+        v-if="!hasAsyncComponent || $componentsInjected"
         class="operator-container"
         ref="container"
     >
@@ -71,9 +71,9 @@ export default{
                     return arr
                 },[])
 
-                this.$resetAsyncComponent(components).then(()=>{
+                this.$injectComponents(components).then(()=>{
                     this.notifytWidth();
-                });
+                })
             }else{
                 this.notifytWidth();
             }

@@ -1,6 +1,6 @@
 <template>
-    <el-form :inline="true"
-        v-if="!hasAsyncComponent || $asyncComponent.$all"
+    <el-form 
+        :inline="true"
         class="filters"
         v-show="filters.length"
     >
@@ -142,7 +142,7 @@ export default{
                     return arr;
                 },[]);
 
-                this.$resetAsyncComponent(components);
+                this.$injectComponents(components);
             }
         },
         resetValue(){

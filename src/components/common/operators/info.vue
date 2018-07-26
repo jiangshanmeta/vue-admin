@@ -11,7 +11,7 @@
             v-bind="dialogConfig"
         >
             <meta-table
-                v-if="!hasAsyncComponent || $asyncComponent.$all"
+                v-if="!hasAsyncComponent || $componentsInjected"
                 :field_list="field_list"
                 :fields="fields"
                 mode="info"
@@ -129,7 +129,7 @@ export default{
                     }
                 }
 
-                this.$resetAsyncComponent(components);
+                this.$injectComponents(components);
             }
         },
     },

@@ -1,6 +1,6 @@
 <template>
     <meta-table
-        v-if="!hasAsyncComponent || $asyncComponent.$all"
+        v-if="!hasAsyncComponent || $componentsInjected"
         :field_list="field_list"
         :mode="mode"
         :fields="fields"
@@ -128,7 +128,9 @@ export default{
                     return arr;
                 },[]);
 
-                this.$resetAsyncComponent(components);
+
+
+                this.$injectComponents(components);
             }
         },
         validate(){
