@@ -45,11 +45,15 @@
 import {observe_relates} from "./field_relates_helper.js"
 
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
+import injectComponents from "@/mixins/common/injectComponents"
+
+
 export default{
     name:"filters",
     inheritAttrs:true,
     mixins:[
         mergeAttrsConfig,
+        injectComponents,
     ],
     components:{
         filter_enum:()=>import("./filter_enum"),
@@ -142,7 +146,7 @@ export default{
                     return arr;
                 },[]);
 
-                this.$injectComponents(components);
+                this.injectComponents(components);
             }
         },
         resetValue(){

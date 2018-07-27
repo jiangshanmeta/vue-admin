@@ -1,6 +1,6 @@
 <template>
     <meta-table
-        v-if="!hasAsyncComponent || $componentsInjected"
+        v-if="!hasAsyncComponent || componentsInjected"
         :field_list="field_list"
         :mode="mode"
         :fields="fields"
@@ -35,12 +35,14 @@
 import {observe_relates} from "./field_relates_helper.js"
 
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
+import injectComponents from "@/mixins/common/injectComponents"
 
 import AsyncValidator from 'async-validator';
 
 export default{
     mixins:[
         mergeAttrsConfig,
+        injectComponents,
     ],
     data(){
         return {
@@ -130,7 +132,7 @@ export default{
 
 
 
-                this.$injectComponents(components);
+                this.injectComponents(components);
             }
         },
         validate(){

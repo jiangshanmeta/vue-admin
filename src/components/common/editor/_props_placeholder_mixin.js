@@ -1,7 +1,0 @@
-export default{
-    props:{
-        placeholder:{
-            
-        }
-    }
-}

@@ -11,7 +11,7 @@
             v-bind="dialogConfig"
         >
             <meta-table
-                v-if="!hasAsyncComponent || $componentsInjected"
+                v-if="!hasAsyncComponent || componentsInjected"
                 :field_list="field_list"
                 :fields="fields"
                 mode="info"
@@ -46,6 +46,7 @@ import views from "@/components/common/views/views"
 import metaTable from "@/components/common/meta-table"
 
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
+import injectComponents from "@/mixins/common/injectComponents"
 
 import {logError} from "@/widget/utility.js"
 export default{
@@ -57,6 +58,7 @@ export default{
     },
     mixins:[
         mergeAttrsConfig,
+        injectComponents,
     ],
     data(){
         return {
@@ -129,7 +131,7 @@ export default{
                     }
                 }
 
-                this.$injectComponents(components);
+                this.injectComponents(components);
             }
         },
     },

@@ -1,5 +1,5 @@
 <template>
-    <section v-if="Object.keys(field_list).length && (!hasAsyncComponent || $componentsInjected)">
+    <section v-if="Object.keys(field_list).length && (!hasAsyncComponent || componentsInjected)">
         <portal-target
             :name="name + 'beforeFilters'"
         ></portal-target>
@@ -118,12 +118,14 @@ import operators from "@/components/common/operators/operators"
 import views from "@/components/common/views/views"
 
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
+import injectComponents from "@/mixins/common/injectComponents"
 
 import {logError} from "@/widget/utility.js"
 
 export default{
     mixins:[
         mergeAttrsConfig,
+        injectComponents,
     ],
     components:{
         filters,
@@ -262,7 +264,7 @@ export default{
                     }
                 }
 
-                this.$injectComponents(components);
+                this.injectComponents(components);
             }
         },
         handleSortChange(sortInfo){

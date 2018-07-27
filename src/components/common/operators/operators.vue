@@ -1,6 +1,6 @@
 <template>
     <div
-        v-if="!hasAsyncComponent || $componentsInjected"
+        v-if="!hasAsyncComponent || componentsInjected"
         class="operator-container"
         ref="container"
     >
@@ -25,6 +25,8 @@
 
 <script>
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
+import injectComponents from "@/mixins/common/injectComponents"
+
 import {logError} from "@/widget/utility.js"
 
 export default{
@@ -32,6 +34,7 @@ export default{
     inheritAttrs:true,
     mixins:[
         mergeAttrsConfig,
+        injectComponents,
     ],
     props:{
         operators:{
@@ -71,7 +74,7 @@ export default{
                     return arr
                 },[])
 
-                this.$injectComponents(components).then(()=>{
+                this.injectComponents(components).then(()=>{
                     this.notifytWidth();
                 })
             }else{

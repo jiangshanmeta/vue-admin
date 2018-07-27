@@ -5,7 +5,6 @@
         :listType="listType"
         :onSuccess="handleSuccess"
         :onRemove="handleRemove"
-        :disabled="disabled"
         v-bind="$attrs"
     >
         <template slot="default">
@@ -19,9 +18,9 @@
             <upload-list
                 :files="props.files"
                 :remove="props.remove"
-                :disabled="disabled"
                 :listType="listType"
                 :handlePreview="handlePreview"
+                v-bind="$attrs"
             ></upload-list>
         </template>
     </meta-upload>
@@ -32,7 +31,7 @@ import metaUpload from "./meta-upload"
 import uploadList from './meta-upload/upload-list';
 
 import _props_value_array_mixin from "./_props_value_array_mixin"
-import _props_disabled_mixin from "./_props_disabled_mixin"
+
 
 function noop(){}
 function identity(value){
@@ -50,7 +49,6 @@ export default{
     },
     mixins:[
         _props_value_array_mixin,
-        _props_disabled_mixin
     ],
     props:{
         listType:{

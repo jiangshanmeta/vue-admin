@@ -41,8 +41,8 @@
                 <td>
                     <field_async_tag
                         v-model="field_async_tag"
-                        uri="/test/field_async_tag"
                         :handleInvalidValue="handleTagInvalid"
+                        :httpRequest="httpRequest.field_async_tag"
                     ></field_async_tag>
                 </td>
             </tr>
@@ -52,8 +52,8 @@
                 <td>
                     <field_async_tag_json
                         v-model="field_async_tag_json"
-                        uri="/test/field_async_tag"
                         :handleInvalidValue="handleTagInvalid"
+                        :httpRequest="httpRequest.field_async_tag_json"
                     ></field_async_tag_json>
                 </td>
             </tr>
@@ -98,10 +98,10 @@
                 <td>
                     <field_async_array_model
                         v-model="field_async_array_model"
-                        uri="/test/field_async_array_model"
                         labelfield="name"
                         valuefield="id"
                         :handleInvalidValue="handleTagInvalid"
+                        :httpRequest="httpRequest.field_async_array_model"
                     ></field_async_array_model>
                 </td>
             </tr>
@@ -111,10 +111,10 @@
                 <td>
                     <field_async_array_model_json
                         v-model="field_async_array_model_json"
-                        uri="/test/field_async_array_model"
                         labelfield="name"
                         valuefield="id"
                         :handleInvalidValue="handleTagInvalid"
+                        :httpRequest="httpRequest.field_async_array_model_json"
                     ></field_async_array_model_json>
                 </td>
             </tr>
@@ -129,11 +129,11 @@
                     <field_relates_tag
                         v-model="field_relates_tag"
                         :relates="field_relates_tag_relates"
-                        uri='/test/field_relates_tag'
                         labelfield="name"
                         valuefield="id"
                         :handleInvalidValue="handleTagInvalid"
                         :handleInvalidRelateIds="handleInvalidRelateIds"
+                        :httpRequest="httpRequest.field_relates_tag"
                     ></field_relates_tag>
                 </td>
             </tr>
@@ -144,11 +144,11 @@
                     <field_relates_tag_json
                         v-model="field_relates_tag_json"
                         :relates="field_relates_tag_relates"
-                        uri='/test/field_relates_tag'
                         labelfield="name"
                         valuefield="id"
                         :handleInvalidValue="handleTagInvalid"
                         :handleInvalidRelateIds="handleInvalidRelateIds"
+                        :httpRequest="httpRequest.field_relates_tag_json"
                     ></field_relates_tag_json>
                 </td>
             </tr>
@@ -164,8 +164,8 @@
                         :relates="field_relates_model_relates"
                         labelfield="name"
                         valuefield="id"
-                        uri='/test/field_relates_array_model'
                         :handleInvalidValue="handleTagInvalid"
+                        :httpRequest="httpRequest.field_relates_array_model"
                     ></field_relates_array_model>
                 </td>
             </tr>
@@ -178,8 +178,8 @@
                         :relates="field_relates_model_relates"
                         labelfield="name"
                         valuefield="id"
-                        uri='/test/field_relates_array_model'
                         :handleInvalidValue="handleTagInvalid"
+                        :httpRequest="httpRequest.field_relates_array_model_json"
                     ></field_relates_array_model_json>
                 </td>
             </tr>
@@ -195,6 +195,29 @@
 import {observe_relates} from "@/components/common/editor/field_relates_helper.js"
 
 import {unique,clearInvalidData} from "@/components/common/editor/_validate_option"
+
+import axios from "@/server/axios"
+
+const fields = {
+    field_async_tag:"field_async_tag",
+    field_async_tag_json:"field_async_tag",
+    field_async_array_model:"field_async_array_model",
+    field_async_array_model_json:"field_async_array_model",
+    field_relates_tag:"field_relates_tag",
+    field_relates_tag_json:"field_relates_tag",
+    field_relates_array_model:"field_relates_array_model",
+    field_relates_array_model_json:"field_relates_array_model",
+}
+
+const httpRequest = Object.keys(fields).reduce((obj,field)=>{
+    obj[field] = function(cb){
+        axios.get(`/test/${fields[field]}`).then((json)=>{
+            cb(json.data.data);
+        });
+    }
+    return obj;
+},{})
+
 
 export default{
     config:{
@@ -233,7 +256,8 @@ export default{
         },
         handleInvalidRelateIds:function(){
             console.log(this)
-        }
+        },
+        httpRequest,
     },
     components:{
         field_tag:()=>import("@/components/common/editor/field_tag"),

@@ -71,10 +71,10 @@
                 <td>
                     <field_async_enum_radio
                         v-model="field_async_enum_radio"
-                        uri="/test/field_async_enum_radio"
                         labelfield="name"
                         valuefield="id"
                         :handleInvalidValue="handleInvalidValue"
+                        :httpRequest="httpRequest.field_async_enum_radio"
                     ></field_async_enum_radio>
                 </td>
             </tr>
@@ -84,11 +84,11 @@
                 <td>
                     <field_async_enum_select
                         v-model="field_async_enum_select"
-                        uri='/test/field_async_enum_select'
                         labelfield="name"
                         valuefield="id"
                         placeholder="the placeholder"
                         :handleInvalidValue="handleInvalidValue"
+                        :httpRequest="httpRequest.field_async_enum_select"
                     ></field_async_enum_select>
                 </td>
             </tr>
@@ -98,11 +98,11 @@
                 <td>
                     <field_async_model
                         v-model="field_async_model"
-                        uri='/test/field_async_model'
                         labelfield='name'
                         valuefield='id'
                         placeholder="placeholder"
                         :handleInvalidValue="handleInvalidValue"
+                        :httpRequest="httpRequest.field_async_model"
                     ></field_async_model>
                 </td>
             </tr>
@@ -113,10 +113,10 @@
                     <field_relates_enum_radio
                         v-model="field_relates_enum_radio"
                         :relates="field_relates_enum_radio_relates"
-                        uri='/test/field_relates_enum_radio'
                         labelfield="name"
                         valuefield="id"
                         :handleInvalidValue="handleInvalidValue"
+                        :httpRequest="httpRequest.field_relates_enum_radio"
                     ></field_relates_enum_radio>
                 </td>
             </tr>
@@ -127,10 +127,10 @@
                     <field_relates_enum_select
                         v-model="field_relates_enum_select"
                         :relates="field_relates_enum_radio_relates"
-                        uri='/test/field_relates_enum_select'
                         labelfield="name"
                         valuefield="id"
                         :handleInvalidValue="handleInvalidValue"
+                        :httpRequest="httpRequest.field_relates_enum_select"
                     ></field_relates_enum_select>
                 </td>
             </tr>
@@ -141,10 +141,10 @@
                     <field_relates_model
                         v-model="field_relates_model"
                         :relates="field_relates_enum_radio_relates"
-                        uri="/test/field_relates_model"
                         labelfield="name"
                         valuefield="id"
                         :handleInvalidValue="handleInvalidValue"
+                        :httpRequest="httpRequest.field_relates_model"
                     ></field_relates_model>
                 </td>
             </tr>
@@ -171,6 +171,27 @@ import field_relates_model from "@/components/common/editor/field_relates_model"
 
 
 import {observe_relates} from "@/components/common/editor/field_relates_helper.js"
+
+import axios from "@/server/axios"
+
+const fields = [
+    "field_async_enum_radio",
+    "field_async_enum_select",
+    "field_async_model",
+    "field_relates_enum_radio",
+    "field_relates_enum_select",
+    "field_relates_model",
+];
+
+const httpRequest = fields.reduce((obj,field)=>{
+    obj[field] = (cb)=>{
+        return axios.get(`/test/${field}`).then((json)=>{
+            cb(json.data.data)
+        })
+    }
+    return obj;
+},{});
+
 
 export default{
     components:{
@@ -206,7 +227,7 @@ export default{
             this.$emit('input',options[Math.floor(Math.random()*options.length)]);
             // console.log(value,options);
         },
-
+        httpRequest,
     },
     data(){
         return {
@@ -223,6 +244,11 @@ export default{
             field_relates_model:3,
         }
     },
+    beforeCreate(){
+
+    },
+
+
     created(){
         observe_relates(this.field_relates_enum_radio_relates,this)
 

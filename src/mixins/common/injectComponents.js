@@ -1,10 +1,14 @@
-const flagField = 'components$Injected';
+const flagField = 'componentsInjected'
 
-export default function(Vue){
-    Object.defineProperty(Vue.prototype,'$injectComponents',{
-        value(components){
+export default{
+    data(){
+        return {
+            [flagField]:false,
+        }
+    },
+    methods:{
+        injectComponents(components){
             this[flagField] = false;
-            // normalize成array的形式
             if(!Array.isArray(components)){
                 components = Object.keys(components).reduce((arr,name)=>{
                     arr.push({
@@ -31,28 +35,6 @@ export default function(Vue){
             return Promise.all(dynamicImportComponents).then(()=>{
                 this[flagField] = true;
             })
-            
         }
-    })
-
-    Vue.mixin({
-        beforeCreate(){
-            const optionData = this.$options.data || {};
-            this.$options.data = function(){
-                let data = typeof optionData === 'function'?optionData.call(this):optionData;
-
-                data[flagField] = false;
-                return data;
-            }
-        },
-    });
-
-
-    Object.defineProperty(Vue.prototype,'$componentsInjected',{
-        get(){
-            return this[flagField];
-        }
-    })
-
-
+    },
 }

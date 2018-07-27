@@ -5,25 +5,21 @@
         :fetch-suggestions="queryModel"
         @select="handleSelect"
         @input="handleInput"
-        :placeholder="placeholder"
-        :disabled="disabled"
+        v-bind="$attrs"
     ></el-autocomplete>
 </template>
 
 <script>
-import _props_disabled_mixin from "./_props_disabled_mixin.js"
 import _props_label_value_mixin from "./_props_label_value_mixin"
-import _props_placeholder_mixin from "./_props_placeholder_mixin.js"
 import _props_value_mixin from "./_props_value_mixin"
 import _computed_value_label_map_mixin from './_computed_value_label_map_mixin'
 import _validate_option_mono from "./_validate_option_mono"
 
 export default{
     name:'field_model',
+    inheritAttrs:true,
     mixins:[
-        _props_disabled_mixin,
         _props_label_value_mixin,
-        _props_placeholder_mixin,
         _props_value_mixin,
         _computed_value_label_map_mixin,
         _validate_option_mono,

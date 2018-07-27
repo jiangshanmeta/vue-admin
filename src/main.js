@@ -15,11 +15,6 @@ Vue.use(VueConfig,{
     key:['config','staticMethod']
 })
 
-// import VueAsyncAssets from "@/widget/vue-async-assets"
-// Vue.use(VueAsyncAssets);
-
-import injectComponents from "@/widget/injectComponents"
-Vue.use(injectComponents);
 
 import PortalVue from 'portal-vue'
 Vue.use(PortalVue)
