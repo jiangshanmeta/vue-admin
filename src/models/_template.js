@@ -1,5 +1,4 @@
 export default{
-    name:"{name}",
     field_list:{
 
     },

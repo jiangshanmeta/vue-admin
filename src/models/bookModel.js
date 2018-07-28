@@ -9,7 +9,6 @@ import {
 import {download} from "@/widget/utility.js"
 
 export default{
-    name:"bookModel",
     field_list:{
         customername:{
             label:'客户名',
@@ -137,7 +136,7 @@ export default{
             },
         },
         {
-            function(resolve,selection){
+            handler(resolve){
                 console.log(this.$attrs.formData);
                 console.log(this.$attrs.selectedData)
                 console.log(this.data)
@@ -145,7 +144,6 @@ export default{
                     type:"warning",
                     message:"就把选中的取消选中"
                 })
-                selection.splice(0,selection.length);
                 resolve();
             },
             triggerConfig:{
@@ -168,7 +166,7 @@ export default{
             }
         },
         {
-            function(resolve,data){
+            handler(resolve,data){
                 const keys = ['customername','totalprice','address'];
                 let rst = data.map((item)=>{
                     return keys.map((key)=>{

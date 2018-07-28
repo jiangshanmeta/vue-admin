@@ -16,9 +16,6 @@ Vue.use(VueConfig,{
 })
 
 
-import PortalVue from 'portal-vue'
-Vue.use(PortalVue)
-
 import router from './router'
 import store from "./store"
 

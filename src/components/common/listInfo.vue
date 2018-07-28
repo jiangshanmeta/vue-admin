@@ -1,8 +1,13 @@
 <template>
     <section v-if="Object.keys(field_list).length && (!hasAsyncComponent || componentsInjected)">
-        <portal-target
-            :name="name + 'beforeFilters'"
-        ></portal-target>
+
+        <slot
+            name="beforeFilters"
+            :data="data"
+            :formData="formData"
+            :selectedData="selection?multipleSelection:[]"
+        ></slot>
+
         <filters
             :filters="filters"
             :field_list="field_list"
@@ -10,30 +15,15 @@
             @search="getListInfo"
             ref="filters"
         >
-            <template slot-scope="scope" >
-                <portal :to="name + 'beforeFilters'">
-                    <slot 
-                        name="beforeFilters"
-                        :data="data"
-                        :formData="scope.formData"
-                        :selectedData="selection?multipleSelection:[]"
-                    ></slot>
-                </portal>
-
-                <portal :to="name + 'afterFilters'">
-                    <slot
-                        name="afterFilters"
-                        :data="data"
-                        :formData="scope.formData"
-                        :selectedData="selection?multipleSelection:[]"
-                    ></slot>
-                </portal>
-            </template>
         </filters>
 
-        <portal-target
-            :name="name + 'afterFilters'"
-        ></portal-target>
+        <slot
+            name="afterFilters"
+            :data="data"
+            :formData="formData"
+            :selectedData="selection?multipleSelection:[]"
+        ></slot>
+
 
         <el-table
             v-if="fields.length && data.length"
@@ -132,6 +122,13 @@ export default{
         operators,
         views,
     },
+    beforeCreate(){
+        Object.defineProperty(this,'formData',{
+            get(){
+                return this.$refs.filters && this.$refs.filters.formData;
+            }
+        });
+    },
     data(){
         return {
             data:[],
@@ -146,10 +143,6 @@ export default{
         }
     },
     props:{
-        name:{
-            type:String,
-            required:true,
-        },
         field_list:{
             type:Object,
             required:true,

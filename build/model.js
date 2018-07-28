@@ -24,7 +24,7 @@ function initModel(){
     var dst = resolve(modelName+'.js');
 
     let template = fs.readFileSync(src,"utf8");
-    template = str_supplant(template,{name:modelName});
+    // template = str_supplant(template,{name:modelName});
 
     fs.writeFileSync(dst,template);
 }
