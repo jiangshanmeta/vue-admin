@@ -1,6 +1,6 @@
 <template>
     <meta-table
-        v-if="!hasAsyncComponent || componentsInjected"
+        v-if="!hasInjectComponent || componentsInjected"
         :field_list="field_list"
         :mode="mode"
         :fields="fields"
@@ -38,6 +38,11 @@ import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import injectComponents from "@/mixins/common/injectComponents"
 
 import AsyncValidator from 'async-validator';
+
+function hasInjectEditorComponent(field_list,field){
+    return field_list[field].editorComponent 
+            && field_list[field].editorComponent.component;
+}
 
 export default{
     mixins:[
@@ -96,44 +101,44 @@ export default{
     },
     computed:{
         formData(){
-            return this.fields.reduce((obj,row)=>{
-                row.reduce((obj,field)=>{
-                    obj[field] = this.record[field];
-                    return obj;
-                },obj);
+            return this.editFieldsArray.reduce((obj,field)=>{
+                obj[field] = this.record[field];
                 return obj;
             },{});
         },
-        hasAsyncComponent(){
-            for(let row of this.fields){
-                for(let field of row){
-                    if(this.field_list[field].editorComponent && this.field_list[field].editorComponent.component){
-                        return true;
-                    }
-                }
-            }
-            return false;
+        editFieldsArray(){
+            return this.fields.reduce((arr,row)=>{
+
+                row.reduce((arr,field)=>{
+                    arr.push(field);
+                    return arr;
+                },arr);
+
+                return arr;
+            },[])
+        },
+        hasInjectComponent(){
+            return this.editFieldsArray.some(hasInjectEditorComponent.bind(null,this.field_list));
         },
     },
     methods:{
         importEditor(){
-            if(this.hasAsyncComponent){
-                let components = this.fields.reduce((arr,row)=>{
-                    for(let field of row){
-                        if(this.field_list[field].editorComponent && this.field_list[field].editorComponent.component){
-                            arr.push({
-                                name:this.field_list[field].editorComponent.name,
-                                component:this.field_list[field].editorComponent.component,
-                            })
-                        }
-                    }
-                    return arr;
-                },[]);
 
-
-
-                this.injectComponents(components);
+            if(!this.hasInjectComponent){
+                return;
             }
+
+            const components = this.editFieldsArray
+                .filter(hasInjectEditorComponent.bind(null,this.field_list))
+                .map((field)=>{
+                    return {
+                        name:this.field_list[field].editorComponent.name,
+                        component:this.field_list[field].editorComponent.component,
+                    }
+                })
+
+
+            this.injectComponents(components);
         },
         validate(){
             let keys = Object.keys(this.validators);
@@ -149,7 +154,6 @@ export default{
                 this.hasValidateListener = true;
             }
             
-
             return Promise.all(promises).then(()=>{
                 return JSON.parse(JSON.stringify(this.formData));
             }).catch((err)=>{

@@ -17,7 +17,8 @@ export default{
         name:{
             label:'用户名',
             editorComponent:{
-                name:"field_string",
+                name:"field_string2",
+                component:()=>import("@/components/common/editor/field_string").then((rst)=>rst.default),
                 config:{
                     placeholder:'请输入用户名',
                 },

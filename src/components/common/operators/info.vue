@@ -11,7 +11,7 @@
             v-bind="dialogConfig"
         >
             <meta-table
-                v-if="!hasAsyncComponent || componentsInjected"
+                v-if="!hasInjectComponent || componentsInjected"
                 :field_list="field_list"
                 :fields="fields"
                 mode="info"
@@ -49,6 +49,11 @@ import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import injectComponents from "@/mixins/common/injectComponents"
 
 import {logError} from "@/widget/utility.js"
+
+function hasInjectViewComponent(field_list,field){
+    return field_list[field].view && field_list[field].view.component;
+}
+
 export default{
     name:"info",
     inheritAttrs:true,
@@ -94,21 +99,13 @@ export default{
         },
     },
     computed:{
-        hasAsyncComponent(){
-            let keys = Object.keys(this.field_list);
-            for(let item of keys){
-                if(this.field_list[item].view && this.field_list[item].view.component){
-                    return true;
-                }
-            }
-            return false;
+        hasInjectComponent(){
+            return Object.keys(this.field_list).some(hasInjectViewComponent.bind(null,this.field_list));
         },
     },
     methods:{
         handleClick(){
-            if(!this.isComponentsLoaded){
-                this.importviewComponent();
-            }
+            this.importViewComponent();
 
             new Promise((resolve,reject)=>{
                 this.getDetailInfo(resolve);
@@ -118,21 +115,21 @@ export default{
                 this.isShowLightbox = true;
             }).catch(logError);
         },
-        importviewComponent(){
-            if(this.hasAsyncComponent){
-                let keys = Object.keys(this.field_list);
-                let components = [];
-                for(let item of keys){
-                    if(this.field_list[item].view && this.field_list[item].view.component){
-                        components.push({
-                            name:this.field_list[item].view.name,
-                            component:this.field_list[item].view.component,
-                        });
-                    }
-                }
-
-                this.injectComponents(components);
+        importViewComponent(){
+            if(!this.hasInjectComponent){
+                return;
             }
+
+            const components = Object.keys(this.field_list)
+                .filter(hasInjectViewComponent.bind(null,this.field_list))
+                .map((field)=>{
+                    return {
+                        name:this.field_list[field].view.name,
+                        component:this.field_list[field].view.component,
+                    }
+                });
+
+            this.injectComponents(components);
         },
     },
 }

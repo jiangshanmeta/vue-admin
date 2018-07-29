@@ -1,6 +1,6 @@
 <template>
     <div
-        v-if="!hasAsyncComponent || componentsInjected"
+        v-if="!hasInjectComponent || componentsInjected"
         class="operator-container"
         ref="container"
     >
@@ -29,6 +29,10 @@ import injectComponents from "@/mixins/common/injectComponents"
 
 import {logError} from "@/widget/utility.js"
 
+function hasInjectOperatorComponent(item){
+    return item.component;
+}
+
 export default{
     name:"operators",
     inheritAttrs:true,
@@ -48,31 +52,17 @@ export default{
             required:true,
         },
     },
-    data(){
-        return {
-
-        }
-    },
     computed:{
-        hasAsyncComponent(){
-            return this.operators.some((item)=>{
-                return item.component
-            })
+        hasInjectComponent(){
+            return this.operators.some(hasInjectOperatorComponent)
         },
 
     },
     methods:{
         importOperator(){
-            if(this.hasAsyncComponent){
-                let components = this.operators.reduce((arr,item)=>{
-                    if(item.component){
-                        arr.push({
-                            name:item.name,
-                            component:item.component,
-                        })
-                    }
-                    return arr
-                },[])
+            if(this.hasInjectComponent){
+
+                const components = this.operators.filter(hasInjectOperatorComponent)
 
                 this.injectComponents(components).then(()=>{
                     this.notifytWidth();

@@ -1,5 +1,6 @@
 <template>
-    <el-form 
+    <el-form
+        v-if="filters.length || (!hasInjectComponent || componentsInjected)"
         :inline="true"
         class="filters"
         v-show="filters.length"
@@ -47,6 +48,9 @@ import {observe_relates} from "./field_relates_helper.js"
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import injectComponents from "@/mixins/common/injectComponents"
 
+function hasFilterInjectComponent(item){
+    return item.editorComponent.component
+}
 
 export default{
     name:"filters",
@@ -123,10 +127,8 @@ export default{
             },{});
             return JSON.parse(JSON.stringify(data));
         },
-        hasAsyncComponent(){
-            return this.filters.some((item)=>{
-                return item.editorComponent.component;
-            })
+        hasInjectComponent(){
+            return this.filters.some(hasFilterInjectComponent);
         }
     },
     methods:{
@@ -135,19 +137,20 @@ export default{
             this.$emit('search',this.formData);
         },
         importFilter(){
-            if(this.hasAsyncComponent){
-                let components = this.filters.reduce((arr,item)=>{
-                    if(item.editorComponent.component){
-                        arr.push({
-                            name:item.editorComponent.name,
-                            component:item.editorComponent.component,
-                        })
-                    }
-                    return arr;
-                },[]);
-
-                this.injectComponents(components);
+            if(!this.hasInjectComponent){
+                return;
             }
+
+            const components = this.filters.filter(hasFilterInjectComponent)
+                .map((item)=>{
+                    return {
+                        name:item.editorComponent.name,
+                        component:item.editorComponent.component,
+                    }
+                });
+
+        
+            this.injectComponents(components);
         },
         resetValue(){
             this.filters.forEach((item)=>{

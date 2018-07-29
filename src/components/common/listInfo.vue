@@ -1,5 +1,5 @@
 <template>
-    <section v-if="Object.keys(field_list).length && (!hasAsyncComponent || componentsInjected)">
+    <section v-if="Object.keys(field_list).length && (!hasInjectComponent || componentsInjected)">
 
         <slot
             name="beforeFilters"
@@ -111,6 +111,10 @@ import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import injectComponents from "@/mixins/common/injectComponents"
 
 import {logError} from "@/widget/utility.js"
+
+function hasInjectViewComponent(field_list,field){
+    return field_list[field].view && field_list[field].view.component;
+}
 
 export default{
     mixins:[
@@ -233,32 +237,27 @@ export default{
         },
     },
     computed:{
-        hasAsyncComponent(){
-            let keys = Object.keys(this.field_list);
-            for(let item of keys){
-                if(this.field_list[item].view && this.field_list[item].view.component){
-                    return true;
-                }
-            }
-            return false;
+        hasInjectComponent(){
+            return Object.keys(this.field_list).some(hasInjectViewComponent.bind(null,this.field_list));
         },
     },
     methods:{
         importViewComponent(){
-            if(this.hasAsyncComponent){
-                let keys = Object.keys(this.field_list);
-                let components = [];
-                for(let item of keys){
-                    if(this.field_list[item].view && this.field_list[item].view.component){
-                        components.push({
-                            name:this.field_list[item].view.name,
-                            component:this.field_list[item].view.component,
-                        });
-                    }
-                }
 
-                this.injectComponents(components);
+            if(!this.hasInjectComponent){
+                return;
             }
+
+            const components = Object.keys(this.field_list)
+                .filter(hasInjectViewComponent.bind(null,this.field_list))
+                .map((field)=>{
+                    return {
+                        name:this.field_list[field].view.name,
+                        component:this.field_list[field].view.component,
+                    }
+                });
+
+            this.injectComponents(components);
         },
         handleSortChange(sortInfo){
             if(sortInfo.prop){
