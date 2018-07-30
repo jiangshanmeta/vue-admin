@@ -71,7 +71,7 @@ view:{
 
 ```javascript
 view:{
-    function(data,config){
+    handler(data,config){
         return config.prefix + data;
     },
     config:{
@@ -98,7 +98,7 @@ view:{
 view:{
     // 数组形式声明，不需要改变字段的名称
     join:["customername","address"],
-    function(data,config){
+    handler(data,config){
         return `${data.customername} ${config.glue} ${data.address}`;
     },
     config:{

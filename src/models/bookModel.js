@@ -24,7 +24,7 @@ export default{
             },
             view:{
                 join:['id'],
-                function(record){
+                handler(record){
                     return `${record.customername}(${record.id})`
                 },
             },

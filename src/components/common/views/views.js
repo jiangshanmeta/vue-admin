@@ -4,27 +4,33 @@ export default{
         let info = props.record[props.field];
         
         if(props.descriptor.view){
-            let config = props.descriptor.view.config || {};
+            const {
+                config={},
+                join,
+                component,
+                handler,
+            } = props.descriptor.view;
+
             let isJoinField = false;
-            if(typeof props.descriptor.view.join === 'object'){
+            if(typeof join === 'object'){
                 isJoinField = true;
 
                 let obj = props.record.hasOwnProperty(props.field)?{[props.field]:info}:{};
 
-                if(Array.isArray(props.descriptor.view.join)){
-                    info = props.descriptor.view.join.reduce((obj,field)=>{
+                if(Array.isArray(join)){
+                    info = join.reduce((obj,field)=>{
                         obj[field] = props.record[field];
                         return obj;
                     },obj);
                 }else{
-                    info = Object.keys(props.descriptor.view.join).reduce((obj,originalField)=>{
-                        obj[props.descriptor.view.join[originalField]] = props.record[originalField];
+                    info = Object.keys(join).reduce((obj,originalField)=>{
+                        obj[join[originalField]] = props.record[originalField];
                         return obj;
                     },obj);
                 }
 
             }
-            if(props.descriptor.view.component){
+            if(component){
                 let scopedSlotsData;
                 if(isJoinField){
                     scopedSlotsData = {
@@ -38,10 +44,10 @@ export default{
                     }
                 }
                 return data.scopedSlots.default(scopedSlotsData)
-            }else if(props.descriptor.view.function){
+            }else if(handler){
                 return (
                     <span>
-                        {props.descriptor.view.function(info,config)}
+                        {handler(info,config)}
                     </span>
                 )
             }
