@@ -253,11 +253,12 @@ export default{
         listRequest:getUserList,
         sortFields:['typ'],
         paginationConfig:{
-            layout:"total, sizes, prev, pager, next, jumper"
+            layout:"total, sizes, prev, pager, next, jumper",
+            pageSizes:[2,10,20,30,50],
         },
 
 
-        pageSizes:[10,20,30,50],
+        
     },
     operators:[
         {

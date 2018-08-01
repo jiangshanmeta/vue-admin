@@ -92,10 +92,9 @@
         <el-pagination
             v-if="paginated && data.length"
             @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
             v-bind="paginationConfig"
             :current-page.sync="pageIndex"
-            :page-size="pageSize"
+            :page-size="localPageSize"
             :total="total"
             style="display:table;margin-left:auto;margin-right:auto;"
         ></el-pagination>
@@ -132,6 +131,16 @@ export default{
                 return this.$refs.filters && this.$refs.filters.formData;
             }
         });
+    },
+    created(){
+        this.$watch(()=>{
+            return {
+                localPageSize:this.localPageSize,
+                sortField:this.sortField,
+                sortOrder:this.sortOrder,
+                pageIndex:this.pageIndex,
+            }   
+        },this.getListInfo)
     },
     data(){
         return {
@@ -268,14 +277,11 @@ export default{
                 this.sortOrder = '';
             }
             this.pageIndex = 1;
-            this.getListInfo();
-        },
-        handleCurrentChange(){
-            this.getListInfo();
+
         },
         handleSizeChange(newPageSize){
             this.localPageSize = newPageSize;
-            this.getListInfo();
+            this.pageIndex = 1;
         },
         handleSelectionChange(section){
             this.multipleSelection = section;
@@ -316,6 +322,8 @@ export default{
             params[this.sortFieldReqName] = this.sortField;
             params[this.sortOrderReqName] = this.sortOrder;
 
+            console.log(params);
+
             return new Promise((resolve,reject)=>{
                 this.listRequest(resolve,this.transformRequestData(params))
             }).then((rst)=>{
@@ -344,7 +352,7 @@ export default{
 
             this.multipleSelection = [];
             this.operatorMinWidth = 0;
-            this.localPageSize = 0;
+            this.localPageSize = this.pageSize;
         },
         setOperatorWidth(width){
             if(width>this.operatorMinWidth){
