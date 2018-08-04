@@ -123,7 +123,6 @@ export default{
                     type:"primary",
                 },
                 dialogConfig:{
-                    size:"large",
                     title:"新建订单",
                 },
                 createBtnConfig:{
@@ -211,7 +210,7 @@ export default{
     ],
     operators:[
         {
-            handler(data,index,resolve){
+            handler(resolve,data){
                 this.$message({
                     message:`${data.customername}再来一单`,
                     type:"success",

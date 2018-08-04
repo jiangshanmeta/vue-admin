@@ -16,8 +16,7 @@
                     <field_ts
                         v-model="field_ts"
                         placeholder="field_ts的placeholder"
-                        format="custom"
-                        :formatMethod="formatMethod"
+                        value-format='timestamp'
                     ></field_ts>
                 </td>
             </tr>
@@ -28,6 +27,7 @@
                     <field_day
                         v-model="field_day"
                         placeholder="field_day的placeholder"
+                        value-format='yyyy-MM-dd'
                     ></field_day>
                 </td>
             </tr>
@@ -38,6 +38,7 @@
                     <field_month
                         v-model="field_month"
                         placeholder="field_month的placeholder"
+                        value-format='yyyy-mm'
                     ></field_month>
                 </td>
             </tr>
@@ -89,7 +90,7 @@ export default{
             this.field_ts = Date.now();
             this.field_day = "2019-03-12";
             this.field_month = "2019-03";
-            this.field_year = 2011
+            this.field_year = '2011'
         },1000)
     }
 }

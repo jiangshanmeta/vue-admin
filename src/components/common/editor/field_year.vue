@@ -1,9 +1,9 @@
 <template>
     <field_time
         type="year"
+        :valueFormat="valueFormat"
         v-model="model"
         v-bind="$attrs"
-        :parseDateFromValue="parseDateFromValue"
     ></field_time>
 </template>
 
@@ -20,11 +20,9 @@ export default{
         _computed_model_mixin,
     ],
     props:{
-        parseDateFromValue:{
-            type:Function,
-            default(date){
-                return new Date(String(date));
-            },
+        valueFormat:{
+            type:String,
+            default:"yyyy",
         },
     },
     components:{

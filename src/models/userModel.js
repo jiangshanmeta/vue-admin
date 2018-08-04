@@ -161,7 +161,6 @@ export default{
                     type:"primary",   
                 },
                 dialogConfig:{
-                    size:"large",
                     title:"新建用户",
                 },
                 createBtnConfig:{
@@ -290,7 +289,6 @@ export default{
                     type:"primary",
                 },
                 dialogConfig:{
-                    size:"large",
                     title:"编辑用户",
                 },
                 editBtnConfig:{

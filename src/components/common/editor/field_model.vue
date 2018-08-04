@@ -1,7 +1,7 @@
 <template>
     <el-autocomplete
         :value="showValue"
-        :props="{value:valuefield,label:labelfield}"
+        :value-key="labelfield"
         :fetch-suggestions="queryModel"
         @select="handleSelect"
         @input="handleInput"
