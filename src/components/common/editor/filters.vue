@@ -12,7 +12,7 @@
         >
             <component
                 :is="item.editorComponent.name"
-                v-model="item.value"
+                v-model="filtersValueMap[item.field]"
                 v-bind="mergeAttrsConfig(item.editorComponent.config)"
             ></component>
         </el-form-item>
@@ -21,7 +21,6 @@
                 <el-button 
                     type="primary"
                     @click="search"
-                    v-if="filters.length"
                     style="margin-right:10px;"
                 >
                     查询
@@ -36,7 +35,6 @@
                     style="display:inline-block;"
                 ></operators>
 
-                <slot :formData="formData"></slot>
             </section>
         </el-form-item>
     </el-form>
@@ -82,8 +80,7 @@ export default{
     },
     data(){
         return {
-            proxyFields:{},
-            unwatchs:[],
+            filtersValueMap:{},
         }
     },
     props:{
@@ -102,30 +99,15 @@ export default{
             },
         },
     },
-    watch:{
-        filters:{
-            immediate:true,
-            handler(newFilters){
-                this.isComponentsLoaded = false;
-                this.proxyFields = {};
-                this.importFilter();
-                this.unwatchs.forEach((unwatch)=>{
-                    unwatch && unwatch();
-                });
-                this.unwatchs.splice(0,this.unwatchs.length);
-                this.resetValue();
-                this.initRelates(newFilters);
-                this.initWatch();
-            },
-        }
+    created(){
+        this.importFilter();
+        this.resetValue();
+        this.initRelates();
+        this.initWatch();
     },
     computed:{
         formData(){
-            let data = this.filters.reduce((obj,item)=>{
-                obj[item.field] = item.value;
-                return obj;
-            },{});
-            return JSON.parse(JSON.stringify(data));
+            return JSON.parse(JSON.stringify(this.filtersValueMap));
         },
         hasInjectComponent(){
             return this.filters.some(hasFilterInjectComponent);
@@ -133,8 +115,7 @@ export default{
     },
     methods:{
         search(){
-            console.log(this)
-            this.$emit('search',this.formData);
+            this.$emit('search');
         },
         importFilter(){
             if(!this.hasInjectComponent){
@@ -153,40 +134,27 @@ export default{
             this.injectComponents(components);
         },
         resetValue(){
-            this.filters.forEach((item)=>{
-                let defaultConfig = item.editorComponent.default;
-                let value = typeof defaultConfig === 'function'?defaultConfig():defaultConfig;
-
-                this.$set(item,'value',value);
-            });
+            this.filtersValueMap = this.filters.reduce((obj,item)=>{
+                const defaultConfig = item.editorComponent.default;
+                obj[item.field] = typeof defaultConfig === 'function'?defaultConfig.call(this):defaultConfig;
+                return obj;
+            },{});
         },
-        initRelates(newFilters){
-            newFilters.forEach((item)=>{
-                Object.defineProperty(this.proxyFields,item.field,{
-                    get(){
-                        return item.value
-                    },
-                    set(){
-
-                    },
-                    enumerable:true,
-                    configurable:true,
-                });
+        initRelates(){
+            // TODO support custom relates
+            this.filters.forEach((item)=>{
                 if(item.editorComponent && item.editorComponent.config && item.editorComponent.config.relates){
-                    observe_relates(item.editorComponent.config.relates,this.proxyFields)
+                    observe_relates(item.editorComponent.config.relates,this.filtersValueMap)
                 }
             })
         },
         initWatch(){
-            this.filters.forEach((item)=>{
-                if(!item.watch){
-                    return;
-                }
-                let unwatch = this.$watch(()=>{
-                    return item.value
+            const watchFilters = this.filters.filter(item=>item.watch);
+            if(watchFilters.length){
+                this.$watch(()=>{
+                    return watchFilters.map(item=>this.filtersValueMap[item.field]);
                 },this.search);
-                this.unwatchs.push(unwatch);
-            })
+            }
         },
     }
 }

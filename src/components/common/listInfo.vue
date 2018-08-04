@@ -14,8 +14,7 @@
             :filterOperators="filterOperators"
             @search="getListInfo"
             ref="filters"
-        >
-        </filters>
+        ></filters>
 
         <slot
             name="afterFilters"
