@@ -66,7 +66,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                label="操作"
+                :label="operatorsLabel"
                 v-if="operators.length && data.length"
                 :min-width="operatorMinWidth"
             >
@@ -132,14 +132,21 @@ export default{
         });
     },
     created(){
+        this.localPageSize = this.pageSize;
+
+        this.hasInjectComponent = Object.keys(this.field_list).some(hasInjectViewComponent.bind(null,this.field_list));
+        this.importViewComponent();
+
         this.$watch(()=>{
             return {
                 localPageSize:this.localPageSize,
                 sortField:this.sortField,
                 sortOrder:this.sortOrder,
                 pageIndex:this.pageIndex,
-            }   
+            }
         },this.getListInfo)
+
+        this.getListInfo();
     },
     data(){
         return {
@@ -159,31 +166,23 @@ export default{
             type:Object,
             required:true,
         },
+
         filters:{
             type:Array,
             default:function(){
                 return [];
             },
         },
-        selection:{
-            type:Boolean,
-            default:false,
-        },
-        sortFields:{
+        filterOperators:{
             type:Array,
             default:function(){
                 return [];
             }
         },
-        transformRequestData:{
-            type:Function,
-            default:function(data){
-                return data;
-            }
-        },
-        listRequest:{
-            type:Function,
-            required:true,
+
+        pageSize:{
+            type:Number,
+            default:20
         },
         pageIndexReqName:{
             type:String,
@@ -201,52 +200,65 @@ export default{
             type:String,
             default:"sortOrder",
         },
+        transformRequestData:{
+            type:Function,
+            default:function(data){
+                return data;
+            }
+        },
+        listRequest:{
+            type:Function,
+            required:true,
+        },
         transformListData:{
             type:Function,
             default:async (data)=>{
                 return data
             }
         },
-        operators:{
-            type:Array,
-            default:function(){
-                return [];
-            }
-        },
-        paginated:{
-            type:Boolean,
-            default:true,
-        },
-        pageSize:{
-            type:Number,
-            default:20
-        },
-        emptyText:{
-            type:String,
-            default:"暂无数据"
-        },
-        filterOperators:{
-            type:Array,
-            default:function(){
-                return [];
-            }
-        },
+
         tableConfig:{
             type:Object,
             default(){
                 return {};
             }
         },
+        selection:{
+            type:Boolean,
+            default:false,
+        },
+        sortFields:{
+            type:Array,
+            default:function(){
+                return [];
+            }
+        },
+
+        operators:{
+            type:Array,
+            default:function(){
+                return [];
+            }
+        },
+        operatorsLabel:{
+            type:String,
+            default:"操作"
+        },
+
+        emptyText:{
+            type:String,
+            default:"暂无数据"
+        },
+
+        paginated:{
+            type:Boolean,
+            default:true,
+        },
         paginationConfig:{
             type:Object,
             default(){
                 return {}
             },
-        },
-    },
-    computed:{
-        hasInjectComponent(){
-            return Object.keys(this.field_list).some(hasInjectViewComponent.bind(null,this.field_list));
         },
     },
     methods:{
@@ -341,35 +353,11 @@ export default{
             }).catch(logError);
 
         },
-        reset(){
-            this.fields = [];
-            this.total = 0;
-            this.data = [];
-            this.pageIndex = 1;
-            this.sortField = '';
-            this.sortOrder = '';
-
-            this.multipleSelection = [];
-            this.operatorMinWidth = 0;
-            this.localPageSize = this.pageSize;
-        },
         setOperatorWidth(width){
             if(width>this.operatorMinWidth){
                 this.operatorMinWidth = width;
             }
         },
     },
-    watch:{
-        field_list:{
-            handler(){
-                this.reset();
-                this.importViewComponent();
-                this.getListInfo();
-            },
-            immediate:true,
-        },
-    },
-
-
 }
 </script>
