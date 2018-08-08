@@ -145,7 +145,10 @@ export default{
             colspan:{
                 create:3,
                 edit:3,
-                info:3,
+                info:{
+                    label:2,
+                    field:2,
+                }
             }
         }
     },

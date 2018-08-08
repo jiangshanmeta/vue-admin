@@ -10,11 +10,11 @@
                 <template 
                     v-for="field in row"
                 >
-                    <td>
+                    <td :colspan="colspanMapByField[field].label">
                         <slot name="label" :field="field"></slot>
                     </td>
                     <td
-                        :colspan="(field_list[field].colspan && field_list[field].colspan[mode]) || 1"
+                        :colspan="colspanMapByField[field].field"
                     >
                         <slot :field="field"></slot>
                     </td>
@@ -29,6 +29,11 @@
 </template>
 
 <script>
+const defaultColspan = {
+    label:1,
+    field:1,
+};
+
 export default{
     props:{
         fields:{
@@ -45,31 +50,44 @@ export default{
         }
     },
     computed:{
-        maxCol(){
-            let max = 2;
-            for(let row of this.fields){
-                let rowCol = 0;
-                for(let field of row){
-                    rowCol += ( ( (this.field_list[field].colspan && this.field_list[field].colspan[this.mode]) || 1) + 1 );
-                }
-                if(rowCol>max){
-                    max = rowCol;
-                }
-            }
+        colspanMapByField(){
+            return Object.keys(this.field_list).reduce((obj,field)=>{
+                let colspan = defaultColspan;
+                const configColspan = this.field_list[field].colspan;
+                if(configColspan){
+                    if(configColspan[this.mode]){
+                        colspan = configColspan[this.mode];
+                    }else if(configColspan.default){
+                        colspan = configColspan[this.mode];
+                    }
 
-            return max;
+                    if(typeof colspan !== 'object'){
+                        colspan = {
+                            label:1,
+                            field:colspan,
+                        }
+                    }
+                }
+
+                obj[field] = colspan;
+                return obj;
+            },Object.create(null));
+        },
+        rowColspans(){
+            return this.fields.map((row)=>{
+                return row.reduce((count,field)=>{
+                    const colspanConfig = this.colspanMapByField[field];
+                    return count + colspanConfig.label + colspanConfig.field;
+                },0);
+            });
+        },
+        maxCol(){
+            return Math.max(...this.rowColspans);
         },
         restCols(){
-            let arr = [];
-            const max = this.maxCol;
-            for(let row of this.fields){
-                let rowCol = 0;
-                for(let field of row){
-                    rowCol += ( ( (this.field_list[field].colspan && this.field_list[field].colspan[this.mode]) || 1) + 1 );
-                }
-                arr.push(max - rowCol);
-            }
-            return arr;
+            return this.rowColspans.map((colspan)=>{
+                return this.maxCol - colspan;
+            });
         },
     },
 }
