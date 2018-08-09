@@ -44,7 +44,7 @@
 import {observe_relates} from "./field_relates_helper.js"
 
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
-import injectComponents from "@/mixins/common/injectComponents"
+import injectComponents from "@/widget/injectComponents"
 
 function hasFilterInjectComponent(item){
     return item.editorComponent.component
@@ -55,7 +55,6 @@ export default{
     inheritAttrs:true,
     mixins:[
         mergeAttrsConfig,
-        injectComponents,
     ],
     components:{
         filter_enum:()=>import("./filter_enum"),
@@ -80,6 +79,7 @@ export default{
     },
     data(){
         return {
+            componentsInjected:false,
             filtersValueMap:{},
         }
     },
@@ -130,8 +130,9 @@ export default{
                     }
                 });
 
-        
-            this.injectComponents(components);
+            injectComponents(this,components).then(()=>{
+                this.componentsInjected = true;
+            })
         },
         resetValue(){
             this.filtersValueMap = this.filters.reduce((obj,item)=>{

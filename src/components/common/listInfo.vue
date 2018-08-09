@@ -106,7 +106,7 @@ import operators from "@/components/common/operators/operators"
 import views from "@/components/common/views/views"
 
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
-import injectComponents from "@/mixins/common/injectComponents"
+import injectComponents from "@/widget/injectComponents"
 
 import {logError} from "@/widget/utility.js"
 
@@ -117,7 +117,6 @@ function hasInjectViewComponent(field_list,field){
 export default{
     mixins:[
         mergeAttrsConfig,
-        injectComponents,
     ],
     components:{
         filters,
@@ -150,6 +149,7 @@ export default{
     },
     data(){
         return {
+            componentsInjected:false,
             data:[],
             pageIndex:1,
             sortField:'',
@@ -277,7 +277,9 @@ export default{
                     }
                 });
 
-            this.injectComponents(components);
+            injectComponents(this,components).then(()=>{
+                this.componentsInjected = true;
+            });
         },
         handleSortChange(sortInfo){
             if(sortInfo.prop){

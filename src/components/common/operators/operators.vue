@@ -25,7 +25,7 @@
 
 <script>
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
-import injectComponents from "@/mixins/common/injectComponents"
+import injectComponents from "@/widget/injectComponents"
 
 import {logError} from "@/widget/utility.js"
 
@@ -38,7 +38,6 @@ export default{
     inheritAttrs:true,
     mixins:[
         mergeAttrsConfig,
-        injectComponents,
     ],
     props:{
         operators:{
@@ -52,6 +51,11 @@ export default{
             required:true,
         },
     },
+    data(){
+        return {
+            componentsInjected:false,
+        };
+    },
     computed:{
         hasInjectComponent(){
             return this.operators.some(hasInjectOperatorComponent)
@@ -64,9 +68,11 @@ export default{
 
                 const components = this.operators.filter(hasInjectOperatorComponent)
 
-                this.injectComponents(components).then(()=>{
+                injectComponents(this,components).then(()=>{
+                    this.componentsInjected = true;
                     this.notifytWidth();
-                })
+                });
+
             }else{
                 this.notifytWidth();
             }

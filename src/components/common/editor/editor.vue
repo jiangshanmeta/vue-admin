@@ -35,7 +35,8 @@
 import {observe_relates} from "./field_relates_helper.js"
 
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
-import injectComponents from "@/mixins/common/injectComponents"
+
+import injectComponents from "@/widget/injectComponents"
 
 import AsyncValidator from 'async-validator';
 
@@ -47,10 +48,10 @@ function hasInjectEditorComponent(field_list,field){
 export default{
     mixins:[
         mergeAttrsConfig,
-        injectComponents,
     ],
     data(){
         return {
+            componentsInjected:false,
             validators:{},
             hasValidateListener:false,
         }
@@ -137,8 +138,11 @@ export default{
                     }
                 })
 
+            
+            injectComponents(this,components).then(()=>{
+                this.componentsInjected = true;
+            });
 
-            this.injectComponents(components);
         },
         validate(){
             let keys = Object.keys(this.validators);

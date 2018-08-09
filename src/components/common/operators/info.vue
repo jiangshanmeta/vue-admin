@@ -47,7 +47,7 @@ import views from "@/components/common/views/views"
 import metaTable from "@/components/common/meta-table"
 
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
-import injectComponents from "@/mixins/common/injectComponents"
+import injectComponents from "@/widget/injectComponents"
 
 import {logError} from "@/widget/utility.js"
 
@@ -64,10 +64,10 @@ export default{
     },
     mixins:[
         mergeAttrsConfig,
-        injectComponents,
     ],
     data(){
         return {
+            componentsInjected:true,
             isShowLightbox:false,
             fields:[],
             record:{},
@@ -131,8 +131,9 @@ export default{
                         component:this.field_list[field].view.component,
                     }
                 });
-
-            this.injectComponents(components);
+            injectComponents(this,components).then(()=>{
+                this.componentsInjected = true;
+            });
         },
     },
 }
