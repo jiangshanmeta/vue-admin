@@ -7,6 +7,7 @@
             {{triggerConfig.text}}
         </el-button>
         <el-dialog
+            v-if="canInitDialog"
             :visible.sync="isShowEditbox"
             v-bind="dialogConfig"
         >
@@ -53,6 +54,7 @@ export default {
             isShowEditbox:false,
             fields:[],
             record:{},
+            canInitDialog:false,
         }
     },
     props:{
@@ -114,16 +116,14 @@ export default {
         },
     },
     methods:{
-        showDialog(){
-            this.isShowEditbox = true;
-        },
         getEditFields(){
             new Promise((resolve,reject)=>{
                 this.getEditInfo(resolve);
             }).then(({fields,record})=>{
                 this.fields = fields;
                 this.record = record;
-                this.showDialog();
+                this.canInitDialog = true;
+                this.isShowEditbox = true;
             }).catch(logError);
         },
         doEdit(){

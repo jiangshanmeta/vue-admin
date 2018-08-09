@@ -7,6 +7,7 @@
             {{triggerConfig.text}}
         </el-button>
         <el-dialog
+            v-if="canInitDialog"
             :visible.sync="isShowCreatebox"
             v-bind="dialogConfig"
         >
@@ -50,6 +51,7 @@ export default{
             isShowCreatebox:false,
             fields:[],
             record:{},
+            canInitDialog:false,
         }
     },
     props:{
@@ -126,6 +128,7 @@ export default{
                 }).then((fields)=>{
                     this.fields = fields;
                     this.resetRecord();
+                    this.canInitDialog = true;
                     this.showDialog();
                 }).catch(logError)
 
