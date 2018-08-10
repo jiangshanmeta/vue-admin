@@ -46,9 +46,6 @@ import {observe_relates} from "./field_relates_helper.js"
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import injectComponents from "@/widget/injectComponents"
 
-function hasFilterInjectComponent(item){
-    return item.editorComponent.component
-}
 
 export default{
     name:"filters",
@@ -100,7 +97,7 @@ export default{
         },
     },
     created(){
-        this.importFilter();
+        this.injectFilterComponents();
         this.resetValue();
         this.initRelates();
         this.initWatch();
@@ -109,30 +106,27 @@ export default{
         formData(){
             return JSON.parse(JSON.stringify(this.filtersValueMap));
         },
+        needInjectFilterComponents(){
+            return this.filters.filter((item)=>{
+                return item.editorComponent.component;
+            }).map(item=>item.editorComponent);
+        },
         hasInjectComponent(){
-            return this.filters.some(hasFilterInjectComponent);
+            return this.needInjectFilterComponents.length;
         }
     },
     methods:{
         search(){
             this.$emit('search');
         },
-        importFilter(){
+        injectFilterComponents(){
             if(!this.hasInjectComponent){
                 return;
             }
-
-            const components = this.filters.filter(hasFilterInjectComponent)
-                .map((item)=>{
-                    return {
-                        name:item.editorComponent.name,
-                        component:item.editorComponent.component,
-                    }
-                });
-
-            injectComponents(this,components).then(()=>{
+            injectComponents(this,this.needInjectFilterComponents).then(()=>{
                 this.componentsInjected = true;
-            })
+            });
+
         },
         resetValue(){
             this.filtersValueMap = this.filters.reduce((obj,item)=>{

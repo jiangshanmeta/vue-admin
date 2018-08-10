@@ -110,9 +110,7 @@ import injectComponents from "@/widget/injectComponents"
 
 import {logError} from "@/widget/utility.js"
 
-function hasInjectViewComponent(field_list,field){
-    return field_list[field].view && field_list[field].view.component;
-}
+
 
 export default{
     mixins:[
@@ -133,8 +131,13 @@ export default{
     created(){
         this.localPageSize = this.pageSize;
 
-        this.hasInjectComponent = Object.keys(this.field_list).some(hasInjectViewComponent.bind(null,this.field_list));
-        this.importViewComponent();
+        this.needInjectViewComponents = Object.keys(this.field_list).filter((field)=>{
+            return this.field_list[field].view && this.field_list[field].view.component;
+        }).map(field=>this.field_list[field].view);
+        this.hasInjectComponent = this.needInjectViewComponents.length>0;
+        this.injectViewComponents();
+
+
 
         this.$watch(()=>{
             return {
@@ -262,22 +265,12 @@ export default{
         },
     },
     methods:{
-        importViewComponent(){
-
+        injectViewComponents(){
             if(!this.hasInjectComponent){
                 return;
             }
 
-            const components = Object.keys(this.field_list)
-                .filter(hasInjectViewComponent.bind(null,this.field_list))
-                .map((field)=>{
-                    return {
-                        name:this.field_list[field].view.name,
-                        component:this.field_list[field].view.component,
-                    }
-                });
-
-            injectComponents(this,components).then(()=>{
+            injectComponents(this,this.needInjectViewComponents).then(()=>{
                 this.componentsInjected = true;
             });
         },

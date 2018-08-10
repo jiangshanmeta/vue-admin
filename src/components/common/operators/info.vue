@@ -62,9 +62,6 @@ import injectComponents from "@/widget/injectComponents"
 
 import {logError} from "@/widget/utility.js"
 
-function hasInjectViewComponent(field_list,field){
-    return field_list[field].view && field_list[field].view.component;
-}
 
 export default{
     name:"info",

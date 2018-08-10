@@ -6,7 +6,17 @@
         :fields="fields"
     >
         <template slot="label" slot-scope="scope">
-            {{field_list[scope.field].label}}
+            <labels
+                :label="field_list[scope.field].label"
+                :labelComponent="field_list[scope.field].labelComponent"
+            >
+                <component
+                    v-if="field_list[scope.field].labelComponent"
+                    :is="field_list[scope.field].labelComponent.name"
+                    :label="field_list[scope.field].label"
+                    v-bind="field_list[scope.field].labelComponent.config || {}"
+                ></component>
+            </labels>
         </template>
         <template slot-scope="scope">
             <component
@@ -32,6 +42,8 @@
 </template>
 
 <script>
+import labels from "@/components/common/labels/labels"
+
 import {observe_relates} from "./field_relates_helper.js"
 
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
@@ -40,10 +52,6 @@ import injectComponents from "@/widget/injectComponents"
 
 import AsyncValidator from 'async-validator';
 
-function hasInjectEditorComponent(field_list,field){
-    return field_list[field].editorComponent 
-            && field_list[field].editorComponent.component;
-}
 
 export default{
     mixins:[
@@ -51,12 +59,14 @@ export default{
     ],
     data(){
         return {
-            componentsInjected:false,
+            labelComponentsInjected:false,
+            editorComponentsInjected:false,
             validators:{},
             hasValidateListener:false,
         }
     },
     components:{
+        labels,
         field_array_model:()=>import("./field_array_model"),
         field_array_model_json:()=>import("./field_array_model_json"),
         field_async_array_model:()=>import("./field_async_array_model"),
@@ -101,12 +111,6 @@ export default{
         metaTable:()=>import("@/components/common/meta-table"),
     },
     computed:{
-        formData(){
-            return this.editFieldsArray.reduce((obj,field)=>{
-                obj[field] = this.record[field];
-                return obj;
-            },{});
-        },
         editFieldsArray(){
             return this.fields.reduce((arr,row)=>{
 
@@ -118,31 +122,51 @@ export default{
                 return arr;
             },[])
         },
+        formData(){
+            return this.editFieldsArray.reduce((obj,field)=>{
+                obj[field] = this.record[field];
+                return obj;
+            },{});
+        },
+        needInjectLabelComponents(){
+            return this.editFieldsArray.filter((field)=>{
+                return this.field_list[field].labelComponent;
+            }).map((field)=>{
+                return this.field_list[field].labelComponent;
+            });
+        },
+        needInjectEditorComponents(){
+            return this.editFieldsArray.filter((field)=>{
+                return this.field_list[field].editorComponent && this.field_list[field].editorComponent.component;
+            }).map((field)=>{
+                return this.field_list[field].editorComponent;
+            });
+        },
         hasInjectComponent(){
-            return this.editFieldsArray.some(hasInjectEditorComponent.bind(null,this.field_list));
+            return this.needInjectLabelComponents.length && this.needInjectEditorComponents.length;
+        },
+        componentsInjected(){
+            return this.labelComponentsInjected && this.editorComponentsInjected;
         },
     },
     methods:{
-        importEditor(){
-
-            if(!this.hasInjectComponent){
-                return;
+        injectLabelComponents(){
+            if(!this.needInjectLabelComponents.length){
+                return this.labelComponentsInjected = true;
             }
 
-            const components = this.editFieldsArray
-                .filter(hasInjectEditorComponent.bind(null,this.field_list))
-                .map((field)=>{
-                    return {
-                        name:this.field_list[field].editorComponent.name,
-                        component:this.field_list[field].editorComponent.component,
-                    }
-                })
-
-            
-            injectComponents(this,components).then(()=>{
-                this.componentsInjected = true;
+            injectComponents(this,this.needInjectLabelComponents).then(()=>{
+                this.labelComponentsInjected = true;
             });
+        },
+        injectEditorComponents(){
+            if(!this.needInjectEditorComponents.length){
+                return this.editorComponentsInjected = true;
+            }
 
+            injectComponents(this,this.needInjectEditorComponents).then(()=>{
+                this.editorComponentsInjected = true;
+            });
         },
         validate(){
             let keys = Object.keys(this.validators);
@@ -260,10 +284,14 @@ export default{
             handler(){
                 Object.keys(this.validators).forEach((field)=>{
                     this.validators[field].unwatch && this.validators[field].unwatch();
-                })
+                });
+
+                this.labelComponentsInjected = false;
+                this.editorComponentsInjected = false;
                 this.validators = {};
                 this.hasValidateListener = false;
-                this.importEditor();
+                this.injectLabelComponents();
+                this.injectEditorComponents();
                 this.initRelates();
                 this.initValidate();
             }

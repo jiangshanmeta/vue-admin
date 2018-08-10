@@ -29,10 +29,6 @@ import injectComponents from "@/widget/injectComponents"
 
 import {logError} from "@/widget/utility.js"
 
-function hasInjectOperatorComponent(item){
-    return item.component;
-}
-
 export default{
     name:"operators",
     inheritAttrs:true,
@@ -57,18 +53,17 @@ export default{
         };
     },
     computed:{
-        hasInjectComponent(){
-            return this.operators.some(hasInjectOperatorComponent)
+        needInjectOperatorComponents(){
+            return this.operators.filter(item=>item.component);
         },
-
+        hasInjectComponent(){
+            return this.needInjectOperatorComponents.length;
+        },
     },
     methods:{
-        importOperator(){
+        injectOperatorComponents(){
             if(this.hasInjectComponent){
-
-                const components = this.operators.filter(hasInjectOperatorComponent)
-
-                injectComponents(this,components).then(()=>{
+                injectComponents(this,this.needInjectOperatorComponents).then(()=>{
                     this.componentsInjected = true;
                     this.notifytWidth();
                 });
@@ -93,13 +88,8 @@ export default{
             });
         },
     },
-    watch:{
-        operators:{
-            immediate:true,
-            handler:function(){
-                this.importOperator();
-            }
-        }
+    created(){
+        this.injectOperatorComponents();
     },
 }
 </script>
