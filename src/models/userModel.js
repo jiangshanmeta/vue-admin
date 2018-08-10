@@ -87,6 +87,11 @@ export default{
             tableColumnConfig:{
                 align:"center"
             },
+            labelComponent:{
+                name:"label_redstar",
+                component:()=>import("@/components/user/labels/label_redstar").then((rst)=>rst.default),
+            },
+
         },
         typ:{
             label:'类型',

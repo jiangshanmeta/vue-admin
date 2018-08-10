@@ -124,6 +124,15 @@ colspan:{
 
 * tableColumnConfig 在表格中table column的配置项
 
+* labelComponent 用组件处理复杂的label
+
+```javascript
+labelComponent:{
+    name:"label_redstar",
+    component:()=>import("@/components/user/labels/label_redstar").then((rst)=>rst.default),
+},
+```
+
 
 ## filters
 

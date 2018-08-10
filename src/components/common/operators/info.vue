@@ -18,7 +18,17 @@
                 mode="info"
             >
                 <template slot="label" slot-scope="scope">
-                    {{field_list[scope.field].label}}
+                    <labels
+                        :label="field_list[scope.field].label"
+                        :labelComponent="field_list[scope.field].labelComponent"
+                    >
+                        <component
+                            v-if="field_list[scope.field].labelComponent"
+                            :is="field_list[scope.field].labelComponent.name"
+                            :label="field_list[scope.field].label"
+                            v-bind="field_list[scope.field].labelComponent.config || {}"
+                        ></component>
+                    </labels>
                 </template>
                 <template slot-scope="scope">
                     <views
@@ -43,8 +53,9 @@
 </template>
 
 <script>
-import views from "@/components/common/views/views"
 import metaTable from "@/components/common/meta-table"
+import labels from "@/components/common/labels/labels"
+import views from "@/components/common/views/views"
 
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import injectComponents from "@/widget/injectComponents"
@@ -59,15 +70,18 @@ export default{
     name:"info",
     inheritAttrs:true,
     components:{
-        views,
         metaTable,
+        views,
+        labels,
     },
     mixins:[
         mergeAttrsConfig,
     ],
     data(){
         return {
-            componentsInjected:true,
+            injectInited:false,
+            labelComponentsInjected:false,
+            viewComponentsInjected:false,
             isShowLightbox:false,
             fields:[],
             record:{},
@@ -101,13 +115,34 @@ export default{
         },
     },
     computed:{
+        needInjectLabelComponents(){
+            return Object.keys(this.field_list).filter((field)=>{
+                return this.field_list[field].labelComponent;
+            }).map((field)=>{
+                return this.field_list[field].labelComponent;
+            });
+        },
+        needInjectViewComponents(){
+            return Object.keys(this.field_list).filter((field)=>{
+                return this.field_list[field].view && this.field_list[field].view.component;
+            }).map((field)=>{
+                return this.field_list[field].view;
+            });
+        },
         hasInjectComponent(){
-            return Object.keys(this.field_list).some(hasInjectViewComponent.bind(null,this.field_list));
+            return this.needInjectLabelComponents.length || this.needInjectViewComponents.length;
+        },
+        componentsInjected(){
+            return this.labelComponentsInjected && this.viewComponentsInjected;
         },
     },
     methods:{
         handleClick(){
-            this.importViewComponent();
+            if(!this.injectInited){
+                this.injectLabelComponents();
+                this.injectViewComponents();
+                this.injectInited = true;
+            }
 
             new Promise((resolve,reject)=>{
                 this.getDetailInfo(resolve);
@@ -118,21 +153,20 @@ export default{
                 this.isShowLightbox = true;
             }).catch(logError);
         },
-        importViewComponent(){
-            if(!this.hasInjectComponent){
-                return;
+        injectLabelComponents(){
+            if(!this.needInjectLabelComponents.length){
+                return this.labelComponentsInjected = true;
             }
-
-            const components = Object.keys(this.field_list)
-                .filter(hasInjectViewComponent.bind(null,this.field_list))
-                .map((field)=>{
-                    return {
-                        name:this.field_list[field].view.name,
-                        component:this.field_list[field].view.component,
-                    }
-                });
-            injectComponents(this,components).then(()=>{
-                this.componentsInjected = true;
+            injectComponents(this,this.needInjectLabelComponents).then(()=>{
+                this.labelComponentsInjected = true;
+            });
+        },
+        injectViewComponents(){
+            if(!this.needInjectViewComponents.length){
+                return this.viewComponentsInjected = true;
+            }
+            injectComponents(this,this.needInjectViewComponents).then(()=>{
+                this.viewComponentsInjected = true;
             });
         },
     },
