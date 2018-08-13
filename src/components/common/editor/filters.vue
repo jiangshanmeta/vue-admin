@@ -29,7 +29,7 @@
                 <operators
                     :field_list="field_list"
                     :operators="filterOperators"
-                    :data="formData"
+                    :data="filtersValueMap"
                     :filters="filters"
                     @update="search"
                     style="display:inline-block;"

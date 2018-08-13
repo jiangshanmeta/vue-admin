@@ -35,10 +35,9 @@ export default{
     methods:{
         handleClick(){
             this.filters.forEach((item)=>{
-                let defaultConfig = item.editorComponent.default;
-                let value = typeof defaultConfig === 'function'?defaultConfig():defaultConfig;
-
-                this.$set(item,'value',value);
+                const defaultConfig = item.editorComponent.default;
+                const value = typeof defaultConfig === 'function'?defaultConfig.call(this):defaultConfig;
+                this.data[item.field] = value;
             });
         },
     },
