@@ -10,7 +10,6 @@ export default{
     },
     render(h,{props,slots}){
         if(props.labelComponent && props.labelComponent.component){
-            console.log(slots().default)
             return slots().default;
         }else{
             return (
