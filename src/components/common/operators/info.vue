@@ -20,13 +20,13 @@
                 <template slot="label" slot-scope="scope">
                     <labels
                         :label="field_list[scope.field].label"
-                        :labelComponent="field_list[scope.field].labelComponent"
+                        :labelComponent="needInjectLabelComponentsMap[scope.field]"
                     >
                         <component
-                            v-if="field_list[scope.field].labelComponent"
-                            :is="field_list[scope.field].labelComponent.name"
+                            v-if="needInjectLabelComponentsMap[scope.field]"
+                            :is="needInjectLabelComponentsMap[scope.field].name"
                             :label="field_list[scope.field].label"
-                            v-bind="field_list[scope.field].labelComponent.config || {}"
+                            v-bind="needInjectLabelComponentsMap[scope.field].config || {}"
                         ></component>
                     </labels>
                 </template>
@@ -62,6 +62,7 @@ import injectComponents from "@/widget/injectComponents"
 
 import {logError} from "@/widget/utility.js"
 
+import filterLabelComponents from "@/injectHelper/labelComponentHelper"
 
 export default{
     name:"info",
@@ -112,13 +113,6 @@ export default{
         },
     },
     computed:{
-        needInjectLabelComponents(){
-            return Object.keys(this.field_list).filter((field)=>{
-                return this.field_list[field].labelComponent;
-            }).map((field)=>{
-                return this.field_list[field].labelComponent;
-            });
-        },
         needInjectViewComponents(){
             return Object.keys(this.field_list).filter((field)=>{
                 return this.field_list[field].view && this.field_list[field].view.component;
@@ -127,7 +121,7 @@ export default{
             });
         },
         hasInjectComponent(){
-            return this.needInjectLabelComponents.length || this.needInjectViewComponents.length;
+            return this.needInjectLabelComponentsList.length || this.needInjectViewComponents.length;
         },
         componentsInjected(){
             return this.labelComponentsInjected && this.viewComponentsInjected;
@@ -136,6 +130,14 @@ export default{
     methods:{
         handleClick(){
             if(!this.injectInited){
+                const {
+                    list,
+                    map,
+                } = filterLabelComponents(this.field_list,Object.keys(this.field_list),'info');
+
+                this.needInjectLabelComponentsList = list;
+                this.needInjectLabelComponentsMap = map;
+
                 this.injectLabelComponents();
                 this.injectViewComponents();
                 this.injectInited = true;
@@ -151,10 +153,10 @@ export default{
             }).catch(logError);
         },
         injectLabelComponents(){
-            if(!this.needInjectLabelComponents.length){
+            if(!this.needInjectLabelComponentsList.length){
                 return this.labelComponentsInjected = true;
             }
-            injectComponents(this,this.needInjectLabelComponents).then(()=>{
+            injectComponents(this,this.needInjectLabelComponentsList).then(()=>{
                 this.labelComponentsInjected = true;
             });
         },

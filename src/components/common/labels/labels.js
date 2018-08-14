@@ -9,7 +9,7 @@ export default{
         },
     },
     render(h,{props,slots}){
-        if(props.labelComponent && props.labelComponent.component){
+        if(props.labelComponent && props.labelComponent){
             return slots().default;
         }else{
             return (

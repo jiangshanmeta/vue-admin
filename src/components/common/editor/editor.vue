@@ -8,13 +8,13 @@
         <template slot="label" slot-scope="scope">
             <labels
                 :label="field_list[scope.field].label"
-                :labelComponent="field_list[scope.field].labelComponent"
+                :labelComponent="needInjectLabelComponents.map[scope.field]"
             >
                 <component
-                    v-if="field_list[scope.field].labelComponent"
-                    :is="field_list[scope.field].labelComponent.name"
+                    v-if="needInjectLabelComponents.map[scope.field]"
+                    :is="needInjectLabelComponents.map[scope.field].name"
                     :label="field_list[scope.field].label"
-                    v-bind="field_list[scope.field].labelComponent.config || {}"
+                    v-bind="needInjectLabelComponents.map[scope.field].config || {}"
                 ></component>
             </labels>
         </template>
@@ -51,6 +51,8 @@ import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import injectComponents from "@/widget/injectComponents"
 
 import AsyncValidator from 'async-validator';
+
+import filterLabelComponents from "@/injectHelper/labelComponentHelper"
 
 
 export default{
@@ -129,11 +131,7 @@ export default{
             },{});
         },
         needInjectLabelComponents(){
-            return this.editFieldsArray.filter((field)=>{
-                return this.field_list[field].labelComponent;
-            }).map((field)=>{
-                return this.field_list[field].labelComponent;
-            });
+            return filterLabelComponents(this.field_list,this.editFieldsArray,this.mode);
         },
         needInjectEditorComponents(){
             return this.editFieldsArray.filter((field)=>{
@@ -143,7 +141,7 @@ export default{
             });
         },
         hasInjectComponent(){
-            return this.needInjectLabelComponents.length && this.needInjectEditorComponents.length;
+            return this.needInjectLabelComponents.list.length && this.needInjectEditorComponents.length;
         },
         componentsInjected(){
             return this.labelComponentsInjected && this.editorComponentsInjected;
@@ -151,11 +149,11 @@ export default{
     },
     methods:{
         injectLabelComponents(){
-            if(!this.needInjectLabelComponents.length){
+            if(!this.needInjectLabelComponents.list.length){
                 return this.labelComponentsInjected = true;
             }
 
-            injectComponents(this,this.needInjectLabelComponents).then(()=>{
+            injectComponents(this,this.needInjectLabelComponents.list).then(()=>{
                 this.labelComponentsInjected = true;
             });
         },

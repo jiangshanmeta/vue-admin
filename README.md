@@ -128,8 +128,16 @@ colspan:{
 
 ```javascript
 labelComponent:{
-    name:"label_redstar",
-    component:()=>import("@/components/user/labels/label_redstar").then((rst)=>rst.default),
+    default:{
+        name:"label_redstar",
+        component:()=>import("@/components/user/labels/label_redstar").then((rst)=>rst.default),
+        exclude:['create']
+    },
+    info:{
+        name:"label_redstar",
+        component:()=>import("@/components/user/labels/label_redstar").then((rst)=>rst.default),
+    },
+    
 },
 ```
 
