@@ -58,7 +58,14 @@ export default{
                     if(configColspan[this.mode]){
                         colspan = configColspan[this.mode];
                     }else if(configColspan.default){
-                        colspan = configColspan[this.mode];
+                        colspan = configColspan.default;
+                        if(typeof configColspan.default === 'object'){
+                            const exclude = configColspan.default.exclude;
+                            if(Array.isArray(exclude) && exclude.includes(this.mode)){
+                                colspan = defaultColspan;
+                            }
+
+                        }
                     }
 
                     if(typeof colspan !== 'object'){

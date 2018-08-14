@@ -156,6 +156,11 @@ export default{
                 component:()=>import("@/components/common/views/view_html").then((rst)=>rst.default),
             },
             colspan:{
+                default:{
+                    label:1,
+                    field:3,
+                    // exclude:['edit'],
+                },
                 create:3,
                 edit:3,
                 info:{
