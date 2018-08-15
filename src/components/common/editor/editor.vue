@@ -141,7 +141,7 @@ export default{
             });
         },
         hasInjectComponent(){
-            return this.needInjectLabelComponents.list.length && this.needInjectEditorComponents.length;
+            return this.needInjectLabelComponents.list.length || this.needInjectEditorComponents.length;
         },
         componentsInjected(){
             return this.labelComponentsInjected && this.editorComponentsInjected;
