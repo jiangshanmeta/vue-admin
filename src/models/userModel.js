@@ -54,6 +54,22 @@ export default{
                 name:"field_pwd",
                 config:{
                     placeholder:'请输入密码',
+                    relates:[
+                        {
+                            relateField:["name"],
+                            handler(info){
+                                console.log(info)
+                                if(info.name === 'lelouch'){
+                                    this.$emit('input',0);
+                                }
+                            },
+                            config:{
+                                immediate:true,
+                            },
+                        }
+                    ],
+
+
                 },
                 default:'',
             },

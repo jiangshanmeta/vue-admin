@@ -153,7 +153,7 @@ function getUserDetail(cb){
 }
 
 const editFields = [
-    ["name"],
+    ["name","password"],
     ["gender","typ"],
     ["privilege"],
     ["desc"]
@@ -165,7 +165,7 @@ function getEditUserInfo(cb){
         if(item.id === id){
             console.log(item);
             cb({
-                fields:editFields,
+                fields:JSON.parse(JSON.stringify(editFields)),
                 record:JSON.parse(JSON.stringify(item)),
             });
             return;

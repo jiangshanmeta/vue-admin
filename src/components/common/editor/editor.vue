@@ -64,6 +64,7 @@ export default{
             labelComponentsInjected:false,
             editorComponentsInjected:false,
             validators:{},
+            recordUnwatchs:[],
             hasValidateListener:false,
         }
     },
@@ -232,7 +233,7 @@ export default{
                             }
 
                             if(typeof relateItem.handler === 'function'){
-                                this.$watch(()=>{
+                                const unwatch = this.$watch(()=>{
                                     if(Array.isArray(relateItem.relateField)){
                                         return relateItem.relateField.reduce((obj,field)=>{
                                             obj[field] = this.record[field];
@@ -241,7 +242,8 @@ export default{
                                     }else{
                                         return this.record[relateItem.relateField]
                                     }
-                                },callback,relateItem.config)
+                                },callback,relateItem.config);
+                                this.recordUnwatchs.push(unwatch);
                             }
                         });
 
@@ -284,15 +286,27 @@ export default{
                     this.validators[field].unwatch && this.validators[field].unwatch();
                 });
 
-                this.labelComponentsInjected = false;
-                this.editorComponentsInjected = false;
                 this.validators = {};
                 this.hasValidateListener = false;
-                this.injectLabelComponents();
-                this.injectEditorComponents();
-                this.initRelates();
                 this.initValidate();
             }
+        },
+        fields:{
+            immediate:true,
+            handler(){
+                this.labelComponentsInjected = false;
+                this.editorComponentsInjected = false;
+                this.injectLabelComponents();
+                this.injectEditorComponents();
+
+                this.recordUnwatchs.forEach((unwatch)=>{
+                    unwatch && unwatch();
+                });
+
+                this.recordUnwatchs = [];
+
+                this.initRelates();
+            },
         },
     },
     props:{
