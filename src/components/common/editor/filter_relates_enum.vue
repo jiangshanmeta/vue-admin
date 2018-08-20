@@ -1,30 +1,28 @@
 <template>
-    <field_relates_enum_select
+    <filter_enum
+        :candidate="finalOptions"
+        :labelfield="labelfield"
+        :valuefield="valuefield"
         v-model="model"
         v-bind="$attrs"
-    >
-        <el-option
-            :value="allvalue"
-            :label="alllabel"
-        ></el-option>
-    </field_relates_enum_select>
+    ></filter_enum>
 </template>
 
 <script>
-import field_relates_enum_select from "./field_relates_enum_select.vue"
+import filter_enum from "./filter_enum"
 
-import _filter_all_mixin from "./_filter_all_mixin.js"
-import _props_value_mixin from "./_props_value_mixin.js"
-import _computed_model_mixin from "./_computed_model_mixin.js"
+import _field_relates_mixin from "./_field_relates_mixin"
+import _props_value_mixin from "./_props_value_mixin"
+import _computed_model_mixin from "./_computed_model_mixin"
 
 export default{
     name:"filter_relates_enum",
     inheritAttrs:true,
     components:{
-        field_relates_enum_select,
+        filter_enum,
     },
     mixins:[
-        _filter_all_mixin,
+        _field_relates_mixin,
         _props_value_mixin,
         _computed_model_mixin,
     ],

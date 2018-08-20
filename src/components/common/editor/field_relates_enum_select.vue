@@ -6,11 +6,7 @@
         :labelfield="labelfield"
         :valuefield="valuefield"
         :isCandidateValid="hasCachedOptions"
-    >
-        <template>
-            <slot></slot>
-        </template>
-    </field_enum_select>
+    ></field_enum_select>
 </template>
 
 <script>
