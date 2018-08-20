@@ -42,7 +42,7 @@
                 <td>
                     <filter_async_enum
                         v-model="filter_async_enum"
-                        uri="/test/field_async_enum_select"
+                        :httpRequest="httpRequest.filter_async_enum"
                         :allvalue="-1"
                         alllabel="不限2"
                         labelfield="name"
@@ -56,7 +56,7 @@
                 <td>
                     <filter_async_model
                         v-model="filter_async_model"
-                        uri='/test/field_async_enum_select'
+                        :httpRequest="httpRequest.filter_async_model"
                         :allvalue="-1"
                         alllabel="不限8"
                         labelfield="name"
@@ -75,6 +75,24 @@ import filter_model from "@/components/common/editor/filter_model"
 import filter_async_enum from "@/components/common/editor/filter_async_enum"
 import filter_async_model from "@/components/common/editor/filter_async_model"
 
+import axios from "@/server/axios"
+
+const fields = {
+    filter_async_enum:"/test/field_async_enum_select",
+    filter_async_model:"/test/field_async_enum_select",
+};
+
+const httpRequest = Object.keys(fields).reduce((obj,field)=>{
+    obj[field] = function(cb){
+        axios.get(`${fields[field]}`).then((json)=>{
+            cb(json.data.data);
+        });
+    }
+    return obj;
+},{})
+
+
+
 export default{
     config:{
         filter_enum_candidate:[
@@ -88,7 +106,8 @@ export default{
             {id:11,name:"李四"},
             {id:12,name:"李五"},
             {id:13,name:"王五"},
-        ]
+        ],
+        httpRequest,
     },
     components:{
         filter_enum,

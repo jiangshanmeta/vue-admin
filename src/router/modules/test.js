@@ -33,7 +33,7 @@ export default{
             label:"筛选",
             component:()=>import("@/pages/test/test_filter"),
             meta:{
-                menuHide:true,
+                // menuHide:true,
             }
         },
 
