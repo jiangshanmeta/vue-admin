@@ -59,6 +59,7 @@ export default{
         filter_model:()=>import("./filter_model"),
         filter_async_model:()=>import("./filter_async_model"),
         filter_relates_enum:()=>import("./filter_relates_enum"),
+        filter_relates_model:()=>import("./filter_relates_model"),
 
         field_enum_select:()=>import("./field_enum_select"),
         field_async_enum_select:()=>import("./field_async_enum_select"),
