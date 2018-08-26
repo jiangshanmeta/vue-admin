@@ -211,47 +211,52 @@ export default{
                 this.validateField.call(this,field,value).catch(()=>{})
             })
         },
-        initRelates(){
-            this.fields.forEach((row)=>{
-                row.forEach((field)=>{
+        resetRelates(){
+            this.recordUnwatchs.forEach((unwatch)=>{
+                unwatch && unwatch();
+            });
+            this.recordUnwatchs = [];
 
-                    if(this.field_list[field].editorComponent && this.field_list[field].editorComponent.config && this.field_list[field].editorComponent.config.relates){
-                        observe_relates(this.field_list[field].editorComponent.config.relates,this.record);
+            this.editFieldsArray.forEach((field)=>{
+                const editorComponent = this.field_list[field].editorComponent;
+                if(!editorComponent || !editorComponent.config || !editorComponent.config.relates){
+                    return;
+                }
+                const relates = this.field_list[field].editorComponent.config.relates;
+                observe_relates(relates,this.record);
 
-                        let relates = this.field_list[field].editorComponent.config.relates;
-
-                        relates.forEach((relateItem)=>{
-
-                            let callback = function(newVal,oldVal){
-                                if(this.$refs[field]){
-                                    relateItem.handler.call(this.$refs[field],newVal,this.field_list[field],oldVal);
-                                }else{
-                                    setTimeout(()=>{
-                                        callback.call(this,newVal,oldVal)
-                                    },0)
-                                }
-                            }
-
-                            if(typeof relateItem.handler === 'function'){
-                                const unwatch = this.$watch(()=>{
-                                    if(Array.isArray(relateItem.relateField)){
-                                        return relateItem.relateField.reduce((obj,field)=>{
-                                            obj[field] = this.record[field];
-                                            return obj;
-                                        },{});
-                                    }else{
-                                        return this.record[relateItem.relateField]
-                                    }
-                                },callback,relateItem.config);
-                                this.recordUnwatchs.push(unwatch);
-                            }
-                        });
-
-
+                relates.forEach((relateItem)=>{
+                    if(typeof relateItem.handler !== 'function'){
+                        return;
                     }
 
-                })
+                    let callback = function(newVal,oldVal){
+                        if(this.$refs[field]){
+                            relateItem.handler.call(this.$refs[field],newVal,this.field_list[field],oldVal);
+                        }else{
+                            setTimeout(()=>{
+                                callback.call(this,newVal,oldVal)
+                            },0)
+                        }
+                    }
+
+                    const unwatch = this.$watch(()=>{
+                        if(Array.isArray(relateItem.relateField)){
+                            return relateItem.relateField.reduce((obj,field)=>{
+                                obj[field] = this.record[field];
+                                return obj;
+                            },{});
+                        }else{
+                            return this.record[relateItem.relateField]
+                        }
+                    },callback,relateItem.config);
+
+                    this.recordUnwatchs.push(unwatch);
+
+                });
+
             });
+
         },
         initValidate(){
             this.fields.forEach((row)=>{
@@ -298,14 +303,6 @@ export default{
                 this.editorComponentsInjected = false;
                 this.injectLabelComponents();
                 this.injectEditorComponents();
-
-                this.recordUnwatchs.forEach((unwatch)=>{
-                    unwatch && unwatch();
-                });
-
-                this.recordUnwatchs = [];
-
-                this.initRelates();
             },
         },
     },
@@ -331,6 +328,18 @@ export default{
             default:"create"
         }
     },
+    created(){
+        this.$watch(()=>{
+            return {
+                record:this.record,
+                fields:this.fields,
+            };
+        },this.resetRelates,{
+            immediate:true,
+        })
+    },
+
+
 }
 </script>
 
