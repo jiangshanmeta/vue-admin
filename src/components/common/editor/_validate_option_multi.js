@@ -6,16 +6,10 @@ export default Object.assign({},validateOption,{
             if(!this.isCandidateValid){
                 return;
             }
-            // let allvalueSet = this._gen_allvalue_set();
 
-            let allvalueSet = new Set();
-            for(let item of this.candidate){
-                allvalueSet.add(item[this.valuefield]);
-            }
+            const allvalueSet = this.allvalueSet;
 
             let valueSet = new Set();
-
-            let len = this.value.length;
 
             for(let item of this.value){
                 // 候选项没有该值，按无效处理

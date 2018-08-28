@@ -7,17 +7,12 @@ export default Object.assign({},validateOption,{
                 return;
             }
 
-            let allvalueSet = new Set();
-            for(let item of this.candidate){
-                allvalueSet.add(item[this.valuefield]);
-            }
+            const allvalueSet = this.allvalueSet;
 
             // 对于单选，只有候选项不含该值的情况
             if(!allvalueSet.has(this.value)){
                 this.handleInvalidValue(this.value,[...allvalueSet]);
             }
-
-
         },
     },
 });

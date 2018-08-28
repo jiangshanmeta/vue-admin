@@ -11,24 +11,23 @@ export default{
             default:noop,
         },
     },
-    watch:{
-        value:{
-            handler:"validateOption",
-            immediate:true,
-        },
-        candidate:{
-            handler:"validateOption",
-            immediate:true,
+    computed:{
+        allvalueSet(){
+            return this.candidate.reduce((set,item)=>{
+                set.add(item[this.valuefield]);
+                return set;
+            },new Set());
         },
     },
-    methods:{
-        _gen_allvalue_set(){
-            let allvalueSet = new Set();
-            for(let item of this.candidate){
-                allvalueSet.add(item[this.valuefield]);
-            }
-            return allvalueSet;
-        },
+    created(){
+        this.$watch(()=>{
+            return {
+                value:this.value,
+                candidate:this.candidate,
+            };
+        },this.validateOption,{
+            immediate:true,
+        });
     },
 }
 
