@@ -26,7 +26,10 @@ export default{
             type:Function,
             default:noop,
         },
-        
+        relateData:{
+            type:Object,
+            required:true,
+        },
     },
     methods:{
         getOptions(){
@@ -39,14 +42,13 @@ export default{
                 return;
             }
 
-            let queryObj = {};
-            let cacheObj = {};
+            const queryObj = this.relateKeys.reduce((queryObj,field)=>{
+                const queryKey = this.requestFieldMap.hasOwnProperty(field)?this.requestFieldMap[field]:field;
+                queryObj[queryKey] = this.relateData[field];
+                return queryObj;
+            },Object.create(null));
 
-            this.relates.forEach((item)=>{
-                let queryKey = item.hasOwnProperty("requestField")?item.requestField:item.relateField;
-                queryObj[queryKey] = item.value;
-                cacheObj[item.relateField] = item.value;
-            });
+            const cacheObj = JSON.parse(JSON.stringify(this.relateData));
 
             new Promise((resolve,reject)=>{
                 this.httpRequest(resolve,queryObj)
@@ -57,33 +59,44 @@ export default{
         },
         setCacheOptions(options,cacheObj){
             let start = this.optionsCache;
-            let len = this.relates.length;
+            const len = this.relateKeys.length;
             let counter = 0;
             while(counter<len-1){
-                let cacheKey = cacheObj[this.relates[counter++].relateField];
+                let cacheKey = cacheObj[this.relateKeys[counter++]];
                 if(!start.hasOwnProperty(cacheKey)){
                     this.$set(start,cacheKey,{});
                 }
                 start = start[cacheKey];
             }
-            this.$set(start,this.relates[len-1]['value'],options);
+            this.$set(start,cacheObj[this.relateKeys[len-1]],options);
         },
     },
     computed:{
+        relateKeys(){
+            return Object.keys(this.relateData);
+        },
+        requestFieldMap(){
+            return this.relates[0].requestField || {};
+        },
+        invalidValueMap(){
+            return this.relates[0].invalidValue || {};
+        },
         finalOptions(){
             if(!this.hasValidIds || !this.hasCachedOptions){
                 return [];
             }
-            let length = this.relates.length;
+
+            const length = this.relateKeys.length;
             let counter = 0;
             let start = this.optionsCache;
             while(counter<length){
-                start = start[this.relates[counter++]['value'] ];
+                start = start[this.relateData[this.relateKeys[counter++]]];
             }
+
             return start;
         },
         allOptions(){
-            let level = this.relates.length;
+            const level = this.relateKeys.length;
             let counter = 0;
 
             let levelTree = [];
@@ -110,21 +123,20 @@ export default{
             return Object.values(rst);
         },
         hasValidIds(){
-            for(let item of this.relates){
-                if(item.value === item.invalidValue){
-                    return false;
-                }
-            }
-            return true;
+            return this.relateKeys.every((field)=>{
+                return this.relateData[field] !== this.invalidValueMap[field];
+            });
         },
         hasCachedOptions(){
             let start = this.optionsCache;
-            let len = this.relates.length;
+            const len = this.relateKeys.length;
+
             let counter = 0;
             let relateId;
 
             while(counter<len){
-                relateId = this.relates[counter++]['value'];
+                relateId = this.relateData[this.relateKeys[counter++]]
+
                 if(!start.hasOwnProperty(relateId)){
                     return false;
                 }
@@ -140,7 +152,7 @@ export default{
         }
     },
     watch:{
-        relates:{
+        relateData:{
             handler:'getOptions',
             deep:true,
             immediate:true

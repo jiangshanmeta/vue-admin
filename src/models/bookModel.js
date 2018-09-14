@@ -96,8 +96,14 @@ export default{
                 config:{
                     relates:[
                         {
-                            invalidValue:"",
-                            relateField:"store",
+                            relateField:["store"],
+                            invalidValue:{
+                                store:"",
+                            },
+                            requestField:{
+                                store:"storeId",
+                            },
+                            propField:"relateData",
                         }
                     ],
                     httpRequest:getSaler,

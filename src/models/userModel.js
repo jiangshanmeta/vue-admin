@@ -146,10 +146,22 @@ export default{
                     valuefield:'id',
                     relates:[
                         {
-                            invalidValue:0,
-                            relateField:'typ',
-                            requestField:'req_typ',
-                        }
+                            relateField:["typ"],
+                            requestField:{
+                                typ:"req_typ"
+                            },
+                            invalidValue:{
+                                typ:0,
+                            },
+                            propField:"relateData",
+                        },
+
+
+                        // {
+                        //     invalidValue:0,
+                        //     relateField:'typ',
+                        //     requestField:'req_typ',
+                        // }
                     ],
                 },
                 default(){
@@ -238,33 +250,38 @@ export default{
                 default:-1,
             },
         },
-        {
-            label:"权限",
-            field:"privilege",
-            editorComponent:{
-                name:"filter_relates_enum",
-                config:{
-                    httpRequest:getPrivilege,
-                    valuefield:"id",
-                    labelfield:"name",
-                    placeholder:"请选择权限",
-                    allvalue:"all",
-                    alllabel:"不限",
-                    relates:[
-                        {
-                            invalidValue:-1,
-                            relateField:'typ',
-                            requestField:'req_typ',
-                        }
-                    ],
-                    handleInvalidRelateIds(){
-                        this.$emit("input","all");
-                    },
+        // {
+        //     label:"权限",
+        //     field:"privilege",
+        //     editorComponent:{
+        //         name:"filter_relates_enum",
+        //         config:{
+        //             httpRequest:getPrivilege,
+        //             valuefield:"id",
+        //             labelfield:"name",
+        //             placeholder:"请选择权限",
+        //             allvalue:"all",
+        //             alllabel:"不限",
+        //             relates:[
+        //                 {
+        //                     relateField:["typ"],
+        //                     invalidValue:{
+        //                         typ:-1,
+        //                     },
+        //                     requestField:{
+        //                         typ:"req_typ"
+        //                     },
+        //                     propField:"relateData",
+        //                 },
+        //             ],
+        //             handleInvalidRelateIds(){
+        //                 this.$emit("input","all");
+        //             },
 
-                },
-                default:"all",
-            },
-        },
+        //         },
+        //         default:"all",
+        //     },
+        // },
         {
             label:"自定义filter",
             field:"test",

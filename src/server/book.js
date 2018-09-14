@@ -9,8 +9,9 @@ function getStore(cb){
 }
 
 function getSaler(cb,data){
-    let storeId = data.store;
+    let storeId = data.storeId;
     let rst;
+    console.log("get saler",storeId);
     switch(storeId){
         case 3:
             rst = [
@@ -65,7 +66,7 @@ let id = bookTable.length + 1;
 const createFields = [
     ["customername","totalprice"],
     ["address"],
-    // ["store","saler"]
+    ["store","saler"]
 ];
 
 function getCreateFields(cb){
