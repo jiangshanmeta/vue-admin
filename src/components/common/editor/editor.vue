@@ -23,7 +23,7 @@
                 :ref="scope.field"
                 :is="field_list[scope.field].editorComponent.name" 
                 v-model="record[scope.field]" 
-                v-bind="mergeAttrsConfig(field_list[scope.field].editorComponent.config,field_list[scope.field].editorComponent[mode + 'Config'])"
+                v-bind="generateEditorProp(scope.field)"
             ></component>
             <p 
                 v-if="field_list[scope.field].tip" 
@@ -42,23 +42,13 @@
 </template>
 
 <script>
+import AsyncValidator from 'async-validator';
 import labels from "@/components/common/labels/labels"
 
-import {observe_relates} from "./field_relates_helper.js"
-
-import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
-
 import injectComponents from "@/widget/injectComponents"
-
-import AsyncValidator from 'async-validator';
-
 import filterLabelComponents from "@/injectHelper/labelComponentHelper"
 
-
 export default{
-    mixins:[
-        mergeAttrsConfig,
-    ],
     data(){
         return {
             labelComponentsInjected:false,
@@ -149,6 +139,31 @@ export default{
         },
     },
     methods:{
+        getRelateData(relateItem){
+            if(Array.isArray(relateItem.relateField)){
+                return relateItem.relateField.reduce((obj,field)=>{
+                    obj[field] = this.record[field];
+                    return obj;
+                },{});
+            }else{
+                return this.record[relateItem.relateField]
+            }
+        },
+        generateEditorProp(field){
+            const editorComponent = this.field_list[field].editorComponent;
+            const defaultConfig = editorComponent.config || {};
+            const modeConfig = editorComponent[`${this.mode}Config`] || {};
+            const config = Object.assign({},defaultConfig,modeConfig);
+            const {
+                relates=[]
+            } = config;
+            const relateProps = relates.filter(item=>item.propField).reduce((obj,item)=>{
+                obj[item.propField] = this.getRelateData(item);
+                return obj;
+            },Object.create(null));
+
+            return Object.assign({},config,relateProps);
+        },
         injectLabelComponents(){
             if(!this.needInjectLabelComponents.list.length){
                 return this.labelComponentsInjected = true;
@@ -223,12 +238,8 @@ export default{
                     return;
                 }
                 const relates = this.field_list[field].editorComponent.config.relates;
-                observe_relates(relates,this.record);
 
-                relates.forEach((relateItem)=>{
-                    if(typeof relateItem.handler !== 'function'){
-                        return;
-                    }
+                relates.filter(relateItem=>typeof relateItem.handler === 'function').forEach((relateItem)=>{
 
                     let callback = function(newVal,oldVal){
                         if(this.$refs[field]){
@@ -241,14 +252,7 @@ export default{
                     }
 
                     const unwatch = this.$watch(()=>{
-                        if(Array.isArray(relateItem.relateField)){
-                            return relateItem.relateField.reduce((obj,field)=>{
-                                obj[field] = this.record[field];
-                                return obj;
-                            },{});
-                        }else{
-                            return this.record[relateItem.relateField]
-                        }
+                        return this.getRelateData(relateItem);
                     },callback,relateItem.config);
 
                     this.recordUnwatchs.push(unwatch);

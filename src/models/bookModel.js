@@ -65,6 +65,15 @@ export default{
             label:"收货地址",
             editorComponent:{
                 name:"field_text",
+                component:()=>import("@/components/book/editor/bookAddress").then((rst)=>rst.default),
+                config:{
+                    relates:[
+                        {
+                            relateField:"customername",
+                            propField:"customername",
+                        }
+                    ],
+                },
                 default:"",
             },
         },
@@ -124,6 +133,7 @@ export default{
                 },
                 dialogConfig:{
                     title:"新建订单",
+                    width:"800px",
                 },
                 createBtnConfig:{
                     text:"确认创建",
