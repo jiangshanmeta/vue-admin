@@ -12,8 +12,9 @@
         >
             <component
                 :is="item.editorComponent.name"
+                :ref="item.field"
                 v-model="filtersValueMap[item.field]"
-                v-bind="mergeAttrsConfig(item.editorComponent.config)"
+                v-bind="generateFilterProp(item)"
             ></component>
         </el-form-item>
         <el-form-item>
@@ -136,13 +137,56 @@ export default{
                 return obj;
             },{});
         },
+        getRelateData(relateItem){
+            if(Array.isArray(relateItem.relateField)){
+                return relateItem.relateField.reduce((obj,field)=>{
+                    obj[field] = this.filtersValueMap[field];
+                    return obj;
+                },{});
+            }else{
+                return this.filtersValueMap[relateItem.relateField]
+            }
+        },
+        // 支持 editorComponent relates propField 模式
+        generateFilterProp(filterItem){
+            const config = filterItem.editorComponent.config || {};
+            const {
+                relates=[]
+            } = config
+
+            const relateProps = relates.filter(item=>item.propField).reduce((obj,item)=>{
+                obj[item.propField] = this.getRelateData(item);
+                return obj;
+            },Object.create(null));
+
+            return Object.assign({},this.$attrs,config,relateProps);
+        },
         initRelates(){
-            // TODO support custom relates
-            this.filters.forEach((item)=>{
-                if(item.editorComponent && item.editorComponent.config && item.editorComponent.config.relates){
-                    observe_relates(item.editorComponent.config.relates,this.filtersValueMap)
+            // 支持 editorComponent relates handler 模式
+            this.filters.forEach((filterItem)=>{
+                if(!filterItem.editorComponent || !filterItem.editorComponent.config || !Array.isArray(filterItem.editorComponent.config.relates) ){
+                    return;
                 }
-            })
+
+                const relates = filterItem.editorComponent.config.relates;
+                relates.filter((relateItem)=>typeof relateItem.handler === 'function').forEach((relateItem)=>{
+                    let callback = function(newVal,oldVal){
+                        if(this.$refs[filterItem.field] && this.$refs[filterItem.field][0]){
+                            relateItem.handler.call(this.$refs[filterItem.field][0],newVal,oldVal);
+                        }else{
+                            setTimeout(()=>{
+                                callback.call(this,newVal,oldVal)
+                            },0)
+                        }
+                    }
+
+                    this.$watch(()=>{
+                        return this.getRelateData(relateItem);
+                    },callback,relateItem.config)
+
+                });
+
+            });
         },
         initWatch(){
             const watchFilters = this.filters.filter(item=>item.watch);

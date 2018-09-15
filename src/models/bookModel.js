@@ -221,6 +221,23 @@ export default{
             editorComponent:{
                 name:"field_number",
                 default:500,
+                config:{
+                    relates:[
+                        {
+                            relateField:"customername",
+                            handler(customername){
+                                console.log(customername);
+                                if(customername === 'lelouch'){
+                                    this.$emit("input",2333);
+                                }
+                            },
+                            config:{
+                                immediate:true,
+                            },
+                        }
+                        
+                    ],
+                },
             }
         },
     ],
