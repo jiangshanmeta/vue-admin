@@ -118,82 +118,12 @@
                     ></field_async_array_model_json>
                 </td>
             </tr>
-
-
-
-
-            <tr>
-                <td>field_relates_tag</td>
-                <td>{{field_relates_tag}}</td>
-                <td>
-                    <field_relates_tag
-                        v-model="field_relates_tag"
-                        :relates="field_relates_tag_relates"
-                        labelfield="name"
-                        valuefield="id"
-                        :handleInvalidValue="handleTagInvalid"
-                        :handleInvalidRelateIds="handleInvalidRelateIds"
-                        :httpRequest="httpRequest.field_relates_tag"
-                    ></field_relates_tag>
-                </td>
-            </tr>
-            <tr>
-                <td>field_relates_tag_json</td>
-                <td>{{field_relates_tag_json}} || {{typeof field_relates_tag_json}}</td>
-                <td>
-                    <field_relates_tag_json
-                        v-model="field_relates_tag_json"
-                        :relates="field_relates_tag_relates"
-                        labelfield="name"
-                        valuefield="id"
-                        :handleInvalidValue="handleTagInvalid"
-                        :handleInvalidRelateIds="handleInvalidRelateIds"
-                        :httpRequest="httpRequest.field_relates_tag_json"
-                    ></field_relates_tag_json>
-                </td>
-            </tr>
-
-
-
-            <tr>
-                <td>field_relates_array_model</td>
-                <td>{{field_relates_array_model}}</td>
-                <td>
-                    <field_relates_array_model
-                        v-model="field_relates_array_model"
-                        :relates="field_relates_model_relates"
-                        labelfield="name"
-                        valuefield="id"
-                        :handleInvalidValue="handleTagInvalid"
-                        :httpRequest="httpRequest.field_relates_array_model"
-                    ></field_relates_array_model>
-                </td>
-            </tr>
-            <tr>
-                <td>field_relates_array_model_json</td>
-                <td>{{field_relates_array_model_json}} || {{typeof field_relates_array_model_json}}</td>
-                <td>
-                    <field_relates_array_model_json
-                        v-model="field_relates_array_model_json"
-                        :relates="field_relates_model_relates"
-                        labelfield="name"
-                        valuefield="id"
-                        :handleInvalidValue="handleTagInvalid"
-                        :httpRequest="httpRequest.field_relates_array_model_json"
-                    ></field_relates_array_model_json>
-                </td>
-            </tr>
-
-
-
         </tbody>
     </table>
 </section>
 </template>
 
 <script>
-import {observe_relates} from "@/components/common/editor/field_relates_helper.js"
-
 import {unique,clearInvalidData} from "@/components/common/editor/_validate_option"
 
 import axios from "@/server/axios"
@@ -203,10 +133,6 @@ const fields = {
     field_async_tag_json:"field_async_tag",
     field_async_array_model:"field_async_array_model",
     field_async_array_model_json:"field_async_array_model",
-    field_relates_tag:"field_relates_tag",
-    field_relates_tag_json:"field_relates_tag",
-    field_relates_array_model:"field_relates_array_model",
-    field_relates_array_model_json:"field_relates_array_model",
 }
 
 const httpRequest = Object.keys(fields).reduce((obj,field)=>{
@@ -236,21 +162,6 @@ export default{
             {id:5,name:"simple"},
             {id:6,name:"naive"}
         ],
-        field_relates_tag_relates:[
-            {
-                relateField:"relates",
-                invalidValue:"",
-                requestField:"sex"
-            },
-        ],
-        field_relates_model_relates:[
-            {
-                relateField:"relates",
-                invalidValue:"",
-                requestField:"sex"
-            },
-
-        ],
         handleTagInvalid:function(value,allvalue){
             this.$emit('input',clearInvalidData(value,allvalue))
         },
@@ -268,10 +179,6 @@ export default{
         field_array_model_json:()=>import("@/components/common/editor/field_array_model_json"),
         field_async_array_model:()=>import("@/components/common/editor/field_async_array_model"),
         field_async_array_model_json:()=>import("@/components/common/editor/field_async_array_model_json"),
-        field_relates_tag:()=>import("@/components/common/editor/field_relates_tag"),
-        field_relates_tag_json:()=>import("@/components/common/editor/field_relates_tag_json"),
-        field_relates_array_model:()=>import("@/components/common/editor/field_relates_array_model"),
-        field_relates_array_model_json:()=>import("@/components/common/editor/field_relates_array_model_json"),
     },
     data(){
         return {
@@ -284,15 +191,10 @@ export default{
             field_array_model_json:"",
             field_async_array_model:[2,2,8],
             field_async_array_model_json:"",
-            field_relates_tag:[2,2,8],
-            field_relates_tag_json:"[2,2,8]",
-            field_relates_array_model:[2,2,8],
-            field_relates_array_model_json:"[2,2,8]",
         }
     },
     created(){
-        observe_relates(this.field_relates_tag_relates,this)
-        observe_relates(this.field_relates_model_relates,this)
+
 
         setTimeout(()=>{
             // this.field_tag = [1,1,5,7];

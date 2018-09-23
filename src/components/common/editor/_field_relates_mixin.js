@@ -14,14 +14,6 @@ export default{
             type:Function,
             required:true,
         },
-        labelfield:{
-            type:String,
-            default:'label',
-        },
-        valuefield:{
-            type:String,
-            default:'value',
-        },
         handleInvalidRelateIds:{
             type:Function,
             default:noop,
@@ -95,33 +87,6 @@ export default{
 
             return start;
         },
-        allOptions(){
-            const level = this.relateKeys.length;
-            let counter = 0;
-
-            let levelTree = [];
-            levelTree[0] = [this.optionsCache];
-
-            while(counter < level){
-                levelTree[counter+1] = levelTree[counter].reduce((arr,item)=>{
-                    let child = Object.values(item);
-                    return arr.concat(child);
-                },[]);
-                counter++;
-            }
-
-            let valuefield = this.valuefield;
-            let rst = levelTree[counter].reduce((obj,item)=>{
-                item.reduce((obj,item)=>{
-                    obj[item[valuefield]] = item
-                    return obj;
-                },obj)
-
-                return obj
-            },{})
-
-            return Object.values(rst);
-        },
         hasValidIds(){
             return this.relateKeys.every((field)=>{
                 return this.relateData[field] !== this.invalidValueMap[field];
@@ -154,7 +119,6 @@ export default{
     watch:{
         relateData:{
             handler:'getOptions',
-            deep:true,
             immediate:true
         },
     },

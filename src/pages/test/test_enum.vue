@@ -106,48 +106,9 @@
                     ></field_async_model>
                 </td>
             </tr>
-            <tr>
-                <td>field_relates_enum_radio</td>
-                <td>{{field_relates_enum_radio}}</td>
-                <td>
-                    <field_relates_enum_radio
-                        v-model="field_relates_enum_radio"
-                        :relates="field_relates_enum_radio_relates"
-                        labelfield="name"
-                        valuefield="id"
-                        :handleInvalidValue="handleInvalidValue"
-                        :httpRequest="httpRequest.field_relates_enum_radio"
-                    ></field_relates_enum_radio>
-                </td>
-            </tr>
-            <tr>
-                <td>field_relates_enum_select</td>
-                <td>{{field_relates_enum_select}}</td>
-                <td>
-                    <field_relates_enum_select
-                        v-model="field_relates_enum_select"
-                        :relates="field_relates_enum_radio_relates"
-                        labelfield="name"
-                        valuefield="id"
-                        :handleInvalidValue="handleInvalidValue"
-                        :httpRequest="httpRequest.field_relates_enum_select"
-                    ></field_relates_enum_select>
-                </td>
-            </tr>
-            <tr>
-                <td>field_relates_model</td>
-                <td>{{field_relates_model}}</td>
-                <td>
-                    <field_relates_model
-                        v-model="field_relates_model"
-                        :relates="field_relates_enum_radio_relates"
-                        labelfield="name"
-                        valuefield="id"
-                        :handleInvalidValue="handleInvalidValue"
-                        :httpRequest="httpRequest.field_relates_model"
-                    ></field_relates_model>
-                </td>
-            </tr>
+
+
+
         </tbody>
     </table>
 </section>
@@ -165,12 +126,10 @@ import field_async_enum_radio from "@/components/common/editor/field_async_enum_
 import field_async_enum_select from "@/components/common/editor/field_async_enum_select"
 import field_async_model from "@/components/common/editor/field_async_model"
 
-import field_relates_enum_radio from "@/components/common/editor/field_relates_enum_radio"
-import field_relates_enum_select from "@/components/common/editor/field_relates_enum_select"
-import field_relates_model from "@/components/common/editor/field_relates_model"
 
 
-import {observe_relates} from "@/components/common/editor/field_relates_helper.js"
+
+
 
 import axios from "@/server/axios"
 
@@ -178,9 +137,6 @@ const fields = [
     "field_async_enum_radio",
     "field_async_enum_select",
     "field_async_model",
-    "field_relates_enum_radio",
-    "field_relates_enum_select",
-    "field_relates_model",
 ];
 
 const httpRequest = fields.reduce((obj,field)=>{
@@ -203,9 +159,6 @@ export default{
         field_async_enum_radio,
         field_async_enum_select,
         field_async_model,
-        field_relates_enum_radio,
-        field_relates_enum_select,
-        field_relates_model,
     },
     config:{
         field_enum_candidate:[
@@ -213,15 +166,6 @@ export default{
             {valuefield:2,label:"zwei"},
             {valuefield:3,label:"drei"},
             {valuefield:4,label:"fuer"},
-        ],
-        field_relates_enum_radio_relates:[
-            {
-                relateField:"field_bool"
-            },
-            {
-                relateField:"field_enum_radio"
-            }
-
         ],
         handleInvalidValue:function(value,options){
             this.$emit('input',options[Math.floor(Math.random()*options.length)]);
@@ -239,9 +183,7 @@ export default{
             field_async_enum_radio:"",
             field_async_enum_select:"",
             field_async_model:1,
-            field_relates_enum_radio:1,
-            field_relates_enum_select:2,
-            field_relates_model:3,
+
         }
     },
     beforeCreate(){
@@ -250,7 +192,7 @@ export default{
 
 
     created(){
-        observe_relates(this.field_relates_enum_radio_relates,this)
+
 
         // setTimeout(()=>{
         //     this.field_sex = 1;

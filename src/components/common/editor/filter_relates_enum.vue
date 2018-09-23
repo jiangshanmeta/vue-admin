@@ -1,8 +1,7 @@
 <template>
     <filter_enum
         :candidate="finalOptions"
-        :labelfield="labelfield"
-        :valuefield="valuefield"
+        :isCandidateValid="hasCachedOptions"
         v-model="model"
         v-bind="$attrs"
     ></filter_enum>

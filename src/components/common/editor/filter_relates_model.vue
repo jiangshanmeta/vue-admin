@@ -1,8 +1,7 @@
 <template>
     <filter_model
         :candidate="finalOptions"
-        :labelfield="labelfield"
-        :valuefield="valuefield"
+        :isCandidateValid="hasCachedOptions"
         v-model="model"
         v-bind="$attrs"
     ></filter_model>

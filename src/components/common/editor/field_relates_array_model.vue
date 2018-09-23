@@ -3,8 +3,6 @@
         v-model="model"
         v-bind="$attrs"
         :candidate="finalOptions"
-        :labelfield="labelfield"
-        :valuefield="valuefield"
         :isCandidateValid="hasCachedOptions"
     ></field_array_model>
 </template>
