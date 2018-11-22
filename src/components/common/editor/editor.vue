@@ -25,13 +25,11 @@
                 v-model="record[scope.field]" 
                 v-bind="generateEditorProp(scope.field)"
             ></component>
-            <p 
-                v-if="field_list[scope.field].tip" 
-                class="form-helper"
-            >
-                {{field_list[scope.field].tip}}
-            </p>
-            <p 
+            <tip
+                v-if="field_list[scope.field].tip"
+                :tip="field_list[scope.field].tip"
+            ></tip>
+            <p
                 v-if="validators[scope.field] && validators[scope.field]['hasErr']"
                 class="text-danger form-helper"
             >
@@ -43,7 +41,8 @@
 
 <script>
 import AsyncValidator from 'async-validator';
-import labels from "@/components/common/labels/labels"
+import labels from "@/components/common/labels/labels";
+import tip from "@/components/common/editor/tip"
 
 import injectComponents from "@/widget/injectComponents"
 import filterLabelComponents from "@/injectHelper/labelComponentHelper"
@@ -60,6 +59,7 @@ export default{
     },
     components:{
         labels,
+        tip,
         field_array_model:()=>import("./field_array_model"),
         field_array_model_json:()=>import("./field_array_model_json"),
         field_async_array_model:()=>import("./field_async_array_model"),
