@@ -4,7 +4,7 @@
         :size="size"
         @click="handleClick"
     >
-        重置
+        {{btnText}}
     </el-button>
 </template>
 
@@ -32,13 +32,10 @@ export default{
             default:"重置",
         },
     },
+    inject:["filtersComponent"],
     methods:{
         handleClick(){
-            this.filters.forEach((item)=>{
-                const defaultConfig = item.editorComponent.default;
-                const value = typeof defaultConfig === 'function'?defaultConfig.call(this):defaultConfig;
-                this.data[item.field] = value;
-            });
+            this.filtersComponent.resetValue();
         },
     },
 }
