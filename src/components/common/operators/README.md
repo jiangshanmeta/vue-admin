@@ -1,3 +1,57 @@
+在model中的operators是一个数组，数组中每一项对应一个操作。操作支持两种声明方式：第一种是声明一个函数，第二种是声明一个组件。
+
+第一种声明示例如下：
+
+```javascript
+{
+    handler(resolve,data){
+        this.$message({
+            message:`${data.name}不要总想着搞个大新闻`,
+            type:"success",
+            duration:2000,
+        });
+        setTimeout(()=>{
+            resolve();
+        },1000)
+    },
+    triggerConfig:{
+        text:"搞个大新闻",
+        type:"warning",
+        size:"small",
+    },
+}
+```
+
+这种声明方式被渲染为一个button，triggerConfig.text是button显示的文字，triggerConfig.type是按钮的类型(el-button的类型) ，handler是点击按钮时的调用的函数，调用resolve方法,operators组件会自动通知父组件状态更新，列表页会自动刷新。注意这里的this指向的是这个operators组件。
+
+第二种声明方式示例如下：
+
+```javascript
+{
+    name:"delete",
+    component:()=>import("@/components/common/operators/delete").then((rst)=>rst.default),
+    config:{
+        // delete组件有个名为uri的props属性
+        uri:"/user/delete",
+    }
+}
+```
+
+name字段是组件名，对应组件的name属性。component是要传入的组件，一般结合动态导入import()使用。考虑到组件复用问题，还有一个config参数，用来向这些子组件传递配置参数。在这种模式下，仅需声明这三项，其余的operators组件会自动处理。
+
+在这种声明情况下，一个data参数会被自动传入，对应一条记录(一个对象)。
+
+
+这种声明方式要想通知列表刷新需要手动触发update事件：
+
+```javascript
+this.$emit('update')
+```
+
+
+
+下面是几个内置的operators组件说明
+
 ## info
 
 用来展示详情信息的操作组件

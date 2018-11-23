@@ -1,3 +1,8 @@
+staticOperators声明方式与operators一致，所不同的是对于传入的data参数含义不同，对应列表中的所有数据(数组)。另外还会传入selectedData参数，如果有选中的话对应选中的数据(一个数组)
+
+
+下面是几个内置staticOperators组件的说明
+
 ## create
 
 创建model的组件
