@@ -1,15 +1,29 @@
 export default{
     functional:true,
-    render(h,{props,data}){
+    props:{
+        view:{
+            type:Object,
+            required:true,
+        },
+        record:{
+            type:Object,
+            required:true,
+        },
+        field:{
+            type:String,
+            required:true,
+        },
+    },
+    render(h,{props,data,parent}){
         let info = props.record[props.field];
         
-        if(props.descriptor.view){
+        if(props.view){
             const {
                 config={},
                 join,
                 component,
                 handler,
-            } = props.descriptor.view;
+            } = props.view;
 
             let isJoinField = false;
             if(typeof join === 'object'){
@@ -47,7 +61,7 @@ export default{
             }else if(handler){
                 return (
                     <span>
-                        {handler(info,config)}
+                        {handler.call(parent,info,config)}
                     </span>
                 )
             }
@@ -57,18 +71,4 @@ export default{
             )
         }
     },
-    props:{
-        descriptor:{
-            type:Object,
-            required:true,
-        },
-        record:{
-            type:Object,
-            required:true,
-        },
-        field:{
-            type:String,
-            required:true,
-        },
-    }
 }

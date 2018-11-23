@@ -32,7 +32,7 @@
                 </template>
                 <template slot-scope="scope">
                     <views
-                        :descriptor="field_list[scope.field]"
+                        :view="field_list[scope.field].view"
                         :record="record"
                         :field="scope.field"
                     >

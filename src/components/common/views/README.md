@@ -18,6 +18,7 @@ join:{
 ```javascript
 view:{
     // handler是一个函数，对应函数模式
+    // 为了使用方便，this被绑定到父组件上
     handler(data,config){
         return `${data.customername} ${config.glue} ${data.address}`;
     },
@@ -48,8 +49,8 @@ view:{
 }
 ```
 
+考虑到viewComponent仅仅是负责展示，因而推荐使用functional component。下面提及的几个viewComponent实现也都是基于functional component的。
 
-下面是几个通用的view组件的说明
 
 ## view_enum
 

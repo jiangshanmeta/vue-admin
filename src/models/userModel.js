@@ -28,8 +28,8 @@ export default{
                 default:'3',
             },
             view:{
-                handler(data,config,record){
-                    // console.log(record);
+                handler(data,config){
+                    // console.log(this);
                     return config.prefix + data;
                 },
                 config:{

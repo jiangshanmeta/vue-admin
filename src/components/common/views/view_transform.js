@@ -1,10 +1,6 @@
-<template>
-    <span>{{transform(data)}}</span>
-</template>
-
-<script>
 export default{
     name:"view_transform",
+    functional:true,
     props:{
         data:{
             required:true,
@@ -16,5 +12,13 @@ export default{
             },
         }
     },
+    render(h,{props}){
+        const {
+            data,
+            transform
+        } = props;
+        return (
+            <span>{transform(data)}</span>
+        )
+    },
 }
-</script>

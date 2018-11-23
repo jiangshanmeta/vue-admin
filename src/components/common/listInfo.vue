@@ -47,7 +47,7 @@
             >
                 <views
                     slot-scope="scope"
-                    :descriptor="field_list[field]"
+                    :view="field_list[field].view"
                     :record="scope.row"
                     :field="field"
                 >
