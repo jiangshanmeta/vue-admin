@@ -11,81 +11,81 @@
         </thead>
         <tbody>
             <tr>
-                <td>field_tag</td>
-                <td>{{field_tag}}</td>
+                <td>editor_array_checkbox</td>
+                <td>{{editor_array_checkbox}}</td>
                 <td>
-                    <field_tag 
-                        v-model="field_tag" 
-                        :candidate="field_tag_candidate"
+                    <editor_array_checkbox 
+                        v-model="editor_array_checkbox" 
+                        :candidate="editor_array_checkbox_candidate"
                         :handleInvalidValue="handleTagInvalid"
-                    ></field_tag>
+                    ></editor_array_checkbox>
                 </td>
             </tr>
             <tr>
-                <td>field_tag_json</td>
-                <td>{{field_tag_json}} || {{typeof field_tag_json}}</td>
+                <td>editor_array_checkbox_json</td>
+                <td>{{editor_array_checkbox_json}} || {{typeof editor_array_checkbox_json}}</td>
                 <td>
-                    <field_tag_json 
-                        v-model="field_tag_json" 
-                        :candidate="field_tag_candidate"
+                    <editor_array_checkbox_json 
+                        v-model="editor_array_checkbox_json" 
+                        :candidate="editor_array_checkbox_candidate"
                         :handleInvalidValue="handleTagInvalid"
-                    ></field_tag_json>
-                </td>
-            </tr>
-
-
-
-            <tr>
-                <td>field_async_tag</td>
-                <td>{{field_async_tag}}</td>
-                <td>
-                    <field_async_tag
-                        v-model="field_async_tag"
-                        :handleInvalidValue="handleTagInvalid"
-                        :httpRequest="httpRequest.field_async_tag"
-                    ></field_async_tag>
-                </td>
-            </tr>
-            <tr>
-                <td>field_async_tag_json</td>
-                <td>{{field_async_tag_json}} || {{typeof field_async_tag_json}}</td>
-                <td>
-                    <field_async_tag_json
-                        v-model="field_async_tag_json"
-                        :handleInvalidValue="handleTagInvalid"
-                        :httpRequest="httpRequest.field_async_tag_json"
-                    ></field_async_tag_json>
+                    ></editor_array_checkbox_json>
                 </td>
             </tr>
 
 
 
             <tr>
-                <td>field_array_model</td>
-                <td>{{field_array_model}}</td>
+                <td>editor_array_checkbox_async</td>
+                <td>{{editor_array_checkbox_async}}</td>
                 <td>
-                    <field_array_model
-                        v-model="field_array_model"
-                        :candidate="field_array_model_candidate"
+                    <editor_array_checkbox_async
+                        v-model="editor_array_checkbox_async"
+                        :handleInvalidValue="handleTagInvalid"
+                        :getCandidate="getCandidate.editor_array_checkbox_async"
+                    ></editor_array_checkbox_async>
+                </td>
+            </tr>
+            <tr>
+                <td>editor_array_checkbox_async_json</td>
+                <td>{{editor_array_checkbox_async_json}} || {{typeof editor_array_checkbox_async_json}}</td>
+                <td>
+                    <editor_array_checkbox_async_json
+                        v-model="editor_array_checkbox_async_json"
+                        :handleInvalidValue="handleTagInvalid"
+                        :getCandidate="getCandidate.editor_array_checkbox_async_json"
+                    ></editor_array_checkbox_async_json>
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td>editor_array_autocomplete</td>
+                <td>{{editor_array_autocomplete}}</td>
+                <td>
+                    <editor_array_autocomplete
+                        v-model="editor_array_autocomplete"
+                        :candidate="editor_array_autocomplete_candidate"
                         placeholder="placeholder2"
                         labelfield="name"
                         valuefield="id"
                         :handleInvalidValue="handleTagInvalid"
-                    ></field_array_model>
+                    ></editor_array_autocomplete>
                 </td>
             </tr>
             <tr>
-                <td>field_array_model_json</td>
-                <td>{{field_array_model_json}}</td>
+                <td>editor_array_autocomplete_json</td>
+                <td>{{editor_array_autocomplete_json}}</td>
                 <td>
-                    <field_array_model_json
-                        v-model="field_array_model_json"
-                        :candidate="field_array_model_candidate"
+                    <editor_array_autocomplete_json
+                        v-model="editor_array_autocomplete_json"
+                        :candidate="editor_array_autocomplete_candidate"
                         placeholder="placeholder2"
                         labelfield="name"
                         valuefield="id"
                         :handleInvalidValue="handleTagInvalid"
-                    ></field_array_model_json>
+                    ></editor_array_autocomplete_json>
                 </td>
             </tr>
 
@@ -93,29 +93,29 @@
 
 
             <tr>
-                <td>field_async_array_model</td>
-                <td>{{field_async_array_model}}</td>
+                <td>editor_array_autocomplete_async</td>
+                <td>{{editor_array_autocomplete_async}}</td>
                 <td>
-                    <field_async_array_model
-                        v-model="field_async_array_model"
+                    <editor_array_autocomplete_async
+                        v-model="editor_array_autocomplete_async"
                         labelfield="name"
                         valuefield="id"
                         :handleInvalidValue="handleTagInvalid"
-                        :httpRequest="httpRequest.field_async_array_model"
-                    ></field_async_array_model>
+                        :getCandidate="getCandidate.editor_array_autocomplete_async"
+                    ></editor_array_autocomplete_async>
                 </td>
             </tr>
             <tr>
-                <td>field_async_array_model_json</td>
-                <td>{{field_async_array_model_json}} || {{typeof field_async_array_model_json}}</td>
+                <td>editor_array_autocomplete_async_json</td>
+                <td>{{editor_array_autocomplete_async_json}} || {{typeof editor_array_autocomplete_async_json}}</td>
                 <td>
-                    <field_async_array_model_json
-                        v-model="field_async_array_model_json"
+                    <editor_array_autocomplete_async_json
+                        v-model="editor_array_autocomplete_async_json"
                         labelfield="name"
                         valuefield="id"
                         :handleInvalidValue="handleTagInvalid"
-                        :httpRequest="httpRequest.field_async_array_model_json"
-                    ></field_async_array_model_json>
+                        :getCandidate="getCandidate.editor_array_autocomplete_async_json"
+                    ></editor_array_autocomplete_async_json>
                 </td>
             </tr>
         </tbody>
@@ -126,20 +126,28 @@
 <script>
 import {unique,clearInvalidData} from "@/components/common/editor/_validate_option"
 
-import axios from "@/server/axios"
-
 const fields = {
-    field_async_tag:"field_async_tag",
-    field_async_tag_json:"field_async_tag",
-    field_async_array_model:"field_async_array_model",
-    field_async_array_model_json:"field_async_array_model",
+    editor_array_checkbox_async:"editor_array_checkbox_async",
+    editor_array_checkbox_async_json:"editor_array_checkbox_async",
+    editor_array_autocomplete_async:"editor_array_autocomplete_async",
+    editor_array_autocomplete_async_json:"editor_array_autocomplete_async",
 }
 
-const httpRequest = Object.keys(fields).reduce((obj,field)=>{
+
+const editor_array_autocomplete_candidate = [
+    {id:1,name:"太年轻"},
+    {id:2,name:"太天真"},
+    {id:3,name:"亦可赛艇"},
+    {id:4,name:"exciting"},
+    {id:5,name:"simple"},
+    {id:6,name:"naive"}
+];
+
+const getCandidate = Object.keys(fields).reduce((obj,field)=>{
     obj[field] = function(cb){
-        axios.get(`/test/${fields[field]}`).then((json)=>{
-            cb(json.data.data);
-        });
+        setTimeout(()=>{
+            cb(editor_array_autocomplete_candidate);
+        },2000);
     }
     return obj;
 },{})
@@ -147,60 +155,44 @@ const httpRequest = Object.keys(fields).reduce((obj,field)=>{
 
 export default{
     config:{
-        field_tag_candidate:[
+        editor_array_checkbox_candidate:[
             {value:1,label:'aaa'},
             {value:2,label:'bbb'},
             {value:3,label:"ccc"},
             {value:4,label:"ddd"},
             {value:5,label:"eee"}
         ],
-        field_array_model_candidate:[
-            {id:1,name:"太年轻"},
-            {id:2,name:"太天真"},
-            {id:3,name:"亦可赛艇"},
-            {id:4,name:"exciting"},
-            {id:5,name:"simple"},
-            {id:6,name:"naive"}
-        ],
+        editor_array_autocomplete_candidate,
         handleTagInvalid:function(value,allvalue){
             this.$emit('input',clearInvalidData(value,allvalue))
         },
         handleInvalidRelateIds:function(){
             console.log(this)
         },
-        httpRequest,
+        getCandidate,
     },
     components:{
-        field_tag:()=>import("@/components/common/editor/field_tag"),
-        field_tag_json:()=>import("@/components/common/editor/field_tag_json"),
-        field_async_tag:()=>import("@/components/common/editor/field_async_tag"),
-        field_async_tag_json:()=>import("@/components/common/editor/field_async_tag_json"),
-        field_array_model:()=>import("@/components/common/editor/field_array_model"),
-        field_array_model_json:()=>import("@/components/common/editor/field_array_model_json"),
-        field_async_array_model:()=>import("@/components/common/editor/field_async_array_model"),
-        field_async_array_model_json:()=>import("@/components/common/editor/field_async_array_model_json"),
+        editor_array_checkbox:()=>import("@/components/common/editor/editor_array_checkbox"),
+        editor_array_checkbox_json:()=>import("@/components/common/editor/editor_array_checkbox_json"),
+        editor_array_checkbox_async:()=>import("@/components/common/editor/editor_array_checkbox_async"),
+        editor_array_checkbox_async_json:()=>import("@/components/common/editor/editor_array_checkbox_async_json"),
+        editor_array_autocomplete:()=>import("@/components/common/editor/editor_array_autocomplete"),
+        editor_array_autocomplete_json:()=>import("@/components/common/editor/editor_array_autocomplete_json"),
+        editor_array_autocomplete_async:()=>import("@/components/common/editor/editor_array_autocomplete_async"),
+        editor_array_autocomplete_async_json:()=>import("@/components/common/editor/editor_array_autocomplete_async_json"),
     },
     data(){
         return {
             relates:"",
-            field_tag:[1,1,5,7],
-            field_tag_json:"",
-            field_async_tag:[1,1,9],
-            field_async_tag_json:"",
-            field_array_model:[2,2,8],
-            field_array_model_json:"",
-            field_async_array_model:[2,2,8],
-            field_async_array_model_json:"",
+            editor_array_checkbox:[1,1,5,7],
+            editor_array_checkbox_json:"",
+            editor_array_checkbox_async:[1,1,9],
+            editor_array_checkbox_async_json:"",
+            editor_array_autocomplete:[2,2,8],
+            editor_array_autocomplete_json:"",
+            editor_array_autocomplete_async:[2,2,8],
+            editor_array_autocomplete_async_json:"",
         }
     },
-    created(){
-
-
-        setTimeout(()=>{
-            // this.field_tag = [1,1,5,7];
-            // this.field_async_tag = [5];
-            // this.field_async_array_model = [2]
-        },1000)
-    }
 }
 </script>

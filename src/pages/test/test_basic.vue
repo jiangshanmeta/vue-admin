@@ -10,53 +10,53 @@
         </thead>
         <tbody>
             <tr>
-                <td>field_number</td>
-                <td>{{field_number}}</td>
+                <td>editor_number</td>
+                <td>{{editor_number}}</td>
                 <td>
-                    <field_number
-                        v-model="field_number"
+                    <editor_number
+                        v-model="editor_number"
                         placeholder="placeholder"
-                    ></field_number>
+                    ></editor_number>
                 </td>
             </tr>
             <tr>
-                <td>field_int</td>
-                <td>{{field_int}}</td>
+                <td>editor_int</td>
+                <td>{{editor_int}}</td>
                 <td>
-                    <field_int
-                        v-model="field_int"
+                    <editor_int
+                        v-model="editor_int"
                         placeholder="sssss"
-                    ></field_int>
+                    ></editor_int>
                 </td>
             </tr>
             <tr>
-                <td>field_string</td>
-                <td>{{field_string}}</td>
+                <td>editor_string</td>
+                <td>{{editor_string}}</td>
                 <td>
-                    <field_string
-                        v-model="field_string"
-                        placeholder="field_string"
-                    ></field_string>
+                    <editor_string
+                        v-model="editor_string"
+                        placeholder="editor_string"
+                    ></editor_string>
                 </td>
             </tr>
             <tr>
-                <td>field_text</td>
-                <td>{{field_text}}</td>
+                <td>editor_text</td>
+                <td>{{editor_text}}</td>
                 <td>
-                    <field_text
-                        v-model="field_text"
+                    <editor_text
+                        v-model="editor_text"
                         placeholder="placeholder"
-                    ></field_text>
+                    ></editor_text>
                 </td>
             </tr>
             <tr>
-                <td>field_pwd</td>
-                <td>{{field_pwd}}</td>
+                <td>editor_pwd</td>
+                <td>{{editor_pwd}}</td>
                 <td>
-                    <field_pwd
-                        v-model="field_pwd"
-                        placeholder="field_pwd"
-                    ></field_pwd>
+                    <editor_pwd
+                        v-model="editor_pwd"
+                        placeholder="editor_pwd"
+                    ></editor_pwd>
                 </td>
             </tr>
         </tbody>
@@ -65,27 +65,27 @@
 </template>
 
 <script>
-import field_number from "@/components/common/editor/field_number"
-import field_int from "@/components/common/editor/field_int"
-import field_string from "@/components/common/editor/field_string"
-import field_text from "@/components/common/editor/field_text"
-import field_pwd from "@/components/common/editor/field_pwd"
+import editor_number from "@/components/common/editor/editor_number"
+import editor_int from "@/components/common/editor/editor_int"
+import editor_string from "@/components/common/editor/editor_string"
+import editor_text from "@/components/common/editor/editor_text"
+import editor_pwd from "@/components/common/editor/editor_pwd"
 
 export default{
     components:{
-        field_number,
-        field_int,
-        field_string,
-        field_text,
-        field_pwd,
+        editor_number,
+        editor_int,
+        editor_string,
+        editor_text,
+        editor_pwd,
     },
     data(){
         return {
-            field_number:0,
-            field_int:0,
-            field_string:"",
-            field_text:"",
-            field_pwd:"",
+            editor_number:0,
+            editor_int:0,
+            editor_string:"",
+            editor_text:"",
+            editor_pwd:"",
         }
     },
     created(){

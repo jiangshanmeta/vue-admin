@@ -1,4 +1,9 @@
-export default{
+import merge from 'deepmerge'
+
+import _props_candidate_mixin from "./_props_candidate_mixin"
+import _props_label_value_mixin from "./_props_label_value_mixin"
+
+export default merge.all([_props_candidate_mixin,_props_label_value_mixin,{
     props:{
         allvalue:{
             default:"",
@@ -6,12 +11,6 @@ export default{
         alllabel:{
             type:String,
             default:"不限",
-        },
-        candidate:{
-            type:Array,
-            default(){
-                return [];
-            }
         },
     },
     computed:{
@@ -24,4 +23,4 @@ export default{
             return arr;
         }
     }
-}
+}])

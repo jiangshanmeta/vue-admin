@@ -1,6 +1,7 @@
 <template>
-    <section v-if="Object.keys(field_list).length && (!hasInjectComponent || componentsInjected)">
-
+    <section 
+        v-if="Object.keys(field_list).length && (!hasInjectComponent || componentsInjected)"
+    >
         <slot
             name="beforeFilters"
             :data="data"
@@ -23,7 +24,6 @@
             :selectedData="selection?multipleSelection:[]"
         ></slot>
 
-
         <el-table
             v-if="fields.length && data.length"
             :data="data"
@@ -45,41 +45,34 @@
                 :sortable="sortFields.includes(field)?'custom':false"
                 v-bind="field_list[field].tableColumnConfig || {}"
             >
-                <template slot-scope="scope">
-                    
-                    <views
-                        :descriptor="field_list[field]"
-                        :record="scope.row"
-                        :field="field"
-                    >
-                        <template
-                            v-if="field_list[field].view && field_list[field].view.component"
-                            slot-scope="viewScope"
-                        >
-                            <component
-                                :is="field_list[field].view.name"
-                                v-bind="viewScope"
-                            ></component>
-                        </template>
-                    </views>
-
-                </template>
+                <views
+                    slot-scope="scope"
+                    :descriptor="field_list[field]"
+                    :record="scope.row"
+                    :field="field"
+                >
+                    <component
+                        v-if="field_list[field].view && field_list[field].view.component"
+                        slot-scope="viewScope"
+                        :is="field_list[field].view.name"
+                        v-bind="viewScope"
+                    ></component>
+                </views>
             </el-table-column>
             <el-table-column
                 :label="operatorsLabel"
                 v-if="operators.length && data.length"
                 :min-width="operatorMinWidth"
             >
-                <template slot-scope="scope">
-                    <operators
-                        :field_list="field_list"
-                        :operators="operators"
-                        :data="scope.row"
-                        :index="scope.$index"
-                        @update="getListInfo"
-                        @setWidth="setOperatorWidth"
-                    ></operators>
-                </template>
+                <operators
+                    slot-scope="scope"
+                    :field_list="field_list"
+                    :operators="operators"
+                    :data="scope.row"
+                    :index="scope.$index"
+                    @update="getListInfo"
+                    @setWidth="setOperatorWidth"
+                ></operators>
             </el-table-column>
         </el-table>
         <section 
@@ -95,7 +88,7 @@
             :current-page.sync="pageIndex"
             :page-size="localPageSize"
             :total="total"
-            style="display:table;margin-left:auto;margin-right:auto;"
+            class="center-table"
         ></el-pagination>
     </section>
 </template>

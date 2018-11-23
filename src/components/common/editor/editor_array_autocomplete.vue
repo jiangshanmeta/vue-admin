@@ -1,0 +1,74 @@
+<template>
+<section>
+    <ul class="list-group">
+        <li class="list-group-item"
+            v-for="(item,index) in value"
+            :key="index"
+        >
+            {{valueLabelMap.has(item)?valueLabelMap.get(item):item}}
+            <i class="el-icon-close pull-right" @click='removeItem(index)'></i>
+        </li>
+    </ul>
+    <editor_enum_autocomplete
+        :value="selectedId"
+        :valuefield="valuefield"
+        :labelfield="labelfield"
+        :candidate="candidate"
+        @input="addItem"
+        v-bind="$attrs"
+    ></editor_enum_autocomplete>
+</section>
+</template>
+
+<script>
+import editor_enum_autocomplete from "./editor_enum_autocomplete"
+
+import _editor_array_mixin from "./_editor_array_mixin"
+import _props_value_array_mixin from "./_props_value_array_mixin"
+import _computed_value_label_map_mixin from './_computed_value_label_map_mixin'
+
+export default{
+    name:'editor_array_autocomplete',
+    inheritAttrs:true,
+    mixins:[
+        _editor_array_mixin,
+        _props_value_array_mixin,
+        _computed_value_label_map_mixin,
+    ],
+    components:{
+        editor_enum_autocomplete,
+    },
+    data(){
+        return {
+            selectedId:'',
+        }
+    },
+    methods:{
+        removeItem(index){
+            let value = JSON.parse(JSON.stringify(this.value));
+            value.splice(index,1);
+            this.$emit('input',value);
+        },
+        addItem(selectedId){
+            this.selectedId = selectedId;
+            if(!this.value.includes(selectedId)){
+                let value = JSON.parse(JSON.stringify(this.value));
+                value.push(selectedId);
+                this.$emit('input',value)
+            }
+        },
+    },
+}
+</script>
+
+<style scoped>
+.list-group-item{
+    font-size:14px;
+    padding:6px 12px;
+}
+.list-group-item .el-icon-close{
+    font-size:12px;
+    position:relative;
+    top:5px;
+}
+</style>

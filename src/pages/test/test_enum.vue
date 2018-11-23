@@ -10,140 +10,137 @@
         </thead>
         <tbody>
             <tr>
-                <td>field_sex</td>
-                <td>{{field_sex}}</td>
+                <td>editor_gender</td>
+                <td>{{editor_gender}}</td>
                 <td>
-                    <field_sex
-                        v-model="field_sex"
-                    ></field_sex>
+                    <editor_gender
+                        v-model="editor_gender"
+                    ></editor_gender>
                 </td>
             </tr>
             <tr>
-                <td>field_bool</td>
-                <td>{{field_bool}}</td>
+                <td>editor_bool</td>
+                <td>{{editor_bool}}</td>
                 <td>
-                    <field_bool
-                        v-model="field_bool"
-                    ></field_bool>
+                    <editor_bool
+                        v-model="editor_bool"
+                    ></editor_bool>
                 </td>
             </tr>
             <tr>
-                <td>field_enum_radio</td>
-                <td>{{field_enum_radio}}</td>
+                <td>editor_enum_radio</td>
+                <td>{{editor_enum_radio}}</td>
                 <td>
-                    <field_enum_radio
-                        v-model="field_enum_radio"
+                    <editor_enum_radio
+                        v-model="editor_enum_radio"
                         :candidate="field_enum_candidate"
                         valuefield="valuefield"
                         :handleInvalidValue="handleInvalidValue"
-                    ></field_enum_radio>
+                    ></editor_enum_radio>
                 </td>
             </tr>
             <tr>
-                <td>field_enum_select</td>
-                <td>{{field_enum_select}}</td>
+                <td>editor_enum_select</td>
+                <td>{{editor_enum_select}}</td>
                 <td>
-                    <field_enum_select
-                        v-model="field_enum_select"
+                    <editor_enum_select
+                        v-model="editor_enum_select"
                         :candidate="field_enum_candidate"
                         valuefield="valuefield"
                         disabled
                         :handleInvalidValue="handleInvalidValue"
-                    ></field_enum_select>
+                    ></editor_enum_select>
                 </td>
             </tr>
             <tr>
-                <td>field_model</td>
-                <td>{{field_model}}</td>
+                <td>editor_enum_autocomplete</td>
+                <td>{{editor_enum_autocomplete}}</td>
                 <td>
-                    <field_model
-                        v-model="field_model"
+                    <editor_enum_autocomplete
+                        v-model="editor_enum_autocomplete"
                         :candidate="field_enum_candidate"
                         valuefield="valuefield"
-                        placeholder="field_model的placeholder"
+                        placeholder="editor_enum_autocomplete的placeholder"
                         :handleInvalidValue="handleInvalidValue"
-                    ></field_model>
+                    ></editor_enum_autocomplete>
                 </td>
             </tr>
             <tr>
-                <td>field_async_enum_radio</td>
-                <td>{{field_async_enum_radio}}</td>
+                <td>editor_enum_radio_async</td>
+                <td>{{editor_enum_radio_async}}</td>
                 <td>
-                    <field_async_enum_radio
-                        v-model="field_async_enum_radio"
-                        labelfield="name"
-                        valuefield="id"
+                    <editor_enum_radio_async
+                        v-model="editor_enum_radio_async"
+                        labelfield="label"
+                        valuefield="valuefield"
                         :handleInvalidValue="handleInvalidValue"
-                        :httpRequest="httpRequest.field_async_enum_radio"
-                    ></field_async_enum_radio>
+                        :getCandidate="getCandidate.editor_enum_radio_async"
+                    ></editor_enum_radio_async>
                 </td>
             </tr>
             <tr>
-                <td>field_async_enum_select</td>
-                <td>{{field_async_enum_select}}</td>
+                <td>editor_enum_select_async</td>
+                <td>{{editor_enum_select_async}}</td>
                 <td>
-                    <field_async_enum_select
-                        v-model="field_async_enum_select"
-                        labelfield="name"
-                        valuefield="id"
+                    <editor_enum_select_async
+                        v-model="editor_enum_select_async"
+                        labelfield="label"
+                        valuefield="valuefield"
                         placeholder="the placeholder"
                         :handleInvalidValue="handleInvalidValue"
-                        :httpRequest="httpRequest.field_async_enum_select"
-                    ></field_async_enum_select>
+                        :getCandidate="getCandidate.editor_enum_select_async"
+                    ></editor_enum_select_async>
                 </td>
             </tr>
             <tr>
-                <td>field_async_model</td>
-                <td>{{field_async_model}}</td>
+                <td>editor_enum_autocomplete_async</td>
+                <td>{{editor_enum_autocomplete_async}}</td>
                 <td>
-                    <field_async_model
-                        v-model="field_async_model"
-                        labelfield='name'
-                        valuefield='id'
+                    <editor_enum_autocomplete_async
+                        v-model="editor_enum_autocomplete_async"
+                        labelfield='label'
+                        valuefield='valuefield'
                         placeholder="placeholder"
                         :handleInvalidValue="handleInvalidValue"
-                        :httpRequest="httpRequest.field_async_model"
-                    ></field_async_model>
+                        :getCandidate="getCandidate.editor_enum_autocomplete_async"
+                    ></editor_enum_autocomplete_async>
                 </td>
             </tr>
-
-
-
         </tbody>
     </table>
 </section>
 </template>
 
 <script>
-import field_sex from "@/components/common/editor/field_sex.vue"
-import field_bool from "@/components/common/editor/field_bool.vue"
+import editor_gender from "@/components/common/editor/editor_gender.vue"
+import editor_bool from "@/components/common/editor/editor_bool.vue"
 
-import field_enum_radio from "@/components/common/editor/field_enum_radio"
-import field_enum_select from "@/components/common/editor/field_enum_select"
-import field_model from "@/components/common/editor/field_model"
+import editor_enum_radio from "@/components/common/editor/editor_enum_radio"
+import editor_enum_select from "@/components/common/editor/editor_enum_select"
+import editor_enum_autocomplete from "@/components/common/editor/editor_enum_autocomplete"
 
-import field_async_enum_radio from "@/components/common/editor/field_async_enum_radio"
-import field_async_enum_select from "@/components/common/editor/field_async_enum_select"
-import field_async_model from "@/components/common/editor/field_async_model"
-
-
-
-
-
-
-import axios from "@/server/axios"
+import editor_enum_radio_async from "@/components/common/editor/editor_enum_radio_async"
+import editor_enum_select_async from "@/components/common/editor/editor_enum_select_async"
+import editor_enum_autocomplete_async from "@/components/common/editor/editor_enum_autocomplete_async"
 
 const fields = [
-    "field_async_enum_radio",
-    "field_async_enum_select",
-    "field_async_model",
+    "editor_enum_radio_async",
+    "editor_enum_select_async",
+    "editor_enum_autocomplete_async",
 ];
 
-const httpRequest = fields.reduce((obj,field)=>{
+const field_enum_candidate = [
+    {valuefield:1,label:"eins"},
+    {valuefield:2,label:"zwei"},
+    {valuefield:3,label:"drei"},
+    {valuefield:4,label:"fuer"},
+];
+
+const getCandidate = fields.reduce((obj,field)=>{
     obj[field] = (cb)=>{
-        return axios.get(`/test/${field}`).then((json)=>{
-            cb(json.data.data)
-        })
+        setTimeout(()=>{
+            cb(field_enum_candidate);
+        },1000);
     }
     return obj;
 },{});
@@ -151,57 +148,35 @@ const httpRequest = fields.reduce((obj,field)=>{
 
 export default{
     components:{
-        field_sex,
-        field_bool,
-        field_enum_radio,
-        field_enum_select,
-        field_model,
-        field_async_enum_radio,
-        field_async_enum_select,
-        field_async_model,
+        editor_gender,
+        editor_bool,
+        editor_enum_radio,
+        editor_enum_select,
+        editor_enum_autocomplete,
+        editor_enum_radio_async,
+        editor_enum_select_async,
+        editor_enum_autocomplete_async,
     },
     config:{
-        field_enum_candidate:[
-            {valuefield:1,label:"eins"},
-            {valuefield:2,label:"zwei"},
-            {valuefield:3,label:"drei"},
-            {valuefield:4,label:"fuer"},
-        ],
+        field_enum_candidate,
         handleInvalidValue:function(value,options){
+            console.log(value,"invalid value")
             this.$emit('input',options[Math.floor(Math.random()*options.length)]);
-            // console.log(value,options);
         },
-        httpRequest,
+        getCandidate,
     },
     data(){
         return {
-            field_sex:0,
-            field_bool:0,
-            field_enum_radio:0,
-            field_enum_select:0,
-            field_model:"",
-            field_async_enum_radio:"",
-            field_async_enum_select:"",
-            field_async_model:1,
+            editor_gender:0,
+            editor_bool:0,
+            editor_enum_radio:0,
+            editor_enum_select:0,
+            editor_enum_autocomplete:"",
+            editor_enum_radio_async:"",
+            editor_enum_select_async:"",
+            editor_enum_autocomplete_async:1,
 
         }
     },
-    beforeCreate(){
-
-    },
-
-
-    created(){
-
-
-        // setTimeout(()=>{
-        //     this.field_sex = 1;
-        //     this.field_bool = 1;
-        //     this.field_enum_radio = 1;
-        //     this.field_enum_select = 2;
-        //     this.field_model = 3;
-
-        // },2000)
-    }
 }
 </script>

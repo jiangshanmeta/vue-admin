@@ -7,8 +7,7 @@ Vue.use(Router)
 
 let routes = [];
 
-menu.forEach((module)=>{
-    let pages = module.pages || [];
+menu.forEach(({pages=[]})=>{
     pages.forEach((page)=>{
         routes.push(page);
     });

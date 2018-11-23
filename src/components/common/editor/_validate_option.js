@@ -1,6 +1,19 @@
+import merge from 'deepmerge'
+
+import _props_value_mixin from "./_props_value_mixin"
+import _props_candidate_mixin from "./_props_candidate_mixin"
+import _props_label_value_mixin from "./_props_label_value_mixin"
+
+
 function noop(){}
 
-export default{
+// 这个用在editor_enum_ 和 editor_array_ ，有些属性是必用的，但是这个mixin没声明
+// TODO
+
+export default merge.all([
+    _props_value_mixin,
+    _props_candidate_mixin,
+    _props_label_value_mixin,{
     props:{
         isCandidateValid:{
             type:Boolean,
@@ -14,8 +27,7 @@ export default{
     computed:{
         allvalueSet(){
             return this.candidate.reduce((set,item)=>{
-                set.add(item[this.valuefield]);
-                return set;
+                return set.add(item[this.valuefield]);
             },new Set());
         },
     },
@@ -29,7 +41,7 @@ export default{
             immediate:true,
         });
     },
-}
+}])
 
 // 去重的方法
 export function unique(valueArr){

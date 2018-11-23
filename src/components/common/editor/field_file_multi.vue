@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import field_upload from "./_field_upload"
+import field_upload from "./_editor_upload"
 import _props_value_array_mixin from "./_props_value_array_mixin"
 import _computed_model_mixin from "./_computed_model_mixin"
 

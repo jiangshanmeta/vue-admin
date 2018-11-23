@@ -7,23 +7,18 @@ export default{
         }
     },
     props:{
-        httpRequest:{
+        getCandidate:{
             type:Function,
             required:true,
         }
     },
-    methods:{
-        getCandidate(){
-            return new Promise((resolve,reject)=>{
-                this.isRequest = true;
-                this.httpRequest(resolve);
-            }).then((candidate)=>{
-                this.isRequest = false;
-                return this.candidate = candidate
-            }).catch(logError);
-        },
-    },
     created(){
-        this.getCandidate();
+        new Promise((resolve,reject)=>{
+            this.isRequest = true;
+            this.getCandidate(resolve);
+        }).then((candidate)=>{
+            this.isRequest = false;
+            this.candidate = candidate
+        }).catch(logError);
     }
 }

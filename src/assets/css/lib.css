@@ -276,6 +276,11 @@
     margin-left:auto;
     margin-right:auto;
 }
+.center-table{
+	display:table;
+	margin-left:auto;
+	margin-right:auto;
+}
 .pull-left{
     float:left;
 }

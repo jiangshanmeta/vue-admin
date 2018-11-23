@@ -1,7 +1,7 @@
 export default{
     props:{
         candidate:{
-            type:Array,
+            type:[Array,Function],
             required:true,
         },
     },

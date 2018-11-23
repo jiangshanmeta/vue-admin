@@ -10,46 +10,46 @@
         </thead>
         <tbody>
             <tr>
-                <td>field_ts</td>
-                <td>{{field_ts}}</td>
+                <td>editor_time_ts</td>
+                <td>{{editor_time_ts}}</td>
                 <td>
-                    <field_ts
-                        v-model="field_ts"
-                        placeholder="field_ts的placeholder"
+                    <editor_time_ts
+                        v-model="editor_time_ts"
+                        placeholder="editor_time_ts的placeholder"
                         value-format='timestamp'
-                    ></field_ts>
+                    ></editor_time_ts>
                 </td>
             </tr>
             <tr>
-                <td>field_day</td>
-                <td>{{field_day}}</td>
+                <td>editor_time_day</td>
+                <td>{{editor_time_day}}</td>
                 <td>
-                    <field_day
-                        v-model="field_day"
-                        placeholder="field_day的placeholder"
+                    <editor_time_day
+                        v-model="editor_time_day"
+                        placeholder="editor_time_day的placeholder"
                         value-format='yyyy-MM-dd'
-                    ></field_day>
+                    ></editor_time_day>
                 </td>
             </tr>
             <tr>
-                <td>field_month</td>
-                <td>{{field_month}}</td>
+                <td>editor_time_month</td>
+                <td>{{editor_time_month}}</td>
                 <td>
-                    <field_month
-                        v-model="field_month"
-                        placeholder="field_month的placeholder"
-                        value-format='yyyy-mm'
-                    ></field_month>
+                    <editor_time_month
+                        v-model="editor_time_month"
+                        placeholder="editor_time_month的placeholder"
+                        value-format='yyyy-MM'
+                    ></editor_time_month>
                 </td>
             </tr>
             <tr>
-                <td>field_year</td>
-                <td>{{field_year}}</td>
+                <td>editor_time_year</td>
+                <td>{{editor_time_year}}</td>
                 <td>
-                    <field_year
-                        v-model="field_year"
-                        placeholder="field_year的placeholder"
-                    ></field_year>
+                    <editor_time_year
+                        v-model="editor_time_year"
+                        placeholder="editor_time_year的placeholder"
+                    ></editor_time_year>
                 </td>
             </tr>
         </tbody>
@@ -60,16 +60,16 @@
 </template>
 
 <script>
-import field_ts from "@/components/common/editor/field_ts"
-import field_day from "@/components/common/editor/field_day"
-import field_month from "@/components/common/editor/field_month"
-import field_year from "@/components/common/editor/field_year"
+import editor_time_ts from "@/components/common/editor/editor_time_ts"
+import editor_time_day from "@/components/common/editor/editor_time_day"
+import editor_time_month from "@/components/common/editor/editor_time_month"
+import editor_time_year from "@/components/common/editor/editor_time_year"
 export default{
     components:{
-        field_ts,
-        field_day,
-        field_month,
-        field_year
+        editor_time_ts,
+        editor_time_day,
+        editor_time_month,
+        editor_time_year
     },
     methods:{
         formatMethod(value){
@@ -79,18 +79,18 @@ export default{
     },
     data(){
         return {
-            field_ts:"",
-            field_day:"",
-            field_month:"",
-            field_year:""
+            editor_time_ts:"",
+            editor_time_day:"",
+            editor_time_month:"",
+            editor_time_year:""
         }
     },
     mounted(){
         setTimeout(()=>{
-            this.field_ts = Date.now();
-            this.field_day = "2019-03-12";
-            this.field_month = "2019-03";
-            this.field_year = '2011'
+            this.editor_time_ts = Date.now();
+            this.editor_time_day = "2019-03-12";
+            this.editor_time_month = "2019-03";
+            this.editor_time_year = '2011'
         },1000)
     }
 }

@@ -60,19 +60,46 @@ export default{
     components:{
         labels,
         tip,
-        field_array_model:()=>import("./field_array_model"),
-        field_array_model_json:()=>import("./field_array_model_json"),
-        field_async_array_model:()=>import("./field_async_array_model"),
-        field_async_array_model_json:()=>import("./field_async_array_model_json"),
-        field_async_enum_radio:()=>import("./field_async_enum_radio"),
-        field_async_enum_select:()=>import("./field_async_enum_select"),
-        field_async_model:()=>import("./field_async_model"),
-        field_async_tag:()=>import("./field_async_tag"),
-        field_async_tag_json:()=>import("./field_async_tag_json"),
-        field_bool:()=>import("./field_bool"),
-        field_day:()=>import("./field_day"),
-        field_enum_radio:()=>import("./field_enum_radio"),
-        field_enum_select:()=>import("./field_enum_select"),
+        metaTable:()=>import("@/components/common/meta-table"),
+
+        editor_string:()=>import("./editor_string"),
+        editor_text:()=>import("./editor_text"),
+        editor_pwd:()=>import("./editor_pwd"),
+        editor_number:()=>import("./editor_number"),
+        editor_int:()=>import("./editor_int"),
+        editor_textrich:()=>import("./editor_textrich"),
+
+        editor_enum_radio:()=>import("./editor_enum_radio"),
+        editor_enum_radio_async:()=>import("./editor_enum_radio_async"),
+        editor_enum_radio_relates:()=>import("./editor_enum_radio_relates"),
+        editor_enum_select:()=>import("./editor_enum_select"),
+        editor_enum_select_async:()=>import("./editor_enum_select_async"),
+        editor_enum_select_relates:()=>import("./editor_enum_select_relates"),
+        editor_enum_autocomplete:()=>import("./editor_enum_autocomplete"),
+        editor_enum_autocomplete_async:()=>import("./editor_enum_autocomplete_async"),
+        editor_enum_autocomplete_relates:()=>import("./editor_enum_autocomplete_relates"),
+        editor_bool:()=>import("./editor_bool"),
+        editor_gender:()=>import("./editor_gender"),
+
+        editor_array_checkbox:()=>import("./editor_array_checkbox"),
+        editor_array_checkbox_json:()=>import("./editor_array_checkbox_json"),
+        editor_array_checkbox_async:()=>import("./editor_array_checkbox_async"),
+        editor_array_checkbox_async_json:()=>import("./editor_array_checkbox_async_json"),
+        editor_array_checkbox_relates:()=>import("./editor_array_checkbox_relates"),
+        editor_array_checkbox_relates_json:()=>import("./editor_array_checkbox_relates_json"),
+        editor_array_autocomplete:()=>import("./editor_array_autocomplete"),
+        editor_array_autocomplete_json:()=>import("./editor_array_autocomplete_json"),
+        editor_array_autocomplete_async:()=>import("./editor_array_autocomplete_async"),
+        editor_array_autocomplete_async_json:()=>import("./editor_array_autocomplete_async_json"),
+        editor_array_checkbox_relates:()=>import("./editor_array_checkbox_relates"),
+        editor_array_checkbox_json:()=>import("./editor_array_checkbox_json"),
+        
+        editor_time_ts:()=>import("./editor_time_ts"),
+        editor_time_year:()=>import("./editor_time_year"),
+        editor_time_month:()=>import("./editor_time_month"),
+        editor_time_day:()=>import("./editor_time_day"),
+        
+        
         field_file_mono:()=>import("./field_file_mono"),
         field_file_mono_json:()=>import("./field_file_mono_json"),
         field_file_multi:()=>import("./field_file_multi"),
@@ -81,38 +108,14 @@ export default{
         field_image_mono_json:()=>import("./field_image_mono_json"),
         field_image_multi:()=>import("./field_image_multi"),
         field_image_multi_json:()=>import("./field_image_multi_json"),
-        field_int:()=>import("./field_int"),
-        field_model:()=>import("./field_model"),
-        field_month:()=>import("./field_month"),
-        field_number:()=>import("./field_number"),
-        field_pwd:()=>import("./field_pwd"),
-        field_relates_array_model:()=>import("./field_relates_array_model"),
-        field_relates_array_model_json:()=>import("./field_relates_array_model_json"),
-        field_relates_enum_radio:()=>import("./field_relates_enum_radio"),
-        field_relates_enum_select:()=>import("./field_relates_enum_select"),
-        field_relates_model:()=>import("./field_relates_model"),
-        field_relates_tag:()=>import("./field_relates_tag"),
-        field_relates_tag_json:()=>import("./field_relates_tag_json"),
-        field_sex:()=>import("./field_sex"),
-        field_string:()=>import("./field_string"),
-        field_tag:()=>import("./field_tag"),
-        field_tag_json:()=>import("./field_tag_json"),
-        field_text:()=>import("./field_text"),
-        field_text_rich:()=>import("./field_text_rich"),
-        field_ts:()=>import("./field_ts"),
-        field_year:()=>import("./field_year"),
-        metaTable:()=>import("@/components/common/meta-table"),
     },
     computed:{
         editFieldsArray(){
             return this.fields.reduce((arr,row)=>{
-
-                row.reduce((arr,field)=>{
+                return row.reduce((arr,field)=>{
                     arr.push(field);
                     return arr;
                 },arr);
-
-                return arr;
             },[])
         },
         formData(){

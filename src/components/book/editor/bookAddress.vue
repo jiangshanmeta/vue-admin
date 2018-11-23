@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import fieldText from "@/components/common/editor/field_text"
+import fieldText from "@/components/common/editor/editor_text"
 export default{
     components:{
         fieldText,

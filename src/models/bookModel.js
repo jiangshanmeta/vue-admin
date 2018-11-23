@@ -13,7 +13,7 @@ export default{
         customername:{
             label:'客户名',
             editorComponent:{
-                name:"field_string",
+                name:"editor_string",
                 config:{
                     placeholder:'请输入客户名',
                 },
@@ -32,7 +32,7 @@ export default{
         totalprice:{
             label:'金额',
             editorComponent:{
-                name:"field_number",
+                name:"editor_number",
                 config:{
                     relates:[
                         {
@@ -80,9 +80,9 @@ export default{
         store:{
             label:"店铺",
             editorComponent:{
-                name:"field_async_enum_select",
+                name:"editor_enum_select_async",
                 config:{
-                    httpRequest:getStore,
+                    getCandidate:getStore,
                     labelfield:"storename",
                     valuefield:"_id",
                 },
@@ -92,7 +92,7 @@ export default{
         saler:{
             label:"销售",
             editorComponent:{
-                name:"field_relates_enum_select",
+                name:"editor_enum_select_relates",
                 config:{
                     relates:[
                         {
@@ -106,7 +106,7 @@ export default{
                             propField:"relateData",
                         }
                     ],
-                    httpRequest:getSaler,
+                    getCandidate:getSaler,
                 },
                 default:"",
             },
@@ -208,7 +208,7 @@ export default{
             label:"客户名",
             field:"customername",
             editorComponent:{
-                name:"field_string",
+                name:"editor_string",
                 config:{
                     placeholder:"请输入客户名"
                 },
@@ -219,7 +219,7 @@ export default{
             label:"金额",
             field:"totalprice",
             editorComponent:{
-                name:"field_number",
+                name:"editor_number",
                 default:500,
                 config:{
                     relates:[

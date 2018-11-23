@@ -1,4 +1,8 @@
-export default {
+import merge from 'deepmerge'
+
+import _props_value_mixin from "./_props_value_mixin"
+
+export default merge.all([_props_value_mixin,{
     computed:{
         model:{
             get(){
@@ -9,4 +13,4 @@ export default {
             },
         }
     }
-}
+}])

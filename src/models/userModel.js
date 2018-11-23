@@ -18,7 +18,7 @@ export default{
             label:'用户名',
             editorComponent:{
                 name:"field_string2",
-                component:()=>import("@/components/common/editor/field_string").then((rst)=>rst.default),
+                component:()=>import("@/components/common/editor/editor_string").then((rst)=>rst.default),
                 config:{
                     placeholder:'请输入用户名',
                 },
@@ -51,7 +51,7 @@ export default{
         password:{
             label:'密码',
             editorComponent:{
-                name:"field_pwd",
+                name:"editor_pwd",
                 config:{
                     placeholder:'请输入密码',
                     relates:[
@@ -89,7 +89,7 @@ export default{
         gender:{
             label:'性别',
             editorComponent:{
-                name:"field_sex",
+                name:"editor_gender",
                 default:0,
             },
             view:{
@@ -123,7 +123,7 @@ export default{
         typ:{
             label:'类型',
             editorComponent:{
-                name:"field_enum_select",
+                name:"editor_enum_select",
                 config:{
                     candidate:typEnum,
                     valuefield:'value',
@@ -142,9 +142,9 @@ export default{
         privilege:{
             label:'权限',
             editorComponent:{
-                name:"field_relates_tag",
+                name:"editor_array_checkbox_relates",
                 config:{
-                    httpRequest:getPrivilege,
+                    getCandidate:getPrivilege,
                     labelfield:'name',
                     valuefield:'id',
                     relates:[
@@ -172,7 +172,7 @@ export default{
         desc:{
             label:"备注",
             editorComponent:{
-                name:"field_text_rich",
+                name:"editor_textrich",
                 default:"这是富文本编辑器蛤",
             },
             view:{
@@ -226,7 +226,7 @@ export default{
             label:"姓名",
             field:"username",
             editorComponent:{
-                name:"field_string",
+                name:"editor_string",
                 config:{
                     placeholder:"请输入用户姓名",
                 },
@@ -237,7 +237,7 @@ export default{
             label:"类型",
             field:"typ",
             editorComponent:{
-                name:"filter_enum",
+                name:"filter_enum_select",
                 config:{
                     candidate:typEnum,
                     allvalue:-1,
@@ -250,9 +250,9 @@ export default{
             label:"权限",
             field:"privilege",
             editorComponent:{
-                name:"filter_relates_enum",
+                name:"filter_enum_select_relates",
                 config:{
-                    httpRequest:getPrivilege,
+                    getCandidate:getPrivilege,
                     valuefield:"id",
                     labelfield:"name",
                     placeholder:"请选择权限",
