@@ -11,7 +11,6 @@ staticOperators声明方式与operators一致，所不同的是对于传入的da
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-
 | field_list | 是 | Object | 字段列表 | 在list_view中该字段为默认传入 |
 | getCreateFields | 是 | Function | 获取创建需要的字段的请求 | - |
 | doCreateRequest | 是 | Function | 创建需要进行的请求 | - |

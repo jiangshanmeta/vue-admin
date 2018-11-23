@@ -10,15 +10,15 @@
 
 一个model由以下几个部分构成：
 
-* field_list 字段，是一个model最基础的配置项
+* [field_list](https://github.com/jiangshanmeta/vue-admin#field_list) 字段列表，是一个model最基础的配置项
 
-* listConfig，[列表组件的配置项](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common#listinfo)
+* [listConfig](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common#listinfo)，列表组件的配置项
 
-* operators [针对一条记录的操作集](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/operators)
+* [operators]((https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/operators)) 针对一条记录的操作集
 
 * [staticOperators](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/staticOperators) 类似于operators，但staticOperators不针对于一条特定的记录，它对应的data是选中的数据数组。
 
-* filters，筛选组件的配置项。
+* [filters](https://github.com/jiangshanmeta/vue-admin#filters)，筛选组件的配置项。
 
 * filterOperators 类似于operators，是为了拓展筛选功能设计的(目前没发现什么特别的用途)，除了传入代表筛选参数的data属性，它还传入了filters属性。
 
@@ -33,10 +33,30 @@ field_list是一个字段集合，每一个键是对应的字段名，值是关�
 
 * label 这个字段的展示名
 
+* labelComponent 用组件处理复杂的label
+
+```javascript
+labelComponent:{
+    // 默认模式
+    default:{
+        name:"label_redstar",
+        component:()=>import("@/components/user/labels/label_redstar").then((rst)=>rst.default),
+        // 排除create模式
+        exclude:['create']
+    },
+    // info 模式下采用该labelComponent
+    info:{
+        name:"label_redstar",
+        component:()=>import("@/components/user/labels/label_redstar").then((rst)=>rst.default),
+    },
+},
+```
+
 * editorComponent 这个字段编辑相关的配置，包括name(组件名),config(对组件的配置项),component(自定义组件，一般是结合动态导入import()方法),default(默认值)。我提供了一些[通用业务组件](https://github.com/jiangshanmeta/vue-admin/tree/master/src/editor)。声明示例如下：
 
 ```javascript
 editorComponent:{
+    // 必须，唯一
     name:"field_naive",
     // 传入自定义表单元素组件才需要component属性
     component:()=>import("@/components/test/field_naive").then((rst)=>rst.default),
@@ -49,17 +69,16 @@ editorComponent:{
     editConfig:{
         placeholder:"测试editconfig"
     },
+    // 必须
     default:'',
 },
 ```
 
 createConfig和editConfig是考虑到不同模式下有不同的配置项而设立的。
 
-
-
 * view [字段展示时的配置项](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/views)
 
-* validator 表单验证用的
+* validator 表单验证用的，底层依赖async-validator
 
 * tip 展示在表单元素下面的用来提示用户的信息，支持字符串/数字/函数
 
@@ -67,31 +86,28 @@ createConfig和editConfig是考虑到不同模式下有不同的配置项而设�
 
 ```javascript
 colspan:{
-    // 在create组件的colspan配置
+    // 默认模式
+    default:{
+        label:1,
+        field:3,
+        // 排除掉edit，即此时edit 对应 {label:1,field:1}
+        // exclude:['edit'],
+    },
+    // 先找具体的模式，再看default模式
+    // 值为数字，指label为1，field为这个值
     create:3,
-    // 在edit组件的colspan配置 
-    edit:3,
+    info:{
+        // label对应比例
+        label:2,
+        // field对应比例，field可能对应formComponent 可能对应viewComponent
+        field:2,
+    }
 }
 ```
 
 * tableColumnConfig 在表格中table column的配置项
 
-* labelComponent 用组件处理复杂的label
 
-```javascript
-labelComponent:{
-    default:{
-        name:"label_redstar",
-        component:()=>import("@/components/user/labels/label_redstar").then((rst)=>rst.default),
-        exclude:['create']
-    },
-    info:{
-        name:"label_redstar",
-        component:()=>import("@/components/user/labels/label_redstar").then((rst)=>rst.default),
-    },
-    
-},
-```
 
 
 ## filters
