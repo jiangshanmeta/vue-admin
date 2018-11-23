@@ -25,10 +25,13 @@
                 v-model="record[scope.field]" 
                 v-bind="generateEditorProp(scope.field)"
             ></component>
-            <tip
+
+            <div 
                 v-if="field_list[scope.field].tip"
-                :tip="field_list[scope.field].tip"
-            ></tip>
+                class="form-helper"
+            >
+                {{genTip(field_list[scope.field].tip)}}
+            </div>
             <p
                 v-if="validators[scope.field] && validators[scope.field]['hasErr']"
                 class="text-danger form-helper"
@@ -42,7 +45,6 @@
 <script>
 import AsyncValidator from 'async-validator';
 import labels from "@/components/common/labels/labels";
-import tip from "@/components/common/editor/tip"
 
 import injectComponents from "@/widget/injectComponents"
 import filterLabelComponents from "@/injectHelper/labelComponentHelper"
@@ -59,7 +61,6 @@ export default{
     },
     components:{
         labels,
-        tip,
         metaTable:()=>import("@/components/common/meta-table"),
 
         editor_string:()=>import("./editor_string"),
@@ -288,7 +289,13 @@ export default{
             if(this.autoValidate){
                 this.hasValidateListener = true;
             }
-        }
+        },
+        genTip(tip){
+            if(typeof tip === 'function'){
+                tip = tip.call(this);
+            }
+            return tip;
+        },
     },
     watch:{
         record:{

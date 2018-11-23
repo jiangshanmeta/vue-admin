@@ -99,8 +99,8 @@ export default{
                     enums:genderEnum,
                 },
             },
-            tip(context){
-                console.log(context,this,"+++");
+            tip(){
+                console.log(this,"+++");
                 return "暂不支持LGBT";
             },
             tableColumnConfig:{
