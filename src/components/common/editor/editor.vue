@@ -103,7 +103,16 @@ export default{
     },
     state:{
         needInjectLabelComponentsMap:{},
-        hasInjectLabelComponents:false,
+        get hasInjectLabelComponents(){
+            return Object.keys(this.needInjectLabelComponentsMap).length>0;
+        },
+        needInjectEditorComponentsList:[],
+        get hasInjectEditorComponents(){
+            return this.needInjectEditorComponentsList.length;
+        },
+        get hasInjectComponent(){
+            return this.hasInjectLabelComponents || this.hasInjectEditorComponents;
+        },
     },
     props:{
         fields:{
@@ -151,16 +160,6 @@ export default{
                 return obj;
             },{});
         },
-        needInjectEditorComponents(){
-            return this.editFieldsArray.filter((field)=>{
-                return this.field_list[field].editorComponent && this.field_list[field].editorComponent.component;
-            }).map((field)=>{
-                return this.field_list[field].editorComponent;
-            });
-        },
-        hasInjectComponent(){
-            return this.hasInjectLabelComponents || this.needInjectEditorComponents.length;
-        },
         componentsInjected(){
             return this.labelComponentsInjected && this.editorComponentsInjected;
         },
@@ -201,11 +200,11 @@ export default{
             });
         },
         injectEditorComponents(){
-            if(!this.needInjectEditorComponents.length){
+            if(!this.hasInjectEditorComponents){
                 return this.editorComponentsInjected = true;
             }
 
-            injectComponents(this,this.needInjectEditorComponents).then(()=>{
+            injectComponents(this,this.needInjectEditorComponentsList).then(()=>{
                 this.editorComponentsInjected = true;
             });
         },
@@ -337,7 +336,11 @@ export default{
             immediate:true,
             handler(){
                 this.needInjectLabelComponentsMap = injectLabelComponentsHelper(this.field_list,this.editFieldsArray,this.mode);
-                this.hasInjectLabelComponents = Object.keys(this.needInjectLabelComponentsMap).length>0;
+                this.needInjectEditorComponentsList = this.editFieldsArray.filter((field)=>{
+                        return this.field_list[field].editorComponent && this.field_list[field].editorComponent.component;
+                    }).map((field)=>{
+                        return this.field_list[field].editorComponent;
+                    });
 
                 this.labelComponentsInjected = false;
                 this.editorComponentsInjected = false;
@@ -346,7 +349,6 @@ export default{
             },
         },
     },
-
     created(){
         this.$watch(()=>{
             return {
@@ -357,8 +359,6 @@ export default{
             immediate:true,
         })
     },
-
-
 }
 </script>
 

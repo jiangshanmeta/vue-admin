@@ -118,6 +118,9 @@ export default{
     },
     state:{
         needInjectViewComponentsMap:{},
+        get hasInjectComponent(){
+            return Object.keys(this.needInjectViewComponentsMap).length>0;
+        },
     },
     beforeCreate(){
         Object.defineProperty(this,'formData',{
@@ -130,11 +133,7 @@ export default{
         this.localPageSize = this.pageSize;
 
         this.needInjectViewComponentsMap = injectViewComponentsHelper(this.field_list,Object.keys(this.field_list));
-
-        this.hasInjectComponent = Object.keys(this.needInjectViewComponentsMap).length;
         this.injectViewComponents();
-
-
 
         this.$watch(()=>{
             return {
@@ -143,9 +142,9 @@ export default{
                 sortOrder:this.sortOrder,
                 pageIndex:this.pageIndex,
             }
-        },this.getListInfo)
-
-        this.getListInfo();
+        },this.getListInfo,{
+            immediate:true,
+        })
     },
     data(){
         return {

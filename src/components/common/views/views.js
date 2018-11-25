@@ -3,7 +3,6 @@ export default{
     props:{
         view:{
             type:Object,
-            required:true,
         },
         record:{
             type:Object,

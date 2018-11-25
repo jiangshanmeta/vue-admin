@@ -73,9 +73,15 @@ export default{
         injectInited:false,
         needInjectLabelComponentsMap:{},
         needInjectViewComponentsMap:{},
-        hasInjectLabelComponents:false,
-        hasInjectViewComponents:false,
-        hasInjectComponent:false,
+        get hasInjectLabelComponents(){
+            return Object.keys(this.needInjectLabelComponentsMap).length>0;
+        },
+        get hasInjectViewComponents(){
+            return Object.keys(this.needInjectViewComponentsMap).length>0;
+        },
+        get hasInjectComponent(){
+            return this.hasInjectLabelComponents || this.hasInjectViewComponents;
+        },
     },
     data(){
         return {
@@ -123,10 +129,6 @@ export default{
             if(!this.injectInited){
                 this.needInjectLabelComponentsMap = injectLabelComponentsHelper(this.field_list,Object.keys(this.field_list));
                 this.needInjectViewComponentsMap = injectViewComponentsHelper(this.field_list,Object.keys(this.field_list));
-                this.hasInjectLabelComponents = !!(Object.keys(this.needInjectLabelComponentsMap).length);
-                this.hasInjectViewComponents = !!(Object.keys(this.needInjectViewComponentsMap).length);
-                this.hasInjectComponent = this.hasInjectLabelComponents || this.hasInjectLabelComponents;
-
                 this.injectLabelComponents();
                 this.injectViewComponents();
                 this.injectInited = true;
