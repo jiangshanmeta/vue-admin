@@ -9,21 +9,19 @@ export default {
         });
 
         Vue.mixin({
-            beforeCreate:function(){
-
+            beforeCreate(){
                 options.key.forEach((optionKey)=>{
                     const config = this.$options[optionKey];
                     if(config && typeof config === 'object'){
                         let keys = Object.keys(config);
                         keys.forEach((key)=>{
                             Object.defineProperty(this,key,{
-                                value:config[key]
+                                value:config[key],
+                                writable:true,
                             })
                         })
                     }
                 });
-
-
             }
         })
     }

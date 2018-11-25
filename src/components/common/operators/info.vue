@@ -17,36 +17,32 @@
                 :fields="fields"
                 mode="info"
             >
-                <template slot="label" slot-scope="scope">
-                    <labels
+                <labels
+                    slot="label" 
+                    slot-scope="scope"
+                    :label="field_list[scope.field].label"
+                >
+                    <component
+                        v-if="needInjectLabelComponentsMap[scope.field]"
+                        :is="needInjectLabelComponentsMap[scope.field].name"
                         :label="field_list[scope.field].label"
-                        :labelComponent="needInjectLabelComponentsMap[scope.field]"
-                    >
-                        <component
-                            v-if="needInjectLabelComponentsMap[scope.field]"
-                            :is="needInjectLabelComponentsMap[scope.field].name"
-                            :label="field_list[scope.field].label"
-                            v-bind="needInjectLabelComponentsMap[scope.field].config || {}"
-                        ></component>
-                    </labels>
-                </template>
-                <template slot-scope="scope">
-                    <views
-                        :view="field_list[scope.field].view"
-                        :record="record"
-                        :field="scope.field"
-                    >
-                        <template
-                            v-if="field_list[scope.field].view && field_list[scope.field].view.component"
-                            slot-scope="viewScope"
-                        >
-                            <component
-                                :is="field_list[scope.field].view.name"
-                                v-bind="viewScope"
-                            ></component>
-                        </template>
-                    </views>
-                </template>
+                        v-bind="needInjectLabelComponentsMap[scope.field].config || {}"
+                    ></component>
+                </labels>
+
+                <views
+                    slot-scope="scope"
+                    :view="field_list[scope.field].view"
+                    :record="record"
+                    :field="scope.field"
+                >
+                    <component
+                        v-if="needInjectViewComponentsMap[scope.field]"
+                        slot-scope="viewScope"
+                        :is="needInjectViewComponentsMap[scope.field].name"
+                        v-bind="viewScope"
+                    ></component>
+                </views>
             </meta-table>
         </el-dialog>
     </div>
@@ -57,12 +53,13 @@ import metaTable from "@/components/common/meta-table"
 import labels from "@/components/common/labels/labels"
 import views from "@/components/common/views/views"
 
-import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import injectComponents from "@/widget/injectComponents"
 
 import {logError} from "@/widget/utility.js"
 
-import filterLabelComponents from "@/injectHelper/labelComponentHelper"
+import injectLabelComponentsHelper from "@/injectHelper/injectLabelComponentsHelper"
+import injectViewComponentsHelper from "@/injectHelper/injectViewComponentsHelper"
+
 
 export default{
     name:"info",
@@ -72,12 +69,16 @@ export default{
         views,
         labels,
     },
-    mixins:[
-        mergeAttrsConfig,
-    ],
+    state:{
+        injectInited:false,
+        needInjectLabelComponentsMap:{},
+        needInjectViewComponentsMap:{},
+        hasInjectLabelComponents:false,
+        hasInjectViewComponents:false,
+        hasInjectComponent:false,
+    },
     data(){
         return {
-            injectInited:false,
             labelComponentsInjected:false,
             viewComponentsInjected:false,
             isShowLightbox:false,
@@ -113,16 +114,6 @@ export default{
         },
     },
     computed:{
-        needInjectViewComponents(){
-            return Object.keys(this.field_list).filter((field)=>{
-                return this.field_list[field].view && this.field_list[field].view.component;
-            }).map((field)=>{
-                return this.field_list[field].view;
-            });
-        },
-        hasInjectComponent(){
-            return this.needInjectLabelComponentsList.length || this.needInjectViewComponents.length;
-        },
         componentsInjected(){
             return this.labelComponentsInjected && this.viewComponentsInjected;
         },
@@ -130,13 +121,11 @@ export default{
     methods:{
         handleClick(){
             if(!this.injectInited){
-                const {
-                    list,
-                    map,
-                } = filterLabelComponents(this.field_list,Object.keys(this.field_list),'info');
-
-                this.needInjectLabelComponentsList = list;
-                this.needInjectLabelComponentsMap = map;
+                this.needInjectLabelComponentsMap = injectLabelComponentsHelper(this.field_list,Object.keys(this.field_list));
+                this.needInjectViewComponentsMap = injectViewComponentsHelper(this.field_list,Object.keys(this.field_list));
+                this.hasInjectLabelComponents = !!(Object.keys(this.needInjectLabelComponentsMap).length);
+                this.hasInjectViewComponents = !!(Object.keys(this.needInjectViewComponentsMap).length);
+                this.hasInjectComponent = this.hasInjectLabelComponents || this.hasInjectLabelComponents;
 
                 this.injectLabelComponents();
                 this.injectViewComponents();
@@ -153,18 +142,18 @@ export default{
             }).catch(logError);
         },
         injectLabelComponents(){
-            if(!this.needInjectLabelComponentsList.length){
+            if(!this.hasInjectLabelComponents){
                 return this.labelComponentsInjected = true;
             }
-            injectComponents(this,this.needInjectLabelComponentsList).then(()=>{
+            injectComponents(this,this.needInjectLabelComponentsMap).then(()=>{
                 this.labelComponentsInjected = true;
             });
         },
         injectViewComponents(){
-            if(!this.needInjectViewComponents.length){
+            if(!this.hasInjectViewComponents){
                 return this.viewComponentsInjected = true;
             }
-            injectComponents(this,this.needInjectViewComponents).then(()=>{
+            injectComponents(this,this.needInjectViewComponentsMap).then(()=>{
                 this.viewComponentsInjected = true;
             });
         },

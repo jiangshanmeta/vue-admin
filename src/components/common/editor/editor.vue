@@ -5,19 +5,19 @@
         :mode="mode"
         :fields="fields"
     >
-        <template slot="label" slot-scope="scope">
-            <labels
+        <labels
+            slot="label"
+            slot-scope="scope"
+            :label="field_list[scope.field].label"
+        >
+            <component
+                v-if="needInjectLabelComponentsMap[scope.field]"
+                :is="needInjectLabelComponentsMap[scope.field].name"
                 :label="field_list[scope.field].label"
-                :labelComponent="needInjectLabelComponents.map[scope.field]"
-            >
-                <component
-                    v-if="needInjectLabelComponents.map[scope.field]"
-                    :is="needInjectLabelComponents.map[scope.field].name"
-                    :label="field_list[scope.field].label"
-                    v-bind="needInjectLabelComponents.map[scope.field].config || {}"
-                ></component>
-            </labels>
-        </template>
+                v-bind="needInjectLabelComponentsMap[scope.field].config || {}"
+            ></component>
+        </labels>
+
         <template slot-scope="scope">
             <component
                 :ref="scope.field"
@@ -47,18 +47,9 @@ import AsyncValidator from 'async-validator';
 import labels from "@/components/common/labels/labels";
 
 import injectComponents from "@/widget/injectComponents"
-import filterLabelComponents from "@/injectHelper/labelComponentHelper"
+import injectLabelComponentsHelper from "@/injectHelper/injectLabelComponentsHelper"
 
 export default{
-    data(){
-        return {
-            labelComponentsInjected:false,
-            editorComponentsInjected:false,
-            validators:{},
-            recordUnwatchs:[],
-            hasValidateListener:false,
-        }
-    },
     components:{
         labels,
         metaTable:()=>import("@/components/common/meta-table"),
@@ -110,6 +101,41 @@ export default{
         field_image_multi:()=>import("./field_image_multi"),
         field_image_multi_json:()=>import("./field_image_multi_json"),
     },
+    state:{
+        needInjectLabelComponentsMap:{},
+        hasInjectLabelComponents:false,
+    },
+    props:{
+        fields:{
+            type:Array,
+            required:true
+        },
+        record:{
+            type:Object,
+            required:true,
+        },
+        field_list:{
+            type:Object,
+            required:true,
+        },
+        autoValidate:{
+            type:Boolean,
+            default:false,
+        },
+        mode:{
+            type:String,
+            required:true,
+        }
+    },
+    data(){
+        return {
+            labelComponentsInjected:false,
+            editorComponentsInjected:false,
+            validators:{},
+            recordUnwatchs:[],
+            hasValidateListener:false,
+        }
+    },
     computed:{
         editFieldsArray(){
             return this.fields.reduce((arr,row)=>{
@@ -125,9 +151,6 @@ export default{
                 return obj;
             },{});
         },
-        needInjectLabelComponents(){
-            return filterLabelComponents(this.field_list,this.editFieldsArray,this.mode);
-        },
         needInjectEditorComponents(){
             return this.editFieldsArray.filter((field)=>{
                 return this.field_list[field].editorComponent && this.field_list[field].editorComponent.component;
@@ -136,7 +159,7 @@ export default{
             });
         },
         hasInjectComponent(){
-            return this.needInjectLabelComponents.list.length || this.needInjectEditorComponents.length;
+            return this.hasInjectLabelComponents || this.needInjectEditorComponents.length;
         },
         componentsInjected(){
             return this.labelComponentsInjected && this.editorComponentsInjected;
@@ -169,11 +192,11 @@ export default{
             return Object.assign({},config,relateProps);
         },
         injectLabelComponents(){
-            if(!this.needInjectLabelComponents.list.length){
+            if(!this.hasInjectLabelComponents){
                 return this.labelComponentsInjected = true;
             }
 
-            injectComponents(this,this.needInjectLabelComponents.list).then(()=>{
+            injectComponents(this,this.needInjectLabelComponentsMap).then(()=>{
                 this.labelComponentsInjected = true;
             });
         },
@@ -313,6 +336,9 @@ export default{
         fields:{
             immediate:true,
             handler(){
+                this.needInjectLabelComponentsMap = injectLabelComponentsHelper(this.field_list,this.editFieldsArray,this.mode);
+                this.hasInjectLabelComponents = Object.keys(this.needInjectLabelComponentsMap).length>0;
+
                 this.labelComponentsInjected = false;
                 this.editorComponentsInjected = false;
                 this.injectLabelComponents();
@@ -320,28 +346,7 @@ export default{
             },
         },
     },
-    props:{
-        fields:{
-            type:Array,
-            required:true
-        },
-        record:{
-            type:Object,
-            required:true,
-        },
-        field_list:{
-            type:Object,
-            required:true,
-        },
-        autoValidate:{
-            type:Boolean,
-            default:false,
-        },
-        mode:{
-            type:String,
-            default:"create"
-        }
-    },
+
     created(){
         this.$watch(()=>{
             return {

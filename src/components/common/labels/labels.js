@@ -4,13 +4,11 @@ export default{
         label:{
             type:String,
         },
-        labelComponent:{
-            type:Object,
-        },
     },
     render(h,{props,slots}){
-        if(props.labelComponent && props.labelComponent){
-            return slots().default;
+        const slotComponent = slots().default;
+        if(slotComponent){
+            return slotComponent;
         }else{
             return (
                 <span>{props.label}</span>

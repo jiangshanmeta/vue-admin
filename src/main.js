@@ -12,7 +12,7 @@ Vue.use(VueLocalStorage)
 // import "@/widget/vue-config.js"
 import VueConfig from "@/widget/vue-config.js"
 Vue.use(VueConfig,{
-    key:['config','staticMethod']
+    key:['config','staticMethod','state']
 })
 
 

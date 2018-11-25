@@ -198,7 +198,6 @@ export default{
         },
     },
     provide(){
-        console.log(this,"pppp")
         return {
             filtersComponent:this,
         };

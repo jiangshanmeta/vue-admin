@@ -100,7 +100,6 @@ export default{
                 },
             },
             tip(){
-                console.log(this,"+++");
                 return "暂不支持LGBT";
             },
             tableColumnConfig:{

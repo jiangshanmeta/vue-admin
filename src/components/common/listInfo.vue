@@ -52,16 +52,16 @@
                     :field="field"
                 >
                     <component
-                        v-if="field_list[field].view && field_list[field].view.component"
+                        v-if="needInjectViewComponentsMap[field]"
                         slot-scope="viewScope"
-                        :is="field_list[field].view.name"
+                        :is="needInjectViewComponentsMap[field].name"
                         v-bind="viewScope"
                     ></component>
                 </views>
             </el-table-column>
             <el-table-column
-                :label="operatorsLabel"
                 v-if="operators.length && data.length"
+                :label="operatorsLabel"
                 :min-width="operatorMinWidth"
             >
                 <operators
@@ -103,6 +103,8 @@ import injectComponents from "@/widget/injectComponents"
 
 import {logError} from "@/widget/utility.js"
 
+import injectViewComponentsHelper from "@/injectHelper/injectViewComponentsHelper"
+
 
 
 export default{
@@ -114,6 +116,9 @@ export default{
         operators,
         views,
     },
+    state:{
+        needInjectViewComponentsMap:{},
+    },
     beforeCreate(){
         Object.defineProperty(this,'formData',{
             get(){
@@ -124,10 +129,9 @@ export default{
     created(){
         this.localPageSize = this.pageSize;
 
-        this.needInjectViewComponents = Object.keys(this.field_list).filter((field)=>{
-            return this.field_list[field].view && this.field_list[field].view.component;
-        }).map(field=>this.field_list[field].view);
-        this.hasInjectComponent = this.needInjectViewComponents.length>0;
+        this.needInjectViewComponentsMap = injectViewComponentsHelper(this.field_list,Object.keys(this.field_list));
+
+        this.hasInjectComponent = Object.keys(this.needInjectViewComponentsMap).length;
         this.injectViewComponents();
 
 
@@ -263,7 +267,7 @@ export default{
                 return;
             }
 
-            injectComponents(this,this.needInjectViewComponents).then(()=>{
+            injectComponents(this,this.needInjectViewComponentsMap).then(()=>{
                 this.componentsInjected = true;
             });
         },

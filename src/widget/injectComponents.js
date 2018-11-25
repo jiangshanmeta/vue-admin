@@ -1,13 +1,12 @@
 export default function injectComponents(vm,components){
     if(!Array.isArray(components)){
-        components = Object.keys(components).map((name)=>{
+        components = Object.keys(components).map((field)=>{
             return {
-                name,
-                component:components[name],
+                name:components[field].name,
+                component:components[field].component,
             };
         })
     }
-
     components.forEach((item)=>{
         vm.$options.components[item.name] = item.component;
     });
@@ -19,6 +18,5 @@ export default function injectComponents(vm,components){
             vm.$options.components[name] = realComponent
         });
     });
-
     return Promise.all(dynamicImportComponents);
 }
