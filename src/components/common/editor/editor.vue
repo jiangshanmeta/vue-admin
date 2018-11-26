@@ -22,7 +22,7 @@
             <component
                 :ref="scope.field"
                 :is="field_list[scope.field].editorComponent.name" 
-                v-model="record[scope.field]" 
+                v-model="localRecord[scope.field]" 
                 v-bind="generateEditorProp(scope.field)"
             ></component>
 
@@ -114,6 +114,7 @@ export default{
         get hasInjectComponent(){
             return this.hasInjectLabelComponents || this.hasInjectEditorComponents;
         },
+        hasValidateListener:false,
     },
     props:{
         fields:{
@@ -143,7 +144,7 @@ export default{
             editorComponentsInjected:false,
             validators:{},
             recordUnwatchs:[],
-            hasValidateListener:false,
+            localRecord:{},
         }
     },
     computed:{
@@ -157,7 +158,7 @@ export default{
         },
         formData(){
             return this.editFieldsArray.reduce((obj,field)=>{
-                obj[field] = this.record[field];
+                obj[field] = this.localRecord[field];
                 return obj;
             },{});
         },
@@ -169,11 +170,11 @@ export default{
         getRelateData(relateItem){
             if(Array.isArray(relateItem.relateField)){
                 return relateItem.relateField.reduce((obj,field)=>{
-                    obj[field] = this.record[field];
+                    obj[field] = this.localRecord[field];
                     return obj;
                 },{});
             }else{
-                return this.record[relateItem.relateField]
+                return this.localRecord[relateItem.relateField]
             }
         },
         generateEditorProp(field){
@@ -204,7 +205,6 @@ export default{
             if(!this.hasInjectEditorComponents){
                 return this.editorComponentsInjected = true;
             }
-
             injectComponents(this,this.needInjectEditorComponentsList).then(()=>{
                 this.editorComponentsInjected = true;
             });
@@ -225,9 +225,7 @@ export default{
             
             return Promise.all(promises).then(()=>{
                 return JSON.parse(JSON.stringify(this.formData));
-            }).catch((err)=>{
-                return Promise.reject(err);
-            })
+            });
         },
         validateField(field,value){
             return new Promise((resolve,reject)=>{
@@ -248,9 +246,9 @@ export default{
         },
         addValidateInputListener(field){
             return this.$watch(()=>{
-                return this.record[field]
+                return this.localRecord[field]
             },(value)=>{
-                this.validateField.call(this,field,value).catch(()=>{})
+                this.validateField(field,value).catch(()=>{})
             })
         },
         resetRelates(){
@@ -290,24 +288,23 @@ export default{
 
         },
         initValidate(){
-            this.fields.forEach((row)=>{
-                row.forEach((field)=>{
-                    if(this.field_list[field].validator){
-                        let asyncValidator = new AsyncValidator({[field]:this.field_list[field].validator});
+            this.editFieldsArray.forEach((field)=>{
+                if(!this.field_list[field].validator){
+                    return;
+                }
+                let asyncValidator = new AsyncValidator({[field]:this.field_list[field].validator});
 
-                        this.$set(this.validators,field,{
-                            hasErr:false,
-                            errMsg:'',
-                            validator:asyncValidator,
-                            unwatch:null,
-                        })
-
-                        if(this.autoValidate){
-                            this.validators[field].unwatch = this.addValidateInputListener(field);
-                        }
-                    }
+                this.$set(this.validators,field,{
+                    hasErr:false,
+                    errMsg:'',
+                    validator:asyncValidator,
+                    unwatch:null,
                 })
-            });
+
+                if(this.autoValidate){
+                    this.validators[field].unwatch = this.addValidateInputListener(field);
+                }
+            })
 
             if(this.autoValidate){
                 this.hasValidateListener = true;
@@ -327,7 +324,7 @@ export default{
                 Object.keys(this.validators).forEach((field)=>{
                     this.validators[field].unwatch && this.validators[field].unwatch();
                 });
-
+                this.localRecord = JSON.parse(JSON.stringify(this.record));
                 this.validators = {};
                 this.hasValidateListener = false;
                 this.initValidate();
@@ -338,7 +335,6 @@ export default{
             handler(){
                 this.needInjectLabelComponentsMap = getNeedInjectLabelComponentsMap(this.field_list,this.editFieldsArray,this.mode);
                 this.needInjectEditorComponentsList = getNeedInjectEditorComponentsList(this.field_list,this.editFieldsArray);
-
                 this.labelComponentsInjected = false;
                 this.editorComponentsInjected = false;
                 this.injectLabelComponents();
