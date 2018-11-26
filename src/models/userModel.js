@@ -12,7 +12,8 @@ import {
     delUser,
 } from "@/server/user.js"
 
-export default{
+export default function (){
+    return {
     field_list:{
         name:{
             label:'用户名',
@@ -399,4 +400,5 @@ export default{
         }
 
     ],
+    }
 }
