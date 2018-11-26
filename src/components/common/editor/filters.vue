@@ -42,18 +42,13 @@
 </template>
 
 <script>
-import {observe_relates} from "./field_relates_helper.js"
-
-import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import injectComponents from "@/widget/injectComponents"
+import getNeedInjectFilterComponentsList from "@/injectHelper/injectFilterComponentsHelper"
 
 
 export default{
     name:"filters",
     inheritAttrs:true,
-    mixins:[
-        mergeAttrsConfig,
-    ],
     components:{
         filter_enum_select:()=>import("./filter_enum_select"),
         filter_enum_select_async:()=>import("./filter_enum_select_async"),
@@ -75,6 +70,12 @@ export default{
         editor_number:()=>import("./editor_number"),
 
         operators:()=>import("@/components/common/operators/operators"),
+    },
+    state:{
+        needInjectFilterComponentsList:[],
+        get hasInjectFilterComponents(){
+            return this.needInjectFilterComponentsList.length>0;
+        },
     },
     data(){
         return {
@@ -99,7 +100,9 @@ export default{
         },
     },
     created(){
+        this.needInjectFilterComponentsList = getNeedInjectFilterComponentsList(this.filters);
         this.injectFilterComponents();
+
         this.resetValue();
         this.initRelates();
         this.initWatch();
@@ -108,24 +111,16 @@ export default{
         formData(){
             return JSON.parse(JSON.stringify(this.filtersValueMap));
         },
-        needInjectFilterComponents(){
-            return this.filters.filter((item)=>{
-                return item.editorComponent.component;
-            }).map(item=>item.editorComponent);
-        },
-        hasInjectComponent(){
-            return this.needInjectFilterComponents.length;
-        }
     },
     methods:{
         search(){
             this.$emit('search');
         },
         injectFilterComponents(){
-            if(!this.hasInjectComponent){
+            if(!this.hasInjectFilterComponents){
                 return;
             }
-            injectComponents(this,this.needInjectFilterComponents).then(()=>{
+            injectComponents(this,this.needInjectFilterComponentsList).then(()=>{
                 this.componentsInjected = true;
             });
 

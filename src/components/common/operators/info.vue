@@ -57,8 +57,8 @@ import injectComponents from "@/widget/injectComponents"
 
 import {logError} from "@/widget/utility.js"
 
-import injectLabelComponentsHelper from "@/injectHelper/injectLabelComponentsHelper"
-import injectViewComponentsHelper from "@/injectHelper/injectViewComponentsHelper"
+import getNeedInjectLabelComponentsMap from "@/injectHelper/injectLabelComponentsHelper"
+import getNeedInjectViewComponentsMap from "@/injectHelper/injectViewComponentsHelper"
 
 
 export default{
@@ -127,8 +127,8 @@ export default{
     methods:{
         handleClick(){
             if(!this.injectInited){
-                this.needInjectLabelComponentsMap = injectLabelComponentsHelper(this.field_list,Object.keys(this.field_list));
-                this.needInjectViewComponentsMap = injectViewComponentsHelper(this.field_list,Object.keys(this.field_list));
+                this.needInjectLabelComponentsMap = getNeedInjectLabelComponentsMap(this.field_list,Object.keys(this.field_list));
+                this.needInjectViewComponentsMap = getNeedInjectViewComponentsMap(this.field_list,Object.keys(this.field_list));
                 this.injectLabelComponents();
                 this.injectViewComponents();
                 this.injectInited = true;

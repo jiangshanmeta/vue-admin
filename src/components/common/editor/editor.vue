@@ -47,7 +47,8 @@ import AsyncValidator from 'async-validator';
 import labels from "@/components/common/labels/labels";
 
 import injectComponents from "@/widget/injectComponents"
-import injectLabelComponentsHelper from "@/injectHelper/injectLabelComponentsHelper"
+import getNeedInjectLabelComponentsMap from "@/injectHelper/injectLabelComponentsHelper"
+import getNeedInjectEditorComponentsList from "@/injectHelper/injectEditorComponentsHelper"
 
 export default{
     components:{
@@ -335,12 +336,8 @@ export default{
         fields:{
             immediate:true,
             handler(){
-                this.needInjectLabelComponentsMap = injectLabelComponentsHelper(this.field_list,this.editFieldsArray,this.mode);
-                this.needInjectEditorComponentsList = this.editFieldsArray.filter((field)=>{
-                        return this.field_list[field].editorComponent && this.field_list[field].editorComponent.component;
-                    }).map((field)=>{
-                        return this.field_list[field].editorComponent;
-                    });
+                this.needInjectLabelComponentsMap = getNeedInjectLabelComponentsMap(this.field_list,this.editFieldsArray,this.mode);
+                this.needInjectEditorComponentsList = getNeedInjectEditorComponentsList(this.field_list,this.editFieldsArray);
 
                 this.labelComponentsInjected = false;
                 this.editorComponentsInjected = false;

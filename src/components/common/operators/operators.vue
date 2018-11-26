@@ -1,6 +1,6 @@
 <template>
     <div
-        v-if="!hasInjectComponent || componentsInjected"
+        v-if="!hasInjectOperatorComponents || componentsInjected"
         class="operator-container"
         ref="container"
     >
@@ -26,6 +26,9 @@
 <script>
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
 import injectComponents from "@/widget/injectComponents"
+import getNeedInjectOperatorComponentsList from "@/injectHelper/injectOperatorComponentsHelper"
+
+
 
 import {logError} from "@/widget/utility.js"
 
@@ -35,6 +38,12 @@ export default{
     mixins:[
         mergeAttrsConfig,
     ],
+    state:{
+        needInjectOperatorComponentsList:[],
+        get hasInjectOperatorComponents(){
+            return this.needInjectOperatorComponentsList.length>0;
+        },
+    },
     props:{
         operators:{
             type:Array,
@@ -52,18 +61,10 @@ export default{
             componentsInjected:false,
         };
     },
-    computed:{
-        needInjectOperatorComponents(){
-            return this.operators.filter(item=>item.component);
-        },
-        hasInjectComponent(){
-            return this.needInjectOperatorComponents.length;
-        },
-    },
     methods:{
         injectOperatorComponents(){
-            if(this.hasInjectComponent){
-                injectComponents(this,this.needInjectOperatorComponents).then(()=>{
+            if(this.hasInjectOperatorComponents){
+                injectComponents(this,this.needInjectOperatorComponentsList).then(()=>{
                     this.componentsInjected = true;
                     this.notifytWidth();
                 });
@@ -89,6 +90,7 @@ export default{
         },
     },
     created(){
+        this.needInjectOperatorComponentsList = getNeedInjectOperatorComponentsList(this.operators);
         this.injectOperatorComponents();
     },
 }

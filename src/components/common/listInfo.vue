@@ -103,7 +103,7 @@ import injectComponents from "@/widget/injectComponents"
 
 import {logError} from "@/widget/utility.js"
 
-import injectViewComponentsHelper from "@/injectHelper/injectViewComponentsHelper"
+import getNeedInjectViewComponentsMap from "@/injectHelper/injectViewComponentsHelper"
 
 
 
@@ -132,7 +132,7 @@ export default{
     created(){
         this.localPageSize = this.pageSize;
 
-        this.needInjectViewComponentsMap = injectViewComponentsHelper(this.field_list,Object.keys(this.field_list));
+        this.needInjectViewComponentsMap = getNeedInjectViewComponentsMap(this.field_list,Object.keys(this.field_list));
         this.injectViewComponents();
 
         this.$watch(()=>{
