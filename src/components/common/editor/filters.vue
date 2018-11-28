@@ -1,6 +1,6 @@
 <template>
     <el-form
-        v-if="filters.length || (!hasInjectComponent || componentsInjected)"
+        v-if="filters.length || (!hasInjectFilterComponents || componentsInjected)"
         :inline="true"
         class="filters"
         v-show="filters.length"
