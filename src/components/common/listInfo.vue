@@ -129,9 +129,21 @@ export default{
             }
         });
     },
+    data(){
+        return {
+            componentsInjected:false,
+            data:[],
+            pageIndex:1,
+            sortField:'',
+            sortOrder:'',
+            total:0,
+            fields:[],
+            multipleSelection:[],
+            operatorMinWidth:0,
+            localPageSize:this.pageSize,
+        }
+    },
     created(){
-        this.localPageSize = this.pageSize;
-
         this.needInjectViewComponentsMap = getNeedInjectViewComponentsMap(this.field_list,Object.keys(this.field_list));
         this.injectViewComponents();
 
@@ -145,20 +157,6 @@ export default{
         },this.getListInfo,{
             immediate:true,
         })
-    },
-    data(){
-        return {
-            componentsInjected:false,
-            data:[],
-            pageIndex:1,
-            sortField:'',
-            sortOrder:'',
-            total:0,
-            fields:[],
-            multipleSelection:[],
-            operatorMinWidth:0,
-            localPageSize:0,
-        }
     },
     props:{
         field_list:{
