@@ -2,9 +2,7 @@ export default{
     name:"view_transform",
     functional:true,
     props:{
-        data:{
-            required:true,
-        },
+        data:{},
         transform:{
             type:Function,
             default:function(data){

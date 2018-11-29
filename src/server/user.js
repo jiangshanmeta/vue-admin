@@ -6,7 +6,7 @@ const userTable = [
         name:'渡边早季',
         gender:1,
         password:'123456',
-        typ:999,
+        typ:{index:999},
         privilege:[1,2,3,5,11,123,999],
         desc:"来自新世界的女主"
     },
@@ -15,7 +15,7 @@ const userTable = [
         name:'朝比奈觉',
         gender:0,
         password:'qwerty',
-        typ:99,
+        typ:{index:99},
         privilege:[1,2,3,5],
         desc:"来自新世界的男主",
     },
@@ -24,7 +24,7 @@ const userTable = [
         name:"秋月真理亚",
         gender:1,
         password:"123456",
-        typ:99,
+        typ:{index:99},
         privilege:[1,2],
         desc:"早季的姬友",
     },
@@ -33,7 +33,7 @@ const userTable = [
         name:"伊东守",
         gender:0,
         password:"wwwww",
-        typ:2,
+        typ:{index:2},
         privilege:[0,1],
         desc:"~~~",
     },
@@ -42,7 +42,7 @@ const userTable = [
         name:"青沼瞬",
         gender:0,
         password:"1234567",
-        typ:1,
+        typ:{index:1},
         privilege:[0],
         desc:"业魔化~"
     }
@@ -77,9 +77,8 @@ const privilegeEnum = [
 ];
 
 function getPrivilege(cb,data){
-    let typ = data.req_typ;
+    let typ = data.typ.index;
     let rst;
-    console.log(typ)
     switch(typ){
         case 0:
             rst = privilegeEnum.slice(0,1);

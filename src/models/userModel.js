@@ -128,14 +128,29 @@ export default function (){
                     candidate:typEnum,
                     valuefield:'value',
                     labelfield:'label',
+                    getModelValue(data){
+                        return data.index;
+                    },
+                    setModelValue(data){
+                        return {
+                            index:data
+                        };
+                    },
                 },
-                default:0,
+                default(){
+                    return {
+                        index:0,
+                    }
+                },
             },
             view:{
                 name:"view_enum",
                 component:()=>import("@/components/common/views/view_enum").then((rst)=>rst.default),
                 config:{
                     enums:typHash
+                },
+                getViewValue(data){
+                    return data.index;
                 },
             },
         },
@@ -150,11 +165,18 @@ export default function (){
                     relates:[
                         {
                             relateField:["typ"],
-                            requestField:{
-                                typ:"req_typ"
+                            isValidValue(value,field){
+                                if(field === 'typ'){
+                                    value = value.index;
+                                    return value !== 0;
+                                }
+                                return true;
                             },
-                            invalidValue:{
-                                typ:0,
+                            getCacheKey(value,field){
+                                if(field === 'typ'){
+                                    return value.index;
+                                }
+                                return value;
                             },
                             propField:"relateData",
                         },

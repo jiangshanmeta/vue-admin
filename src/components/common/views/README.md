@@ -49,6 +49,24 @@ view:{
 }
 ```
 
+还有个配置选项getViewValue，它是个函数，入参是字段值，函数的返回值会被传入view component/handler ，这样利于复用view handler/component。
+
+```javascript
+view:{
+    name:"view_enum",
+    component:()=>import("@/components/common/views/view_enum").then((rst)=>rst.default),
+    config:{
+        enums:typHash
+    },
+    // 可选参数，默认操作是原样返回identity
+    getViewValue(data){
+        return data.index;
+    },
+},
+```
+
+
+
 考虑到viewComponent仅仅是负责展示，因而推荐使用functional component。下面提及的几个viewComponent实现也都是基于functional component的。
 
 
@@ -60,7 +78,7 @@ view:{
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-| data   | 是 | String Number | 真实值 | 作为viewComponent时该值自动传入   |
+| data   | 否 | String Number | 真实值 | 作为viewComponent时该值自动传入   |
 | enums  |  是  | Object    | 枚举配置项 | - |
 
 ## view_html
@@ -69,13 +87,13 @@ view:{
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-| data   | 是 | String | 真实值 | 作为viewComponent时该值自动传入   |
+| data   | 否 | String | 真实值 | 作为viewComponent时该值自动传入   |
 
 ## view_transform
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-| data   | 是 | String Number | 真实值 | 作为viewComponent时该值自动传入   |
+| data   | 否 | String Number | 真实值 | 作为viewComponent时该值自动传入   |
 | transform  |  是  | Function    | 转换函数，第一个参数是data | - |
 
 这个组件其实是函数模式的前身，用处不大

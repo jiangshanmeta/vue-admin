@@ -118,7 +118,7 @@ export default {
     methods:{
         getEditFields(){
             new Promise((resolve,reject)=>{
-                this.getEditInfo(resolve);
+                this.getEditInfo(resolve,this.data);
             }).then(({fields,record})=>{
                 this.fields = fields;
                 this.record = record;

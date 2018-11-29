@@ -135,7 +135,7 @@ export default{
             }
 
             new Promise((resolve,reject)=>{
-                this.getDetailInfo(resolve);
+                this.getDetailInfo(resolve,this.data);
             }).then(({fields,record})=>{
                 this.fields = fields;
                 this.record = record;

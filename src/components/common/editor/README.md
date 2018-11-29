@@ -108,19 +108,26 @@ relateField表示关联的字段，可以是一个数组，表示关联一组字
 ```javascript
 relates:[
     {
-        relateField:["store"],
-        invalidValue:{
-            store:"",
+        relateField:["typ"],
+        isValidValue(value,field){
+            if(field === 'typ'){
+                value = value.index;
+                return value !== 0;
+            }
+            return true;
         },
-        requestField:{
-            store:"storeId",
+        getCacheKey(value,field){
+            if(field === 'typ'){
+                return value.index;
+            }
+            return value;
         },
         propField:"relateData",
-    }
+    },
 ],
 ```
 
-对于relates组件，propField为确定的relateData，请不要更改。上面示例的invalidValue和requestField是relates组件特殊需要的(可选)，分别为无效值map和请求的key的map。relates组件也有一个getCandidate参数，类似于async组件，但是入参多一个，其第二个参数是请求的params。
+对于relates组件，propField为确定的relateData，请不要更改。isValidValue是个函数(默认是返回true的函数)，用来判断某个关联字段的值是不是无效的，入参是字段的值和字段名。getCacheKey是个函数，因为relates组件对请求结果进行了缓存，需要确定缓存的key，默认情况下函数返回关联字段值(如果关联字段都是简单值 这样就行了)，只有在关联字段的值是复杂值时才需要配置这一项。relates组件也有一个getCandidate参数，类似于async组件，但是入参多一个，其第二个参数是请求的params。
 
 
 

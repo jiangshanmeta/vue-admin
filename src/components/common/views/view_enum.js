@@ -4,7 +4,6 @@ export default{
     props:{
         data:{
             type:[Number,String],
-            required:true
         },
         enums:{
             type:Object,

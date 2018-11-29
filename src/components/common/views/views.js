@@ -1,3 +1,7 @@
+function identity(value){
+    return value;
+}
+
 export default{
     functional:true,
     props:{
@@ -22,14 +26,13 @@ export default{
                 join,
                 component,
                 handler,
+                getViewValue=identity,
             } = props.view;
 
             let isJoinField = false;
             if(typeof join === 'object'){
                 isJoinField = true;
-
                 let obj = props.record.hasOwnProperty(props.field)?{[props.field]:info}:{};
-
                 if(Array.isArray(join)){
                     info = join.reduce((obj,field)=>{
                         obj[field] = props.record[field];
@@ -41,8 +44,10 @@ export default{
                         return obj;
                     },obj);
                 }
-
             }
+
+            info = getViewValue(info);
+
             if(component){
                 let scopedSlotsData;
                 if(isJoinField){

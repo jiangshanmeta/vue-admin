@@ -4,7 +4,6 @@ export default{
     props:{
         data:{
             type:String,
-            required:true
         }
     },
     render(h,{props}){

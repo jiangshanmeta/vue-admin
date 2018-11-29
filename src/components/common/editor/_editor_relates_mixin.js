@@ -1,14 +1,19 @@
 import {logError} from "@/widget/utility"
 
 function noop(){}
+function alwaysTrue(){
+    return true;
+}
+function identity(value){
+    return value;
+}
 
 export default{
     props:{
         relates:{
-            type:Array,
-            default:function(){
-                return []
-            }
+            validator(value){
+                return Array.isArray(value) && value[0].propField === 'relateData'
+            },
         },
         getCandidate:{
             type:Function,
@@ -26,8 +31,7 @@ export default{
     methods:{
         getOptions(){
             if(!this.hasValidIds){
-                this.handleInvalidRelateIds();
-                return;
+                return this.handleInvalidRelateIds();
             }
 
             if(this.hasCachedOptions){
@@ -35,14 +39,13 @@ export default{
             }
 
             const queryObj = this.relateKeys.reduce((queryObj,field)=>{
-                const queryKey = this.requestFieldMap.hasOwnProperty(field)?this.requestFieldMap[field]:field;
-                queryObj[queryKey] = this.relateData[field];
+                queryObj[field] = this.relateData[field];
                 return queryObj;
             },Object.create(null));
 
             const cacheObj = JSON.parse(JSON.stringify(this.relateData));
 
-            new Promise((resolve,reject)=>{
+            new Promise((resolve)=>{
                 this.getCandidate(resolve,queryObj)
             }).then((candidate)=>{
                 this.setCacheOptions(candidate,cacheObj)
@@ -54,24 +57,26 @@ export default{
             const len = this.relateKeys.length;
             let counter = 0;
             while(counter<len-1){
-                let cacheKey = cacheObj[this.relateKeys[counter++]];
+                let field = this.relateKeys[counter++];
+                let cacheKey = this.getCacheKey(cacheObj[field],cacheObj);
                 if(!start.hasOwnProperty(cacheKey)){
                     this.$set(start,cacheKey,{});
                 }
                 start = start[cacheKey];
             }
-            this.$set(start,cacheObj[this.relateKeys[len-1]],options);
+            let field = this.relateKeys[len-1];
+            this.$set(start,this.getCacheKey(cacheObj[field],field),options);
         },
     },
     computed:{
         relateKeys(){
             return Object.keys(this.relateData);
         },
-        requestFieldMap(){
-            return this.relates.find((item)=>item.propField==='relateData').requestField || {};
+        isValidValue(){
+            return this.relates[0].isValidValue || alwaysTrue;
         },
-        invalidValueMap(){
-            return this.relates.find((item)=>item.propField==='relateData').invalidValue || {};
+        getCacheKey(){
+            return this.relates[0].getCacheKey || identity;
         },
         finalOptions(){
             if(!this.hasValidIds || !this.hasCachedOptions){
@@ -82,14 +87,14 @@ export default{
             let counter = 0;
             let start = this.optionsCache;
             while(counter<length){
-                start = start[this.relateData[this.relateKeys[counter++]]];
+                let field = this.relateKeys[counter++];
+                start = start[this.getCacheKey(this.relateData[field],field)];
             }
-
             return start;
         },
         hasValidIds(){
             return this.relateKeys.every((field)=>{
-                return this.relateData[field] !== this.invalidValueMap[field];
+                return this.isValidValue(this.relateData[field],field);
             });
         },
         hasCachedOptions(){
@@ -100,12 +105,12 @@ export default{
             let relateId;
 
             while(counter<len){
-                relateId = this.relateData[this.relateKeys[counter++]]
+                let field = this.relateKeys[counter++]
+                relateId = this.getCacheKey(this.relateData[field],field);
 
                 if(!start.hasOwnProperty(relateId)){
                     return false;
                 }
-
                 start = start[relateId];
             }
             return true;
