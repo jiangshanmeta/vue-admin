@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import editor_time from "./_editor_time.vue"
 import _props_value_mixin from "./_props_value_mixin.js"
 import _computed_model_mixin from "./_computed_model_mixin.js"
 
@@ -19,7 +18,7 @@ export default{
         _computed_model_mixin,
     ],
     components:{
-        editor_time
+        editor_time:()=>import("./_editor_time"),
     },
 }
 </script>

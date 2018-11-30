@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import editor_enum_autocomplete from "./editor_enum_autocomplete"
-
 import _editor_array_mixin from "./_editor_array_mixin"
 import _props_value_array_mixin from "./_props_value_array_mixin"
 import _computed_value_label_map_mixin from './_computed_value_label_map_mixin'
@@ -36,7 +34,7 @@ export default{
         _computed_value_label_map_mixin,
     ],
     components:{
-        editor_enum_autocomplete,
+        editor_enum_autocomplete:()=>import("./editor_enum_autocomplete"),
     },
     data(){
         return {

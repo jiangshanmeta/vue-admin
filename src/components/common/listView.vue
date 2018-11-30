@@ -10,6 +10,7 @@
             ref="listInfo"
         >
             <operators
+                v-if="staticOperators.length>0"
                 slot="beforeFilters" 
                 slot-scope="scope"
                 :operators="staticOperators"
@@ -43,9 +44,7 @@ export default{
     props:{
         field_list:{
             type:Object,
-            default:function(){
-                return {};
-            }
+            required:true,
         },
         staticOperators:{
             type:Array,

@@ -9,8 +9,6 @@
 </template>
 
 <script>
-import editor_enum_autocomplete from "./editor_enum_autocomplete"
-
 import _filter_all_mixin from "./_filter_all_mixin"
 import _computed_model_mixin from "./_computed_model_mixin"
 
@@ -18,7 +16,7 @@ export default{
     name:"filter_enum_autocomplete",
     inheritAttrs:true,
     components:{
-        editor_enum_autocomplete,
+        editor_enum_autocomplete:()=>import("./editor_enum_autocomplete"),
     },
     mixins:[
         _filter_all_mixin,

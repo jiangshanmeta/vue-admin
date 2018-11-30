@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import editor_enum_autocomplete from "./editor_enum_autocomplete.vue"
-
 import _async_candidate_mixin from "./_async_candidate_mixin"
 import _props_value_mixin from "./_props_value_mixin"
 import _computed_model_mixin from "./_computed_model_mixin.js"
@@ -23,7 +21,7 @@ export default{
         _computed_model_mixin,
     ],
     components:{
-        editor_enum_autocomplete
+        editor_enum_autocomplete:()=>import("./editor_enum_autocomplete")
     },
 }
 </script>

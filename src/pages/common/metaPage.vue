@@ -1,6 +1,6 @@
 <template>
     <list-view
-        v-if="Object.keys(model).length"
+        v-if="Object.keys(model).length>0"
         v-bind="model"
     ></list-view>
 </template>

@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import editor_enum_radio from "./editor_enum_radio.vue"
-
 import _editor_relates_mixin from "./_editor_relates_mixin"
 import _computed_model_mixin from "./_computed_model_mixin"
 
@@ -21,7 +19,7 @@ export default{
         _computed_model_mixin,
     ],
     components:{
-        editor_enum_radio
+        editor_enum_radio:()=>import("./editor_enum_radio"),
     },
 }
 </script>

@@ -38,8 +38,8 @@
 </template>
 
 <script>
+import {logError} from "@/widget/utility"
 
-import {logError} from "@/widget/utility.js"
 export default{
     name:"create",
     inheritAttrs:true,
@@ -101,12 +101,6 @@ export default{
             type:Boolean,
             default:false,
         },
-
-    },
-    watch:{
-        field_list(){
-            this.fields = [];
-        },
     },
     methods:{
         showDialog(){
@@ -139,7 +133,7 @@ export default{
         },
         doCreate(){
             this.$refs.createbox.validate().then((data)=>{
-                new Promise((resolve,reject)=>{
+                new Promise((resolve)=>{
                     this.doCreateRequest(resolve,this.transformData(data))
                 }).then(()=>{
                     this.isShowCreatebox = false;

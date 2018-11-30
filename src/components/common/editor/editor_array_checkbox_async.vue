@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import editor_array_checkbox from "./editor_array_checkbox"
-
 import _async_candidate_mixin from "./_async_candidate_mixin"
 import _computed_model_mixin from "./_computed_model_mixin"
 import _props_value_array_mixin from "./_props_value_array_mixin"
@@ -18,7 +16,7 @@ export default {
     name:'editor_array_checkbox_async',
     inheritAttrs:true,
     components:{
-        editor_array_checkbox,
+        editor_array_checkbox:()=>import("./editor_array_checkbox"),
     },
     mixins:[
         _async_candidate_mixin,

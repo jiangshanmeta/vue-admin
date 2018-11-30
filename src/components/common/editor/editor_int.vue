@@ -8,7 +8,7 @@
 
 <script>
 import _props_value_number_mixin from "./_props_value_number_mixin"
-import editor_number from "./editor_number"
+
 export default{
     name:"editor_int",
     inheritAttrs:true,
@@ -16,7 +16,7 @@ export default{
         _props_value_number_mixin,
     ],
     components:{
-        editor_number,
+        editor_number:()=>import("./editor_number"),
     },
     computed:{
         model:{

@@ -49,25 +49,19 @@
 </template>
 
 <script>
-import metaTable from "@/components/common/meta-table"
-import labels from "@/components/common/labels/labels"
-import views from "@/components/common/views/views"
-
 import injectComponents from "@/widget/injectComponents"
-
-import {logError} from "@/widget/utility.js"
-
 import getNeedInjectLabelComponentsMap from "@/injectHelper/injectLabelComponentsHelper"
 import getNeedInjectViewComponentsMap from "@/injectHelper/injectViewComponentsHelper"
 
+import {logError} from "@/widget/utility.js"
 
 export default{
     name:"info",
     inheritAttrs:true,
     components:{
-        metaTable,
-        views,
-        labels,
+        metaTable:()=>import("@/components/common/meta-table"),
+        views:()=>import("@/components/common/views/views"),
+        labels:()=>import("@/components/common/labels/labels"),
     },
     state:{
         injectInited:false,

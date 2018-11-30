@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import editor_array_autocomplete from "./editor_array_autocomplete"
-
 import _async_candidate_mixin from "./_async_candidate_mixin"
 import _computed_model_mixin from "./_computed_model_mixin"
 import _props_value_array_mixin from "./_props_value_array_mixin"
@@ -23,7 +21,7 @@ export default {
         _props_value_array_mixin,
     ],
     components:{
-        editor_array_autocomplete
+        editor_array_autocomplete:()=>import("./editor_array_autocomplete")
     },
 }
 </script>

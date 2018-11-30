@@ -9,8 +9,6 @@
 </template>
 
 <script>
-import editor_enum_select from "./editor_enum_select"
-
 import _filter_all_mixin from "./_filter_all_mixin"
 import _computed_model_mixin from "./_computed_model_mixin"
 
@@ -18,7 +16,7 @@ export default{
     name:"filter_enum_select",
     inheritAttrs:true,
     components:{
-        editor_enum_select
+        editor_enum_select:()=>import("./editor_enum_select"),
     },
     mixins:[
         _filter_all_mixin,

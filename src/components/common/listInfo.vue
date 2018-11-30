@@ -1,12 +1,12 @@
 <template>
     <section 
-        v-if="Object.keys(field_list).length && (!hasInjectComponent || componentsInjected)"
+        v-if="Object.keys(field_list).length>0 && (!hasInjectComponent || componentsInjected)"
     >
         <slot
             name="beforeFilters"
             :data="data"
             :formData="formData"
-            :selectedData="selection?multipleSelection:[]"
+            :selectedData="multipleSelection"
         ></slot>
 
         <filters
@@ -21,11 +21,11 @@
             name="afterFilters"
             :data="data"
             :formData="formData"
-            :selectedData="selection?multipleSelection:[]"
+            :selectedData="multipleSelection"
         ></slot>
 
         <el-table
-            v-if="fields.length && data.length"
+            v-if="fields.length>0 && data.length>0"
             :data="data"
             style="width:100%;"
             @sort-change="handleSortChange"
@@ -60,7 +60,7 @@
                 </views>
             </el-table-column>
             <el-table-column
-                v-if="operators.length && data.length"
+                v-if="operators.length>0 && data.length>0"
                 :label="operatorsLabel"
                 :min-width="operatorMinWidth"
             >
@@ -82,7 +82,7 @@
             {{emptyText}}
         </section>
         <el-pagination
-            v-if="paginated && data.length"
+            v-if="paginated && data.length>0"
             @size-change="handleSizeChange"
             v-bind="paginationConfig"
             :current-page.sync="pageIndex"
@@ -99,13 +99,11 @@ import operators from "@/components/common/operators/operators"
 import views from "@/components/common/views/views"
 
 import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
-import injectComponents from "@/widget/injectComponents"
 
 import {logError} from "@/widget/utility.js"
 
+import injectComponents from "@/widget/injectComponents"
 import getNeedInjectViewComponentsMap from "@/injectHelper/injectViewComponentsHelper"
-
-
 
 export default{
     mixins:[

@@ -43,6 +43,8 @@
                         v-model="editor_array_checkbox_async"
                         :handleInvalidValue="handleTagInvalid"
                         :getCandidate="getCandidate.editor_array_checkbox_async"
+                        valuefield="id"
+                        labelfield="name"
                     ></editor_array_checkbox_async>
                 </td>
             </tr>
@@ -54,6 +56,8 @@
                         v-model="editor_array_checkbox_async_json"
                         :handleInvalidValue="handleTagInvalid"
                         :getCandidate="getCandidate.editor_array_checkbox_async_json"
+                        valuefield="id"
+                        labelfield="name"
                     ></editor_array_checkbox_async_json>
                 </td>
             </tr>

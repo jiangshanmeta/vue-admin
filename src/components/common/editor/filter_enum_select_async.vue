@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import filter_enum_select from "./filter_enum_select"
-
 import _async_candidate_mixin from "./_async_candidate_mixin"
 import _computed_model_mixin from "./_computed_model_mixin"
 
@@ -20,7 +18,7 @@ export default{
         _computed_model_mixin
     ],
     components:{
-        filter_enum_select,
+        filter_enum_select:()=>import("./filter_enum_select"),
     },
 }
 </script>

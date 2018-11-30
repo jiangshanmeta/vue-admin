@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import filter_enum_autocomplete from "./filter_enum_autocomplete"
-
 import _async_candidate_mixin from "./_async_candidate_mixin"
 import _computed_model_mixin from "./_computed_model_mixin"
 
@@ -20,7 +18,7 @@ export default{
         _computed_model_mixin
     ],
     components:{
-        filter_enum_autocomplete
+        filter_enum_autocomplete:()=>import("./filter_enum_autocomplete"),
     }
 }
 </script>

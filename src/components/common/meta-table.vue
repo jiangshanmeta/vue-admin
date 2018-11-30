@@ -20,7 +20,7 @@
                     </td>
                 </template>
                 <td
-                    v-if="restCols[rowIndex]"
+                    v-if="restCols[rowIndex]>0"
                     :colspan="restCols[rowIndex]"
                 ></td>
             </tr>
