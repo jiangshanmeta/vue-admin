@@ -23,7 +23,11 @@ export default merge.all([_props_value_mixin,{
                 return this.getModelValue(this.value);
             },
             set(val){
-                this.$emit('input',this.setModelValue(val));
+                // 因为有setModelValue把简单值映射为复杂值的情况
+                // 简单值一致，不应该出现新的复杂值
+                if(val !== this.model){
+                    this.$emit('input',this.setModelValue(val));
+                }
             },
         }
     }
