@@ -1,6 +1,5 @@
 import {
     genderEnum,
-    typEnum,
     typHash,
     getPrivilege,
     getCreateFields,
@@ -10,7 +9,14 @@ import {
     getEditUserInfo,
     editUser,
     delUser,
-} from "@/server/user.js"
+    getTypEnum
+} from "@/server/user"
+
+import {
+    onceAsync
+} from "@/widget/utility"
+
+const cacheGetTypEnum = onceAsync(getTypEnum);
 
 export default function (){
     return {
@@ -123,9 +129,9 @@ export default function (){
         typ:{
             label:'类型',
             editorComponent:{
-                name:"editor_enum_select",
+                name:"editor_enum_select_async",
                 config:{
-                    candidate:typEnum,
+                    getCandidate:cacheGetTypEnum,
                     valuefield:'value',
                     labelfield:'label',
                     getModelValue(data){
@@ -259,9 +265,9 @@ export default function (){
             label:"类型",
             field:"typ",
             editorComponent:{
-                name:"filter_enum_select",
+                name:"filter_enum_select_async",
                 config:{
-                    candidate:typEnum,
+                    getCandidate:cacheGetTypEnum,
                     allvalue:-1,
                     alllabel:"全部",
                 },

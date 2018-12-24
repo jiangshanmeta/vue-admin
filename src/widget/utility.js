@@ -30,9 +30,22 @@ function download(blob,name="template",options){
 }
 
 
+function onceAsync(fn){
+    let promise;
+    return function(cb,...args){
+        if(promise === undefined){
+            promise = new Promise((resolve)=>{
+                fn(resolve,...args);
+            });
+        }
+        promise.then(cb);
+    }
+}
+
 export {
     isAsyncFunction,
     enumArr2Hash,
     logError,
     download,
+    onceAsync,
 }

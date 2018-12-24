@@ -64,6 +64,11 @@ const typEnum = [
     {value:999,label:'管理员'},
 ]
 
+function getTypEnum(cb){
+    cb(typEnum);
+}
+
+
 const typHash = enumArr2Hash(typEnum);
 
 const privilegeEnum = [
@@ -210,4 +215,5 @@ export {
     getEditUserInfo,
     editUser,
     delUser,
+    getTypEnum,
 }
