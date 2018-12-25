@@ -1,3 +1,4 @@
+process.traceDeprecation = true
 const path = require('path')
 const webpack = require('webpack')
 const { VueLoaderPlugin } = require('vue-loader')
@@ -31,7 +32,7 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json',".ts"],
+    extensions: ['.js', '.vue', '.json',".ts",".css"],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src')
@@ -100,8 +101,5 @@ module.exports = {
   plugins:[
     new VueLoaderPlugin(),
     new webpack.DefinePlugin(defineConfig),
-    // new webpack.DefinePlugin({
-    //   'process.env.baseUrl':JSON.stringify(process.env['npm_package_config_'+ process.env.NODE_ENV + '_baseUrl'])
-    // }),
   ]
 }

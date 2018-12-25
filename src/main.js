@@ -19,10 +19,6 @@ Vue.use(VueConfig,{
 import router from './router'
 import store from "./store"
 
-import axios from "@/server/axios.js"
-Object.defineProperty(Vue.prototype,'$axios',{
-    value:axios
-})
 
 // 处理element ui库
 import Element from 'element-ui'
@@ -31,11 +27,18 @@ Vue.use(Element)
 
 Vue.config.productionTip = false
 
-import App from './App'
 
-import '@/assets/css/bootstrap-grid.min.css';
+
+
 import '@/assets/css/bootstrap-reboot.min.css';
+import '@/assets/css/layout.css';
+import '@/assets/css/display.css';
+import '@/assets/css/text.css';
+import '@/assets/css/img.css';
+import '@/assets/css/table.css';
 import '@/assets/css/lib.css';
+
+import App from './App'
 
 /* eslint-disable no-new */
 let instance = new Vue({

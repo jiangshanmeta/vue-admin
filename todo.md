@@ -21,3 +21,12 @@ async组件基本成型，一个问题是多个相同的async组件同时初始�
 
 改写成functional component 
 vue-meta 看了一眼，有点略重  我只需要改写title
+
+## typescript
+
+这个。。。。
+
+
+## commonChunk 
+
+升级到webpack4后留下的坑

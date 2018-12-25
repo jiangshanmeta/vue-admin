@@ -135,9 +135,3 @@ filters是筛选的配置项，它是一个数组，其组成元素示例如下�
 * editorComponent是编辑组件相关配置项，name是编辑组件名称，config是对这个编辑组件的配置项，component是传入自定义组件，用于自定义编辑组件时动态引入，default是编辑组件的默认值
 * watch是用来实现当一个编辑组件变化时就触发查询(默认是有个查询按钮，点击才查询)，值为true则开启此功能。
 
-
-
-## TODO
-
-* typescript
-* commonChunk
