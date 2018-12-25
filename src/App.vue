@@ -1,16 +1,18 @@
 <template>
-    <div id="app" style="min-height:100vh;display:flex;flex-direction:column;">
-        <vue-title v-cloak>{{$store.state.title.title}}</vue-title>
+    <div class="app">
+        <vue-title :title="$store.state.title.title"></vue-title>
         <top-nav></top-nav>
 
-        <div style="flex-grow:1;display:flex;max-width:100%;">
+        <div class="app-section">
             <side-menu
                 v-if="$store.state.isLogin"
-                style="flex:0 0 auto;"
+                class="app-aside"
                 :uri="$store.state.uri.path"
                 :privilege="$store.state.userInfo.privilege"
             ></side-menu>
-            <main style="flex:1 1 auto;max-width:100%;padding:15px;">
+            <main 
+                class="app-main"
+            >
                 <router-view ></router-view>
             </main>
         </div>
@@ -23,7 +25,7 @@
 import topNav from '@/components/index/topnav'
 import sideMenu from "@/components/index/menu"
 import bottomFooter from "@/components/index/footer"
-import vueTitle from "@/widget/title.vue"
+import vueTitle from "@/widget/title"
 
 export default {
 	name:'app',
@@ -62,8 +64,23 @@ export default {
 }
 </script>
 
-<style>
-[v-cloak] {
-    display: none;
+<style scoped>
+.app{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+.app-section{
+    flex-grow:1;
+    display:flex;
+    max-width:100%;
+}
+.app-aside{
+    flex:0 0 auto;
+}
+.app-main{
+    flex:1 1 auto;
+    max-width:100%;
+    padding:15px;
 }
 </style>

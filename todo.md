@@ -9,10 +9,15 @@ element-ui的上传组件有个问题，是把上传和上传后的结果耦合�
 这里还要理一下
 
 
-## async组件
+## async组件 (done) widget/utility onceAsync
 
 async组件基本成型，一个问题是多个相同的async组件同时初始化，这里会发起多个其实是等价的请求，其实只需要一个请求，怎么写优雅点？
 
 ## 共享组件
 
 是针对operators的，一个列表，可能有N条记录，每条记录都完全初始化所有operator的子组件(比如operator-item的dialog等)是有点浪费的，尽可能减少这层消耗
+
+## widget/title (done)
+
+改写成functional component 
+vue-meta 看了一眼，有点略重  我只需要改写title
