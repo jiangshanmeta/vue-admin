@@ -29,10 +29,9 @@ export default{
                 getViewValue=identity,
             } = props.view;
 
-            let isJoinField = false;
-            if(typeof join === 'object'){
-                isJoinField = true;
-                let obj = props.record.hasOwnProperty(props.field)?{[props.field]:info}:{};
+            const isJoinField = typeof join === 'object';
+            if(isJoinField){
+                const obj = props.record.hasOwnProperty(props.field)?{[props.field]:info}:{};
                 if(Array.isArray(join)){
                     info = join.reduce((obj,field)=>{
                         obj[field] = props.record[field];
@@ -49,18 +48,16 @@ export default{
             info = getViewValue(info);
 
             if(component){
-                let scopedSlotsData;
-                if(isJoinField){
-                    scopedSlotsData = {
+                const scopedSlotsData = isJoinField?
+                    {
                         ...info,
-                        ...config
+                        ...config,
                     }
-                }else{
-                    scopedSlotsData = {
+                    :
+                    {
                         data:info,
                         ...config,
                     }
-                }
                 return data.scopedSlots.default(scopedSlotsData)
             }else if(handler){
                 return (

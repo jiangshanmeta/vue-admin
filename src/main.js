@@ -15,7 +15,6 @@ Vue.use(VueConfig,{
     key:['config','staticMethod','state']
 })
 
-
 import router from './router'
 import store from "./store"
 

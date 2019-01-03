@@ -20,39 +20,37 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-    let gotoLogon = false;
     if(to.query.redirect){
         store.commit('uri/setRedirect',to.query.redirect);
     }
 
-    if (to.meta && to.meta.privilege && Array.isArray(to.meta.privilege)) {
-        let pagePrivilege = to.meta.privilege;
-        let userPrivilege = store.state.userInfo.privilege;
-        let hasPrivilege = false;
-        for(var i=0,len=userPrivilege.length;i<len;i++){
-            var priItem = userPrivilege[i];
-            if(pagePrivilege.includes(priItem)){
-                hasPrivilege = true;
-                break;
-            }
-        }
-        if(!hasPrivilege){
-            gotoLogon = true;
+    const gotoLogin = do {
+        if(to.meta && to.meta.privilege && Array.isArray(to.meta.privilege)){
+            const pagePrivilege = to.meta.privilege;
+            const userPrivilege = store.state.userInfo.privilege;
+            pagePrivilege.every((priItem)=>{
+                return !userPrivilege.includes(priItem);
+            });
+        }else{
+            false;
         }
     }
-    let title = "admin";
-    if(to.meta && to.meta.title){
-        title = to.meta.title
-    }
-    store.commit("title/updateTitie",title);
 
-    if(gotoLogon){
+    if(gotoLogin){
         next({
             path: '/index/login',
             query: {redirect: to.fullPath}
         })
     }else{
-        const uriarr = to.path.replace(/^\//,'').split('/')
+        const uriarr = to.path.replace(/^\//,'').split('/');
+        const title = do {
+            if(to.meta && to.meta.title){
+                to.meta.title;
+            }else{
+                "admin";
+            }
+        }
+        store.commit("title/updateTitie",title);
         store.commit('uri/updateBasicUri',{
             controller_name:uriarr[0],
             method_name:uriarr[1],
