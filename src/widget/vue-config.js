@@ -14,7 +14,7 @@ export default {
                     if(!config || typeof config !== 'object'){
                         return;
                     }
-                    let keys = Object.keys(config);
+                    const keys = Object.keys(config);
                     keys.forEach((key)=>{
                         const descriptor = Object.getOwnPropertyDescriptor(config,key)
                         if(descriptor.get){

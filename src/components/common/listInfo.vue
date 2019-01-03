@@ -285,7 +285,7 @@ export default{
             this.multipleSelection = section;
         },
         getListInfo(){
-            let params = {};
+            const params = {};
             // 有filters 要拿到filters的formData，所以需要等到filters组件实例化完成
             // 有时filters组件虽然实例化了，但是formData数据为空，需要等待formData对应数据形成
             // console.log(this.$refs.filters,!this.$refs.filters || this.$refs.filters.formData )
@@ -307,7 +307,7 @@ export default{
             }
 
             if(this.filters.length){
-                params = Object.assign(params,this.$refs.filters.formData)
+                Object.assign(params,this.$refs.filters.formData)
             }
 
             if(this.paginated){
@@ -325,7 +325,7 @@ export default{
             return new Promise((resolve,reject)=>{
                 this.listRequest(resolve,this.transformRequestData(params))
             }).then((rst)=>{
-                let {data,total,fields} = rst;
+                const {data,total,fields} = rst;
                 let promise = this.transformListData(data);
                 if(!(promise instanceof Promise)){
                     promise = Promise.resolve(promise);

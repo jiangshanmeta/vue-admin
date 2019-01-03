@@ -28,7 +28,7 @@ export default{
     },
     methods:{
         queryModel(queryString,cb){
-            let data = queryString?this.candidate.filter((item)=>{
+            const data = queryString?this.candidate.filter((item)=>{
                 return item[this.labelfield].includes(queryString);
             }):this.candidate;
             cb(data)
@@ -41,7 +41,7 @@ export default{
             this.setShowValueByValue();
         },
         setShowValueByValue(){
-            let value = this.value;
+            const value = this.value;
             if(this.valueLabelMap.has(value)){
                 this.showValue = this.valueLabelMap.get(value)
             }

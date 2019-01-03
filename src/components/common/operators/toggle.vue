@@ -46,19 +46,19 @@ export default{
     },
     computed:{
         textMap(){
-            let map = new Map();
+            const map = new Map();
             map.set(this.descriptor[0].value,this.descriptor[0].text);
             map.set(this.descriptor[1].value,this.descriptor[1].text);
             return map;
         },
         typeMap(){
-            let map = new Map();
+            const map = new Map();
             map.set(this.descriptor[0].value,this.descriptor[0].type);
             map.set(this.descriptor[1].value,this.descriptor[1].type);
             return map;
         },
         valueMap(){
-            let map = new Map;
+            const map = new Map;
             map.set(this.descriptor[0].value,this.descriptor[1].value);
             map.set(this.descriptor[1].value,this.descriptor[0].value);
             return map;
@@ -66,7 +66,7 @@ export default{
     },
     methods:{
         handleClick(){
-            let data = {};
+            const data = {};
             data[this.field] = this.valueMap.get(this.data[this.field]);
             this.reserveFields.forEach((field)=>{
                 data[field] = this.data[field];

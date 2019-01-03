@@ -19,27 +19,27 @@
             >
                 <labels
                     slot="label" 
-                    slot-scope="scope"
-                    :label="field_list[scope.field].label"
+                    slot-scope="{field}"
+                    :label="field_list[field].label"
                 >
                     <component
-                        v-if="needInjectLabelComponentsMap[scope.field]"
-                        :is="needInjectLabelComponentsMap[scope.field].name"
-                        :label="field_list[scope.field].label"
-                        v-bind="needInjectLabelComponentsMap[scope.field].config || {}"
+                        v-if="needInjectLabelComponentsMap[field]"
+                        :is="needInjectLabelComponentsMap[field].name"
+                        :label="field_list[field].label"
+                        v-bind="needInjectLabelComponentsMap[field].config || {}"
                     ></component>
                 </labels>
 
                 <views
-                    slot-scope="scope"
-                    :view="field_list[scope.field].view"
+                    slot-scope="{field}"
+                    :view="field_list[field].view"
                     :record="record"
-                    :field="scope.field"
+                    :field="field"
                 >
                     <component
-                        v-if="needInjectViewComponentsMap[scope.field]"
+                        v-if="needInjectViewComponentsMap[field]"
+                        :is="needInjectViewComponentsMap[field].name"
                         slot-scope="viewScope"
-                        :is="needInjectViewComponentsMap[scope.field].name"
                         v-bind="viewScope"
                     ></component>
                 </views>

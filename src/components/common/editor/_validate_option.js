@@ -50,8 +50,8 @@ export function unique(valueArr){
 
 // 清除不在候选项的选择的数据
 export function clearInvalidData(valueArr,optionArr){
-    let set = new Set(optionArr);
-    let resultSet = new Set();
+    const set = new Set(optionArr);
+    const resultSet = new Set();
     for(let item of valueArr){
         if(set.has(item)){
             resultSet.add(item);

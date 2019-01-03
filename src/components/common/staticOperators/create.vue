@@ -109,7 +109,7 @@ export default{
         resetRecord(){
             this.record = this.fields.reduce((obj,row)=>{
                 row.forEach((field)=>{
-                    let configDefault = this.field_list[field].editorComponent.default;
+                    const configDefault = this.field_list[field].editorComponent.default;
                     obj[field] = typeof configDefault === 'function'?configDefault.call(this,field):configDefault;
                 })
                 return obj;

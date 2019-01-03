@@ -11,7 +11,7 @@ export default merge.all([_validate_option,{
 
             const allvalueSet = this.allvalueSet;
 
-            let valueSet = new Set();
+            const valueSet = new Set();
 
             for(let item of this.value){
                 // 候选项没有该值，按无效处理

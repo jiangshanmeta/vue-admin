@@ -20,17 +20,17 @@ export default{
     },
     methods:{
         doLogin (){
-            let phone = this.phone
+            const phone = this.phone
             if(!phone){
                 alert('请输入手机号');
                 return;
             }
-            let pwd = this.pwd;
+            const pwd = this.pwd;
             if(!pwd){
                 alert('请输入手机号');
                 return;
             }
-            let data = {
+            const data = {
                 phone,
                 pwd,
             }

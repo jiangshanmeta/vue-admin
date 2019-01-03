@@ -84,9 +84,9 @@ export default{
         model:{
             get(){
                 return this.value.map((item)=>{
-                    let name = this.getName(item);
-                    let url = this.getUrl(item);
-                    let target = JSON.parse(JSON.stringify(item));
+                    const name = this.getName(item);
+                    const url = this.getUrl(item);
+                    const target = JSON.parse(JSON.stringify(item));
                     target['name'] = name;
                     target['url'] = url;
                     return target
@@ -100,19 +100,19 @@ export default{
     },
     methods:{
         handleSuccess(response,file,fileList){
-            let [...newArr] = this.value;
+            const [...newArr] = this.value;
             newArr.push(this.getInfoFromResponse(response));
             this.model = newArr;
 
             this.onSuccess && this.onSuccess(response,file,fileList);
         },
         handleRemove(file){
-            let url = file.url;
-            let index = this.value.findIndex((item)=>{
+            const url = file.url;
+            const index = this.value.findIndex((item)=>{
                 return this.getUrl(item) === url
             });
 
-            let [...newArr] = this.value;
+            const [...newArr] = this.value;
             newArr.splice(index,1);
             this.model = newArr;
         }

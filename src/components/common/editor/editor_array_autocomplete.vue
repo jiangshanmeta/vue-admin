@@ -43,14 +43,14 @@ export default{
     },
     methods:{
         removeItem(index){
-            let value = JSON.parse(JSON.stringify(this.value));
+            const value = JSON.parse(JSON.stringify(this.value));
             value.splice(index,1);
             this.$emit('input',value);
         },
         addItem(selectedId){
             this.selectedId = selectedId;
             if(!this.value.includes(selectedId)){
-                let value = JSON.parse(JSON.stringify(this.value));
+                const value = JSON.parse(JSON.stringify(this.value));
                 value.push(selectedId);
                 this.$emit('input',value)
             }

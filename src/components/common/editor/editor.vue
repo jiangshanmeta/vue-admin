@@ -210,9 +210,9 @@ export default{
             });
         },
         validate(){
-            let keys = Object.keys(this.validators);
+            const keys = Object.keys(this.validators);
 
-            let promises = keys.map((field)=>{
+            const promises = keys.map((field)=>{
                 return this.validateField(field,this.formData[field]);
             });
 
@@ -229,7 +229,7 @@ export default{
         },
         validateField(field,value){
             return new Promise((resolve,reject)=>{
-                let asyncValidator = this.validators[field]['validator'];
+                const asyncValidator = this.validators[field]['validator'];
                 asyncValidator.validate({[field]:value},(errors,fields)=>{
                     if(errors){
                         this.validators[field]['hasErr'] = true;
@@ -266,7 +266,7 @@ export default{
 
                 relates.filter(relateItem=>typeof relateItem.handler === 'function').forEach((relateItem)=>{
 
-                    let callback = function(newVal,oldVal){
+                    const callback = function(newVal,oldVal){
                         if(this.$refs[field]){
                             relateItem.handler.call(this.$refs[field],newVal,this.field_list[field],oldVal);
                         }else{
@@ -292,7 +292,7 @@ export default{
                 if(!this.field_list[field].validator){
                     return;
                 }
-                let asyncValidator = new AsyncValidator({[field]:this.field_list[field].validator});
+                const asyncValidator = new AsyncValidator({[field]:this.field_list[field].validator});
 
                 this.$set(this.validators,field,{
                     hasErr:false,

@@ -5,7 +5,7 @@ import store from "@/store"
 
 Vue.use(Router)
 
-let routes = [];
+const routes = [];
 
 menu.forEach(({pages=[]})=>{
     pages.forEach((page)=>{
@@ -52,7 +52,7 @@ router.beforeEach((to, from, next) => {
             query: {redirect: to.fullPath}
         })
     }else{
-        let uriarr = to.path.replace(/^\//,'').split('/')
+        const uriarr = to.path.replace(/^\//,'').split('/')
         store.commit('uri/updateBasicUri',{
             controller_name:uriarr[0],
             method_name:uriarr[1],

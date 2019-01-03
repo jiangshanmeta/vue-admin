@@ -41,7 +41,7 @@ import '@/assets/css/lib.css';
 import App from './App'
 
 /* eslint-disable no-new */
-let instance = new Vue({
+new Vue({
     el: '#app',
     router,
     store,

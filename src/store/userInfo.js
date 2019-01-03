@@ -10,7 +10,7 @@ export default{
             state.privilege = [];
         },
         initUserInfo(state,data){
-            let keys = Object.keys(state);
+            const keys = Object.keys(state);
             keys.forEach((key)=>{
                 state[key] = data[key];
             })

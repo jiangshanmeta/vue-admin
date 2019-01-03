@@ -57,14 +57,14 @@ export default{
             const len = this.relateKeys.length;
             let counter = 0;
             while(counter<len-1){
-                let field = this.relateKeys[counter++];
-                let cacheKey = this.getCacheKey(cacheObj[field],cacheObj);
+                const field = this.relateKeys[counter++];
+                const cacheKey = this.getCacheKey(cacheObj[field],cacheObj);
                 if(!start.hasOwnProperty(cacheKey)){
                     this.$set(start,cacheKey,{});
                 }
                 start = start[cacheKey];
             }
-            let field = this.relateKeys[len-1];
+            const field = this.relateKeys[len-1];
             this.$set(start,this.getCacheKey(cacheObj[field],field),options);
         },
     },
@@ -87,7 +87,7 @@ export default{
             let counter = 0;
             let start = this.optionsCache;
             while(counter<length){
-                let field = this.relateKeys[counter++];
+                const field = this.relateKeys[counter++];
                 start = start[this.getCacheKey(this.relateData[field],field)];
             }
             return start;

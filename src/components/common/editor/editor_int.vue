@@ -24,7 +24,7 @@ export default{
                 return this.value;
             },
             set(val){
-                let intVal = Number.parseInt(val);
+                const intVal = Number.parseInt(val);
 
                 if(intVal !== val){
                     this.$nextTick(()=>{

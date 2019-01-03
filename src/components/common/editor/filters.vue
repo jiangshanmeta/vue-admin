@@ -165,7 +165,7 @@ export default{
 
                 const relates = filterItem.editorComponent.config.relates;
                 relates.filter((relateItem)=>typeof relateItem.handler === 'function').forEach((relateItem)=>{
-                    let callback = function(newVal,oldVal){
+                    const callback = function(newVal,oldVal){
                         if(this.$refs[filterItem.field] && this.$refs[filterItem.field][0]){
                             relateItem.handler.call(this.$refs[filterItem.field][0],newVal,oldVal);
                         }else{

@@ -4,7 +4,7 @@ import Vue from "vue"
 import store from "@/store"
 import router from "@/router"
 
-let axiosIns = axios.create({});
+const axiosIns = axios.create({});
 axiosIns.defaults.baseURL = process.env.baseUrl;
 axiosIns.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest'
 axiosIns.defaults.headers.get['X-Requested-With'] = 'XMLHttpRequest'
@@ -18,17 +18,17 @@ axiosIns.defaults.validateStatus = function(status){
 }
 axiosIns.interceptors.request.use(function(config){
     config.headers.Accept = 'application/json';
-    let token = Vue.localStorage.get('token');
+    const token = Vue.localStorage.get('token');
     if(token){
         config.headers.Token = token;
     }
     return config;
 })
 axiosIns.interceptors.response.use(function(response){
-    let data = response.data;
-    let status = response.status;
+    const data = response.data;
+    const status = response.status;
     if(status===200 || status === 304){
-        let rstno = data.rstno;
+        const rstno = data.rstno;
         if(rstno>0){
             return data;
         }
@@ -45,8 +45,8 @@ axiosIns.interceptors.response.use(function(response){
     }
 })
 
-let ajaxMethod = ['get','post'];
-let api = {};
+const ajaxMethod = ['get','post'];
+const api = {};
 ajaxMethod.forEach((method)=>{
     api[method] = function(uri,data,config){
         return new Promise(function(resolve,reject){
@@ -60,5 +60,7 @@ ajaxMethod.forEach((method)=>{
         })
     }
 })
+
+Object.freeze(api);
 
 export default api;

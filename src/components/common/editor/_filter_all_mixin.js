@@ -15,7 +15,7 @@ export default merge.all([_props_candidate_mixin,_props_label_value_mixin,{
     },
     computed:{
         filter_candidate(){
-            let [...arr] = this.candidate;
+            const [...arr] = this.candidate;
             arr.unshift({
                 [this.labelfield]:this.alllabel,
                 [this.valuefield]:this.allvalue,

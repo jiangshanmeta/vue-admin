@@ -183,7 +183,7 @@ export default{
         {
             handler(resolve,data){
                 const keys = ['customername','totalprice','address'];
-                let rst = data.map((item)=>{
+                const rst = data.map((item)=>{
                     return keys.map((key)=>{
                         return item[key];
                     }).join(",");
