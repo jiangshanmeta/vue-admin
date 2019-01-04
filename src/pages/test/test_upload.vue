@@ -10,6 +10,25 @@
             </thead>
             <tbody>
                 <tr>
+                    <td>metaUpload</td>
+                    <td>{{metaUpload}}</td>
+                    <td>
+                        <meta-upload
+                            v-model="metaUpload"
+                            multiple
+                            list-type="picture-card"
+                            :parseResponse="parseResponse"
+                            action=""
+                            :httpRequest="httpRequest"
+                        >
+                            <el-button size="small" type="primary">点击上传</el-button>
+                        </meta-upload>
+                    </td>
+                </tr>
+
+
+            <!--
+                <tr>
                     <td>field_file_multi</td>
                     <td>{{field_file_multi}}</td>
                     <td>
@@ -128,7 +147,7 @@
                         ></field_image_mono_json>
                     </td>
                 </tr>
-
+            -->
             </tbody>
         </table>
 
@@ -145,6 +164,16 @@ import field_image_multi from "@/components/common/editor/field_image_multi"
 import field_image_multi_json from "@/components/common/editor/field_image_multi_json"
 import field_image_mono from "@/components/common/editor/field_image_mono"
 import field_image_mono_json from "@/components/common/editor/field_image_mono_json"
+
+
+import metaUpload from "@/components/common/editor/meta-upload"
+
+const map = {
+    0:"https://pic2.zhimg.com/v2-c6a5da50f5fa6a6751bf531d49778951_xl.jpg",
+    1:"https://pic3.zhimg.com/v2-dcc9189fcbb59729102af01da7054ebe_xl.jpg",
+    2:"https://pic4.zhimg.com/05836cca8e18915f65090b2e1449e77b_xl.png"
+};
+let count = 0;
 
 export default{
     config:{
@@ -166,8 +195,34 @@ export default{
         fileMonoStruct(){
             return {}
         },
+        httpRequest(options){
+            console.log(options);
+            setTimeout(()=>{
+                options.onProgress({percent:25})
+            },1000);
+
+            setTimeout(()=>{
+                options.onProgress({percent:50})
+            },2000);
+
+            setTimeout(()=>{
+                options.onProgress({percent:75})
+            },3000);
+
+            setTimeout(()=>{
+                options.onSuccess({src:map[count++]});
+                count %= 3;
+            },4000);
+
+
+        },
+        parseResponse(json){
+            return {url:json.src}
+        }
     },
     components:{
+        metaUpload,
+
         field_file_multi,
         field_file_multi_json,
         field_file_mono,
@@ -180,6 +235,8 @@ export default{
     },
     data(){
         return {
+            metaUpload:[],
+
             field_file_multi:[{name:"abc.jpg",uri:"http://www.ci.com/uploads/1.jpg"}],
             field_file_multi_json:[],
             field_file_mono:{

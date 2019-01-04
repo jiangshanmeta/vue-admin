@@ -17,8 +17,9 @@
 
 <script>
 import field_file_multi from "./field_file_multi"
-import _props_value_array_mixin from "./_props_value_array_mixin"
+
 import _computed_model_mixin from "./_computed_model_mixin"
+import _props_value_array_mixin from "./_props_value_array_mixin"
 
 export default{
     name:"field_image_multi",
@@ -27,8 +28,8 @@ export default{
         field_file_multi,
     },
     mixins:[
-        _props_value_array_mixin,
         _computed_model_mixin,
+        _props_value_array_mixin,
     ],
 }
 

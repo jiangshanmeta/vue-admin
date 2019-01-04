@@ -1,5 +1,5 @@
 <template>
-    <field_upload
+    <meta-upload
         v-model="model"
         v-bind="$attrs"
     >
@@ -9,27 +9,25 @@
             </slot>
         </template>
         <template name="tip">
-            <slot name="tip">
-                <div slot="tip" class="el-upload__tip">由于底层框架问题一次只能上传一个文件</div>
-            </slot>
+            <slot name="tip"></slot>
         </template>
-    </field_upload>
+    </meta-upload>
 </template>
 
 <script>
-import field_upload from "./_editor_upload"
-import _props_value_array_mixin from "./_props_value_array_mixin"
+import metaUpload from "./meta-upload"
 import _computed_model_mixin from "./_computed_model_mixin"
+import _props_value_array_mixin from "./_props_value_array_mixin"
 
 export default{
     name:"field_file_multi",
     inheritAttrs:true,
     components:{
-        field_upload,
+        metaUpload,
     },
     mixins:[
-        _props_value_array_mixin,
         _computed_model_mixin,
+        _props_value_array_mixin,
     ],
 }
 </script>
