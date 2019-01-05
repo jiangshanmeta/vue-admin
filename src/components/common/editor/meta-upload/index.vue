@@ -99,12 +99,19 @@ export default {
 				status:"success",
 				url:item.url,
 				uid:getUid(),
-				_original:item,
+				original:item,
 			};
 		});
 		return {
 			uploadFiles: [],
 		};
+	},
+	computed:{
+		uploadSuccessOriginalData(){
+			return this.uploadFiles
+				.filter(item=>item.status==="success")
+				.map(item=>item.original)
+		},
 	},
 	watch: {
 		value(){
@@ -113,7 +120,7 @@ export default {
 				if(item.status === "success"){
 					const valueItem = this.value[index++];
 					item.url = valueItem.url;
-					item._original = valueItem;
+					item.original = valueItem;
 				}
 				return item;
 			});
@@ -150,14 +157,10 @@ export default {
 		},
 		handleSuccess(res, rawFile) {
 			const file = this.getFile(rawFile);
-
-			if (file) {
-				file.status = 'success';
-				file.response = res;
-				const [...value] = this.value;
-				value.push(this.parseResponse(res));
-				this.$emit('input',value);
-			}
+			file.status = "success";
+			this.$set(file,'original',this.parseResponse(res))
+			console.log(this.uploadSuccessOriginalData)
+			this.$emit('input',this.uploadSuccessOriginalData);
 		},
 		handleError(err, rawFile) {
 			// 直接让用户重新选择上传得了，做啥重传功能啊
@@ -171,10 +174,7 @@ export default {
 			const index = fileList.indexOf(file);
 			fileList.splice(index, 1);
 			if(status === "success"){
-				const originalFile = file._original;
-				const [...value] = this.value;
-				value.splice(value.indexOf(originalFile),1);
-				this.$emit('input',value);
+				this.$emit('input',this.uploadSuccessOriginalData);
 			}
 		},
 		getFile(rawFile) {
