@@ -2,6 +2,7 @@ process.traceDeprecation = true
 const path = require('path')
 const webpack = require('webpack')
 const { VueLoaderPlugin } = require('vue-loader')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const utils = require('./utils')
 const config = require('../config')
@@ -101,5 +102,14 @@ module.exports = {
   plugins:[
     new VueLoaderPlugin(),
     new webpack.DefinePlugin(defineConfig),
+    new CopyWebpackPlugin([
+        {
+            from: path.resolve(__dirname, '../static'),
+            to: config.build.assetsSubDirectory,
+            ignore: ['.*']
+        }
+    ])
+
+
   ]
 }
