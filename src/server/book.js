@@ -9,7 +9,7 @@ function getStore(cb){
 }
 
 function getSaler(cb,data){
-    let storeId = data.storeId;
+    let storeId = data.store;
     let rst;
     console.log("get saler",storeId);
     switch(storeId){

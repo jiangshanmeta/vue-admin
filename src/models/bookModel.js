@@ -76,6 +76,16 @@ export default{
                 },
                 default:"",
             },
+            view:{
+                name:"view_markdown",
+                component:()=>import("@/components/common/views/view_markdown").then((rst)=>rst.default),
+                config:{
+                    breaks:false,
+                    // transform:function(data){
+                    //     return "¥" + data;
+                    // },
+                }
+            },
         },
         store:{
             label:"店铺",
@@ -97,11 +107,8 @@ export default{
                     relates:[
                         {
                             relateField:["store"],
-                            invalidValue:{
-                                store:"",
-                            },
-                            requestField:{
-                                store:"storeId",
+                            isValidValue(data){
+                                return data;
                             },
                             propField:"relateData",
                         }

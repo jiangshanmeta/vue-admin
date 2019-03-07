@@ -25,6 +25,7 @@
     "vue-class-component": "^6.2.0",
     "vue-cookie": "^1.1.4",
     "vue-localstorage": "^0.3.0",
+    "vue-markdown": "^2.2.4",
     "vue-quill-editor": "^2.3.2",
     "vue-router": "^2.6.0",
     "vuex": "^2.3.1"

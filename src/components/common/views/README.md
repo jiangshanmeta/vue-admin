@@ -97,3 +97,11 @@ view:{
 | transform  |  是  | Function    | 转换函数，第一个参数是data | - |
 
 这个组件其实是函数模式的前身，用处不大
+
+## view_markdown
+
+| 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
+| :---:  | :--:  | :--: | :-----:  | :--: |
+| data   | 否 | String | 真实值 | 作为viewComponent时该值自动传入   |
+
+本组件仅作为vue-markdown的包装，其余参数参考[vue-markdown](https://github.com/miaolz123/vue-markdown)
