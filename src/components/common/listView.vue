@@ -9,20 +9,19 @@
             v-bind="listConfig"
             ref="listInfo"
         >
-            <operators
-                v-if="staticOperators.length>0"
-                slot="beforeFilters" 
-                slot-scope="scope"
-                :operators="staticOperators"
-                v-bind="scope"
-                :field_list="field_list"
-                @update="refreshListData"
-                style="margin-bottom:8px;"
-            ></operators>
+            <template #beforeFilters="scope">
+                <operators
+                    v-if="staticOperators.length>0"
+                    :operators="staticOperators"
+                    v-bind="scope"
+                    :field_list="field_list"
+                    @update="refreshListData"
+                    style="margin-bottom:8px;"
+                ></operators>
+            </template>
 
-            <template 
-                slot="afterFilters" 
-                slot-scope="scope"
+            <template
+                #afterFilters="scope"
             >
                 <slot
                     name="afterFilters" 

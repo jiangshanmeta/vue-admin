@@ -45,34 +45,40 @@
                 :sortable="sortFields.includes(field)?'custom':false"
                 v-bind="field_list[field].tableColumnConfig || {}"
             >
-                <views
-                    slot-scope="scope"
-                    :view="field_list[field].view"
-                    :record="scope.row"
-                    :field="field"
-                >
-                    <component
-                        v-if="needInjectViewComponentsMap[field]"
-                        slot-scope="viewScope"
-                        :is="needInjectViewComponentsMap[field].name"
-                        v-bind="viewScope"
-                    ></component>
-                </views>
+                <template #default="{row}">
+                    <views
+                        :view="field_list[field].view"
+                        :record="row"
+                        :field="field"
+                    >
+                        <template
+                            v-if="needInjectViewComponentsMap[field]"
+                            #default="viewScope"
+                        >
+                            <component
+                                v-if="needInjectViewComponentsMap[field]"
+                                :is="needInjectViewComponentsMap[field].name"
+                                v-bind="viewScope"
+                            ></component>
+                        </template>
+                    </views>
+                </template>
             </el-table-column>
             <el-table-column
                 v-if="operators.length>0 && data.length>0"
                 :label="operatorsLabel"
                 :min-width="operatorMinWidth"
             >
-                <operators
-                    slot-scope="scope"
-                    :field_list="field_list"
-                    :operators="operators"
-                    :data="scope.row"
-                    :index="scope.$index"
-                    @update="getListInfo"
-                    @setWidth="setOperatorWidth"
-                ></operators>
+                <template #default="{row,$index}">
+                    <operators
+                        :field_list="field_list"
+                        :operators="operators"
+                        :data="row"
+                        :index="$index"
+                        @update="getListInfo"
+                        @setWidth="setOperatorWidth"
+                    ></operators>
+                </template>
             </el-table-column>
         </el-table>
         <section 

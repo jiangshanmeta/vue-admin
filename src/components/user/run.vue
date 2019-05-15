@@ -10,7 +10,7 @@
         :visible.sync="dialogVisible"
     >
         {{data.name}} 跑得比香港记者还快
-        <section slot="footer">
+        <section #footer>
             <el-button @click="doRun" type="danger">
                 确定
             </el-button>

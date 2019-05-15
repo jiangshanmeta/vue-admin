@@ -1,7 +1,7 @@
 <template>
     <el-menu
         :router="true"
-        :default-active="uri"
+        :default-active="path"
         style="width:200px;"
         :unique-opened="true"
     >
@@ -10,7 +10,7 @@
             :index="menuItem.name"
             :key="menuItem.path"
         >
-            <template slot="title">
+            <template #title>
                 <i :class="menuItem.icon"></i>
                 {{menuItem.label}}
             </template>
@@ -32,7 +32,7 @@ export default{
         menu,
     },
     props:{
-        uri:{
+        path:{
             type:String,
             default:''
         },

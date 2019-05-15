@@ -19,7 +19,7 @@
                 mode="edit"
                 ref="editbox"
             ></editor>
-            <section slot="footer">
+            <template #footer>
                 <el-button 
                     @click="isShowEditbox=false"
                     v-bind="cancelBtnConfig"
@@ -32,7 +32,7 @@
                 >
                     {{editBtnConfig.text}}
                 </el-button>
-            </section>
+            </template>
         </el-dialog>
     </div>
 </template>

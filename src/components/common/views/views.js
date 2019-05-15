@@ -17,7 +17,7 @@ export default{
             required:true,
         },
     },
-    render(h,{props,data,parent}){
+    render(h,{props,scopedSlots,parent}){
         let info = props.record[props.field];
         
         if(props.view){
@@ -58,7 +58,7 @@ export default{
                         data:info,
                         ...config,
                     }
-                return data.scopedSlots.default(scopedSlotsData)
+                return scopedSlots.default(scopedSlotsData)
             }else if(handler){
                 return (
                     <span>

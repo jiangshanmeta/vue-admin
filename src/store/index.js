@@ -5,18 +5,16 @@ Vue.use(Vuex);
 
 import {doLogin,getUserInfo,doLogout} from "@/server/index.js"
 
-import title from "./title.js"
-import uri from "./uri.js"
+
 import userInfo from "./userInfo.js"
 
 export default new Vuex.Store({
     modules:{
-        title,
-        uri,
         userInfo,
     },
     state:{
         isLogin:false,
+        title:"admin",
     },
     mutations:{
         setLogin(state){
@@ -25,6 +23,9 @@ export default new Vuex.Store({
         setLogout (state){
             Vue.localStorage.remove('token')
             state.isLogin = false;
+        },
+        setTitie(state,title){
+            state.title = title;
         },
     },
     actions:{
@@ -44,7 +45,6 @@ export default new Vuex.Store({
             return doLogout().then(()=>{
                 commit('setLogout');
                 commit('userInfo/resetUserInfo');
-                commit('uri/setRedirect');
             })
         },
 

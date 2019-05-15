@@ -3,12 +3,12 @@
         v-model="model"
         v-bind="$attrs"
     >
-        <template slot="default">
+        <template #default>
             <slot name="default">
                 <el-button size="small" type="primary">点击上传</el-button>
             </slot>
         </template>
-        <template name="tip">
+        <template #tip>
             <slot name="tip"></slot>
         </template>
     </meta-upload>

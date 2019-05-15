@@ -5,38 +5,38 @@
         :mode="mode"
         :fields="fields"
     >
-        <labels
-            slot="label"
-            slot-scope="scope"
-            :label="field_list[scope.field].label"
-        >
-            <component
-                v-if="needInjectLabelComponentsMap[scope.field]"
-                :is="needInjectLabelComponentsMap[scope.field].name"
-                :label="field_list[scope.field].label"
-                v-bind="needInjectLabelComponentsMap[scope.field].config || {}"
-            ></component>
-        </labels>
+        <template #label="{field}">
+            <labels
+                :label="field_list[field].label"
+            >
+                <component
+                    v-if="needInjectLabelComponentsMap[field]"
+                    :is="needInjectLabelComponentsMap[field].name"
+                    :label="field_list[field].label"
+                    v-bind="needInjectLabelComponentsMap[field].config || {}"
+                ></component>
+            </labels>
+        </template>
 
-        <template slot-scope="scope">
+        <template #default="{field}">
             <component
-                :ref="scope.field"
-                :is="field_list[scope.field].editorComponent.name" 
-                v-model="localRecord[scope.field]" 
-                v-bind="generateEditorProp(scope.field)"
+                :ref="field"
+                :is="field_list[field].editorComponent.name" 
+                v-model="localRecord[field]" 
+                v-bind="generateEditorProp(field)"
             ></component>
 
             <div 
-                v-if="field_list[scope.field].tip"
+                v-if="field_list[field].tip"
                 class="form-helper"
             >
-                {{genTip(field_list[scope.field].tip)}}
+                {{genTip(field_list[field].tip)}}
             </div>
             <p
-                v-if="validators[scope.field] && validators[scope.field]['hasErr']"
+                v-if="validators[field] && validators[field]['hasErr']"
                 class="text-danger form-helper"
             >
-                {{validators[scope.field]['errMsg']}}
+                {{validators[field]['errMsg']}}
             </p>
         </template>
     </meta-table>

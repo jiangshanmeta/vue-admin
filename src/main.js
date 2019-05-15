@@ -1,5 +1,3 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 
 // cookie && localstorage
@@ -8,11 +6,10 @@ Vue.use(VueCookie)
 import VueLocalStorage from 'vue-localstorage'
 Vue.use(VueLocalStorage)
 
-// 因为调用了Vue.mixin，会重写Vue.options，所以要在创建子类之前调用
-// import "@/widget/vue-config.js"
+
 import VueConfig from "@/widget/vue-config.js"
 Vue.use(VueConfig,{
-    key:['config','staticMethod','state']
+    optionKeys:['config','staticMethod','state']
 })
 
 import router from './router'
@@ -25,8 +22,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(Element)
 
 Vue.config.productionTip = false
-
-
 
 
 import '@/assets/css/bootstrap-reboot.min.css';

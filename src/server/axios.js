@@ -38,7 +38,7 @@ axiosIns.interceptors.response.use(function(response){
             store.dispatch('doLogout')
             router.push({
                 path:'/index/login',
-                query:{'redirect':store.state.uri.path},
+                query:{'redirect':store.state.route.query.redirect},
             })
         }
         return Promise.reject(response);

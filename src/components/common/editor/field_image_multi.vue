@@ -5,11 +5,11 @@
         accept="image/gif,image/jpeg,image/jpg,image/png"
         v-bind="$attrs"
     >
-        <template slot="default">
+        <template #default>
             <slot name="default"></slot>
         </template>
 
-        <template slot="tip">
+        <template #tip>
             <slot name="tip"></slot>
         </template>
     </field_file_multi>

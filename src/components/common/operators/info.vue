@@ -17,32 +17,33 @@
                 :fields="fields"
                 mode="info"
             >
-                <labels
-                    slot="label" 
-                    slot-scope="{field}"
-                    :label="field_list[field].label"
-                >
-                    <component
-                        v-if="needInjectLabelComponentsMap[field]"
-                        :is="needInjectLabelComponentsMap[field].name"
+                <template #label="{field}">
+                    <labels
                         :label="field_list[field].label"
-                        v-bind="needInjectLabelComponentsMap[field].config || {}"
-                    ></component>
-                </labels>
-
-                <views
-                    slot-scope="{field}"
-                    :view="field_list[field].view"
-                    :record="record"
-                    :field="field"
-                >
-                    <component
-                        v-if="needInjectViewComponentsMap[field]"
-                        :is="needInjectViewComponentsMap[field].name"
-                        slot-scope="viewScope"
-                        v-bind="viewScope"
-                    ></component>
-                </views>
+                    >
+                        <component
+                            v-if="needInjectLabelComponentsMap[field]"
+                            :is="needInjectLabelComponentsMap[field].name"
+                            :label="field_list[field].label"
+                            v-bind="needInjectLabelComponentsMap[field].config || {}"
+                        ></component>
+                    </labels>
+                </template>
+                <template #default="{field}">
+                    <views
+                        :view="field_list[field].view"
+                        :record="record"
+                        :field="field"
+                    >
+                        <template #default="viewScope">
+                            <component
+                                v-if="needInjectViewComponentsMap[field]"
+                                :is="needInjectViewComponentsMap[field].name"
+                                v-bind="viewScope"
+                            ></component>
+                        </template>
+                    </views>
+                </template>
             </meta-table>
         </el-dialog>
     </div>

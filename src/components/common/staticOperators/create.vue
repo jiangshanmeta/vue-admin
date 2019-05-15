@@ -19,7 +19,7 @@
                 ref="createbox"
                 mode="create"
             ></editor>
-            <div slot="footer">
+            <template #footer>
                 <el-button
                     @click="isShowCreatebox=false"
                     v-bind="cancelBtnConfig"
@@ -32,7 +32,7 @@
                 >
                     {{createBtnConfig.text}}
                 </el-button>
-            </div>
+            </template>
         </el-dialog>
     </div>
 </template>

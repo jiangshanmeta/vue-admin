@@ -1,20 +1,15 @@
 <template>
     <div class="app">
-        <vue-title :title="$store.state.title.title"></vue-title>
         <top-nav></top-nav>
 
         <div class="app-section">
             <side-menu
                 v-if="$store.state.isLogin"
                 class="app-aside"
-                :uri="$store.state.uri.path"
+                :path="$store.state.route.path"
                 :privilege="$store.state.userInfo.privilege"
             ></side-menu>
-            <main 
-                class="app-main"
-            >
-                <router-view ></router-view>
-            </main>
+            <router-view class="app-main"></router-view>
         </div>
 
         <bottom-footer></bottom-footer>
@@ -23,9 +18,9 @@
 
 <script>
 import topNav from '@/components/index/topnav'
-import sideMenu from "@/components/index/menu"
+import sideMenu from "@/components/index/sideMenu"
 import bottomFooter from "@/components/index/footer"
-import vueTitle from "@/widget/title"
+
 
 export default {
 	name:'app',
@@ -33,13 +28,12 @@ export default {
 		topNav,
 		sideMenu,
 		bottomFooter,
-		vueTitle,
 	},
     watch:{
         "$store.state.isLogin"(isLogin){
             if(isLogin){
                 this.$router.replace({
-                    path:this.$store.state.uri.redirect || '/'
+                    path:this.$store.state.route.query.redirect || '/'
                 })
             }else{
                 this.$router.push({
@@ -47,19 +41,16 @@ export default {
                 })
             }
         },
-        // 404页的另一种实现
-        // "$route.matched"(matched){
-        //     if(!Array.isArray(matched) || matched.length === 0){
-        //         this.$router.push({
-        //             path:'/index/404'
-        //         });
-        //     }
-        // }
     },
     created (){
         if(this.$localStorage.get('token') && !this.$store.state.isLogin){
             this.$store.dispatch('getUserInfo')
         }
+    },
+    metaInfo(){
+        return {
+            title:this.$store.state.title,
+        };
     },
 }
 </script>
