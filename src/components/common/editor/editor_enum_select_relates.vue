@@ -3,25 +3,25 @@
         v-model="model"
         :candidate="finalOptions"
         v-bind="$attrs"
-        :isCandidateValid="hasCachedOptions"
-    ></editor_enum_select>
+        :is-candidate-valid="hasCachedOptions"
+    />
 </template>
 
 <script>
-import _editor_relates_mixin from "./_editor_relates_mixin.js"
-import _props_value_mixin from "./_props_value_mixin.js"
-import _computed_model_mixin from "./_computed_model_mixin.js"
+import _editor_relates_mixin from './_editor_relates_mixin.js'
+import _props_value_mixin from './_props_value_mixin.js'
+import _computed_model_mixin from './_computed_model_mixin.js'
 
-export default{
-    name:'editor_enum_select_relates',
-    inheritAttrs:true,
-    mixins:[
+export default {
+    name: 'EditorEnumSelectRelates',
+    components: {
+        editor_enum_select: () => import('./editor_enum_select'),
+    },
+    mixins: [
         _editor_relates_mixin,
         _props_value_mixin,
         _computed_model_mixin,
     ],
-    components:{
-        editor_enum_select:()=>import("./editor_enum_select")
-    },
+    inheritAttrs: true,
 }
 </script>

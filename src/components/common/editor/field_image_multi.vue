@@ -6,31 +6,31 @@
         v-bind="$attrs"
     >
         <template #default>
-            <slot name="default"></slot>
+            <slot name="default" />
         </template>
 
         <template #tip>
-            <slot name="tip"></slot>
+            <slot name="tip" />
         </template>
     </field_file_multi>
 </template>
 
 <script>
-import field_file_multi from "./field_file_multi"
+import field_file_multi from './field_file_multi'
 
-import _computed_model_mixin from "./_computed_model_mixin"
-import _props_value_array_mixin from "./_props_value_array_mixin"
+import _computed_model_mixin from './_computed_model_mixin'
+import _props_value_array_mixin from './_props_value_array_mixin'
 
-export default{
-    name:"field_image_multi",
-    inheritAttrs:true,
-    components:{
+export default {
+    name: 'FieldImageMulti',
+    components: {
         field_file_multi,
     },
-    mixins:[
+    mixins: [
         _computed_model_mixin,
         _props_value_array_mixin,
     ],
+    inheritAttrs: true,
 }
 
 </script>

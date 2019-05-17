@@ -1,12 +1,12 @@
-export default{
-    props:{
-        labelfield:{
-            type:String,
-            default:'label',
+export default {
+    props: {
+        labelfield: {
+            type: String,
+            default: 'label',
         },
-        valuefield:{
-            type:String,
-            default:'value',
-        }
-    }
+        valuefield: {
+            type: String,
+            default: 'value',
+        },
+    },
 }

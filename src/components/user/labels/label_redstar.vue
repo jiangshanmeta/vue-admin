@@ -1,16 +1,16 @@
 <template>
     <span>
-        {{label}}
+        {{ label }}
         <span style="color:red;">*</span>
     </span>
 </template>
 
 <script>
-export default{
-    props:{
-        label:{
-            type:String,
-            required:true,
+export default {
+    props: {
+        label: {
+            type: String,
+            required: true,
         },
     },
 }

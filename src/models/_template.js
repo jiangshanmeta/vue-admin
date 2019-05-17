@@ -1,20 +1,16 @@
-export default{
-    field_list:{
+export default {
+    field_list: {
 
     },
-    staticOperators:[
-
+    staticOperators: [
     ],
-    filters:[
-
+    filters: [
     ],
-    filterOperators:[
-
+    filterOperators: [
     ],
-    listConfig:{
+    listConfig: {
 
     },
-    operators:[
-        
-    ]
+    operators: [
+    ],
 }

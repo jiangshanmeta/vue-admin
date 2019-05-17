@@ -1,58 +1,62 @@
 <template>
-<section>
-    <ul class="list-group">
-        <li class="list-group-item"
-            v-for="(item,index) in value"
-            :key="index"
-        >
-            {{valueLabelMap.has(item)?valueLabelMap.get(item):item}}
-            <i class="el-icon-close pull-right" @click='removeItem(index)'></i>
-        </li>
-    </ul>
-    <editor_enum_autocomplete
-        :value="selectedId"
-        :valuefield="valuefield"
-        :labelfield="labelfield"
-        :candidate="candidate"
-        @input="addItem"
-        v-bind="$attrs"
-    ></editor_enum_autocomplete>
-</section>
+    <section>
+        <ul class="list-group">
+            <li
+                v-for="(item,index) in value"
+                :key="index"
+                class="list-group-item"
+            >
+                {{ valueLabelMap.has(item)?valueLabelMap.get(item):item }}
+                <i
+                    class="el-icon-close pull-right"
+                    @click="removeItem(index)"
+                />
+            </li>
+        </ul>
+        <editor_enum_autocomplete
+            :value="selectedId"
+            :valuefield="valuefield"
+            :labelfield="labelfield"
+            :candidate="candidate"
+            v-bind="$attrs"
+            @input="addItem"
+        />
+    </section>
 </template>
 
 <script>
-import _editor_array_mixin from "./_editor_array_mixin"
-import _props_value_array_mixin from "./_props_value_array_mixin"
+import _editor_array_mixin from './_editor_array_mixin'
+import _props_value_array_mixin from './_props_value_array_mixin'
 import _computed_value_label_map_mixin from './_computed_value_label_map_mixin'
 
-export default{
-    name:'editor_array_autocomplete',
-    inheritAttrs:true,
-    mixins:[
+export default {
+    name: 'EditorArrayAutocomplete',
+    components: {
+        editor_enum_autocomplete: () => import('./editor_enum_autocomplete'),
+    },
+    mixins: [
         _editor_array_mixin,
         _props_value_array_mixin,
         _computed_value_label_map_mixin,
     ],
-    components:{
-        editor_enum_autocomplete:()=>import("./editor_enum_autocomplete"),
-    },
-    data(){
+    inheritAttrs: true,
+    data () {
         return {
-            selectedId:'',
+            selectedId: '',
         }
     },
-    methods:{
-        removeItem(index){
-            const value = JSON.parse(JSON.stringify(this.value));
-            value.splice(index,1);
-            this.$emit('input',value);
+    methods: {
+        removeItem (index) {
+            const value = JSON.parse(JSON.stringify(this.value))
+            value.splice(index, 1)
+            this.$emit('input', value)
         },
-        addItem(selectedId){
-            this.selectedId = selectedId;
-            if(!this.value.includes(selectedId)){
-                const value = JSON.parse(JSON.stringify(this.value));
-                value.push(selectedId);
-                this.$emit('input',value)
+        addItem (selectedId) {
+            this.selectedId = selectedId
+            if (!this.value.includes(selectedId)) {
+                const value = JSON.parse(JSON.stringify(this.value))
+                value.push(selectedId)
+                this.$emit('input', value)
             }
         },
     },

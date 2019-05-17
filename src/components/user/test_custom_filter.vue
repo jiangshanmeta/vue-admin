@@ -1,30 +1,31 @@
 <template>
     <span>
-        <el-input v-model="model"></el-input>
-        {{msg}}
+        <el-input v-model="model" />
+        {{ msg }}
     </span>
 </template>
 
 <script>
-export default{
-    name:"test_custom_filter",
-    props:{
-        value:{
+/* eslint-disable  */
+export default {
+    name: 'TestCustomFilter',
+    props: {
+        value: {
 
         },
-        msg:{
+        msg: {
 
-        }
+        },
     },
-    computed:{
-        model:{
-            get(){
+    computed: {
+        model: {
+            get () {
                 return this.value
             },
-            set(val){
-                this.$emit('input',val)
-            }
-        }
-    }
+            set (val) {
+                this.$emit('input', val)
+            },
+        },
+    },
 }
 </script>

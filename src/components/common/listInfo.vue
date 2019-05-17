@@ -1,5 +1,5 @@
 <template>
-    <section 
+    <section
         v-if="Object.keys(field_list).length>0 && (!hasInjectComponent || componentsInjected)"
     >
         <slot
@@ -7,38 +7,37 @@
             :data="data"
             :formData="formData"
             :selectedData="multipleSelection"
-        ></slot>
+        />
 
         <filters
+            ref="filters"
             :filters="filters"
             :field_list="field_list"
-            :filterOperators="filterOperators"
+            :filter-operators="filterOperators"
             @search="getListInfo"
-            ref="filters"
-        ></filters>
+        />
 
         <slot
             name="afterFilters"
             :data="data"
             :formData="formData"
             :selectedData="multipleSelection"
-        ></slot>
+        />
 
         <el-table
             v-if="fields.length>0 && data.length>0"
             :data="data"
             style="width:100%;"
+            v-bind="tableConfig"
             @sort-change="handleSortChange"
             @selection-change="handleSelectionChange"
-            v-bind="tableConfig"
         >
             <el-table-column
                 v-if="selection"
                 type="selection"
-            ></el-table-column>
+            />
             <el-table-column
                 v-for="field in fields"
-                v-if="field_list[field]"
                 :key="field"
                 :label="field_list[field]['label']"
                 :prop="field"
@@ -56,10 +55,10 @@
                             #default="viewScope"
                         >
                             <component
-                                v-if="needInjectViewComponentsMap[field]"
                                 :is="needInjectViewComponentsMap[field].name"
+                                v-if="needInjectViewComponentsMap[field]"
                                 v-bind="viewScope"
-                            ></component>
+                            />
                         </template>
                     </views>
                 </template>
@@ -77,278 +76,279 @@
                         :index="$index"
                         @update="getListInfo"
                         @setWidth="setOperatorWidth"
-                    ></operators>
+                    />
                 </template>
             </el-table-column>
         </el-table>
-        <section 
+        <section
             v-if="data.length === 0"
             style="margin:10px;text-align:center;font-size:28px;color:#777;letter-spacing:8px;"
         >
-            {{emptyText}}
+            {{ emptyText }}
         </section>
         <el-pagination
             v-if="paginated && data.length>0"
-            @size-change="handleSizeChange"
             v-bind="paginationConfig"
             :current-page.sync="pageIndex"
             :page-size="localPageSize"
             :total="total"
             class="center-table"
-        ></el-pagination>
+            @size-change="handleSizeChange"
+        />
     </section>
 </template>
 
 <script>
-import filters from "@/components/common/editor/filters"
-import operators from "@/components/common/operators/operators"
-import views from "@/components/common/views/views"
+import filters from '@/components/common/editor/filters'
+import operators from '@/components/common/operators/operators'
+import views from '@/components/common/views/views'
 
-import mergeAttrsConfig from "@/mixins/common/mergeAttrsConfig.js"
+import mergeAttrsConfig from '@/mixins/common/mergeAttrsConfig.js'
 
-import {logError} from "@/widget/utility.js"
+import { logError, } from '@/widget/utility.js'
 
-import injectComponents from "@/widget/injectComponents"
-import getNeedInjectViewComponentsMap from "@/injectHelper/injectViewComponentsHelper"
+import injectComponents from '@/widget/injectComponents'
+import getNeedInjectViewComponentsMap from '@/injectHelper/injectViewComponentsHelper'
 
-export default{
-    mixins:[
-        mergeAttrsConfig,
-    ],
-    components:{
+export default {
+    components: {
         filters,
         operators,
         views,
     },
-    state:{
-        needInjectViewComponentsMap:{},
-        get hasInjectComponent(){
-            return Object.keys(this.needInjectViewComponentsMap).length>0;
+    mixins: [
+        mergeAttrsConfig,
+    ],
+    state: {
+        needInjectViewComponentsMap: {},
+        get hasInjectComponent () {
+            return Object.keys(this.needInjectViewComponentsMap).length > 0
         },
     },
-    beforeCreate(){
-        Object.defineProperty(this,'formData',{
-            get(){
-                return this.$refs.filters && this.$refs.filters.formData;
-            }
-        });
-    },
-    data(){
-        return {
-            componentsInjected:false,
-            data:[],
-            pageIndex:1,
-            sortField:'',
-            sortOrder:'',
-            total:0,
-            fields:[],
-            multipleSelection:[],
-            operatorMinWidth:0,
-            localPageSize:this.pageSize,
-        }
-    },
-    created(){
-        this.needInjectViewComponentsMap = getNeedInjectViewComponentsMap(this.field_list,Object.keys(this.field_list));
-        this.injectViewComponents();
-
-        this.$watch(()=>{
-            return {
-                localPageSize:this.localPageSize,
-                sortField:this.sortField,
-                sortOrder:this.sortOrder,
-                pageIndex:this.pageIndex,
-            }
-        },this.getListInfo,{
-            immediate:true,
-        })
-    },
-    props:{
-        field_list:{
-            type:Object,
-            required:true,
+    props: {
+        fieldList: {
+            type: Object,
+            required: true,
         },
 
-        filters:{
-            type:Array,
-            default:function(){
-                return [];
+        filters: {
+            type: Array,
+            default: function () {
+                return [
+                ]
             },
         },
-        filterOperators:{
-            type:Array,
-            default:function(){
-                return [];
-            }
+        filterOperators: {
+            type: Array,
+            default: function () {
+                return [
+                ]
+            },
         },
 
-        pageSize:{
-            type:Number,
-            default:20
+        pageSize: {
+            type: Number,
+            default: 20,
         },
-        pageIndexReqName:{
-            type:String,
-            default:"pageIndex",
+        pageIndexReqName: {
+            type: String,
+            default: 'pageIndex',
         },
-        pageSizeReqName:{
-            type:String,
-            default:"pageSize",
+        pageSizeReqName: {
+            type: String,
+            default: 'pageSize',
         },
-        sortFieldReqName:{
-            type:String,
-            default:"sortField",
+        sortFieldReqName: {
+            type: String,
+            default: 'sortField',
         },
-        sortOrderReqName:{
-            type:String,
-            default:"sortOrder",
+        sortOrderReqName: {
+            type: String,
+            default: 'sortOrder',
         },
-        transformRequestData:{
-            type:Function,
-            default:function(data){
-                return data;
-            }
-        },
-        listRequest:{
-            type:Function,
-            required:true,
-        },
-        transformListData:{
-            type:Function,
-            default:async (data)=>{
+        transformRequestData: {
+            type: Function,
+            default: function (data) {
                 return data
-            }
+            },
+        },
+        listRequest: {
+            type: Function,
+            required: true,
+        },
+        transformListData: {
+            type: Function,
+            default: async (data) => {
+                return data
+            },
         },
 
-        tableConfig:{
-            type:Object,
-            default(){
-                return {};
-            }
+        tableConfig: {
+            type: Object,
+            default () {
+                return {}
+            },
         },
-        selection:{
-            type:Boolean,
-            default:false,
+        selection: {
+            type: Boolean,
+            default: false,
         },
-        sortFields:{
-            type:Array,
-            default:function(){
-                return [];
-            }
-        },
-
-        operators:{
-            type:Array,
-            default:function(){
-                return [];
-            }
-        },
-        operatorsLabel:{
-            type:String,
-            default:"操作"
+        sortFields: {
+            type: Array,
+            default: function () {
+                return [
+                ]
+            },
         },
 
-        emptyText:{
-            type:String,
-            default:"暂无数据"
+        operators: {
+            type: Array,
+            default: function () {
+                return [
+                ]
+            },
+        },
+        operatorsLabel: {
+            type: String,
+            default: '操作',
         },
 
-        paginated:{
-            type:Boolean,
-            default:true,
+        emptyText: {
+            type: String,
+            default: '暂无数据',
         },
-        paginationConfig:{
-            type:Object,
-            default(){
+
+        paginated: {
+            type: Boolean,
+            default: true,
+        },
+        paginationConfig: {
+            type: Object,
+            default () {
                 return {}
             },
         },
     },
-    methods:{
-        injectViewComponents(){
-            if(!this.hasInjectComponent){
-                return;
+    data () {
+        return {
+            componentsInjected: false,
+            data: [
+            ],
+            pageIndex: 1,
+            sortField: '',
+            sortOrder: '',
+            total: 0,
+            fields: [
+            ],
+            multipleSelection: [
+            ],
+            operatorMinWidth: 0,
+            localPageSize: this.pageSize,
+        }
+    },
+    beforeCreate () {
+        Object.defineProperty(this, 'formData', {
+            get () {
+                return this.$refs.filters && this.$refs.filters.formData
+            },
+        })
+    },
+    created () {
+        this.needInjectViewComponentsMap = getNeedInjectViewComponentsMap(this.field_list, Object.keys(this.field_list))
+        this.injectViewComponents()
+
+        this.$watch(() => {
+            return {
+                localPageSize: this.localPageSize,
+                sortField: this.sortField,
+                sortOrder: this.sortOrder,
+                pageIndex: this.pageIndex,
+            }
+        }, this.getListInfo, {
+            immediate: true,
+        })
+    },
+    methods: {
+        injectViewComponents () {
+            if (!this.hasInjectComponent) {
+                return
             }
 
-            injectComponents(this,this.needInjectViewComponentsMap).then(()=>{
-                this.componentsInjected = true;
-            });
+            injectComponents(this, this.needInjectViewComponentsMap).then(() => {
+                this.componentsInjected = true
+            })
         },
-        handleSortChange(sortInfo){
-            if(sortInfo.prop){
-                this.sortField = sortInfo.prop;
-                this.sortOrder = sortInfo.order.startsWith('desc')?'desc':'asc';
-            }else{
-                this.sortField = '';
-                this.sortOrder = '';
+        handleSortChange (sortInfo) {
+            if (sortInfo.prop) {
+                this.sortField = sortInfo.prop
+                this.sortOrder = sortInfo.order.startsWith('desc') ? 'desc' : 'asc'
+            } else {
+                this.sortField = ''
+                this.sortOrder = ''
             }
-            this.pageIndex = 1;
-
+            this.pageIndex = 1
         },
-        handleSizeChange(newPageSize){
-            this.localPageSize = newPageSize;
-            this.pageIndex = 1;
+        handleSizeChange (newPageSize) {
+            this.localPageSize = newPageSize
+            this.pageIndex = 1
         },
-        handleSelectionChange(section){
-            this.multipleSelection = section;
+        handleSelectionChange (section) {
+            this.multipleSelection = section
         },
-        getListInfo(){
-            const params = {};
+        getListInfo () {
+            const params = {}
             // 有filters 要拿到filters的formData，所以需要等到filters组件实例化完成
             // 有时filters组件虽然实例化了，但是formData数据为空，需要等待formData对应数据形成
             // console.log(this.$refs.filters,!this.$refs.filters || this.$refs.filters.formData )
-            if(this.filters.length && ( (!this.$refs.filters) || (Object.keys(this.$refs.filters.formData).length === 0)
-             )   ){
-
-
+            if (this.filters.length && ((!this.$refs.filters) || (Object.keys(this.$refs.filters.formData).length === 0)
+            )) {
                 // 这里之所以用setTimeout而不是$nextTick
                 // 是因为$nextTick会优先尝试使用Promise
                 // 当getListInfo作为microTask的一个任务时
                 // 会向同一个microTask push新任务
                 // 而挂载子组件到$refs上是作为macroTask的任务
                 // 于是会死循环
-                setTimeout(()=>{
-                    this.getListInfo();
-                },0)
-                return;
-
+                setTimeout(() => {
+                    this.getListInfo()
+                }, 0)
+                return
             }
 
-            if(this.filters.length){
-                Object.assign(params,this.$refs.filters.formData)
+            if (this.filters.length) {
+                Object.assign(params, this.$refs.filters.formData)
             }
 
-            if(this.paginated){
-                params[this.pageIndexReqName] = this.pageIndex;
-                params[this.pageSizeReqName] = this.localPageSize<=0?
-                    this.pageSize:
-                    this.localPageSize ;
+            if (this.paginated) {
+                params[this.pageIndexReqName] = this.pageIndex
+                params[this.pageSizeReqName] = this.localPageSize <= 0
+                    ? this.pageSize
+                    : this.localPageSize
             }
-            
-            params[this.sortFieldReqName] = this.sortField;
-            params[this.sortOrderReqName] = this.sortOrder;
 
-            console.log(params);
+            params[this.sortFieldReqName] = this.sortField
+            params[this.sortOrderReqName] = this.sortOrder
 
-            return new Promise((resolve,reject)=>{
-                this.listRequest(resolve,this.transformRequestData(params))
-            }).then((rst)=>{
-                const {data,total,fields} = rst;
-                let promise = this.transformListData(data);
-                if(!(promise instanceof Promise)){
-                    promise = Promise.resolve(promise);
+            console.log(params)
+
+            return new Promise((resolve, reject) => {
+                this.listRequest(resolve, this.transformRequestData(params))
+            }).then((rst) => {
+                const { data, total, fields, } = rst
+                let promise = this.transformListData(data)
+                if (!(promise instanceof Promise)) {
+                    promise = Promise.resolve(promise)
                 }
 
-                promise.then((data)=>{
-                    this.fields = fields;
-                    this.total = total;
-                    this.data = data;
-                });
-
-            }).catch(logError);
-
+                promise.then((data) => {
+                    this.fields = fields
+                    this.total = total
+                    this.data = data
+                })
+            }).catch(logError)
         },
-        setOperatorWidth(width){
-            if(width>this.operatorMinWidth){
-                this.operatorMinWidth = width;
+        setOperatorWidth (width) {
+            if (width > this.operatorMinWidth) {
+                this.operatorMinWidth = width
             }
         },
     },

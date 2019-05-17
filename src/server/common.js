@@ -1,8 +1,4 @@
-import axios from "./axios.js"
-
-
-
-
+import axios from './axios.js'
 
 export {
 

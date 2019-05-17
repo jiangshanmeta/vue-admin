@@ -1,34 +1,36 @@
 <template>
     <section>
-        customername:{{customername}}
+        customername:{{ customername }}
         <fieldText
             v-model="model"
-        ></fieldText>
+        />
     </section>
 </template>
 
 <script>
-import fieldText from "@/components/common/editor/editor_text"
-export default{
-    components:{
+import fieldText from '@/components/common/editor/editor_text'
+export default {
+    components: {
         fieldText,
     },
-    computed:{
-        model:{
-            get(){
-                return this.value;
-            },
-            set(value){
-                this.$emit('input',value);
-            },
+    props: {
+        value: {
+            type: String,
+            required: true,
+        },
+        customername: {
+            type: String,
+            required: true,
         },
     },
-    props:{
-        value:{
-            required:true,
-        },
-        customername:{
-            required:true,
+    computed: {
+        model: {
+            get () {
+                return this.value
+            },
+            set (value) {
+                this.$emit('input', value)
+            },
         },
     },
 }

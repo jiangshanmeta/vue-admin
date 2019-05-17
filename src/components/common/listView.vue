@@ -1,13 +1,13 @@
 <template>
     <section>
-        <slot name="beforeAll"></slot>
+        <slot name="beforeAll" />
         <list-info
+            ref="listInfo"
             :field_list="field_list"
             :filters="filters"
             :operators="operators"
-            :filterOperators="filterOperators"
+            :filter-operators="filterOperators"
             v-bind="listConfig"
-            ref="listInfo"
         >
             <template #beforeFilters="scope">
                 <operators
@@ -15,72 +15,76 @@
                     :operators="staticOperators"
                     v-bind="scope"
                     :field_list="field_list"
-                    @update="refreshListData"
                     style="margin-bottom:8px;"
-                ></operators>
+                    @update="refreshListData"
+                />
             </template>
 
             <template
                 #afterFilters="scope"
             >
                 <slot
-                    name="afterFilters" 
+                    name="afterFilters"
                     v-bind="scope"
-                ></slot>
+                />
             </template>
         </list-info>
-        <slot name="afterAll"></slot>
+        <slot name="afterAll" />
     </section>
 </template>
 
 <script>
-export default{
-    inheritAttrs:true,
-    components:{
-        listInfo:()=>import("@/components/common/listInfo"),
-        operators:()=>import("@/components/common/operators/operators"),
+export default {
+    components: {
+        listInfo: () => import('@/components/common/listInfo'),
+        operators: () => import('@/components/common/operators/operators'),
     },
-    props:{
-        field_list:{
-            type:Object,
-            required:true,
+    inheritAttrs: true,
+    props: {
+        fieldList: {
+            type: Object,
+            required: true,
         },
-        staticOperators:{
-            type:Array,
-            default:function(){
-                return [];
+        staticOperators: {
+            type: Array,
+            default: function () {
+                return [
+                ]
             },
         },
-        filters:{
-            type:Array,
-            default:function(){
-                return [];
-            }
-        },
-        listConfig:{
-            type:Object,
-            default:function(){
-                return {};
+        filters: {
+            type: Array,
+            default: function () {
+                return [
+                ]
             },
         },
-        operators:{
-            type:Array,
-            default:function(){
-                return [];
-            }
+        listConfig: {
+            type: Object,
+            default: function () {
+                return {}
+            },
         },
-        filterOperators:{
-            type:Array,
-            default:function(){
-                return [];
-            }
+        operators: {
+            type: Array,
+            default: function () {
+                return [
+                ]
+            },
+        },
+        filterOperators: {
+            type: Array,
+            default: function () {
+                return [
+                ]
+            },
         },
     },
-    methods:{
-        refreshListData(){
-            this.$refs.listInfo && this.$refs.listInfo.getListInfo();
-        }
-    }
+    methods: {
+        refreshListData () {
+            this.$refs.listInfo && this.$refs.listInfo.getListInfo()
+        },
+    },
 }
 
 </script>

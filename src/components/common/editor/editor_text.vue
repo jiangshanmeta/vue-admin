@@ -1,19 +1,19 @@
 <template>
-    <el-input 
-        type="textarea"
+    <el-input
         v-model="model"
+        type="textarea"
         v-bind="$attrs"
-    ></el-input>
+    />
 </template>
 
 <script>
-import _computed_model_mixin from "./_computed_model_mixin"
+import _computed_model_mixin from './_computed_model_mixin'
 
-export default{
-    name:"editor_text",
-    inheritAttrs:true,
-    mixins:[
+export default {
+    name: 'EditorText',
+    mixins: [
         _computed_model_mixin,
     ],
+    inheritAttrs: true,
 }
 </script>

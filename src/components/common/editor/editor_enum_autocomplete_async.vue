@@ -2,26 +2,26 @@
     <editor_enum_autocomplete
         v-model="model"
         :candidate="candidate"
-        :isCandidateValid="!isRequest"
+        :is-candidate-valid="!isRequest"
         v-bind="$attrs"
-    ></editor_enum_autocomplete>
+    />
 </template>
 
 <script>
-import _async_candidate_mixin from "./_async_candidate_mixin"
-import _props_value_mixin from "./_props_value_mixin"
-import _computed_model_mixin from "./_computed_model_mixin.js"
+import _async_candidate_mixin from './_async_candidate_mixin'
+import _props_value_mixin from './_props_value_mixin'
+import _computed_model_mixin from './_computed_model_mixin.js'
 
-export default{
-    name:'editor_enum_autocomplete_async',
-    inheritAttrs:true,
-    mixins:[
+export default {
+    name: 'EditorEnumAutocompleteAsync',
+    components: {
+        editor_enum_autocomplete: () => import('./editor_enum_autocomplete'),
+    },
+    mixins: [
         _async_candidate_mixin,
         _props_value_mixin,
         _computed_model_mixin,
     ],
-    components:{
-        editor_enum_autocomplete:()=>import("./editor_enum_autocomplete")
-    },
+    inheritAttrs: true,
 }
 </script>

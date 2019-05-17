@@ -1,24 +1,24 @@
 <template>
     <editor_time
-        type="datetime"
         v-model="model"
+        type="datetime"
         v-bind="$attrs"
-    ></editor_time>
+    />
 </template>
 
 <script>
-import _props_value_mixin from "./_props_value_mixin.js"
-import _computed_model_mixin from "./_computed_model_mixin.js"
+import _props_value_mixin from './_props_value_mixin.js'
+import _computed_model_mixin from './_computed_model_mixin.js'
 
-export default{
-    name:"editor_time_ts",
-    inheritAttrs:true,
-    mixins:[
+export default {
+    name: 'EditorTimeTs',
+    components: {
+        editor_time: () => import('./_editor_time'),
+    },
+    mixins: [
         _props_value_mixin,
         _computed_model_mixin,
     ],
-    components:{
-        editor_time:()=>import("./_editor_time"),
-    },
+    inheritAttrs: true,
 }
 </script>

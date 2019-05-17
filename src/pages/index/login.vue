@@ -1,40 +1,48 @@
 <template>
     <el-form>
         <el-form-item label="手机号">
-            <el-input v-model="phone"></el-input>
+            <el-input v-model="phone" />
         </el-form-item>
         <el-form-item label="密码">
-            <el-input type="password" v-model="pwd"></el-input>
+            <el-input
+                v-model="pwd"
+                type="password"
+            />
         </el-form-item>
-        <el-button type="success" @click="doLogin">登录</el-button>
+        <el-button
+            type="success"
+            @click="doLogin"
+        >
+            登录
+        </el-button>
     </el-form>
 </template>
 
 <script>
-export default{
-    data (){
+export default {
+    data () {
         return {
-            phone:'',
-            pwd:'',
+            phone: '',
+            pwd: '',
         }
     },
-    methods:{
-        doLogin (){
+    methods: {
+        doLogin () {
             const phone = this.phone
-            if(!phone){
-                alert('请输入手机号');
-                return;
+            if (!phone) {
+                alert('请输入手机号')
+                return
             }
-            const pwd = this.pwd;
-            if(!pwd){
-                alert('请输入手机号');
-                return;
+            const pwd = this.pwd
+            if (!pwd) {
+                alert('请输入手机号')
+                return
             }
             const data = {
                 phone,
                 pwd,
             }
-            this.$store.dispatch('doLogin',data);
+            this.$store.dispatch('doLogin', data)
         },
     },
 }

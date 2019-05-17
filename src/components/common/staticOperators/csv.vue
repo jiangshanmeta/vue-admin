@@ -4,57 +4,54 @@
             v-bind="triggerConfig"
             @click="handleClick"
         >
-            {{triggerConfig.text}}
+            {{ triggerConfig.text }}
         </el-button>
         <input
-            type="file" 
-            @change="handleChange" 
-            :multiple="false" 
+            ref="input"
+            type="file"
+            :multiple="false"
             accept=".csv"
             style="display:none;"
-            ref="input"
+            @change="handleChange"
         >
     </div>
 </template>
 
 <script>
 import csvjs from 'csv-js'
-import {logError} from "@/widget/utility.js"
-export default{
-    methods:{
-        handleClick(){
-            this.$refs.input.value = null;
-            this.$refs.input.click();
+import { logError, } from '@/widget/utility.js'
+export default {
+    props: {
+        triggerConfig: {
+            type: Object,
+            default () {
+                return {}
+            },
         },
-        handleChange(ev){
-            var reader = new FileReader();
-            reader.onload = function(e){
-                
-                new Promise((resolve,reject)=>{
-                    this.handleData(resolve,csvjs.parse(e.target.result))
-                }).then(()=>{
-                    this.$emit('update');
-                }).catch(logError)
+        handleData: {
+            type: Function,
+            default () {
 
-            }.bind(this);
-            reader.readAsText(ev.target.files[0]);
+            },
+        },
+
+    },
+    methods: {
+        handleClick () {
+            this.$refs.input.value = null
+            this.$refs.input.click()
+        },
+        handleChange (ev) {
+            var reader = new FileReader()
+            reader.onload = function (e) {
+                new Promise((resolve, reject) => {
+                    this.handleData(resolve, csvjs.parse(e.target.result))
+                }).then(() => {
+                    this.$emit('update')
+                }).catch(logError)
+            }.bind(this)
+            reader.readAsText(ev.target.files[0])
         },
     },
-    props:{
-        triggerConfig:{
-            type:Object,
-            default(){
-                return {};
-            },
-        },
-        handleData:{
-            type:Function,
-            default(){
-
-            },
-        },
-
-
-    }
 }
 </script>

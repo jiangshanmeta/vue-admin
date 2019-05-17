@@ -1,29 +1,30 @@
-export default{
-    props:{
-        struct:{
-            type:Function,
-            default(){
-                return [];
+export default {
+    props: {
+        struct: {
+            type: Function,
+            default () {
+                return [
+                ]
             },
         },
-        value:{
-            required:true,
-        }
+        value: {
+            required: true,
+        },
     },
-    computed:{
-        model:{
-            get(){
-                try{
-                    return JSON.parse(this.value);
-                }catch(e){
-                    const val = this.struct.call(this);
-                    this.model = val;
-                    return val;
+    computed: {
+        model: {
+            get () {
+                try {
+                    return JSON.parse(this.value)
+                } catch (e) {
+                    const val = this.struct.call(this)
+                    this.model = val
+                    return val
                 }
             },
-            set(val){
-                this.$emit("input",JSON.stringify(val));
-            }
+            set (val) {
+                this.$emit('input', JSON.stringify(val))
+            },
         },
     },
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="app">
-        <top-nav></top-nav>
+        <top-nav />
 
         <div class="app-section">
             <side-menu
@@ -8,49 +8,48 @@
                 class="app-aside"
                 :path="$store.state.route.path"
                 :privilege="$store.state.userInfo.privilege"
-            ></side-menu>
-            <router-view class="app-main"></router-view>
+            />
+            <router-view class="app-main" />
         </div>
 
-        <bottom-footer></bottom-footer>
+        <bottom-footer />
     </div>
 </template>
 
 <script>
 import topNav from '@/components/index/topnav'
-import sideMenu from "@/components/index/sideMenu"
-import bottomFooter from "@/components/index/footer"
-
+import sideMenu from '@/components/index/sideMenu'
+import bottomFooter from '@/components/index/footer'
 
 export default {
-	name:'app',
-	components:{
-		topNav,
-		sideMenu,
-		bottomFooter,
-	},
-    watch:{
-        "$store.state.isLogin"(isLogin){
-            if(isLogin){
+    name: 'App',
+    components: {
+        topNav,
+        sideMenu,
+        bottomFooter,
+    },
+    watch: {
+        '$store.state.isLogin' (isLogin) {
+            if (isLogin) {
                 this.$router.replace({
-                    path:this.$store.state.route.query.redirect || '/'
+                    path: this.$store.state.route.query.redirect || '/',
                 })
-            }else{
+            } else {
                 this.$router.push({
-                    path:'/index/login'
+                    path: '/index/login',
                 })
             }
         },
     },
-    created (){
-        if(this.$localStorage.get('token') && !this.$store.state.isLogin){
+    created () {
+        if (this.$localStorage.get('token') && !this.$store.state.isLogin) {
             this.$store.dispatch('getUserInfo')
         }
     },
-    metaInfo(){
+    metaInfo () {
         return {
-            title:this.$store.state.title,
-        };
+            title: this.$store.state.title,
+        }
     },
 }
 </script>

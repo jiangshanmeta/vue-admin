@@ -1,19 +1,20 @@
 <template>
     <div>
-        {{data}} {{msg}}
+        {{ data }} {{ msg }}
     </div>
 </template>
 
 <script>
-export default{
-    name:"showusername",
-    props:{
-        data:{
+/* eslint-disable  */
+export default {
+    name: 'Showusername',
+    props: {
+        data: {
 
         },
-        msg:{
+        msg: {
 
-        }
+        },
     },
 }
 </script>

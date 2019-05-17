@@ -4,36 +4,36 @@
             v-model="model"
             :placeholder="placeholder"
             style="width:50%;"
-        ></el-input>
-        {{msg}}
+        />
+        {{ msg }}
     </div>
 </template>
 
 <script>
-
-export default{
-    name:"username",
-    props:{
-        value:{
-            required:true,
-
-        },
-        msg:{
+/* eslint-disable  */
+export default {
+    name: 'Username',
+    props: {
+        value: {
+            required: true,
 
         },
-        placeholder:{
+        msg: {
 
-        }
+        },
+        placeholder: {
+
+        },
     },
-    computed:{
-        model:{
-            get(){
-                return this.value;
+    computed: {
+        model: {
+            get () {
+                return this.value
             },
-            set(val){
-                this.$emit('input',val)
-            }
-        }
-    }
+            set (val) {
+                this.$emit('input', val)
+            },
+        },
+    },
 }
 </script>

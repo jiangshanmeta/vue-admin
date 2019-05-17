@@ -4,38 +4,41 @@
         :size="size"
         @click="handleClick"
     >
-        {{btnText}}
+        {{ btnText }}
     </el-button>
 </template>
 
 <script>
-export default{
-    name:"reset",
-    props:{
-        filters:{
-            type:Array,
-            required:true,
+export default {
+    name: 'Reset',
+    props: {
+        filters: {
+            type: Array,
+            required: true,
         },
-        data:{
-            type:Object,
+        data: {
+            type: Object,
+            required: true,
         },
-        type:{
-            type:String,
-            default:"warning",
+        type: {
+            type: String,
+            default: 'warning',
         },
-        size:{
-            type:String,
-            default:""
+        size: {
+            type: String,
+            default: '',
         },
-        btnText:{
-            type:String,
-            default:"重置",
+        btnText: {
+            type: String,
+            default: '重置',
         },
     },
-    inject:["filtersComponent"],
-    methods:{
-        handleClick(){
-            this.filtersComponent.resetValue();
+    inject: [
+        'filtersComponent',
+    ],
+    methods: {
+        handleClick () {
+            this.filtersComponent.resetValue()
         },
     },
 }

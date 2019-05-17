@@ -1,11 +1,13 @@
 <template>
     <footer class="admin-footer">
-        <div class="text-center">jiangshanmeta</div>
+        <div class="text-center">
+            jiangshanmeta
+        </div>
     </footer>
 </template>
 
 <script>
-export default{
+export default {
 
 }
 </script>

@@ -1,12 +1,13 @@
 {
   "name": "vue-admin",
   "version": "1.0.0",
+  "private": true,
   "description": "admin",
   "author": "jiangshanmeta",
-  "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
     "model": "node scripts/model.js"
   },
   "dependencies": {
@@ -33,7 +34,12 @@
     "@babel/plugin-proposal-do-expressions": "^7.2.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@vue/cli-plugin-babel": "^3.7.0",
+    "@vue/cli-plugin-eslint": "^3.7.0",
     "@vue/cli-service": "^3.7.0",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
     "vue-template-compiler": "^2.5.21"
   }
 }

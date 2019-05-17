@@ -1,7 +1,7 @@
-export default{
-    props:{
-        value:{
-            required:true,
-        }
-    }
+export default {
+    props: {
+        value: {
+            required: true,
+        },
+    },
 }

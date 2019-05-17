@@ -1,29 +1,28 @@
 <template>
- <header class="admin-header">
-    <div class="pull-left">
-        <a>管理系统</a>
-    </div>
-    <div class="pull-right">
-
-        <a class="pull-left">{{$store.state.userInfo.name}}</a>
-        <a
-            v-if="$store.state.isLogin"
-            @click="doLogout" 
-            class="pull-left"
-        >
-            退出
-        </a>
-    </div>
- </header>   
+    <header class="admin-header">
+        <div class="pull-left">
+            <a>管理系统</a>
+        </div>
+        <div class="pull-right">
+            <a class="pull-left">{{ $store.state.userInfo.name }}</a>
+            <a
+                v-if="$store.state.isLogin"
+                class="pull-left"
+                @click="doLogout"
+            >
+                退出
+            </a>
+        </div>
+    </header>
 </template>
 
 <script>
-export default{
-    methods:{
-        doLogout(){
-            this.$store.dispatch('doLogout');
-        }
-    }
+export default {
+    methods: {
+        doLogout () {
+            this.$store.dispatch('doLogout')
+        },
+    },
 }
 </script>
 

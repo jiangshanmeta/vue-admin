@@ -1,8 +1,8 @@
-export default{
-    props:{
-        candidate:{
-            type:Array,
-            required:true,
+export default {
+    props: {
+        candidate: {
+            type: Array,
+            required: true,
         },
     },
 }
