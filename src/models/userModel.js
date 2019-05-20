@@ -20,12 +20,12 @@ const cacheGetTypEnum = onceAsync(getTypEnum)
 
 export default function () {
     return {
-        field_list: {
+        fields: {
             name: {
                 label: '用户名',
                 editorComponent: {
                     name: 'field_string2',
-                    component: () => import('@/components/common/editor/editor_string').then((rst) => rst.default),
+                    component: () => import('@/components/common/Editors/EditorString').then((rst) => rst.default),
                     config: {
                         placeholder: '请输入用户名',
                     },
@@ -60,7 +60,7 @@ export default function () {
             password: {
                 label: '密码',
                 editorComponent: {
-                    name: 'editor_pwd',
+                    name: 'EditorPwd',
                     config: {
                         placeholder: '请输入密码',
                         relates: [
@@ -101,12 +101,12 @@ export default function () {
             gender: {
                 label: '性别',
                 editorComponent: {
-                    name: 'editor_gender',
+                    name: 'EditorGender',
                     default: 0,
                 },
                 view: {
-                    name: 'view_enum2',
-                    component: () => import('@/components/common/views/view_enum').then((rst) => rst.default),
+                    name: 'ViewEnum2',
+                    component: () => import('@/components/common/Views/ViewEnum').then((rst) => rst.default),
                     config: {
                         enums: genderEnum,
                     },
@@ -119,15 +119,15 @@ export default function () {
                 },
                 labelComponent: {
                     default: {
-                        name: 'label_redstar',
-                        component: () => import('@/components/user/labels/label_redstar').then((rst) => rst.default),
+                        name: 'LabelUserRedstar',
+                        component: () => import('@/components/user/Labels/LabelUserRedstar').then((rst) => rst.default),
                         exclude: [
                             'create',
                         ],
                     },
                     info: {
                         name: 'label_redstar',
-                        component: () => import('@/components/user/labels/label_redstar').then((rst) => rst.default),
+                        component: () => import('@/components/user/Labels/LabelUserRedstar').then((rst) => rst.default),
                     },
 
                 },
@@ -136,7 +136,7 @@ export default function () {
             typ: {
                 label: '类型',
                 editorComponent: {
-                    name: 'editor_enum_select_async',
+                    name: 'EditorEnumAsyncSelect',
                     config: {
                         getCandidate: cacheGetTypEnum,
                         valuefield: 'value',
@@ -157,8 +157,8 @@ export default function () {
                     },
                 },
                 view: {
-                    name: 'view_enum',
-                    component: () => import('@/components/common/views/view_enum').then((rst) => rst.default),
+                    name: 'ViewEnum',
+                    component: () => import('@/components/common/Views/ViewEnum').then((rst) => rst.default),
                     config: {
                         enums: typHash,
                     },
@@ -170,7 +170,7 @@ export default function () {
             privilege: {
                 label: '权限',
                 editorComponent: {
-                    name: 'editor_array_checkbox_relates',
+                    name: 'EditorArrayRelatesCheckbox',
                     config: {
                         getCandidate: getPrivilege,
                         labelfield: 'name',
@@ -210,12 +210,12 @@ export default function () {
             desc: {
                 label: '备注',
                 editorComponent: {
-                    name: 'editor_textrich',
+                    name: 'EditorTextrich',
                     default: '这是富文本编辑器蛤',
                 },
                 view: {
-                    name: 'view_html',
-                    component: () => import('@/components/common/views/view_html').then((rst) => rst.default),
+                    name: 'ViewHTML',
+                    component: () => import('@/components/common/Views/ViewHTML').then((rst) => rst.default),
                 },
                 colspan: {
                     default: {
@@ -234,8 +234,8 @@ export default function () {
         },
         staticOperators: [
             {
-                name: 'create',
-                component: () => import('@/components/common/staticOperators/create').then((rst) => rst.default),
+                name: 'StaticOperatorCreate',
+                component: () => import('@/components/common/StaticOperators/StaticOperatorCreate').then((rst) => rst.default),
                 config: {
                     getCreateFields: getCreateFields,
                     doCreateRequest: createUser,
@@ -263,7 +263,7 @@ export default function () {
                 label: '姓名',
                 field: 'username',
                 editorComponent: {
-                    name: 'editor_string',
+                    name: 'EditorString',
                     config: {
                         placeholder: '请输入用户姓名',
                     },
@@ -274,7 +274,7 @@ export default function () {
                 label: '类型',
                 field: 'typ',
                 editorComponent: {
-                    name: 'filter_enum_select_async',
+                    name: 'FilterEnumAsyncSelect',
                     config: {
                         getCandidate: cacheGetTypEnum,
                         allvalue: -1,
@@ -287,7 +287,7 @@ export default function () {
                 label: '权限',
                 field: 'privilege',
                 editorComponent: {
-                    name: 'filter_enum_select_relates',
+                    name: 'FilterEnumRelatesSelect',
                     config: {
                         getCandidate: getPrivilege,
                         valuefield: 'id',
@@ -325,7 +325,7 @@ export default function () {
                     config: {
                         msg: '测试自定义filter',
                     },
-                    component: () => import('@/components/user/test_custom_filter').then((rst) => rst.default),
+                    component: () => import('@/components/user/Filters/FilterUserTestCustomFilter').then((rst) => rst.default),
                     default: 'test',
                 },
                 watch: true,
@@ -333,8 +333,8 @@ export default function () {
         ],
         filterOperators: [
             {
-                name: 'reset',
-                component: () => import('@/components/common/filterOperators/reset').then((rst) => rst.default),
+                name: 'FilterOperatorsReset',
+                component: () => import('@/components/common/FilterOperators/FilterOperatorsReset').then((rst) => rst.default),
             },
         ],
         listConfig: {
@@ -353,7 +353,7 @@ export default function () {
         operators: [
             {
                 name: 'info',
-                component: () => import('@/components/common/operators/info').then((rst) => rst.default),
+                component: () => import('@/components/common/Operators/OperatorInfo').then((rst) => rst.default),
                 config: {
                     getDetailInfo: getUserDetail,
                     triggerConfig: {
@@ -368,7 +368,7 @@ export default function () {
             },
             {
                 name: 'edit',
-                component: () => import('@/components/common/operators/edit').then((rst) => rst.default),
+                component: () => import('@/components/common/Operators/OperatorEdit').then((rst) => rst.default),
                 config: {
                     getEditInfo: getEditUserInfo,
                     doEditRequest: editUser,
@@ -412,7 +412,7 @@ export default function () {
             },
             {
                 name: 'delete',
-                component: () => import('@/components/common/operators/delete').then((rst) => rst.default),
+                component: () => import('@/components/common/Operators/OperatorDelete').then((rst) => rst.default),
                 config: {
                     doDeleteRequest: delUser,
                     triggerConfig: {
@@ -424,7 +424,7 @@ export default function () {
             },
             {
                 name: 'toggle',
-                component: () => import('@/components/common/operators/toggle').then((rst) => rst.default),
+                component: () => import('@/components/common/Operators/OperatorToggle').then((rst) => rst.default),
                 config: {
                     descriptor: [
                         { value: 0, text: '更改性别为女', type: 'warning', },

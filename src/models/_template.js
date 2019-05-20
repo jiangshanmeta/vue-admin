@@ -1,5 +1,5 @@
 export default {
-    field_list: {
+    fields: {
 
     },
     staticOperators: [

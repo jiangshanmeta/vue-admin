@@ -1,5 +1,5 @@
-export default function getNeedInjectEditorComponentsList (field_list, keys) {
+export default function getNeedInjectEditorComponentsList (fields, keys) {
     return keys
-        .filter(field => field_list[field].editorComponent && field_list[field].editorComponent.component)
-        .map(field => field_list[field].editorComponent)
+        .filter(field => fields[field].editorComponent && fields[field].editorComponent.component)
+        .map(field => fields[field].editorComponent)
 }

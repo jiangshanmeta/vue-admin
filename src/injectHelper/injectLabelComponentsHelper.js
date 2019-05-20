@@ -1,6 +1,6 @@
-export default function getNeedInjectLabelComponentsMap (field_list, keys, type) {
+export default function getNeedInjectLabelComponentsMap (fields, keys, type) {
     return keys.reduce((obj, field) => {
-        const configLabelComponent = field_list[field].labelComponent
+        const configLabelComponent = fields[field].labelComponent
         if (configLabelComponent) {
             if (configLabelComponent[type]) {
                 obj[field] = configLabelComponent[type]

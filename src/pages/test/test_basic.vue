@@ -10,52 +10,52 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>editor_number</td>
-                    <td>{{ editor_number }}</td>
+                    <td>EditorNumber</td>
+                    <td>{{ EditorNumber }}</td>
                     <td>
-                        <editor_number
-                            v-model="editor_number"
+                        <EditorNumber
+                            v-model="EditorNumber"
                             placeholder="placeholder"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td>editor_int</td>
-                    <td>{{ editor_int }}</td>
+                    <td>EditorInt</td>
+                    <td>{{ EditorInt }}</td>
                     <td>
-                        <editor_int
-                            v-model="editor_int"
+                        <EditorInt
+                            v-model="EditorInt"
                             placeholder="sssss"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td>editor_string</td>
-                    <td>{{ editor_string }}</td>
+                    <td>EditorString</td>
+                    <td>{{ EditorString }}</td>
                     <td>
-                        <editor_string
-                            v-model="editor_string"
-                            placeholder="editor_string"
+                        <EditorString
+                            v-model="EditorString"
+                            placeholder="EditorString"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td>editor_text</td>
-                    <td>{{ editor_text }}</td>
+                    <td>EditorText</td>
+                    <td>{{ EditorText }}</td>
                     <td>
-                        <editor_text
-                            v-model="editor_text"
+                        <EditorText
+                            v-model="EditorText"
                             placeholder="placeholder"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td>editor_pwd</td>
-                    <td>{{ editor_pwd }}</td>
+                    <td>EditorPwd</td>
+                    <td>{{ EditorPwd }}</td>
                     <td>
-                        <editor_pwd
-                            v-model="editor_pwd"
-                            placeholder="editor_pwd"
+                        <EditorPwd
+                            v-model="EditorPwd"
+                            placeholder="EditorPwd"
                         />
                     </td>
                 </tr>
@@ -65,27 +65,27 @@
 </template>
 
 <script>
-import editor_number from '@/components/common/editor/editor_number'
-import editor_int from '@/components/common/editor/editor_int'
-import editor_string from '@/components/common/editor/editor_string'
-import editor_text from '@/components/common/editor/editor_text'
-import editor_pwd from '@/components/common/editor/editor_pwd'
+import EditorNumber from '@/components/common/Editors/EditorNumber'
+import EditorInt from '@/components/common/Editors/EditorInt'
+import EditorString from '@/components/common/Editors/EditorString'
+import EditorText from '@/components/common/Editors/EditorText'
+import EditorPwd from '@/components/common/Editors/EditorPwd'
 
 export default {
     components: {
-        editor_number,
-        editor_int,
-        editor_string,
-        editor_text,
-        editor_pwd,
+        EditorNumber,
+        EditorInt,
+        EditorString,
+        EditorText,
+        EditorPwd,
     },
     data () {
         return {
-            editor_number: 0,
-            editor_int: 0,
-            editor_string: '',
-            editor_text: '',
-            editor_pwd: '',
+            EditorNumber: 0,
+            EditorInt: 0,
+            EditorString: '',
+            EditorText: '',
+            EditorPwd: '',
         }
     },
     created () {

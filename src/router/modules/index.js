@@ -12,7 +12,7 @@ export default {
         },
         {
             path: '/index/login',
-            component: () => import('@/pages/index/login'),
+            component: () => import('@/pages/index/Login'),
             meta: {
                 title: '登录',
                 menuHide: true,
@@ -38,7 +38,7 @@ export default {
         {
             path: '/index/index',
             label: '个人中心',
-            component: () => import('@/pages/index/index'),
+            component: () => import('@/pages/index/Index'),
             meta: {
                 privilege: [
                     1,

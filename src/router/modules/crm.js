@@ -5,7 +5,7 @@ export default {
     pages: [
         {
             path: '/crm/index',
-            component: () => import('@/pages/common/metaPage'),
+            component: () => import('@/pages/common/MetaPage'),
             label: '客户列表',
             meta: {
                 privilege: [

@@ -140,14 +140,14 @@ function createUser (cb, data) {
 
 function getUserList (cb, params) {
     let data = userTable
-    let fields = [
+    let fieldList = [
         'name', 'gender', 'typ',
     ]
     let total = data.length
 
     cb({
         data,
-        fields,
+        fieldList,
         total,
     })
 }
@@ -170,7 +170,7 @@ function getUserDetail (cb) {
     for (let item of userTable) {
         if (item.id === id) {
             cb({
-                fields: detailFields,
+                fieldLayoutList: detailFields,
                 record: JSON.parse(JSON.stringify(item)),
             })
             return
@@ -199,7 +199,7 @@ function getEditUserInfo (cb) {
         if (item.id === id) {
             console.log(item)
             cb({
-                fields: JSON.parse(JSON.stringify(editFields)),
+                fieldLayoutList: JSON.parse(JSON.stringify(editFields)),
                 record: JSON.parse(JSON.stringify(item)),
             })
             return

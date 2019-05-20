@@ -9,11 +9,11 @@ import {
 import { download, } from '@/widget/utility.js'
 
 export default {
-    field_list: {
+    fields: {
         customername: {
             label: '客户名',
             editorComponent: {
-                name: 'editor_string',
+                name: 'EditorString',
                 config: {
                     placeholder: '请输入客户名',
                 },
@@ -34,7 +34,7 @@ export default {
         totalprice: {
             label: '金额',
             editorComponent: {
-                name: 'editor_number',
+                name: 'EditorNumber',
                 config: {
                     relates: [
                         {
@@ -56,8 +56,8 @@ export default {
                 default: 0,
             },
             view: {
-                name: 'view_transform',
-                component: () => import('@/components/common/views/view_transform').then((rst) => rst.default),
+                name: 'ViewTransform',
+                component: () => import('@/components/common/Views/ViewTransform').then((rst) => rst.default),
                 config: {
                     transform: function (data) {
                         return '¥' + data
@@ -68,8 +68,8 @@ export default {
         address: {
             label: '收货地址',
             editorComponent: {
-                name: 'field_text',
-                component: () => import('@/components/book/editor/bookAddress').then((rst) => rst.default),
+                name: 'EditorBookAddress',
+                component: () => import('@/components/book/Editors/EditorBookAddress').then((rst) => rst.default),
                 config: {
                     relates: [
                         {
@@ -81,8 +81,8 @@ export default {
                 default: '',
             },
             view: {
-                name: 'view_markdown',
-                component: () => import('@/components/common/views/view_markdown').then((rst) => rst.default),
+                name: 'ViewMarkdown',
+                component: () => import('@/components/common/Views/ViewMarkdown').then((rst) => rst.default),
                 config: {
                     breaks: false,
                     // transform:function(data){
@@ -94,7 +94,7 @@ export default {
         store: {
             label: '店铺',
             editorComponent: {
-                name: 'editor_enum_select_async',
+                name: 'EditorEnumAsyncSelect',
                 config: {
                     getCandidate: getStore,
                     labelfield: 'storename',
@@ -106,7 +106,7 @@ export default {
         saler: {
             label: '销售',
             editorComponent: {
-                name: 'editor_enum_select_relates',
+                name: 'EditorEnumRelatesSelect',
                 config: {
                     relates: [
                         {
@@ -131,8 +131,8 @@ export default {
                     customername: 'name',
                     address: 'position',
                 },
-                name: 'test_view_join',
-                component: () => import('@/components/book/views/test_view_join').then((rst) => rst.default),
+                name: 'ViewBookTestViewJoin',
+                component: () => import('@/components/book/Views/ViewBookTestViewJoin').then((rst) => rst.default),
                 config: {
                     glue: ' 的收货地址是 ',
                 },
@@ -141,8 +141,8 @@ export default {
     },
     staticOperators: [
         {
-            name: 'create',
-            component: () => import('@/components/common/staticOperators/create').then((rst) => rst.default),
+            name: 'StaticOperatorCreate',
+            component: () => import('@/components/common/StaticOperators/StaticOperatorCreate').then((rst) => rst.default),
             config: {
                 getCreateFields: getCreateFields,
                 doCreateRequest: createBook,
@@ -180,8 +180,8 @@ export default {
             },
         },
         {
-            name: 'csv',
-            component: () => import('@/components/common/staticOperators/csv').then((rst) => rst.default),
+            name: 'StaticOperatorCsv',
+            component: () => import('@/components/common/StaticOperators/StaticOperatorCsv').then((rst) => rst.default),
             config: {
                 triggerConfig: {
                     text: '导入csv数据',
@@ -223,7 +223,7 @@ export default {
             label: '客户名',
             field: 'customername',
             editorComponent: {
-                name: 'editor_string',
+                name: 'EditorString',
                 config: {
                     placeholder: '请输入客户名',
                 },
@@ -234,7 +234,7 @@ export default {
             label: '金额',
             field: 'totalprice',
             editorComponent: {
-                name: 'editor_number',
+                name: 'EditorNumber',
                 default: 500,
                 config: {
                     relates: [

@@ -6,7 +6,7 @@ export default {
         {
             path: '/book/index',
             label: '订单列表',
-            component: () => import('@/pages/common/metaPage'),
+            component: () => import('@/pages/common/MetaPage'),
             meta: {
                 privilege: [
                     73, 999,

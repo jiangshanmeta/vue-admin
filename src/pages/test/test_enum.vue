@@ -10,29 +10,20 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>editor_gender</td>
-                    <td>{{ editor_gender }}</td>
+                    <td>EditorBool</td>
+                    <td>{{ EditorBool }}</td>
                     <td>
-                        <editor_gender
-                            v-model="editor_gender"
+                        <EditorBool
+                            v-model="EditorBool"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td>editor_bool</td>
-                    <td>{{ editor_bool }}</td>
+                    <td>EditorEnumRadio</td>
+                    <td>{{ EditorEnumRadio }}</td>
                     <td>
-                        <editor_bool
-                            v-model="editor_bool"
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td>editor_enum_radio</td>
-                    <td>{{ editor_enum_radio }}</td>
-                    <td>
-                        <editor_enum_radio
-                            v-model="editor_enum_radio"
+                        <EditorEnumRadio
+                            v-model="EditorEnumRadio"
                             :candidate="field_enum_candidate"
                             valuefield="valuefield"
                             :handle-invalid-value="handleInvalidValue"
@@ -40,11 +31,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>editor_enum_select</td>
-                    <td>{{ editor_enum_select }}</td>
+                    <td>EditorEnumSelect</td>
+                    <td>{{ EditorEnumSelect }}</td>
                     <td>
-                        <editor_enum_select
-                            v-model="editor_enum_select"
+                        <EditorEnumSelect
+                            v-model="EditorEnumSelect"
                             :candidate="field_enum_candidate"
                             valuefield="valuefield"
                             disabled
@@ -53,56 +44,56 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>editor_enum_autocomplete</td>
-                    <td>{{ editor_enum_autocomplete }}</td>
+                    <td>EditorEnumAutocomplete</td>
+                    <td>{{ EditorEnumAutocomplete }}</td>
                     <td>
-                        <editor_enum_autocomplete
-                            v-model="editor_enum_autocomplete"
+                        <EditorEnumAutocomplete
+                            v-model="EditorEnumAutocomplete"
                             :candidate="field_enum_candidate"
                             valuefield="valuefield"
-                            placeholder="editor_enum_autocomplete的placeholder"
+                            placeholder="EditorEnumAutocomplete的placeholder"
                             :handle-invalid-value="handleInvalidValue"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td>editor_enum_radio_async</td>
-                    <td>{{ editor_enum_radio_async }}</td>
+                    <td>EditorEnumAsyncRadio</td>
+                    <td>{{ EditorEnumAsyncRadio }}</td>
                     <td>
-                        <editor_enum_radio_async
-                            v-model="editor_enum_radio_async"
+                        <EditorEnumAsyncRadio
+                            v-model="EditorEnumAsyncRadio"
                             labelfield="label"
                             valuefield="valuefield"
                             :handle-invalid-value="handleInvalidValue"
-                            :get-candidate="getCandidate.editor_enum_radio_async"
+                            :get-candidate="getCandidate.EditorEnumAsyncRadio"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td>editor_enum_select_async</td>
-                    <td>{{ editor_enum_select_async }}</td>
+                    <td>EditorEnumAsyncSelect</td>
+                    <td>{{ EditorEnumAsyncSelect }}</td>
                     <td>
-                        <editor_enum_select_async
-                            v-model="editor_enum_select_async"
+                        <EditorEnumAsyncSelect
+                            v-model="EditorEnumAsyncSelect"
                             labelfield="label"
                             valuefield="valuefield"
                             placeholder="the placeholder"
                             :handle-invalid-value="handleInvalidValue"
-                            :get-candidate="getCandidate.editor_enum_select_async"
+                            :get-candidate="getCandidate.EditorEnumAsyncSelect"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td>editor_enum_autocomplete_async</td>
-                    <td>{{ editor_enum_autocomplete_async }}</td>
+                    <td>EditorEnumAsyncAutocomplete</td>
+                    <td>{{ EditorEnumAsyncAutocomplete }}</td>
                     <td>
-                        <editor_enum_autocomplete_async
-                            v-model="editor_enum_autocomplete_async"
+                        <EditorEnumAsyncAutocomplete
+                            v-model="EditorEnumAsyncAutocomplete"
                             labelfield="label"
                             valuefield="valuefield"
                             placeholder="placeholder"
                             :handle-invalid-value="handleInvalidValue"
-                            :get-candidate="getCandidate.editor_enum_autocomplete_async"
+                            :get-candidate="getCandidate.EditorEnumAsyncAutocomplete"
                         />
                     </td>
                 </tr>
@@ -112,21 +103,20 @@
 </template>
 
 <script>
-import editor_gender from '@/components/common/editor/editor_gender.vue'
-import editor_bool from '@/components/common/editor/editor_bool.vue'
+import EditorBool from '@/components/common/Editors/EditorBool.vue'
 
-import editor_enum_radio from '@/components/common/editor/editor_enum_radio'
-import editor_enum_select from '@/components/common/editor/editor_enum_select'
-import editor_enum_autocomplete from '@/components/common/editor/editor_enum_autocomplete'
+import EditorEnumRadio from '@/components/common/Editors/EditorEnumRadio'
+import EditorEnumSelect from '@/components/common/Editors/EditorEnumSelect'
+import EditorEnumAutocomplete from '@/components/common/Editors/EditorEnumAutocomplete'
 
-import editor_enum_radio_async from '@/components/common/editor/editor_enum_radio_async'
-import editor_enum_select_async from '@/components/common/editor/editor_enum_select_async'
-import editor_enum_autocomplete_async from '@/components/common/editor/editor_enum_autocomplete_async'
+import EditorEnumAsyncRadio from '@/components/common/Editors/EditorEnumAsyncRadio'
+import EditorEnumAsyncSelect from '@/components/common/Editors/EditorEnumAsyncSelect'
+import EditorEnumAsyncAutocomplete from '@/components/common/Editors/EditorEnumAsyncAutocomplete'
 
 const fields = [
-    'editor_enum_radio_async',
-    'editor_enum_select_async',
-    'editor_enum_autocomplete_async',
+    'EditorEnumAsyncRadio',
+    'EditorEnumAsyncSelect',
+    'EditorEnumAsyncAutocomplete',
 ]
 
 const field_enum_candidate = [
@@ -147,14 +137,13 @@ const getCandidate = fields.reduce((obj, field) => {
 
 export default {
     components: {
-        editor_gender,
-        editor_bool,
-        editor_enum_radio,
-        editor_enum_select,
-        editor_enum_autocomplete,
-        editor_enum_radio_async,
-        editor_enum_select_async,
-        editor_enum_autocomplete_async,
+        EditorBool,
+        EditorEnumRadio,
+        EditorEnumSelect,
+        EditorEnumAutocomplete,
+        EditorEnumAsyncRadio,
+        EditorEnumAsyncSelect,
+        EditorEnumAsyncAutocomplete,
     },
     config: {
         field_enum_candidate,
@@ -166,14 +155,13 @@ export default {
     },
     data () {
         return {
-            editor_gender: 0,
-            editor_bool: 0,
-            editor_enum_radio: 0,
-            editor_enum_select: 0,
-            editor_enum_autocomplete: '',
-            editor_enum_radio_async: '',
-            editor_enum_select_async: '',
-            editor_enum_autocomplete_async: 1,
+            EditorBool: 0,
+            EditorEnumRadio: 0,
+            EditorEnumSelect: 0,
+            EditorEnumAutocomplete: '',
+            EditorEnumAsyncRadio: '',
+            EditorEnumAsyncSelect: '',
+            EditorEnumAsyncAutocomplete: 1,
 
         }
     },

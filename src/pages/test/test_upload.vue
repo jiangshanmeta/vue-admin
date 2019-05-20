@@ -33,118 +33,118 @@
 
                 <!--
                 <tr>
-                    <td>field_file_multi</td>
-                    <td>{{field_file_multi}}</td>
+                    <td>FieldFileMulti</td>
+                    <td>{{FieldFileMulti}}</td>
                     <td>
-                        <field_file_multi
-                            v-model="field_file_multi"
+                        <FieldFileMulti
+                            v-model="FieldFileMulti"
                             :action="uri"
                             :getName="getName"
                             :getUrl="getUrl"
                             :getInfoFromResponse="getInfoFromResponse"
-                        ></field_file_multi>
+                        ></FieldFileMulti>
                     </td>
                 </tr>
                 <tr>
-                    <td>field_file_multi_json</td>
-                    <td>{{field_file_multi_json}} || {{typeof field_file_multi_json}}</td>
+                    <td>FieldFileMultiJson</td>
+                    <td>{{FieldFileMultiJson}} || {{typeof FieldFileMultiJson}}</td>
                     <td>
-                        <field_file_multi_json
-                            v-model="field_file_multi_json"
+                        <FieldFileMultiJson
+                            v-model="FieldFileMultiJson"
                             :action="uri"
                             :getName="getName"
                             :getUrl="getUrl"
                             :getInfoFromResponse="getInfoFromResponse"
-                        ></field_file_multi_json>
+                        ></FieldFileMultiJson>
                     </td>
                 </tr>
 
                 <tr>
-                    <td>field_file_mono</td>
-                    <td>{{field_file_mono}}</td>
+                    <td>FieldFileMono</td>
+                    <td>{{FieldFileMono}}</td>
                     <td>
-                        <field_file_mono
-                            v-model="field_file_mono"
+                        <FieldFileMono
+                            v-model="FieldFileMono"
                             :action="uri"
                             :getName="getName"
                             :getUrl="getUrl"
                             :getInfoFromResponse="getInfoFromResponse"
                             :isMonoValid="isMonoValid"
-                        ></field_file_mono>
+                        ></FieldFileMono>
                     </td>
                 </tr>
 
                 <tr>
-                    <td>field_file_mono_json</td>
-                    <td>{{field_file_mono_json}} || {{typeof field_file_mono_json}}</td>
+                    <td>FieldFileMonoJson</td>
+                    <td>{{FieldFileMonoJson}} || {{typeof FieldFileMonoJson}}</td>
                     <td>
-                        <field_file_mono_json
-                            v-model="field_file_mono_json"
+                        <FieldFileMonoJson
+                            v-model="FieldFileMonoJson"
                             :action="uri"
                             :getName="getName"
                             :getUrl="getUrl"
                             :getInfoFromResponse="getInfoFromResponse"
                             :isMonoValid="isMonoValid"
 
-                        ></field_file_mono_json>
+                        ></FieldFileMonoJson>
                     </td>
                 </tr>
 
                 <tr>
-                    <td>field_image_multi</td>
-                    <td>{{field_image_multi}}</td>
+                    <td>FieldImageMulti</td>
+                    <td>{{FieldImageMulti}}</td>
                     <td>
-                        <field_image_multi
-                            v-model="field_image_multi"
+                        <FieldImageMulti
+                            v-model="FieldImageMulti"
                             :action="uri"
                             :getName="getName"
                             :getUrl="getUrl"
                             :getInfoFromResponse="getInfoFromResponse"
-                        ></field_image_multi>
+                        ></FieldImageMulti>
 
                     </td>
                 </tr>
                 <tr>
-                    <td>field_image_multi_json</td>
-                    <td>{{field_image_multi_json}}</td>
+                    <td>FieldImageMultiJson</td>
+                    <td>{{FieldImageMultiJson}}</td>
                     <td>
-                        <field_image_multi_json
-                            v-model="field_image_multi_json"
+                        <FieldImageMultiJson
+                            v-model="FieldImageMultiJson"
                             :action="uri"
                             :getName="getName"
                             :getUrl="getUrl"
                             :getInfoFromResponse="getInfoFromResponse"
-                        ></field_image_multi_json>
+                        ></FieldImageMultiJson>
 
                     </td>
                 </tr>
 
                 <tr>
-                    <td>field_image_mono</td>
-                    <td>{{field_image_mono}}</td>
+                    <td>FieldImageMono</td>
+                    <td>{{FieldImageMono}}</td>
                     <td>
-                        <field_image_mono
-                            v-model="field_image_mono"
-                            :action="uri"
-                            :getName="getName"
-                            :getUrl="getUrl"
-                            :getInfoFromResponse="getInfoFromResponse"
-                            :isMonoValid="isMonoValid"
-                        ></field_image_mono>
-                    </td>
-                </tr>
-                <tr>
-                    <td>field_image_mono_json</td>
-                    <td>{{field_image_mono_json}}</td>
-                    <td>
-                        <field_image_mono_json
-                            v-model="field_image_mono_json"
+                        <FieldImageMono
+                            v-model="FieldImageMono"
                             :action="uri"
                             :getName="getName"
                             :getUrl="getUrl"
                             :getInfoFromResponse="getInfoFromResponse"
                             :isMonoValid="isMonoValid"
-                        ></field_image_mono_json>
+                        ></FieldImageMono>
+                    </td>
+                </tr>
+                <tr>
+                    <td>FieldImageMonoJson</td>
+                    <td>{{FieldImageMonoJson}}</td>
+                    <td>
+                        <FieldImageMonoJson
+                            v-model="FieldImageMonoJson"
+                            :action="uri"
+                            :getName="getName"
+                            :getUrl="getUrl"
+                            :getInfoFromResponse="getInfoFromResponse"
+                            :isMonoValid="isMonoValid"
+                        ></FieldImageMonoJson>
                     </td>
                 </tr>
             -->
@@ -155,17 +155,17 @@
 
 <script>
 /* eslint-disable */
-import field_file_multi from '@/components/common/editor/field_file_multi'
-import field_file_multi_json from '@/components/common/editor/field_file_multi_json'
-import field_file_mono from '@/components/common/editor/field_file_mono'
-import field_file_mono_json from '@/components/common/editor/field_file_mono_json'
+import FieldFileMulti from '@/components/common/Editors/FieldFileMulti'
+import FieldFileMultiJson from '@/components/common/Editors/FieldFileMultiJson'
+import FieldFileMono from '@/components/common/Editors/FieldFileMono'
+import FieldFileMonoJson from '@/components/common/Editors/FieldFileMonoJson'
 
-import field_image_multi from '@/components/common/editor/field_image_multi'
-import field_image_multi_json from '@/components/common/editor/field_image_multi_json'
-import field_image_mono from '@/components/common/editor/field_image_mono'
-import field_image_mono_json from '@/components/common/editor/field_image_mono_json'
+import FieldImageMulti from '@/components/common/Editors/FieldImageMulti'
+import FieldImageMultiJson from '@/components/common/Editors/FieldImageMultiJson'
+import FieldImageMono from '@/components/common/Editors/FieldImageMono'
+import FieldImageMonoJson from '@/components/common/Editors/FieldImageMonoJson'
 
-import metaUpload from '@/components/common/editor/meta-upload'
+import metaUpload from '@/components/common/Editors/meta-upload'
 
 const map = {
     0: 'https://pic2.zhimg.com/v2-c6a5da50f5fa6a6751bf531d49778951_xl.jpg',
@@ -220,32 +220,32 @@ export default {
     components: {
         metaUpload,
 
-        field_file_multi,
-        field_file_multi_json,
-        field_file_mono,
-        field_file_mono_json,
+        FieldFileMulti,
+        FieldFileMultiJson,
+        FieldFileMono,
+        FieldFileMonoJson,
 
-        field_image_multi,
-        field_image_multi_json,
-        field_image_mono,
-        field_image_mono_json
+        FieldImageMulti,
+        FieldImageMultiJson,
+        FieldImageMono,
+        FieldImageMonoJson
     },
     data () {
         return {
             metaUpload: [],
 
-            field_file_multi: [{ name: 'abc.jpg', uri: 'http://www.ci.com/uploads/1.jpg' }],
-            field_file_multi_json: [],
-            field_file_mono: {
+            FieldFileMulti: [{ name: 'abc.jpg', uri: 'http://www.ci.com/uploads/1.jpg' }],
+            FieldFileMultiJson: [],
+            FieldFileMono: {
                 // name:"abc.jpg",
                 // uri:"http://www.ci.com/uploads/1.jpg",
             },
-            field_file_mono_json: {},
+            FieldFileMonoJson: {},
 
-            field_image_multi: [],
-            field_image_multi_json: {},
-            field_image_mono: {},
-            field_image_mono_json: {}
+            FieldImageMulti: [],
+            FieldImageMultiJson: {},
+            FieldImageMono: {},
+            FieldImageMonoJson: {}
         }
     }
 }

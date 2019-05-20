@@ -8,40 +8,40 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>filter_enum_select</td>
-                    <td>{{ filter_enum_select }}</td>
+                    <td>FilterEnumSelect</td>
+                    <td>{{ FilterEnumSelect }}</td>
                     <td>
-                        <filter_enum_select
-                            v-model="filter_enum_select"
+                        <FilterEnumSelect
+                            v-model="FilterEnumSelect"
                             labelfield="name"
                             valuefield="id"
                             allvalue="all"
                             alllabel="不限1"
-                            :candidate="filter_enum_select_candidate"
+                            :candidate="FilterEnumSelect_candidate"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td>filter_enum_autocomplete</td>
-                    <td>{{ filter_enum_autocomplete }}</td>
+                    <td>FilterEnumAutocomplete</td>
+                    <td>{{ FilterEnumAutocomplete }}</td>
                     <td>
-                        <filter_enum_autocomplete
-                            v-model="filter_enum_autocomplete"
+                        <FilterEnumAutocomplete
+                            v-model="FilterEnumAutocomplete"
                             valuefield="id"
                             labelfield="name"
                             allvalue="all"
                             alllabel="全部"
-                            :candidate="filter_enum_autocomplete_candidate"
+                            :candidate="FilterEnumAutocomplete_candidate"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td>filter_enum_select_async</td>
-                    <td>{{ filter_enum_select_async }}</td>
+                    <td>FilterEnumAsyncSelect</td>
+                    <td>{{ FilterEnumAsyncSelect }}</td>
                     <td>
-                        <filter_enum_select_async
-                            v-model="filter_enum_select_async"
-                            :get-candidate="getCandidate.filter_enum_select_async"
+                        <FilterEnumAsyncSelect
+                            v-model="FilterEnumAsyncSelect"
+                            :get-candidate="getCandidate.FilterEnumAsyncSelect"
                             :allvalue="-1"
                             alllabel="不限2"
                             labelfield="name"
@@ -50,12 +50,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>filter_enum_autocomplete_async</td>
-                    <td>{{ filter_enum_autocomplete_async }}</td>
+                    <td>FilterEnumAsyncAutocomplete</td>
+                    <td>{{ FilterEnumAsyncAutocomplete }}</td>
                     <td>
-                        <filter_enum_autocomplete_async
-                            v-model="filter_enum_autocomplete_async"
-                            :get-candidate="getCandidate.filter_enum_autocomplete_async"
+                        <FilterEnumAsyncAutocomplete
+                            v-model="FilterEnumAsyncAutocomplete"
+                            :get-candidate="getCandidate.FilterEnumAsyncAutocomplete"
                             :allvalue="-1"
                             alllabel="不限8"
                             labelfield="name"
@@ -69,19 +69,19 @@
 </template>
 
 <script>
-import filter_enum_select from '@/components/common/editor/filter_enum_select'
-import filter_enum_autocomplete from '@/components/common/editor/filter_enum_autocomplete'
-import filter_enum_select_async from '@/components/common/editor/filter_enum_select_async'
-import filter_enum_autocomplete_async from '@/components/common/editor/filter_enum_autocomplete_async'
+import FilterEnumSelect from '@/components/common/Filters/FilterEnumSelect'
+import FilterEnumAutocomplete from '@/components/common/Filters/FilterEnumAutocomplete'
+import FilterEnumAsyncSelect from '@/components/common/Filters/FilterEnumAsyncSelect'
+import FilterEnumAsyncAutocomplete from '@/components/common/Filters/FilterEnumAsyncAutocomplete'
 
 import axios from '@/server/axios'
 
 const fields = {
-    filter_enum_select_async: '/test/editor_enum_select_async',
-    filter_enum_autocomplete_async: '/test/editor_enum_select_async',
+    FilterEnumAsyncSelect: '/test/EditorEnumAsyncSelect',
+    FilterEnumAsyncAutocomplete: '/test/EditorEnumAsyncSelect',
 }
 
-const filter_enum_autocomplete_candidate = [
+const FilterEnumAutocomplete_candidate = [
     { id: 9, name: '张三', },
     { id: 10, name: '张四', },
     { id: 11, name: '李四', },
@@ -92,7 +92,7 @@ const filter_enum_autocomplete_candidate = [
 const getCandidate = Object.keys(fields).reduce((obj, field) => {
     obj[field] = function (cb) {
         setTimeout(() => {
-            cb(filter_enum_autocomplete_candidate)
+            cb(FilterEnumAutocomplete_candidate)
         }, 1000)
     }
     return obj
@@ -100,26 +100,26 @@ const getCandidate = Object.keys(fields).reduce((obj, field) => {
 
 export default {
     config: {
-        filter_enum_select_candidate: [
+        FilterEnumSelect_candidate: [
             { id: 4, name: 'value1', },
             { id: 5, name: 'value2', },
             { id: 6, name: 'value3', },
         ],
-        filter_enum_autocomplete_candidate,
+        FilterEnumAutocomplete_candidate,
         getCandidate,
     },
     components: {
-        filter_enum_select,
-        filter_enum_autocomplete,
-        filter_enum_select_async,
-        filter_enum_autocomplete_async,
+        FilterEnumSelect,
+        FilterEnumAutocomplete,
+        FilterEnumAsyncSelect,
+        FilterEnumAsyncAutocomplete,
     },
     data () {
         return {
-            filter_enum_select: 'all',
-            filter_enum_autocomplete: 'all',
-            filter_enum_select_async: -1,
-            filter_enum_autocomplete_async: -1,
+            FilterEnumSelect: 'all',
+            FilterEnumAutocomplete: 'all',
+            FilterEnumAsyncSelect: -1,
+            FilterEnumAsyncAutocomplete: -1,
         }
     },
 }

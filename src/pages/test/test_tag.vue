@@ -11,49 +11,49 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>editor_array_checkbox</td>
-                    <td>{{ editor_array_checkbox }}</td>
+                    <td>EditorArrayCheckbox</td>
+                    <td>{{ EditorArrayCheckbox }}</td>
                     <td>
-                        <editor_array_checkbox
-                            v-model="editor_array_checkbox"
-                            :candidate="editor_array_checkbox_candidate"
+                        <EditorArrayCheckbox
+                            v-model="EditorArrayCheckbox"
+                            :candidate="EditorArrayCheckbox_candidate"
                             :handle-invalid-value="handleTagInvalid"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td>editor_array_checkbox_json</td>
-                    <td>{{ editor_array_checkbox_json }} || {{ typeof editor_array_checkbox_json }}</td>
+                    <td>EditorArrayJsonCheckbox</td>
+                    <td>{{ EditorArrayJsonCheckbox }} || {{ typeof EditorArrayJsonCheckbox }}</td>
                     <td>
-                        <editor_array_checkbox_json
-                            v-model="editor_array_checkbox_json"
-                            :candidate="editor_array_checkbox_candidate"
+                        <EditorArrayJsonCheckbox
+                            v-model="EditorArrayJsonCheckbox"
+                            :candidate="EditorArrayCheckbox_candidate"
                             :handle-invalid-value="handleTagInvalid"
                         />
                     </td>
                 </tr>
 
                 <tr>
-                    <td>editor_array_checkbox_async</td>
-                    <td>{{ editor_array_checkbox_async }}</td>
+                    <td>EditorArrayAsyncCheckbox</td>
+                    <td>{{ EditorArrayAsyncCheckbox }}</td>
                     <td>
-                        <editor_array_checkbox_async
-                            v-model="editor_array_checkbox_async"
+                        <EditorArrayAsyncCheckbox
+                            v-model="EditorArrayAsyncCheckbox"
                             :handle-invalid-value="handleTagInvalid"
-                            :get-candidate="getCandidate.editor_array_checkbox_async"
+                            :get-candidate="getCandidate.EditorArrayAsyncCheckbox"
                             valuefield="id"
                             labelfield="name"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td>editor_array_checkbox_async_json</td>
-                    <td>{{ editor_array_checkbox_async_json }} || {{ typeof editor_array_checkbox_async_json }}</td>
+                    <td>EditorArrayAsyncCheckboxJson</td>
+                    <td>{{ EditorArrayAsyncCheckboxJson }} || {{ typeof EditorArrayAsyncCheckboxJson }}</td>
                     <td>
-                        <editor_array_checkbox_async_json
-                            v-model="editor_array_checkbox_async_json"
+                        <EditorArrayAsyncCheckboxJson
+                            v-model="EditorArrayAsyncCheckboxJson"
                             :handle-invalid-value="handleTagInvalid"
-                            :get-candidate="getCandidate.editor_array_checkbox_async_json"
+                            :get-candidate="getCandidate.EditorArrayAsyncCheckboxJson"
                             valuefield="id"
                             labelfield="name"
                         />
@@ -61,12 +61,12 @@
                 </tr>
 
                 <tr>
-                    <td>editor_array_autocomplete</td>
-                    <td>{{ editor_array_autocomplete }}</td>
+                    <td>EditorArrayAutocomplete</td>
+                    <td>{{ EditorArrayAutocomplete }}</td>
                     <td>
-                        <editor_array_autocomplete
-                            v-model="editor_array_autocomplete"
-                            :candidate="editor_array_autocomplete_candidate"
+                        <EditorArrayAutocomplete
+                            v-model="EditorArrayAutocomplete"
+                            :candidate="EditorArrayAutocomplete_candidate"
                             placeholder="placeholder2"
                             labelfield="name"
                             valuefield="id"
@@ -75,12 +75,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>editor_array_autocomplete_json</td>
-                    <td>{{ editor_array_autocomplete_json }}</td>
+                    <td>EditorArrayJsonAutocomplete</td>
+                    <td>{{ EditorArrayJsonAutocomplete }}</td>
                     <td>
-                        <editor_array_autocomplete_json
-                            v-model="editor_array_autocomplete_json"
-                            :candidate="editor_array_autocomplete_candidate"
+                        <EditorArrayJsonAutocomplete
+                            v-model="EditorArrayJsonAutocomplete"
+                            :candidate="EditorArrayAutocomplete_candidate"
                             placeholder="placeholder2"
                             labelfield="name"
                             valuefield="id"
@@ -90,28 +90,28 @@
                 </tr>
 
                 <tr>
-                    <td>editor_array_autocomplete_async</td>
-                    <td>{{ editor_array_autocomplete_async }}</td>
+                    <td>EditorArrayAsyncAutocomplete</td>
+                    <td>{{ EditorArrayAsyncAutocomplete }}</td>
                     <td>
-                        <editor_array_autocomplete_async
-                            v-model="editor_array_autocomplete_async"
+                        <EditorArrayAsyncAutocomplete
+                            v-model="EditorArrayAsyncAutocomplete"
                             labelfield="name"
                             valuefield="id"
                             :handle-invalid-value="handleTagInvalid"
-                            :get-candidate="getCandidate.editor_array_autocomplete_async"
+                            :get-candidate="getCandidate.EditorArrayAsyncAutocomplete"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td>editor_array_autocomplete_async_json</td>
-                    <td>{{ editor_array_autocomplete_async_json }} || {{ typeof editor_array_autocomplete_async_json }}</td>
+                    <td>EditorArrayAsyncAutocompleteJson</td>
+                    <td>{{ EditorArrayAsyncAutocompleteJson }} || {{ typeof EditorArrayAsyncAutocompleteJson }}</td>
                     <td>
-                        <editor_array_autocomplete_async_json
-                            v-model="editor_array_autocomplete_async_json"
+                        <EditorArrayAsyncAutocompleteJson
+                            v-model="EditorArrayAsyncAutocompleteJson"
                             labelfield="name"
                             valuefield="id"
                             :handle-invalid-value="handleTagInvalid"
-                            :get-candidate="getCandidate.editor_array_autocomplete_async_json"
+                            :get-candidate="getCandidate.EditorArrayAsyncAutocompleteJson"
                         />
                     </td>
                 </tr>
@@ -121,16 +121,16 @@
 </template>
 
 <script>
-import { unique, clearInvalidData, } from '@/components/common/editor/_validate_option'
+import { unique, clearInvalidData, } from '@/components/common/Editors/_validate_option'
 
 const fields = {
-    editor_array_checkbox_async: 'editor_array_checkbox_async',
-    editor_array_checkbox_async_json: 'editor_array_checkbox_async',
-    editor_array_autocomplete_async: 'editor_array_autocomplete_async',
-    editor_array_autocomplete_async_json: 'editor_array_autocomplete_async',
+    EditorArrayAsyncCheckbox: 'EditorArrayAsyncCheckbox',
+    EditorArrayAsyncCheckboxJson: 'EditorArrayAsyncCheckbox',
+    EditorArrayAsyncAutocomplete: 'EditorArrayAsyncAutocomplete',
+    EditorArrayAsyncAutocompleteJson: 'EditorArrayAsyncAutocomplete',
 }
 
-const editor_array_autocomplete_candidate = [
+const EditorArrayAutocomplete_candidate = [
     { id: 1, name: '太年轻', },
     { id: 2, name: '太天真', },
     { id: 3, name: '亦可赛艇', },
@@ -142,7 +142,7 @@ const editor_array_autocomplete_candidate = [
 const getCandidate = Object.keys(fields).reduce((obj, field) => {
     obj[field] = function (cb) {
         setTimeout(() => {
-            cb(editor_array_autocomplete_candidate)
+            cb(EditorArrayAutocomplete_candidate)
         }, 2000)
     }
     return obj
@@ -150,14 +150,14 @@ const getCandidate = Object.keys(fields).reduce((obj, field) => {
 
 export default {
     config: {
-        editor_array_checkbox_candidate: [
+        EditorArrayCheckbox_candidate: [
             { value: 1, label: 'aaa', },
             { value: 2, label: 'bbb', },
             { value: 3, label: 'ccc', },
             { value: 4, label: 'ddd', },
             { value: 5, label: 'eee', },
         ],
-        editor_array_autocomplete_candidate,
+        EditorArrayAutocomplete_candidate,
         handleTagInvalid: function (value, allvalue) {
             this.$emit('input', clearInvalidData(value, allvalue))
         },
@@ -167,34 +167,34 @@ export default {
         getCandidate,
     },
     components: {
-        editor_array_checkbox: () => import('@/components/common/editor/editor_array_checkbox'),
-        editor_array_checkbox_json: () => import('@/components/common/editor/editor_array_checkbox_json'),
-        editor_array_checkbox_async: () => import('@/components/common/editor/editor_array_checkbox_async'),
-        editor_array_checkbox_async_json: () => import('@/components/common/editor/editor_array_checkbox_async_json'),
-        editor_array_autocomplete: () => import('@/components/common/editor/editor_array_autocomplete'),
-        editor_array_autocomplete_json: () => import('@/components/common/editor/editor_array_autocomplete_json'),
-        editor_array_autocomplete_async: () => import('@/components/common/editor/editor_array_autocomplete_async'),
-        editor_array_autocomplete_async_json: () => import('@/components/common/editor/editor_array_autocomplete_async_json'),
+        EditorArrayCheckbox: () => import('@/components/common/Editors/EditorArrayCheckbox'),
+        EditorArrayJsonCheckbox: () => import('@/components/common/Editors/EditorArrayJsonCheckbox'),
+        EditorArrayAsyncCheckbox: () => import('@/components/common/Editors/EditorArrayAsyncCheckbox'),
+        EditorArrayAsyncCheckboxJson: () => import('@/components/common/Editors/EditorArrayAsyncCheckboxJson'),
+        EditorArrayAutocomplete: () => import('@/components/common/Editors/EditorArrayAutocomplete'),
+        EditorArrayJsonAutocomplete: () => import('@/components/common/Editors/EditorArrayJsonAutocomplete'),
+        EditorArrayAsyncAutocomplete: () => import('@/components/common/Editors/EditorArrayAsyncAutocomplete'),
+        EditorArrayAsyncAutocompleteJson: () => import('@/components/common/Editors/EditorArrayAsyncAutocompleteJson'),
     },
     data () {
         return {
             relates: '',
-            editor_array_checkbox: [
+            EditorArrayCheckbox: [
                 1, 1, 5, 7,
             ],
-            editor_array_checkbox_json: '',
-            editor_array_checkbox_async: [
+            EditorArrayJsonCheckbox: '',
+            EditorArrayAsyncCheckbox: [
                 1, 1, 9,
             ],
-            editor_array_checkbox_async_json: '',
-            editor_array_autocomplete: [
+            EditorArrayAsyncCheckboxJson: '',
+            EditorArrayAutocomplete: [
                 2, 2, 8,
             ],
-            editor_array_autocomplete_json: '',
-            editor_array_autocomplete_async: [
+            EditorArrayJsonAutocomplete: '',
+            EditorArrayAsyncAutocomplete: [
                 2, 2, 8,
             ],
-            editor_array_autocomplete_async_json: '',
+            EditorArrayAsyncAutocompleteJson: '',
         }
     },
 }

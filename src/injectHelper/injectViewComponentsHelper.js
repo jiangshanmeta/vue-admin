@@ -1,6 +1,6 @@
-export default function getNeedInjectViewComponentsMap (field_list, keys) {
+export default function getNeedInjectViewComponentsMap (fields, keys) {
     return keys.reduce((obj, field) => {
-        const view = field_list[field].view
+        const view = fields[field].view
         if (view && view.component) {
             obj[field] = view
         }

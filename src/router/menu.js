@@ -7,5 +7,5 @@ export default [
     index,
     crm,
     book,
-    test,
+    // test,
 ]

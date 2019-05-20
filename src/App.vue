@@ -1,9 +1,9 @@
 <template>
     <div class="app">
-        <top-nav />
+        <AdminNav />
 
         <div class="app-section">
-            <side-menu
+            <SideMenu
                 v-if="$store.state.isLogin"
                 class="app-aside"
                 :path="$store.state.route.path"
@@ -12,21 +12,21 @@
             <router-view class="app-main" />
         </div>
 
-        <bottom-footer />
+        <AdminFooter />
     </div>
 </template>
 
 <script>
-import topNav from '@/components/index/topnav'
-import sideMenu from '@/components/index/sideMenu'
-import bottomFooter from '@/components/index/footer'
+import AdminNav from '@/components/index/AdminNav'
+import SideMenu from '@/components/index/SideMenu'
+import AdminFooter from '@/components/index/AdminFooter'
 
 export default {
     name: 'App',
     components: {
-        topNav,
-        sideMenu,
-        bottomFooter,
+        AdminNav,
+        SideMenu,
+        AdminFooter,
     },
     watch: {
         '$store.state.isLogin' (isLogin) {

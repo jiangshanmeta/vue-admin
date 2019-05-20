@@ -1,4 +1,4 @@
-## listInfo
+## ListInfo
 
 列表组件
 
