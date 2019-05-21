@@ -4,7 +4,7 @@ import Vue from 'vue'
 import VueCookie from 'vue-cookie'
 import VueLocalStorage from 'vue-localstorage'
 
-import VueConfig from '@/widget/vue-config.js'
+import VueConfigs from 'vue-configs'
 
 import router from './router'
 import store from './store'
@@ -24,7 +24,7 @@ import '@/assets/css/lib.css'
 import App from './App'
 Vue.use(VueCookie)
 Vue.use(VueLocalStorage)
-Vue.use(VueConfig, {
+Vue.use(VueConfigs, {
     optionKeys: [
         'config', 'staticMethod', 'state',
     ],

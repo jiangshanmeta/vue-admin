@@ -21,6 +21,7 @@
     "is-promise": "^2.1.0",
     "qs": "^6.7.0",
     "vue": "^2.6.10",
+    "vue-configs": "^1.0.1",
     "vue-cookie": "^1.1.4",
     "vue-localstorage": "^0.6.2",
     "vue-markdown": "^2.2.4",
