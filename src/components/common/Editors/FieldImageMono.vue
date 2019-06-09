@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import FieldImageMulti from './FieldImageMulti'
-import _mono_multi_mixin from './_mono_multi_mixin'
+import FieldImageMulti from './FieldImageMulti';
+import _mono_multi_mixin from './_mono_multi_mixin';
 
 export default {
     name: 'FieldImageMono',
@@ -19,7 +19,7 @@ export default {
         _mono_multi_mixin,
     ],
     inheritAttrs: true,
-}
+};
 
 </script>
 

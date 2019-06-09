@@ -7,7 +7,7 @@
     >
         <el-submenu
             v-for="menuItem in computedMenu"
-            :key="menuItem.path"
+            :key="menuItem.name"
             :index="menuItem.name"
         >
             <template #title>
@@ -26,94 +26,43 @@
 </template>
 
 <script>
-import menu from '@/router/menu'
+import menu from '@/router/menu';
 export default {
     name:'SideMenu',
-    config: {
-        menu,
-    },
     props: {
         path: {
             type: String,
             default: '',
         },
-        privilege: {
-            type: Array,
-            default: function () {
-                return [
-                ]
-            },
-        },
     },
     computed: {
-        controllerPrivilege () {
-            return this.menu.reduce((obj, { name, pages = [
-            ], }) => {
-                obj[name] = new Set()
-                pages.forEach(({ meta: { privilege = [
-                ], } = {}, }) => {
-                    for (let item of privilege) {
-                        obj[name].add(item)
+        computedMenu(){
+            return menu.reduce((menuList,item)=>{
+                const pages = item.pages;
+                if(!Array.isArray(pages)){
+                    return menuList;
+                }
+                const menuItem = {};
+                menuItem.children = pages.reduce((arr,subItem)=>{
+                    if(subItem.menuHide){
+                        return arr;
                     }
-                })
-                return obj
-            }, {})
-        },
-        userPrivilegeHash () {
-            return this.privilege.reduce((obj, item) => {
-                obj[item] = true
-                return obj
-            }, Object.create(null))
-        },
-        computedMenu () {
-            return this.menu.reduce((arr, item) => {
-                let name = item.name
-                if (this.checkHasPrivilege(this.controllerPrivilege[name])) {
-                    let menuItem = {}
-                    menuItem.label = item.label
-                    menuItem.icon = item.icon
-                    menuItem.name = name
-
-                    let pages = item.pages || [
-                    ]
-                    menuItem.children = pages.reduce((arr, subMenuItem) => {
-                        // 页面从属于某个模块，但是不显示在菜单中
-                        if (subMenuItem.meta && subMenuItem.meta.menuHide) {
-                            return arr
-                        }
-                        // console.log(subMenuItem.meta.privilege)
-                        if (this.checkHasPrivilege(subMenuItem.meta && subMenuItem.meta.privilege)) {
-                            arr.push({
-                                label: subMenuItem.label,
-                                path: subMenuItem.path,
-                            })
-                        }
-
-                        return arr
-                    }, [
-                    ])
-                    arr.push(menuItem)
+                    arr.push({
+                        label:subItem.label,
+                        path:subItem.path,
+                    });
+                    return arr;
+                },[]);
+                if(menuItem.children.length === 0){
+                    return menuList;
                 }
-
-                return arr
-            }, [
-            ])
+                menuItem.label = item.label;
+                menuItem.icon = item.icon;
+                menuItem.name = item.name;
+                menuList.push(menuItem);
+                return menuList;
+            },[]);
         },
     },
-    methods: {
-        checkHasPrivilege (privilege = [
-        ]) {
-            // 任何人都能看的菜单项
-            if (!privilege.length) {
-                return true
-            }
-            for (let item of privilege) {
-                if (this.userPrivilegeHash[item]) {
-                    return true
-                }
-            }
-            return false
-        },
-    },
-}
+};
 </script>

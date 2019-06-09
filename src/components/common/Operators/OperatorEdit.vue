@@ -38,8 +38,10 @@
 </template>
 
 <script>
-import _id_mixin from '@/mixins/common/_id_mixin.js'
-import { logError, } from '@/widget/utility.js'
+import _id_mixin from '@/mixins/common/_id_mixin.js';
+import {
+    logError, 
+} from '@/widget/utility.js';
 
 export default {
     name: 'OperatorEdit',
@@ -69,25 +71,25 @@ export default {
         triggerConfig: {
             type: Object,
             default () {
-                return {}
+                return {};
             },
         },
         dialogConfig: {
             type: Object,
             default () {
-                return {}
+                return {};
             },
         },
         editBtnConfig: {
             type: Object,
             default () {
-                return {}
+                return {};
             },
         },
         cancelBtnConfig: {
             type: Object,
             default () {
-                return {}
+                return {};
             },
         },
         autoValidate: {
@@ -97,53 +99,53 @@ export default {
         transformData: {
             type: Function,
             default: function (data) {
-                return data
+                return data;
             },
         },
         reserveFields: {
             type: Array,
             default: function () {
-                return [
-                ]
+                return [];
             },
         },
     },
     data () {
         return {
             isShowEditbox: false,
-            fieldLayoutList: [
-            ],
+            fieldLayoutList: [],
             record: {},
             canInitDialog: false,
-        }
+        };
     },
     methods: {
         getEditFields () {
             new Promise((resolve, reject) => {
-                this.getEditInfo(resolve, this.data)
-            }).then(({ fieldLayoutList, record, }) => {
-                this.fieldLayoutList = fieldLayoutList
-                this.record = record
-                this.canInitDialog = true
-                this.isShowEditbox = true
-            }).catch(logError)
+                this.getEditInfo(resolve, this.data);
+            }).then(({
+                fieldLayoutList, record, 
+            }) => {
+                this.fieldLayoutList = fieldLayoutList;
+                this.record = record;
+                this.canInitDialog = true;
+                this.isShowEditbox = true;
+            }).catch(logError);
         },
         doEdit () {
             this.$refs.editbox.validate().then((data) => {
                 this.reserveFields.forEach((field) => {
-                    data[field] = this.record[field]
-                })
+                    data[field] = this.record[field];
+                });
 
                 new Promise((resolve, reject) => {
-                    this.doEditRequest(resolve, this.transformData(data))
+                    this.doEditRequest(resolve, this.transformData(data));
                 }).then(() => {
-                    this.isShowEditbox = false
-                    this.$emit('update')
-                }).catch(logError)
+                    this.isShowEditbox = false;
+                    this.$emit('update');
+                }).catch(logError);
             }).catch((err) => {
-                this.$message(err)
-            })
+                this.$message(err);
+            });
         },
     },
-}
+};
 </script>

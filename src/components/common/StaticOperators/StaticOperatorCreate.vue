@@ -38,7 +38,9 @@
 </template>
 
 <script>
-import { logError, } from '@/widget/utility'
+import {
+    logError, 
+} from '@/widget/utility';
 
 export default {
     name: 'Create',
@@ -62,31 +64,31 @@ export default {
         triggerConfig: {
             type: Object,
             default () {
-                return {}
+                return {};
             },
         },
         dialogConfig: {
             type: Object,
             default () {
-                return {}
+                return {};
             },
         },
         createBtnConfig: {
             type: Object,
             default () {
-                return {}
+                return {};
             },
         },
         cancelBtnConfig: {
             type: Object,
             default () {
-                return {}
+                return {};
             },
         },
         transformData: {
             type: Function,
             default (data) {
-                return data
+                return data;
             },
         },
         autoValidate: {
@@ -97,52 +99,51 @@ export default {
     data () {
         return {
             isShowCreatebox: false,
-            fieldLayoutList: [
-            ],
+            fieldLayoutList: [],
             record: {},
             canInitDialog: false,
-        }
+        };
     },
     methods: {
         showDialog () {
-            this.isShowCreatebox = true
+            this.isShowCreatebox = true;
         },
         resetRecord () {
             this.record = this.fieldLayoutList.reduce((obj, row) => {
                 row.forEach((field) => {
-                    const configDefault = this.fields[field].editorComponent.default
-                    obj[field] = typeof configDefault === 'function' ? configDefault.call(this, field) : configDefault
-                })
-                return obj
-            }, {})
+                    const configDefault = this.fields[field].editorComponent.default;
+                    obj[field] = typeof configDefault === 'function' ? configDefault.call(this, field) : configDefault;
+                });
+                return obj;
+            }, {});
         },
         handleClick () {
             if (this.fieldLayoutList.length === 0) {
                 new Promise((resolve, reject) => {
-                    this.getCreateFields(resolve)
+                    this.getCreateFields(resolve);
                 }).then((fieldLayoutList) => {
-                    this.fieldLayoutList = fieldLayoutList
-                    this.resetRecord()
-                    this.canInitDialog = true
-                    this.showDialog()
-                }).catch(logError)
+                    this.fieldLayoutList = fieldLayoutList;
+                    this.resetRecord();
+                    this.canInitDialog = true;
+                    this.showDialog();
+                }).catch(logError);
             } else {
-                this.resetRecord()
-                this.showDialog()
+                this.resetRecord();
+                this.showDialog();
             }
         },
         doCreate () {
             this.$refs.createbox.validate().then((data) => {
                 new Promise((resolve) => {
-                    this.doCreateRequest(resolve, this.transformData(data))
+                    this.doCreateRequest(resolve, this.transformData(data));
                 }).then(() => {
-                    this.isShowCreatebox = false
-                    this.$emit('update')
-                }).catch(logError)
+                    this.isShowCreatebox = false;
+                    this.$emit('update');
+                }).catch(logError);
             }).catch((err) => {
-                this.$message(err)
-            })
+                this.$message(err);
+            });
         },
     },
-}
+};
 </script>

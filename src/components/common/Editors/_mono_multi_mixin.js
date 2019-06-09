@@ -11,13 +11,13 @@ export default {
                 Boolean, Function,
             ],
             default () {
-                return true
+                return true;
             },
         },
         monoStruct: {
             type: Function,
             default () {
-                return {}
+                return {};
             },
         },
     },
@@ -27,18 +27,17 @@ export default {
                 if (this.isMonoValid(this.value)) {
                     return [
                         this.value,
-                    ]
+                    ];
                 }
-                return [
-                ]
+                return [];
             },
             set (val) {
                 if (!val.length) {
-                    this.$emit('input', this.monoStruct())
+                    this.$emit('input', this.monoStruct());
                 } else {
-                    this.$emit('input', val[val.length - 1])
+                    this.$emit('input', val[val.length - 1]);
                 }
             },
         },
     },
-}
+};

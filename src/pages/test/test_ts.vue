@@ -58,10 +58,10 @@
 </template>
 
 <script>
-import EditorTimeTs from '@/components/common/Editors/EditorTimeTs'
-import EditorTimeDay from '@/components/common/Editors/EditorTimeDay'
-import EditorTimeMonth from '@/components/common/Editors/EditorTimeMonth'
-import EditorTimeYear from '@/components/common/Editors/EditorTimeYear'
+import EditorTimeTs from '@/components/common/Editors/EditorTimeTs';
+import EditorTimeDay from '@/components/common/Editors/EditorTimeDay';
+import EditorTimeMonth from '@/components/common/Editors/EditorTimeMonth';
+import EditorTimeYear from '@/components/common/Editors/EditorTimeYear';
 export default {
     components: {
         EditorTimeTs,
@@ -75,22 +75,22 @@ export default {
             EditorTimeDay: '',
             EditorTimeMonth: '',
             EditorTimeYear: '',
-        }
+        };
     },
     mounted () {
         setTimeout(() => {
-            this.EditorTimeTs = Date.now()
-            this.EditorTimeDay = '2019-03-12'
-            this.EditorTimeMonth = '2019-03'
-            this.EditorTimeYear = '2011'
-        }, 1000)
+            this.EditorTimeTs = Date.now();
+            this.EditorTimeDay = '2019-03-12';
+            this.EditorTimeMonth = '2019-03';
+            this.EditorTimeYear = '2011';
+        }, 1000);
     },
     methods: {
         formatMethod (value) {
-            console.log(value)
-            return value
+            console.log(value);
+            return value;
         },
     },
-}
+};
 
 </script>

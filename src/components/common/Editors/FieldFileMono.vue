@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import _mono_multi_mixin from './_mono_multi_mixin'
+import _mono_multi_mixin from './_mono_multi_mixin';
 
 export default {
     name: 'FieldFileMono',
@@ -17,5 +17,5 @@ export default {
         _mono_multi_mixin,
     ],
     inheritAttrs: true,
-}
+};
 </script>

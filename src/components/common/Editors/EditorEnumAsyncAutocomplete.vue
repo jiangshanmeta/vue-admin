@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import _async_candidate_mixin from './_async_candidate_mixin'
-import _props_value_mixin from './_props_value_mixin'
-import _computed_model_mixin from './_computed_model_mixin.js'
+import _async_candidate_mixin from './_async_candidate_mixin';
+import _props_value_mixin from './_props_value_mixin';
+import _computed_model_mixin from './_computed_model_mixin.js';
 
 export default {
     name: 'EditorEnumAsyncAutocomplete',
@@ -23,5 +23,5 @@ export default {
         _computed_model_mixin,
     ],
     inheritAttrs: true,
-}
+};
 </script>

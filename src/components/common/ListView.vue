@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <main>
         <slot name="beforeAll" />
         <ListInfo
             ref="listInfo"
@@ -30,7 +30,7 @@
             </template>
         </ListInfo>
         <slot name="afterAll" />
-    </section>
+    </main>
 </template>
 
 <script>
@@ -49,43 +49,39 @@ export default {
         staticOperators: {
             type: Array,
             default: function () {
-                return [
-                ]
+                return [];
             },
         },
         filters: {
             type: Array,
             default: function () {
-                return [
-                ]
+                return [];
             },
         },
         listConfig: {
             type: Object,
             default: function () {
-                return {}
+                return {};
             },
         },
         operators: {
             type: Array,
             default: function () {
-                return [
-                ]
+                return [];
             },
         },
         filterOperators: {
             type: Array,
             default: function () {
-                return [
-                ]
+                return [];
             },
         },
     },
     methods: {
         refreshListData () {
-            this.$refs.listInfo && this.$refs.listInfo.getListInfo()
+            this.$refs.listInfo && this.$refs.listInfo.getListInfo();
         },
     },
-}
+};
 
 </script>

@@ -6,4 +6,4 @@ module.exports = {
         '@babel/plugin-syntax-dynamic-import',
         '@babel/plugin-proposal-do-expressions',
     ],
-}
+};

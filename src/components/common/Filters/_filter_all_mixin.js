@@ -1,10 +1,11 @@
-import merge from 'deepmerge'
+import merge from 'deepmerge';
 
-import _props_candidate_mixin from '../Editors/_props_candidate_mixin'
-import _props_label_value_mixin from '../Editors/_props_label_value_mixin'
+import _props_candidate_mixin from '../Editors/_props_candidate_mixin';
+import _props_label_value_mixin from '../Editors/_props_label_value_mixin';
 
 export default merge.all([
-    _props_candidate_mixin, _props_label_value_mixin, {
+    _props_candidate_mixin, 
+    _props_label_value_mixin, {
         props: {
             allvalue: {
                 default: '',
@@ -18,13 +19,13 @@ export default merge.all([
             filter_candidate () {
                 const [
                     ...arr
-                ] = this.candidate
+                ] = this.candidate;
                 arr.unshift({
                     [this.labelfield]: this.alllabel,
                     [this.valuefield]: this.allvalue,
-                })
-                return arr
+                });
+                return arr;
             },
         },
     },
-])
+]);

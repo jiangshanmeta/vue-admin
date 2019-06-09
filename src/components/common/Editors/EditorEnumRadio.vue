@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import _editor_enum_mixin from './_editor_enum_mixin'
-import _computed_model_mixin from './_computed_model_mixin'
+import _editor_enum_mixin from './_editor_enum_mixin';
+import _computed_model_mixin from './_computed_model_mixin';
 
 export default {
     name: 'EditorEnumRadio',
@@ -24,5 +24,5 @@ export default {
         _computed_model_mixin,
     ],
     inheritAttrs: true,
-}
+};
 </script>

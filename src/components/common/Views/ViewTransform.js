@@ -6,17 +6,19 @@ export default {
         transform: {
             type: Function,
             default: function (data) {
-                return data
+                return data;
             },
         },
     },
-    render (h, { props, }) {
+    render (h, {
+        props, 
+    }) {
         const {
             data,
             transform,
-        } = props
+        } = props;
         return (
             <span>{transform(data)}</span>
-        )
+        );
     },
-}
+};

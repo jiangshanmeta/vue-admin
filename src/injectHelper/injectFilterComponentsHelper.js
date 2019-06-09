@@ -1,5 +1,5 @@
 export default function getNeedInjectFilterComponentsList (filters) {
     return filters
-        .filter(item => item.editorComponent.component)
-        .map(item => item.editorComponent)
+        .filter(item => item.filterComponent.component)
+        .map(item => item.filterComponent);
 }

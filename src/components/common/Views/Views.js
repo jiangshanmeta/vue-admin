@@ -1,5 +1,5 @@
 function identity (value) {
-    return value
+    return value;
 }
 
 export default {
@@ -18,8 +18,10 @@ export default {
             required: true,
         },
     },
-    render (h, { props, scopedSlots, parent, }) {
-        let info = props.record[props.field]
+    render (h, {
+        props, scopedSlots, parent, 
+    }) {
+        let info = props.record[props.field];
 
         if (props.view) {
             const {
@@ -28,25 +30,27 @@ export default {
                 component,
                 handler,
                 getViewValue = identity,
-            } = props.view
+            } = props.view;
 
-            const isJoinField = typeof join === 'object'
+            const isJoinField = join && (typeof join === 'object');
             if (isJoinField) {
-                const obj = props.record.hasOwnProperty(props.field) ? { [props.field]: info, } : {}
+                const obj = props.record.hasOwnProperty(props.field) ? {
+                    [props.field]: info, 
+                } : {};
                 if (Array.isArray(join)) {
                     info = join.reduce((obj, field) => {
-                        obj[field] = props.record[field]
-                        return obj
-                    }, obj)
+                        obj[field] = props.record[field];
+                        return obj;
+                    }, obj);
                 } else {
                     info = Object.keys(join).reduce((obj, originalField) => {
-                        obj[join[originalField]] = props.record[originalField]
-                        return obj
-                    }, obj)
+                        obj[join[originalField]] = props.record[originalField];
+                        return obj;
+                    }, obj);
                 }
             }
-
-            info = getViewValue(info)
+            // parent 是为了绑定this指向 可能会访问$store或者原型对象上的属性
+            info = getViewValue.call(parent,info);
 
             if (component) {
                 const scopedSlotsData = isJoinField
@@ -57,19 +61,20 @@ export default {
                     : {
                         data: info,
                         ...config,
-                    }
-                return scopedSlots.default(scopedSlotsData)
+                    };
+                return scopedSlots.default(scopedSlotsData);
             } else if (handler) {
+                // parent 是为了绑定this指向 可能会访问$store或者原型对象上的属性
                 return (
                     <span>
                         {handler.call(parent, info, config)}
                     </span>
-                )
+                );
             }
         } else {
             return (
                 <span>{info}</span>
-            )
+            );
         }
     },
-}
+};

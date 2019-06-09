@@ -41,7 +41,7 @@
                 :key="field"
                 :label="fields[field]['label']"
                 :prop="field"
-                :sortable="sortFields.includes(field)?'custom':false"
+                :sortable="sortableFields[field]?'custom':false"
                 v-bind="fields[field].tableColumnConfig || {}"
             >
                 <template #default="{row}">
@@ -68,12 +68,11 @@
                 :label="operatorsLabel"
                 :min-width="operatorMinWidth"
             >
-                <template #default="{row,$index}">
+                <template #default="{row}">
                     <Operators
                         :fields="fields"
                         :operators="operators"
                         :data="row"
-                        :index="$index"
                         @update="getListInfo"
                         @setWidth="setOperatorWidth"
                     />
@@ -99,16 +98,16 @@
 </template>
 
 <script>
-import Filters from '@/components/common/Filters/Filters'
-import Operators from '@/components/common/Operators/Operators'
-import Views from '@/components/common/Views/Views'
+import Filters from '@/components/common/Filters/Filters';
+import Operators from '@/components/common/Operators/Operators';
+import Views from '@/components/common/Views/Views';
 
-import mergeAttrsConfig from '@/mixins/common/mergeAttrsConfig.js'
+import {
+    logError, 
+} from '@/widget/utility.js';
 
-import { logError, } from '@/widget/utility.js'
-
-import injectComponents from '@/widget/injectComponents'
-import getNeedInjectViewComponentsMap from '@/injectHelper/injectViewComponentsHelper'
+import injectComponents from '@/widget/injectComponents';
+import getNeedInjectViewComponentsMap from '@/injectHelper/injectViewComponentsHelper';
 
 export default {
     name:'ListInfo',
@@ -117,13 +116,10 @@ export default {
         Operators,
         Views,
     },
-    mixins: [
-        mergeAttrsConfig,
-    ],
     state: {
         needInjectViewComponentsMap: {},
         get hasInjectComponent () {
-            return Object.keys(this.needInjectViewComponentsMap).length > 0
+            return Object.keys(this.needInjectViewComponentsMap).length > 0;
         },
     },
     props: {
@@ -135,18 +131,19 @@ export default {
         filters: {
             type: Array,
             default: function () {
-                return [
-                ]
+                return [];
             },
         },
         filterOperators: {
             type: Array,
             default: function () {
-                return [
-                ]
+                return [];
             },
         },
-
+        createdHook:{
+            type:Function,
+            default:()=>{},
+        },
         pageSize: {
             type: Number,
             default: 20,
@@ -170,7 +167,7 @@ export default {
         transformRequestData: {
             type: Function,
             default: function (data) {
-                return data
+                return data;
             },
         },
         listRequest: {
@@ -180,33 +177,31 @@ export default {
         transformListData: {
             type: Function,
             default: async (data) => {
-                return data
+                return data;
             },
         },
 
         tableConfig: {
             type: Object,
             default () {
-                return {}
+                return {};
             },
         },
         selection: {
             type: Boolean,
             default: false,
         },
-        sortFields: {
-            type: Array,
+        sortableFields: {
+            type: Object,
             default: function () {
-                return [
-                ]
+                return {};
             },
         },
 
         operators: {
             type: Array,
             default: function () {
-                return [
-                ]
+                return [];
             },
         },
         operatorsLabel: {
@@ -226,37 +221,36 @@ export default {
         paginationConfig: {
             type: Object,
             default () {
-                return {}
+                return {};
             },
         },
     },
     data () {
         return {
             componentsInjected: false,
-            data: [
-            ],
+            data: [],
             pageIndex: 1,
             sortField: '',
             sortOrder: '',
             total: 0,
-            fieldList: [
-            ],
-            multipleSelection: [
-            ],
+            fieldList: [],
+            multipleSelection: [],
             operatorMinWidth: 0,
             localPageSize: this.pageSize,
-        }
+        };
     },
     beforeCreate () {
         Object.defineProperty(this, 'formData', {
             get () {
-                return this.$refs.filters && this.$refs.filters.formData
+                return this.$refs.filters && this.$refs.filters.formData;
             },
-        })
+        });
     },
     created () {
-        this.needInjectViewComponentsMap = getNeedInjectViewComponentsMap(this.fields, Object.keys(this.fields))
-        this.injectViewComponents()
+        this.createdHook();
+
+        this.needInjectViewComponentsMap = getNeedInjectViewComponentsMap(this.fields, Object.keys(this.fields));
+        this.injectViewComponents();
 
         this.$watch(() => {
             return {
@@ -264,40 +258,40 @@ export default {
                 sortField: this.sortField,
                 sortOrder: this.sortOrder,
                 pageIndex: this.pageIndex,
-            }
+            };
         }, this.getListInfo, {
             immediate: true,
-        })
+        });
     },
     methods: {
         injectViewComponents () {
             if (!this.hasInjectComponent) {
-                return
+                return;
             }
 
             injectComponents(this, this.needInjectViewComponentsMap).then(() => {
-                this.componentsInjected = true
-            })
+                this.componentsInjected = true;
+            });
         },
         handleSortChange (sortInfo) {
             if (sortInfo.prop) {
-                this.sortField = sortInfo.prop
-                this.sortOrder = sortInfo.order.startsWith('desc') ? 'desc' : 'asc'
+                this.sortField = sortInfo.prop;
+                this.sortOrder = sortInfo.order.startsWith('desc') ? 'desc' : 'asc';
             } else {
-                this.sortField = ''
-                this.sortOrder = ''
+                this.sortField = '';
+                this.sortOrder = '';
             }
-            this.pageIndex = 1
+            this.pageIndex = 1;
         },
         handleSizeChange (newPageSize) {
-            this.localPageSize = newPageSize
-            this.pageIndex = 1
+            this.localPageSize = newPageSize;
+            this.pageIndex = 1;
         },
         handleSelectionChange (section) {
-            this.multipleSelection = section
+            this.multipleSelection = section;
         },
         getListInfo () {
-            const params = {}
+            const params = {};
             // 有filters 要拿到filters的formData，所以需要等到filters组件实例化完成
             // 有时filters组件虽然实例化了，但是formData数据为空，需要等待formData对应数据形成
             // console.log(this.$refs.filters,!this.$refs.filters || this.$refs.filters.formData )
@@ -310,48 +304,48 @@ export default {
                 // 而挂载子组件到$refs上是作为macroTask的任务
                 // 于是会死循环
                 setTimeout(() => {
-                    this.getListInfo()
-                }, 0)
-                return
+                    this.getListInfo();
+                }, 0);
+                return;
             }
 
             if (this.filters.length) {
-                Object.assign(params, this.$refs.filters.formData)
+                Object.assign(params, this.$refs.filters.formData);
             }
 
             if (this.paginated) {
-                params[this.pageIndexReqName] = this.pageIndex
-                params[this.pageSizeReqName] = this.localPageSize <= 0
-                    ? this.pageSize
-                    : this.localPageSize
+                params[this.pageIndexReqName] = this.pageIndex;
+                params[this.pageSizeReqName] = this.localPageSize;
             }
 
-            params[this.sortFieldReqName] = this.sortField
-            params[this.sortOrderReqName] = this.sortOrder
+            params[this.sortFieldReqName] = this.sortField;
+            params[this.sortOrderReqName] = this.sortOrder;
 
-            console.log(params)
+            console.log(params);
 
-            return new Promise((resolve, reject) => {
-                this.listRequest(resolve, this.transformRequestData(params))
+            return new Promise((resolve) => {
+                this.listRequest(resolve, this.transformRequestData(params));
             }).then((rst) => {
-                const { data, total, fieldList, } = rst
-                let promise = this.transformListData(data)
+                const {
+                    data, total, fieldList, 
+                } = rst;
+                let promise = this.transformListData(data);
                 if (!(promise instanceof Promise)) {
-                    promise = Promise.resolve(promise)
+                    promise = Promise.resolve(promise);
                 }
 
                 promise.then((data) => {
-                    this.fieldList = fieldList
-                    this.total = total
-                    this.data = data
-                })
-            }).catch(logError)
+                    this.fieldList = fieldList;
+                    this.total = total;
+                    this.data = data;
+                });
+            }).catch(logError);
         },
         setOperatorWidth (width) {
             if (width > this.operatorMinWidth) {
-                this.operatorMinWidth = width
+                this.operatorMinWidth = width;
             }
         },
     },
-}
+};
 </script>

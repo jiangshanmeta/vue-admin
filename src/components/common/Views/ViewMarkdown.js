@@ -1,4 +1,4 @@
-import vueMarkdown from 'vue-markdown'
+import vueMarkdown from 'vue-markdown';
 export default {
     name: 'ViewMarkdown',
     functional: true,
@@ -10,6 +10,6 @@ export default {
     render (h, context) {
         return (
             <vueMarkdown {...context.data.attrs}>{context.props.data}</vueMarkdown>
-        )
+        );
     },
-}
+};

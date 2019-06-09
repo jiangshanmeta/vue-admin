@@ -121,48 +121,83 @@
 </template>
 
 <script>
-import { unique, clearInvalidData, } from '@/components/common/Editors/_validate_option'
+import {
+    unique, clearInvalidData, 
+} from '@/components/common/Editors/_validate_option';
 
 const fields = {
     EditorArrayAsyncCheckbox: 'EditorArrayAsyncCheckbox',
     EditorArrayAsyncCheckboxJson: 'EditorArrayAsyncCheckbox',
     EditorArrayAsyncAutocomplete: 'EditorArrayAsyncAutocomplete',
     EditorArrayAsyncAutocompleteJson: 'EditorArrayAsyncAutocomplete',
-}
+};
 
 const EditorArrayAutocomplete_candidate = [
-    { id: 1, name: '太年轻', },
-    { id: 2, name: '太天真', },
-    { id: 3, name: '亦可赛艇', },
-    { id: 4, name: 'exciting', },
-    { id: 5, name: 'simple', },
-    { id: 6, name: 'naive', },
-]
+    {
+        id: 1,
+        name: '太年轻', 
+    },
+    {
+        id: 2,
+        name: '太天真', 
+    },
+    {
+        id: 3,
+        name: '亦可赛艇', 
+    },
+    {
+        id: 4,
+        name: 'exciting', 
+    },
+    {
+        id: 5,
+        name: 'simple', 
+    },
+    {
+        id: 6,
+        name: 'naive', 
+    },
+];
 
 const getCandidate = Object.keys(fields).reduce((obj, field) => {
     obj[field] = function (cb) {
         setTimeout(() => {
-            cb(EditorArrayAutocomplete_candidate)
-        }, 2000)
-    }
-    return obj
-}, {})
+            cb(EditorArrayAutocomplete_candidate);
+        }, 2000);
+    };
+    return obj;
+}, {});
 
 export default {
     config: {
         EditorArrayCheckbox_candidate: [
-            { value: 1, label: 'aaa', },
-            { value: 2, label: 'bbb', },
-            { value: 3, label: 'ccc', },
-            { value: 4, label: 'ddd', },
-            { value: 5, label: 'eee', },
+            {
+                value: 1,
+                label: 'aaa', 
+            },
+            {
+                value: 2,
+                label: 'bbb', 
+            },
+            {
+                value: 3,
+                label: 'ccc', 
+            },
+            {
+                value: 4,
+                label: 'ddd', 
+            },
+            {
+                value: 5,
+                label: 'eee', 
+            },
         ],
         EditorArrayAutocomplete_candidate,
         handleTagInvalid: function (value, allvalue) {
-            this.$emit('input', clearInvalidData(value, allvalue))
+            this.$emit('input', clearInvalidData(value, allvalue));
         },
         handleInvalidRelateIds: function () {
-            console.log(this)
+            console.log(this);
         },
         getCandidate,
     },
@@ -195,7 +230,7 @@ export default {
                 2, 2, 8,
             ],
             EditorArrayAsyncAutocompleteJson: '',
-        }
+        };
     },
-}
+};
 </script>

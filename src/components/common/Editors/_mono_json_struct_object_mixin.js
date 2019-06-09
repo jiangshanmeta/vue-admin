@@ -3,8 +3,8 @@ export default {
         struct: {
             type: Function,
             default () {
-                return {}
+                return {};
             },
         },
     },
-}
+};

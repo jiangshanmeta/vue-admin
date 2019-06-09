@@ -12,14 +12,6 @@
 export default {
     name: 'Reset',
     props: {
-        filters: {
-            type: Array,
-            required: true,
-        },
-        data: {
-            type: Object,
-            required: true,
-        },
         type: {
             type: String,
             default: 'warning',
@@ -38,8 +30,8 @@ export default {
     ],
     methods: {
         handleClick () {
-            this.filtersComponent.resetValue()
+            this.filtersComponent.resetValue();
         },
     },
-}
+};
 </script>

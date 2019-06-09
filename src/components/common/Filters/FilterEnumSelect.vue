@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import _filter_all_mixin from './_filter_all_mixin'
-import _computed_model_mixin from '../Editors/_computed_model_mixin'
+import _filter_all_mixin from './_filter_all_mixin';
+import _computed_model_mixin from '../Editors/_computed_model_mixin';
 
 export default {
     name: 'FilterEnumSelect',
@@ -22,5 +22,5 @@ export default {
         _computed_model_mixin,
     ],
     inheritAttrs: true,
-}
+};
 </script>

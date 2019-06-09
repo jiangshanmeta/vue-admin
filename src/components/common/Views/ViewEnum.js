@@ -1,5 +1,5 @@
 export default {
-    name: 'view_enum',
+    name: 'ViewEnum',
     functional: true,
     props: {
         data: {
@@ -12,13 +12,15 @@ export default {
             required: true,
         },
     },
-    render (h, { props, }) {
+    render (h, {
+        props, 
+    }) {
         const {
             data,
             enums,
-        } = props
+        } = props;
         return (
             <span>{enums[data]}</span>
-        )
+        );
     },
-}
+};

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import fieldText from '@/components/common/Editors/EditorText'
+import fieldText from '@/components/common/Editors/EditorText';
 export default {
     name:'EditorBookAddress',
     components: {
@@ -27,12 +27,12 @@ export default {
     computed: {
         model: {
             get () {
-                return this.value
+                return this.value;
             },
             set (value) {
-                this.$emit('input', value)
+                this.$emit('input', value);
             },
         },
     },
-}
+};
 </script>

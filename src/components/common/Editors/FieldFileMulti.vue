@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import metaUpload from './meta-upload'
-import _computed_model_mixin from './_computed_model_mixin'
-import _props_value_array_mixin from './_props_value_array_mixin'
+import metaUpload from './meta-upload';
+import _computed_model_mixin from './_computed_model_mixin';
+import _props_value_array_mixin from './_props_value_array_mixin';
 
 export default {
     name: 'FieldFileMulti',
@@ -34,5 +34,5 @@ export default {
         _props_value_array_mixin,
     ],
     inheritAttrs: true,
-}
+};
 </script>

@@ -18,14 +18,16 @@
 </template>
 
 <script>
-import csvjs from 'csv-js'
-import { logError, } from '@/widget/utility.js'
+import csvjs from 'csv-js';
+import {
+    logError, 
+} from '@/widget/utility.js';
 export default {
     props: {
         triggerConfig: {
             type: Object,
             default () {
-                return {}
+                return {};
             },
         },
         handleData: {
@@ -38,20 +40,20 @@ export default {
     },
     methods: {
         handleClick () {
-            this.$refs.input.value = null
-            this.$refs.input.click()
+            this.$refs.input.value = null;
+            this.$refs.input.click();
         },
         handleChange (ev) {
-            var reader = new FileReader()
+            var reader = new FileReader();
             reader.onload = function (e) {
                 new Promise((resolve, reject) => {
-                    this.handleData(resolve, csvjs.parse(e.target.result))
+                    this.handleData(resolve, csvjs.parse(e.target.result));
                 }).then(() => {
-                    this.$emit('update')
-                }).catch(logError)
-            }.bind(this)
-            reader.readAsText(ev.target.files[0])
+                    this.$emit('update');
+                }).catch(logError);
+            }.bind(this);
+            reader.readAsText(ev.target.files[0]);
         },
     },
-}
+};
 </script>

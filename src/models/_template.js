@@ -1,16 +1,8 @@
 export default {
-    fields: {
-
-    },
-    staticOperators: [
-    ],
-    filters: [
-    ],
-    filterOperators: [
-    ],
-    listConfig: {
-
-    },
-    operators: [
-    ],
-}
+    fields: {},
+    staticOperators: [],
+    filters: [],
+    filterOperators: [],
+    listConfig: {},
+    operators: [],
+};

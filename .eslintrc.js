@@ -21,12 +21,27 @@ module.exports = {
             'error', 4,
         ],
         'array-bracket-newline': [
-            'error', 'always',
+            'error', {
+                minItems:1,
+            },
         ],
-        'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+        'object-curly-newline':[
+            'error',{
+                minProperties:1,
+            },
+        ],
+        'object-property-newline':[
+            'error',{
+                allowAllPropertiesOnSameLine:false,
+            },
+        ],
+        // 'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+        'no-debugger': 'error',
+        'semi':[
+            'error','always',
+        ],
     },
     parserOptions: {
         parser: 'babel-eslint',
     },
-}
+};

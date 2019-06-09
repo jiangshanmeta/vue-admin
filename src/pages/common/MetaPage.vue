@@ -1,14 +1,14 @@
 <template>
-    <list-view
-        v-if="Object.keys(model).length>0"
+    <ListView
+        v-if="modelLoaded"
         v-bind="model"
     />
 </template>
 
 <script>
-import ListView from '@/components/common/ListView'
+import ListView from '@/components/common/ListView';
 
-import modelRouterMixin from '@/mixins/router/modelRouterMixin'
+import modelRouterMixin from '@/mixins/router/modelRouterMixin';
 
 export default {
     name: 'MetaPage',
@@ -18,5 +18,5 @@ export default {
     mixins: [
         modelRouterMixin,
     ],
-}
+};
 </script>

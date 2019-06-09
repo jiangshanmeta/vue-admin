@@ -65,11 +65,11 @@
 </template>
 
 <script>
-import EditorNumber from '@/components/common/Editors/EditorNumber'
-import EditorInt from '@/components/common/Editors/EditorInt'
-import EditorString from '@/components/common/Editors/EditorString'
-import EditorText from '@/components/common/Editors/EditorText'
-import EditorPwd from '@/components/common/Editors/EditorPwd'
+import EditorNumber from '@/components/common/Editors/EditorNumber';
+import EditorInt from '@/components/common/Editors/EditorInt';
+import EditorString from '@/components/common/Editors/EditorString';
+import EditorText from '@/components/common/Editors/EditorText';
+import EditorPwd from '@/components/common/Editors/EditorPwd';
 
 export default {
     components: {
@@ -86,10 +86,10 @@ export default {
             EditorString: '',
             EditorText: '',
             EditorPwd: '',
-        }
+        };
     },
     created () {
 
     },
-}
+};
 </script>

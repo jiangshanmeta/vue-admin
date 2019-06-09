@@ -6,11 +6,13 @@ export default {
             type: String,
         },
     },
-    render (h, { props, }) {
+    render (h, {
+        props, 
+    }) {
         return h('div', {
             domProps: {
                 innerHTML: props.data,
             },
-        })
+        });
     },
-}
+};

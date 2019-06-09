@@ -8,13 +8,10 @@ export default {
             component: () => import('@/pages/common/MetaPage'),
             label: '客户列表',
             meta: {
-                privilege: [
-                    1, 999,
-                ],
                 model: 'userModel',
                 title: '客户列表',
             },
         },
 
     ],
-}
+};

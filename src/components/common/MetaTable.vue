@@ -39,7 +39,7 @@
 const defaultColspan = {
     label: 1,
     field: 1,
-}
+};
 
 export default {
     name:'MetaTable',
@@ -60,17 +60,17 @@ export default {
     computed: {
         colspanMapByField () {
             return Object.keys(this.fields).reduce((obj, field) => {
-                let colspan = defaultColspan
-                const configColspan = this.fields[field].colspan
+                let colspan = defaultColspan;
+                const configColspan = this.fields[field].colspan;
                 if (configColspan) {
                     if (configColspan[this.mode]) {
-                        colspan = configColspan[this.mode]
+                        colspan = configColspan[this.mode];
                     } else if (configColspan.default) {
-                        colspan = configColspan.default
+                        colspan = configColspan.default;
                         if (typeof configColspan.default === 'object') {
-                            const exclude = configColspan.default.exclude
+                            const exclude = configColspan.default.exclude;
                             if (Array.isArray(exclude) && exclude.includes(this.mode)) {
-                                colspan = defaultColspan
+                                colspan = defaultColspan;
                             }
                         }
                     }
@@ -79,30 +79,30 @@ export default {
                         colspan = {
                             label: 1,
                             field: colspan,
-                        }
+                        };
                     }
                 }
 
-                obj[field] = colspan
-                return obj
-            }, Object.create(null))
+                obj[field] = colspan;
+                return obj;
+            }, Object.create(null));
         },
         rowColspans () {
             return this.fieldLayoutList.map((row) => {
                 return row.reduce((count, field) => {
-                    const colspanConfig = this.colspanMapByField[field]
-                    return count + colspanConfig.label + colspanConfig.field
-                }, 0)
-            })
+                    const colspanConfig = this.colspanMapByField[field];
+                    return count + colspanConfig.label + colspanConfig.field;
+                }, 0);
+            });
         },
         maxCol () {
-            return Math.max(...this.rowColspans)
+            return Math.max(...this.rowColspans);
         },
         restCols () {
             return this.rowColspans.map((colspan) => {
-                return this.maxCol - colspan
-            })
+                return this.maxCol - colspan;
+            });
         },
     },
-}
+};
 </script>

@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import _props_value_number_mixin from './_props_value_number_mixin.js'
-import _computed_model_mixin from './_computed_model_mixin.js'
+import _props_value_number_mixin from './_props_value_number_mixin.js';
+import _computed_model_mixin from './_computed_model_mixin.js';
 
 export default {
     name: 'EditorBool',
@@ -44,10 +44,16 @@ export default {
     computed: {
         candidate () {
             return [
-                { value: this.falseValue, label: this.falseLabel, },
-                { value: this.trueValue, label: this.trueLabel, },
-            ]
+                {
+                    value: this.falseValue,
+                    label: this.falseLabel, 
+                },
+                {
+                    value: this.trueValue,
+                    label: this.trueLabel, 
+                },
+            ];
         },
     },
-}
+};
 </script>

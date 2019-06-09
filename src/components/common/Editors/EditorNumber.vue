@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import _computed_model_mixin from './_computed_model_mixin'
-import _props_value_number_mixin from './_props_value_number_mixin'
+import _computed_model_mixin from './_computed_model_mixin';
+import _props_value_number_mixin from './_props_value_number_mixin';
 
 export default {
     name: 'EditorNumber',
@@ -18,5 +18,5 @@ export default {
         _props_value_number_mixin,
     ],
     inheritAttrs: true,
-}
+};
 </script>

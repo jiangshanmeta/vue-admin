@@ -4,9 +4,11 @@ import {
     getCreateFields,
     createBook,
     getBookList,
-} from '@/server/book.js'
+} from '@/server/book.js';
 
-import { download, } from '@/widget/utility.js'
+import {
+    download, 
+} from '@/widget/utility.js';
 
 export default {
     fields: {
@@ -27,7 +29,7 @@ export default {
                     'id',
                 ],
                 handler (record) {
-                    return `${record.customername}(${record.id})`
+                    return `${record.customername}(${record.id})`;
                 },
             },
         },
@@ -35,24 +37,22 @@ export default {
             label: '金额',
             editorComponent: {
                 name: 'EditorNumber',
-                config: {
-                    relates: [
-                        {
-                            relateField: [
-                                'customername', 'address',
-                            ],
-                            handler (info) {
-                                console.log(info)
-                                if (info.customername === 'lelouch' && info.address === 'area11') {
-                                    this.$emit('input', 0)
-                                }
-                            },
-                            config: {
-                                immediate: true,
-                            },
+                relates: [
+                    {
+                        relateField: [
+                            'customername', 'address',
+                        ],
+                        handler (info) {
+                            console.log(info);
+                            if (info.customername === 'lelouch' && info.address === 'area11') {
+                                this.$emit('input', 0);
+                            }
                         },
-                    ],
-                },
+                        config: {
+                            immediate: true,
+                        },
+                    },
+                ],
                 default: 0,
             },
             view: {
@@ -60,7 +60,7 @@ export default {
                 component: () => import('@/components/common/Views/ViewTransform').then((rst) => rst.default),
                 config: {
                     transform: function (data) {
-                        return '¥' + data
+                        return '¥' + data;
                     },
                 },
             },
@@ -70,14 +70,12 @@ export default {
             editorComponent: {
                 name: 'EditorBookAddress',
                 component: () => import('@/components/book/Editors/EditorBookAddress').then((rst) => rst.default),
-                config: {
-                    relates: [
-                        {
-                            relateField: 'customername',
-                            propField: 'customername',
-                        },
-                    ],
-                },
+                relates: [
+                    {
+                        relateField: 'customername',
+                        propField: 'customername',
+                    },
+                ],
                 default: '',
             },
             view: {
@@ -108,19 +106,20 @@ export default {
             editorComponent: {
                 name: 'EditorEnumRelatesSelect',
                 config: {
-                    relates: [
-                        {
-                            relateField: [
-                                'store',
-                            ],
-                            isValidValue (data) {
-                                return data
-                            },
-                            propField: 'relateData',
-                        },
-                    ],
+                    isValidValue (data) {
+                        return data;
+                    },
                     getCandidate: getSaler,
                 },
+                relates: [
+                    {
+                        relateField: [
+                            'store',
+                        ],
+                        propField: 'relateData',
+                    },
+                ],
+
                 default: '',
             },
         },
@@ -165,14 +164,14 @@ export default {
         },
         {
             handler (resolve) {
-                console.log(this.$attrs.formData)
-                console.log(this.$attrs.selectedData)
-                console.log(this.data)
+                console.log(this.$attrs.formData);
+                console.log(this.$attrs.selectedData);
+                console.log(this.data);
                 this.$message({
                     type: 'warning',
                     message: '就把选中的取消选中',
-                })
-                resolve()
+                });
+                resolve();
             },
             triggerConfig: {
                 type: 'danger',
@@ -188,8 +187,8 @@ export default {
                     type: 'warning',
                 },
                 handleData: function (resolve, data) {
-                    console.log(data)
-                    resolve()
+                    console.log(data);
+                    resolve();
                 },
             },
         },
@@ -197,14 +196,14 @@ export default {
             handler (resolve, data) {
                 const keys = [
                     'customername', 'totalprice', 'address',
-                ]
+                ];
                 const rst = data.map((item) => {
                     return keys.map((key) => {
-                        return item[key]
-                    }).join(',')
-                }).join('\r\n')
+                        return item[key];
+                    }).join(',');
+                }).join('\r\n');
 
-                download(rst, 'template.csv')
+                download(rst, 'template.csv');
             },
             triggerConfig: {
                 text: '下载CSV',
@@ -222,7 +221,7 @@ export default {
         {
             label: '客户名',
             field: 'customername',
-            editorComponent: {
+            filterComponent: {
                 name: 'EditorString',
                 config: {
                     placeholder: '请输入客户名',
@@ -233,27 +232,24 @@ export default {
         {
             label: '金额',
             field: 'totalprice',
-            editorComponent: {
+            filterComponent: {
                 name: 'EditorNumber',
                 default: 500,
-                config: {
-                    relates: [
-                        {
-                            relateField: 'customername',
-                            handler (customername) {
-                                console.log(customername)
-                                if (customername === 'lelouch') {
-                                    this.$emit('input', 2333)
-                                }
-                            },
-                            config: {
-                                immediate: true,
-                            },
-                        },
-
-                    ],
-                },
             },
+            relates: [
+                {
+                    relateField: 'customername',
+                    handler (customername) {
+                        console.log(customername);
+                        if (customername === 'lelouch') {
+                            this.$emit('input', 2333);
+                        }
+                    },
+                    config: {
+                        immediate: true,
+                    },
+                },
+            ],
         },
     ],
     operators: [
@@ -263,10 +259,10 @@ export default {
                     message: `${data.customername}再来一单`,
                     type: 'success',
                     duration: 2000,
-                })
+                });
                 setTimeout(() => {
-                    resolve()
-                }, 1000)
+                    resolve();
+                }, 1000);
             },
             triggerConfig: {
                 text: '再来一单',
@@ -275,4 +271,4 @@ export default {
             },
         },
     ],
-}
+};

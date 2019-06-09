@@ -1,37 +1,37 @@
-import Vue from 'vue'
+import Vue from 'vue';
 
 // cookie && localstorage
-import VueCookie from 'vue-cookie'
-import VueLocalStorage from 'vue-localstorage'
+import VueCookie from 'vue-cookie';
+import VueLocalStorage from 'vue-localstorage';
 
-import VueConfigs from 'vue-configs'
+import VueConfigs from 'vue-configs';
 
-import router from './router'
-import store from './store'
+import router from './router';
+import store from './store';
 
 // 处理element ui库
-import Element from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import Element from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
-import '@/assets/css/bootstrap-reboot.min.css'
-import '@/assets/css/layout.css'
-import '@/assets/css/display.css'
-import '@/assets/css/text.css'
-import '@/assets/css/img.css'
-import '@/assets/css/table.css'
-import '@/assets/css/lib.css'
+import '@/assets/css/bootstrap-reboot.min.css';
+import '@/assets/css/layout.css';
+import '@/assets/css/display.css';
+import '@/assets/css/text.css';
+import '@/assets/css/img.css';
+import '@/assets/css/table.css';
+import '@/assets/css/lib.css';
 
-import App from './App'
-Vue.use(VueCookie)
-Vue.use(VueLocalStorage)
+import App from './App';
+Vue.use(VueCookie);
+Vue.use(VueLocalStorage);
 Vue.use(VueConfigs, {
     optionKeys: [
         'config', 'staticMethod', 'state',
     ],
-})
-Vue.use(Element)
+});
+Vue.use(Element);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
@@ -42,6 +42,6 @@ new Vue({
         App,
     },
     render (h) {
-        return h('App')
+        return h('App');
     },
-})
+});

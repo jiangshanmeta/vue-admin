@@ -69,41 +69,65 @@
 </template>
 
 <script>
-import FilterEnumSelect from '@/components/common/Filters/FilterEnumSelect'
-import FilterEnumAutocomplete from '@/components/common/Filters/FilterEnumAutocomplete'
-import FilterEnumAsyncSelect from '@/components/common/Filters/FilterEnumAsyncSelect'
-import FilterEnumAsyncAutocomplete from '@/components/common/Filters/FilterEnumAsyncAutocomplete'
+import FilterEnumSelect from '@/components/common/Filters/FilterEnumSelect';
+import FilterEnumAutocomplete from '@/components/common/Filters/FilterEnumAutocomplete';
+import FilterEnumAsyncSelect from '@/components/common/Filters/FilterEnumAsyncSelect';
+import FilterEnumAsyncAutocomplete from '@/components/common/Filters/FilterEnumAsyncAutocomplete';
 
-import axios from '@/server/axios'
+import axios from '@/server/axios';
 
 const fields = {
     FilterEnumAsyncSelect: '/test/EditorEnumAsyncSelect',
     FilterEnumAsyncAutocomplete: '/test/EditorEnumAsyncSelect',
-}
+};
 
 const FilterEnumAutocomplete_candidate = [
-    { id: 9, name: '张三', },
-    { id: 10, name: '张四', },
-    { id: 11, name: '李四', },
-    { id: 12, name: '李五', },
-    { id: 13, name: '王五', },
-]
+    {
+        id: 9,
+        name: '张三', 
+    },
+    {
+        id: 10,
+        name: '张四', 
+    },
+    {
+        id: 11,
+        name: '李四', 
+    },
+    {
+        id: 12,
+        name: '李五', 
+    },
+    {
+        id: 13,
+        name: '王五', 
+    },
+];
 
 const getCandidate = Object.keys(fields).reduce((obj, field) => {
     obj[field] = function (cb) {
         setTimeout(() => {
-            cb(FilterEnumAutocomplete_candidate)
-        }, 1000)
-    }
-    return obj
-}, {})
+            cb(FilterEnumAutocomplete_candidate);
+        }, 1000);
+    };
+    return obj;
+}, {});
 
 export default {
     config: {
         FilterEnumSelect_candidate: [
-            { id: 4, name: 'value1', },
-            { id: 5, name: 'value2', },
-            { id: 6, name: 'value3', },
+            {
+                id: 4,
+                name: 'value1', 
+            },
+            {
+                id: 5,
+                name: 'value2', 
+            },
+            {
+                id: 6,
+                name: 'value3', 
+            },
         ],
         FilterEnumAutocomplete_candidate,
         getCandidate,
@@ -120,8 +144,8 @@ export default {
             FilterEnumAutocomplete: 'all',
             FilterEnumAsyncSelect: -1,
             FilterEnumAsyncAutocomplete: -1,
-        }
+        };
     },
-}
+};
 
 </script>

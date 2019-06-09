@@ -43,12 +43,12 @@
 </template>
 
 <script>
-import AsyncValidator from 'async-validator'
-import Labels from '@/components/common/Labels/Labels'
+import AsyncValidator from 'async-validator';
+import Labels from '@/components/common/Labels/Labels';
 
-import injectComponents from '@/widget/injectComponents'
-import getNeedInjectLabelComponentsMap from '@/injectHelper/injectLabelComponentsHelper'
-import getNeedInjectEditorComponentsList from '@/injectHelper/injectEditorComponentsHelper'
+import injectComponents from '@/widget/injectComponents';
+import getNeedInjectLabelComponentsMap from '@/injectHelper/injectLabelComponentsHelper';
+import getNeedInjectEditorComponentsList from '@/injectHelper/injectEditorComponentsHelper';
 
 export default {
     name:'Editors',
@@ -106,17 +106,17 @@ export default {
     state: {
         needInjectLabelComponentsMap: {},
         get hasInjectLabelComponents () {
-            return Object.keys(this.needInjectLabelComponentsMap).length > 0
+            return Object.keys(this.needInjectLabelComponentsMap).length > 0;
         },
-        needInjectEditorComponentsList: [
-        ],
+        needInjectEditorComponentsList: [],
         get hasInjectEditorComponents () {
-            return this.needInjectEditorComponentsList.length
+            return this.needInjectEditorComponentsList.length;
         },
         get hasInjectComponent () {
-            return this.hasInjectLabelComponents || this.hasInjectEditorComponents
+            return this.hasInjectLabelComponents || this.hasInjectEditorComponents;
         },
         hasValidateListener: false,
+        recordUnwatchs: [],
     },
     props: {
         fieldLayoutList: {
@@ -145,29 +145,26 @@ export default {
             labelComponentsInjected: false,
             editorComponentsInjected: false,
             validators: {},
-            recordUnwatchs: [
-            ],
             localRecord: {},
-        }
+        };
     },
     computed: {
         editFieldsArray () {
             return this.fieldLayoutList.reduce((arr, row) => {
                 return row.reduce((arr, field) => {
-                    arr.push(field)
-                    return arr
-                }, arr)
-            }, [
-            ])
+                    arr.push(field);
+                    return arr;
+                }, arr);
+            }, []);
         },
         formData () {
             return this.editFieldsArray.reduce((obj, field) => {
-                obj[field] = this.localRecord[field]
-                return obj
-            }, {})
+                obj[field] = this.localRecord[field];
+                return obj;
+            }, {});
         },
         componentsInjected () {
-            return this.labelComponentsInjected && this.editorComponentsInjected
+            return this.labelComponentsInjected && this.editorComponentsInjected;
         },
     },
     watch: {
@@ -175,23 +172,23 @@ export default {
             immediate: true,
             handler () {
                 Object.keys(this.validators).forEach((field) => {
-                    this.validators[field].unwatch && this.validators[field].unwatch()
-                })
-                this.localRecord = JSON.parse(JSON.stringify(this.record))
-                this.validators = {}
-                this.hasValidateListener = false
-                this.initValidate()
+                    this.validators[field].unwatch && this.validators[field].unwatch();
+                });
+                this.localRecord = JSON.parse(JSON.stringify(this.record));
+                this.validators = {};
+                this.hasValidateListener = false;
+                this.initValidate();
             },
         },
         fields: {
             immediate: true,
             handler () {
-                this.needInjectLabelComponentsMap = getNeedInjectLabelComponentsMap(this.fields, this.editFieldsArray, this.mode)
-                this.needInjectEditorComponentsList = getNeedInjectEditorComponentsList(this.fields, this.editFieldsArray)
-                this.labelComponentsInjected = false
-                this.editorComponentsInjected = false
-                this.injectLabelComponents()
-                this.injectEditorComponents()
+                this.needInjectLabelComponentsMap = getNeedInjectLabelComponentsMap(this.fields, this.editFieldsArray, this.mode);
+                this.needInjectEditorComponentsList = getNeedInjectEditorComponentsList(this.fields, this.editFieldsArray);
+                this.labelComponentsInjected = false;
+                this.editorComponentsInjected = false;
+                this.injectLabelComponents();
+                this.injectEditorComponents();
             },
         },
     },
@@ -200,160 +197,159 @@ export default {
             return {
                 record: this.record,
                 fields: this.fields,
-            }
+            };
         }, this.resetRelates, {
             immediate: true,
-        })
+        });
     },
     methods: {
-        getRelateData (relateItem) {
-            if (Array.isArray(relateItem.relateField)) {
-                return relateItem.relateField.reduce((obj, field) => {
-                    obj[field] = this.localRecord[field]
-                    return obj
-                }, {})
-            } else {
-                return this.localRecord[relateItem.relateField]
-            }
-        },
-        generateEditorProp (field) {
-            const editorComponent = this.fields[field].editorComponent
-            const defaultConfig = editorComponent.config || {}
-            const modeConfig = editorComponent[`${this.mode}Config`] || {}
-            const config = Object.assign({}, defaultConfig, modeConfig)
-            const {
-                relates = [
-                ],
-            } = config
-            const relateProps = relates.filter(item => item.propField).reduce((obj, item) => {
-                obj[item.propField] = this.getRelateData(item)
-                return obj
-            }, Object.create(null))
-
-            return Object.assign({}, config, relateProps)
-        },
-        injectLabelComponents () {
-            if (!this.hasInjectLabelComponents) {
-                return this.labelComponentsInjected = true
-            }
-
-            injectComponents(this, this.needInjectLabelComponentsMap).then(() => {
-                this.labelComponentsInjected = true
-            })
-        },
-        injectEditorComponents () {
-            if (!this.hasInjectEditorComponents) {
-                return this.editorComponentsInjected = true
-            }
-            injectComponents(this, this.needInjectEditorComponentsList).then(() => {
-                this.editorComponentsInjected = true
-            })
-        },
-        validate () {
-            const keys = Object.keys(this.validators)
-
-            const promises = keys.map((field) => {
-                return this.validateField(field, this.formData[field])
-            })
-
-            if (!this.hasValidateListener) {
-                keys.forEach((field) => {
-                    this.validators[field].unwatch = this.addValidateInputListener(field)
-                })
-                this.hasValidateListener = true
-            }
-
-            return Promise.all(promises).then(() => {
-                return JSON.parse(JSON.stringify(this.formData))
-            })
-        },
-        validateField (field, value) {
-            return new Promise((resolve, reject) => {
-                const asyncValidator = this.validators[field]['validator']
-                asyncValidator.validate({ [field]: value, }, (errors, fields) => {
-                    if (errors) {
-                        this.validators[field]['hasErr'] = true
-                        this.validators[field]['errMsg'] = errors[0]['message']
-                        reject(errors[0]['message'])
-                    } else {
-                        this.validators[field]['hasErr'] = false
-                        this.validators[field]['errMsg'] = ''
-                        resolve()
-                    }
-                })
-            })
-        },
-        addValidateInputListener (field) {
-            return this.$watch(() => {
-                return this.localRecord[field]
-            }, (value) => {
-                this.validateField(field, value).catch(() => {})
-            })
-        },
         resetRelates () {
             this.recordUnwatchs.forEach((unwatch) => {
-                unwatch && unwatch()
-            })
-            this.recordUnwatchs = [
-            ]
+                unwatch && unwatch();
+            });
+            this.recordUnwatchs = [];
 
             this.editFieldsArray.forEach((field) => {
-                const editorComponent = this.fields[field].editorComponent
-                if (!editorComponent || !editorComponent.config || !editorComponent.config.relates) {
-                    return
+                const editorComponent = this.fields[field].editorComponent;
+                if(!Array.isArray(editorComponent.relates)){
+                    return;
                 }
-                const relates = this.fields[field].editorComponent.config.relates
+                const relates = this.fields[field].editorComponent.relates;
 
                 relates.filter(relateItem => typeof relateItem.handler === 'function').forEach((relateItem) => {
                     const callback = function (newVal, oldVal) {
                         if (this.$refs[field]) {
-                            relateItem.handler.call(this.$refs[field], newVal, this.fields[field], oldVal)
+                            relateItem.handler.call(this.$refs[field], newVal, oldVal, this.fields[field]);
                         } else {
                             setTimeout(() => {
-                                callback.call(this, newVal, oldVal)
-                            }, 0)
+                                callback.call(this, newVal, oldVal);
+                            }, 0);
                         }
-                    }
+                    };
 
                     const unwatch = this.$watch(() => {
-                        return this.getRelateData(relateItem)
-                    }, callback, relateItem.config)
+                        return this.getRelateData(relateItem);
+                    }, callback, relateItem.config);
 
-                    this.recordUnwatchs.push(unwatch)
-                })
-            })
+                    this.recordUnwatchs.push(unwatch);
+                });
+            });
+        },
+        generateEditorProp (field) {
+            const editorComponent = this.fields[field].editorComponent;
+            const relateProps = (editorComponent.relates || []).filter(item => item.propField).reduce((obj, item) => {
+                obj[item.propField] = this.getRelateData(item);
+                return obj;
+            }, Object.create(null));
+
+            const defaultConfig = editorComponent.config || {};
+            const modeConfig = editorComponent[`${this.mode}Config`] || {};
+
+            return Object.assign({}, defaultConfig, modeConfig,relateProps);
+        },
+        getRelateData (relateItem) {
+            if (Array.isArray(relateItem.relateField)) {
+                return relateItem.relateField.reduce((obj, field) => {
+                    obj[field] = this.localRecord[field];
+                    return obj;
+                }, {});
+            } else {
+                return this.localRecord[relateItem.relateField];
+            }
+        },
+        injectLabelComponents () {
+            if (!this.hasInjectLabelComponents) {
+                return this.labelComponentsInjected = true;
+            }
+
+            injectComponents(this, this.needInjectLabelComponentsMap).then(() => {
+                this.labelComponentsInjected = true;
+            });
+        },
+        injectEditorComponents () {
+            if (!this.hasInjectEditorComponents) {
+                return this.editorComponentsInjected = true;
+            }
+            injectComponents(this, this.needInjectEditorComponentsList).then(() => {
+                this.editorComponentsInjected = true;
+            });
         },
         initValidate () {
             this.editFieldsArray.forEach((field) => {
                 if (!this.fields[field].validator) {
-                    return
+                    return;
                 }
-                const asyncValidator = new AsyncValidator({ [field]: this.fields[field].validator, })
+                const asyncValidator = new AsyncValidator({
+                    [field]: this.fields[field].validator, 
+                });
 
                 this.$set(this.validators, field, {
                     hasErr: false,
                     errMsg: '',
                     validator: asyncValidator,
                     unwatch: null,
-                })
+                });
 
                 if (this.autoValidate) {
-                    this.validators[field].unwatch = this.addValidateInputListener(field)
+                    this.validators[field].unwatch = this.addValidateInputListener(field);
                 }
-            })
+            });
 
             if (this.autoValidate) {
-                this.hasValidateListener = true
+                this.hasValidateListener = true;
             }
+        },
+        validate () {
+            const keys = Object.keys(this.validators);
+
+            const promises = keys.map((field) => {
+                return this.validateField(field, this.formData[field]);
+            });
+
+            if (!this.hasValidateListener) {
+                keys.forEach((field) => {
+                    this.validators[field].unwatch = this.addValidateInputListener(field);
+                });
+                this.hasValidateListener = true;
+            }
+
+            return Promise.all(promises).then(() => {
+                return JSON.parse(JSON.stringify(this.formData));
+            });
+        },
+        addValidateInputListener (field) {
+            return this.$watch(() => {
+                return this.localRecord[field];
+            }, (value) => {
+                this.validateField(field, value).catch(() => {});
+            });
+        },
+        validateField (field, value) {
+            return new Promise((resolve, reject) => {
+                const asyncValidator = this.validators[field]['validator'];
+                asyncValidator.validate({
+                    [field]: value, 
+                }, (errors, fields) => {
+                    if (errors) {
+                        this.validators[field]['hasErr'] = true;
+                        this.validators[field]['errMsg'] = errors[0]['message'];
+                        reject(errors[0]['message']);
+                    } else {
+                        this.validators[field]['hasErr'] = false;
+                        this.validators[field]['errMsg'] = '';
+                        resolve();
+                    }
+                });
+            });
         },
         genTip (tip) {
             if (typeof tip === 'function') {
-                tip = tip.call(this)
+                tip = tip.call(this);
             }
-            return tip
+            return tip;
         },
     },
-}
+};
 </script>
 
 <style scoped>

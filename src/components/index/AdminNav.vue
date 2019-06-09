@@ -21,10 +21,10 @@ export default {
     name:'AdminNav',
     methods: {
         doLogout () {
-            this.$store.dispatch('doLogout')
+            this.$store.dispatch('doLogout');
         },
     },
-}
+};
 </script>
 
 <style scoped>

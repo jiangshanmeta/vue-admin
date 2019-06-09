@@ -1,95 +1,172 @@
-view是为了展示字段而设立的配置项，目前支持函数和组件两种模式。如果不配置该项则原样展示。
+# View
 
-为了能让多个字段作为一个字段展示，设立了join参数(可选)。可以是对象，也可以是数组。
+view属性是用来处理字段的展示问题而设定的配置项，如果不设置该选项则直接渲染原始数据。
+
+## 函数模式和组件模式
+
+view属性提供了两种模式，函数模式和组件模式。
+
+函数模式一般是在渲染比较简单的情况下使用，这种模式仅需要配置handler属性:
 
 ```javascript
-join:{
-    customername:"name",
-    address:"position"
+view:{
+    handler(data){
+        return (
+            <div class="view-handler">
+                {data}
+            </div>
+        )
+    },
 },
 ```
 
-上面代码的意思是，原来的数据中有customername和address两个字段，但是分别用name和position作为新的key传递。对于数组形式，意味着key和原数据保持一致。
-
-为了提高通用性，提供了config参数(可选，一个对象)。
-
-函数形式使用示例：
+组件模式是在渲染相对比较复杂，或者可复用性比较强的时候使用，它需要配置name和component两个属性：
 
 ```javascript
 view:{
-    // handler是一个函数，对应函数模式
-    // 为了使用方便，this被绑定到父组件上
+    name:'ViewMarkdown',
+    component:() => import('@/components/common/Views/ViewMarkdown').then((rst) => rst.default),
+},
+```
+
+name属性是必须的，尽可能与渲染组件文件名一致，这样易于管理，同时也能保持唯一性。
+
+要开发一个View类型组件，推荐使用函数式组件。一般情况下会被传入data属性，这个prop是该字段的值。
+
+## config属性
+
+为了提高可复用性，提供了一个config属性。
+
+对于函数模式，config会作为第二个参数传给handler：
+
+```javascript
+view:{
     handler(data,config){
-        return `${data.customername} ${config.glue} ${data.address}`;
+        return `${config.prefix} ${data}`
     },
-    // 数组形式声明，不需要改变字段的名称
-    join:["customername","address"],
     config:{
-        glue:" 的收货地址是 ",
+        prefix:'一个前缀',
     },
 }
 ```
 
-组件形式使用示例：
-
-```javascript
-view:{
-    // view组件的名称，必传，要保证唯一性
-    name:"test_view_join",
-    // 组件模式
-    component:()=>import("@/components/book/views/test_view_join").then((rst)=>rst.default),
-    // 联合customername和address字段，但是传递给组件的时候名称分别为name和position
-    join:{
-        customername:"name",
-        address:"position"
-    },
-    config:{
-        glue:" 的收货地址是 ",
-    },
-}
-```
-
-还有个配置选项getViewValue，它是个函数，入参是字段值，函数的返回值会被传入view component/handler ，这样利于复用view handler/component。
+对于组件模式，config属性会被展开传入给组件，所以一定要是对象形式
 
 ```javascript
 view:{
     name:"ViewEnum",
     component:()=>import("@/components/common/Views/ViewEnum").then((rst)=>rst.default),
     config:{
-        enums:typHash
+        enums:{
+            1:'失败人士',
+            2:'成功人士',
+            3:'自杀人士',
+        }
     },
-    // 可选参数，默认操作是原样返回identity
+}
+```
+
+对于ViewEnum组件，其props属性如下:
+
+```javascript
+props:{
+    data:{
+        type:[Number,String],
+        required:true,
+    },
+    enums:{
+        type:Object,
+        required:true,
+    },
+},
+```
+
+## join属性
+
+在前端可能会遇到这么一个需求，需要把几个字段放到一起去展示，join字段就是用来解决这个问题的。
+
+join可以配置为数组，也可以配置为对象。配置为数组意味着传入的字段名和原始字段名一致，配置为对象意味着key是数据原始字段名，value是传入的新字段名。
+
+对于函数模式，所有的字段都会被或合并到第一个参数中：
+
+```javascript
+view:{
+    handler(data){
+        return `${data.name} -- ${data.address}`
+    },
+    join:['address','name'],
+},
+```
+
+对于组件模式，这些字段会被展开传入：
+
+```javascript
+view:{
+    name:'viewJoin',
+    component:ViewJoin,
+    join:{
+        'address':'joinAddress',
+    },
+},
+```
+
+则joinAddress会作为一个prop传入
+
+## getViewValue
+
+getViewValue配置项是个函数，默认原样返回。用它对要展示的数据进行处理。
+
+例如，我们有渲染枚举的组件ViewEnum，一般情况下后端仅需返回1 2 3这样的枚举值即可，但是有的后端可能会返回```{index:1}```这种，为了处理这种数据，写个新组件ViewEnumFuckBackend当然可以，getViewValue也是一种解决方案：
+
+```javascript
+view:{
+    name:"ViewEnum",
+    component:()=>import("@/components/common/Views/ViewEnum").then((rst)=>rst.default),
+    config:{
+        enums:{
+            1:'失败人士',
+            2:'成功人士',
+            3:'自杀人士',
+        }
+    },
     getViewValue(data){
         return data.index;
     },
 },
 ```
 
+这个函数调用时，this指向一个Vue实例(别问是哪个), 可以访问```$store```等资源
 
+然而，遇到需要这个配置项的时候，一般意味着项目管理出现了问题。
 
-考虑到viewComponent仅仅是负责展示，因而推荐使用functional component。下面提及的几个viewComponent实现也都是基于functional component的。
+## 提供的几个组件
 
-
-## ViewEnum
+### ViewEnum
 
 这个组件是为了展示枚举类型的字段用的
 
-参数：
-
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-| data   | 否 | String Number | 真实值 | 作为viewComponent时该值自动传入   |
+| data   | 否 | String Number | 真实值 | 作为ViewComponent时该值自动传入   |
 | enums  |  是  | Object    | 枚举配置项 | - |
 
-## ViewHTML
+### ViewHTML
 
-输出真正的 HTML
+相当于v-html
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-| data   | 否 | String | 真实值 | 作为viewComponent时该值自动传入   |
+| data   | 否 | String | 真实值 | 作为ViewComponent时该值自动传入   |
 
-## ViewTransform
+### ViewMarkdown
+
+渲染markdown用的，本组件仅作为vue-markdown的包装，其余参数参考[vue-markdown](https://github.com/miaolz123/vue-markdown)
+
+| 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
+| :---:  | :--:  | :--: | :-----:  | :--: |
+| data   | 否 | String | 真实值 | 作为ViewComponent时该值自动传入   |
+
+### ViewTransform
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
@@ -97,11 +174,3 @@ view:{
 | transform  |  是  | Function    | 转换函数，第一个参数是data | - |
 
 这个组件其实是函数模式的前身，用处不大
-
-## ViewMarkdown
-
-| 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
-| :---:  | :--:  | :--: | :-----:  | :--: |
-| data   | 否 | String | 真实值 | 作为viewComponent时该值自动传入   |
-
-本组件仅作为vue-markdown的包装，其余参数参考[vue-markdown](https://github.com/miaolz123/vue-markdown)

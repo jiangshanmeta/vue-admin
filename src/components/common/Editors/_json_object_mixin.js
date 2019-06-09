@@ -3,8 +3,7 @@ export default {
         struct: {
             type: Function,
             default () {
-                return [
-                ]
+                return [];
             },
         },
         value: {
@@ -15,16 +14,16 @@ export default {
         model: {
             get () {
                 try {
-                    return JSON.parse(this.value)
+                    return JSON.parse(this.value);
                 } catch (e) {
-                    const val = this.struct.call(this)
-                    this.model = val
-                    return val
+                    const val = this.struct.call(this);
+                    this.model = val;
+                    return val;
                 }
             },
             set (val) {
-                this.$emit('input', JSON.stringify(val))
+                this.$emit('input', JSON.stringify(val));
             },
         },
     },
-}
+};

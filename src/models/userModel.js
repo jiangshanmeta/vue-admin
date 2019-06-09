@@ -10,13 +10,19 @@ import {
     editUser,
     delUser,
     getTypEnum,
-} from '@/server/user'
+} from '@/server/user';
 
 import {
     onceAsync,
-} from '@/widget/utility'
+} from '@/widget/utility';
 
-const cacheGetTypEnum = onceAsync(getTypEnum)
+import Vue from 'vue';
+
+const userModelCacheData = Vue.observable({
+    asyncTypHash:{},
+});
+
+const cacheGetTypEnum = onceAsync(getTypEnum);
 
 export default function () {
     return {
@@ -37,7 +43,7 @@ export default function () {
                 view: {
                     handler (data, config) {
                         // console.log(this);
-                        return config.prefix + data
+                        return config.prefix + data;
                     },
                     config: {
                         prefix: '用户名',
@@ -49,9 +55,9 @@ export default function () {
                             if (value.length < 2) {
                                 cb([
                                     new Error('姓名最少两个字符'),
-                                ])
+                                ]);
                             } else {
-                                cb()
+                                cb();
                             }
                         },
                     },
@@ -61,25 +67,24 @@ export default function () {
                 label: '密码',
                 editorComponent: {
                     name: 'EditorPwd',
+                    relates: [
+                        {
+                            relateField: [
+                                'name',
+                            ],
+                            handler (info) {
+                                console.log(info);
+                                if (info.name === 'lelouch') {
+                                    this.$emit('input', 'naive');
+                                }
+                            },
+                            config: {
+                                immediate: true,
+                            },
+                        },
+                    ],
                     config: {
                         placeholder: '请输入密码',
-                        relates: [
-                            {
-                                relateField: [
-                                    'name',
-                                ],
-                                handler (info) {
-                                    console.log(info)
-                                    if (info.name === 'lelouch') {
-                                        this.$emit('input', 0)
-                                    }
-                                },
-                                config: {
-                                    immediate: true,
-                                },
-                            },
-                        ],
-
                     },
                     default: '',
                 },
@@ -89,9 +94,9 @@ export default function () {
                             if (value.length > 15) {
                                 cb([
                                     new Error('密码位数最多为15位'),
-                                ])
+                                ]);
                             } else {
-                                cb()
+                                cb();
                             }
                         },
                     },
@@ -112,7 +117,7 @@ export default function () {
                     },
                 },
                 tip () {
-                    return '暂不支持LGBT'
+                    return '暂不支持LGBT';
                 },
                 tableColumnConfig: {
                     align: 'center',
@@ -126,7 +131,7 @@ export default function () {
                         ],
                     },
                     info: {
-                        name: 'label_redstar',
+                        name: 'LabelUserRedstar',
                         component: () => import('@/components/user/Labels/LabelUserRedstar').then((rst) => rst.default),
                     },
 
@@ -142,28 +147,30 @@ export default function () {
                         valuefield: 'value',
                         labelfield: 'label',
                         getModelValue (data) {
-                            return data.index
+                            return data.index;
                         },
                         setModelValue (data) {
                             return {
                                 index: data,
-                            }
+                            };
                         },
                     },
                     default () {
                         return {
                             index: 0,
-                        }
+                        };
                     },
                 },
                 view: {
                     name: 'ViewEnum',
                     component: () => import('@/components/common/Views/ViewEnum').then((rst) => rst.default),
                     config: {
-                        enums: typHash,
+                        get enums(){
+                            return userModelCacheData.asyncTypHash;
+                        },
                     },
                     getViewValue (data) {
-                        return data.index
+                        return data.index;
                     },
                 },
             },
@@ -171,35 +178,34 @@ export default function () {
                 label: '权限',
                 editorComponent: {
                     name: 'EditorArrayRelatesCheckbox',
+                    relates: [
+                        {
+                            relateField: [
+                                'typ',
+                            ],
+                            propField: 'relateData',
+                        },
+                    ],
                     config: {
                         getCandidate: getPrivilege,
                         labelfield: 'name',
                         valuefield: 'id',
-                        relates: [
-                            {
-                                relateField: [
-                                    'typ',
-                                ],
-                                isValidValue (value, field) {
-                                    if (field === 'typ') {
-                                        value = value.index
-                                        return value !== 0
-                                    }
-                                    return true
-                                },
-                                getCacheKey (value, field) {
-                                    if (field === 'typ') {
-                                        return value.index
-                                    }
-                                    return value
-                                },
-                                propField: 'relateData',
-                            },
-                        ],
+                        isValidValue (value, field) {
+                            if (field === 'typ') {
+                                value = value.index;
+                                return value !== 0;
+                            }
+                            return true;
+                        },
+                        getCacheKey (value, field) {
+                            if (field === 'typ') {
+                                return value.index;
+                            }
+                            return value;
+                        },
                     },
                     default () {
-                        return [
-                        ]
+                        return [];
                     },
                 },
                 colspan: {
@@ -262,7 +268,7 @@ export default function () {
             {
                 label: '姓名',
                 field: 'username',
-                editorComponent: {
+                filterComponent: {
                     name: 'EditorString',
                     config: {
                         placeholder: '请输入用户姓名',
@@ -273,7 +279,7 @@ export default function () {
             {
                 label: '类型',
                 field: 'typ',
-                editorComponent: {
+                filterComponent: {
                     name: 'FilterEnumAsyncSelect',
                     config: {
                         getCandidate: cacheGetTypEnum,
@@ -286,7 +292,7 @@ export default function () {
             {
                 label: '权限',
                 field: 'privilege',
-                editorComponent: {
+                filterComponent: {
                     name: 'FilterEnumRelatesSelect',
                     config: {
                         getCandidate: getPrivilege,
@@ -295,32 +301,26 @@ export default function () {
                         placeholder: '请选择权限',
                         allvalue: 'all',
                         alllabel: '不限',
-                        relates: [
-                            {
-                                relateField: [
-                                    'typ',
-                                ],
-                                invalidValue: {
-                                    typ: -1,
-                                },
-                                requestField: {
-                                    typ: 'req_typ',
-                                },
-                                propField: 'relateData',
-                            },
-                        ],
                         handleInvalidRelateIds () {
-                            this.$emit('input', 'all')
+                            this.$emit('input', 'all');
                         },
 
                     },
                     default: 'all',
                 },
+                relates: [
+                    {
+                        relateField: [
+                            'typ',
+                        ],
+                        propField: 'relateData',
+                    },
+                ],
             },
             {
                 label: '自定义filter',
                 field: 'test',
-                editorComponent: {
+                filterComponent: {
                     name: 'test_custom_filter',
                     config: {
                         msg: '测试自定义filter',
@@ -338,10 +338,16 @@ export default function () {
             },
         ],
         listConfig: {
+            createdHook(){
+                setTimeout(()=>{
+                    userModelCacheData.asyncTypHash = JSON.parse(JSON.stringify(typHash));
+                    // asyncTypHash = JSON.parse(JSON.stringify(typHash));
+                },5000);
+            },
             listRequest: getUserList,
-            sortFields: [
-                'typ',
-            ],
+            sortableFields:{
+                'typ':true,
+            },
             paginationConfig: {
                 layout: 'total, sizes, prev, pager, next, jumper',
                 pageSizes: [
@@ -399,10 +405,10 @@ export default function () {
                         message: `${data.name}不要总想着搞个大新闻`,
                         type: 'success',
                         duration: 2000,
-                    })
+                    });
                     setTimeout(() => {
-                        resolve()
-                    }, 1000)
+                        resolve();
+                    }, 1000);
                 },
                 triggerConfig: {
                     text: '搞个大新闻',
@@ -422,28 +428,6 @@ export default function () {
                     },
                 },
             },
-            {
-                name: 'toggle',
-                component: () => import('@/components/common/Operators/OperatorToggle').then((rst) => rst.default),
-                config: {
-                    descriptor: [
-                        { value: 0, text: '更改性别为女', type: 'warning', },
-                        { value: 1, text: '更改性别为男', type: 'danger', },
-                    ],
-                    field: 'gender',
-                    handleToggle (resolve, data) {
-                        console.log(data)
-                        resolve()
-                    },
-                    reserveFields: [
-                        'id',
-                    ],
-                    triggerConfig: {
-                        size: 'small',
-                    },
-                },
-            },
-
         ],
-    }
+    };
 }

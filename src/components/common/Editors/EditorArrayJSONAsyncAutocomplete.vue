@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import _json_object_mixin from './_json_object_mixin'
+import _json_object_mixin from './_json_object_mixin';
 
 export default {
     name: 'EditorArrayJSONAsyncAutocomplete',
@@ -17,5 +17,5 @@ export default {
         _json_object_mixin,
     ],
     inheritAttrs: true,
-}
+};
 </script>

@@ -8,8 +8,10 @@
 </template>
 
 <script>
-import _id_mixin from '@/mixins/common/_id_mixin.js'
-import { logError, } from '@/widget/utility.js'
+import _id_mixin from '@/mixins/common/_id_mixin.js';
+import {
+    logError, 
+} from '@/widget/utility.js';
 export default {
     name: 'OperatorDelete',
     mixins: [
@@ -27,7 +29,7 @@ export default {
         triggerConfig: {
             type: Object,
             default () {
-                return {}
+                return {};
             },
         },
     },
@@ -39,12 +41,12 @@ export default {
                 type: 'warning',
             }).then(() => {
                 new Promise((resolve, reject) => {
-                    this.doDeleteRequest(resolve, this.data)
+                    this.doDeleteRequest(resolve, this.data);
                 }).then(() => {
-                    this.$emit('update')
-                }).catch(logError)
-            }).catch(logError)
+                    this.$emit('update');
+                }).catch(logError);
+            }).catch(logError);
         },
     },
-}
+};
 </script>

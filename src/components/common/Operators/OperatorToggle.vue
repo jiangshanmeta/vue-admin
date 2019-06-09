@@ -9,7 +9,9 @@
 </template>
 
 <script>
-import { logError, } from '@/widget/utility.js'
+import {
+    logError, 
+} from '@/widget/utility.js';
 export default {
     name: 'Toggle',
     props: {
@@ -28,8 +30,7 @@ export default {
         reserveFields: {
             type: Array,
             default: function () {
-                return [
-                ]
+                return [];
             },
         },
         handleToggle: {
@@ -41,43 +42,43 @@ export default {
         triggerConfig: {
             type: Object,
             default () {
-                return {}
+                return {};
             },
         },
     },
     computed: {
         textMap () {
-            const map = new Map()
-            map.set(this.descriptor[0].value, this.descriptor[0].text)
-            map.set(this.descriptor[1].value, this.descriptor[1].text)
-            return map
+            const map = new Map();
+            map.set(this.descriptor[0].value, this.descriptor[0].text);
+            map.set(this.descriptor[1].value, this.descriptor[1].text);
+            return map;
         },
         typeMap () {
-            const map = new Map()
-            map.set(this.descriptor[0].value, this.descriptor[0].type)
-            map.set(this.descriptor[1].value, this.descriptor[1].type)
-            return map
+            const map = new Map();
+            map.set(this.descriptor[0].value, this.descriptor[0].type);
+            map.set(this.descriptor[1].value, this.descriptor[1].type);
+            return map;
         },
         valueMap () {
-            const map = new Map()
-            map.set(this.descriptor[0].value, this.descriptor[1].value)
-            map.set(this.descriptor[1].value, this.descriptor[0].value)
-            return map
+            const map = new Map();
+            map.set(this.descriptor[0].value, this.descriptor[1].value);
+            map.set(this.descriptor[1].value, this.descriptor[0].value);
+            return map;
         },
     },
     methods: {
         handleClick () {
-            const data = {}
-            data[this.field] = this.valueMap.get(this.data[this.field])
+            const data = {};
+            data[this.field] = this.valueMap.get(this.data[this.field]);
             this.reserveFields.forEach((field) => {
-                data[field] = this.data[field]
-            })
+                data[field] = this.data[field];
+            });
             new Promise((resolve, reject) => {
-                this.handleToggle(resolve, data)
+                this.handleToggle(resolve, data);
             }).then(() => {
-                this.$emit('update')
-            }).catch(logError)
+                this.$emit('update');
+            }).catch(logError);
         },
     },
-}
+};
 </script>

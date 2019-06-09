@@ -1,6 +1,6 @@
-import merge from 'deepmerge'
+import merge from 'deepmerge';
 
-import _props_label_value_mixin from './_props_label_value_mixin'
+import _props_label_value_mixin from './_props_label_value_mixin';
 
 export default merge.all([
     _props_label_value_mixin, {
@@ -9,11 +9,11 @@ export default merge.all([
                 const {
                     valuefield,
                     labelfield,
-                } = this
+                } = this;
                 return this.candidate.reduce((map, item) => {
-                    return map.set(item[valuefield], item[labelfield])
-                }, new Map())
+                    return map.set(item[valuefield], item[labelfield]);
+                }, new Map());
             },
         },
     },
-])
+]);

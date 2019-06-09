@@ -1,3 +1,4 @@
+/* eslint-disable  */
 export default {
     label: '测试',
     icon: 'el-icon-menu',
@@ -32,10 +33,11 @@ export default {
         //     path: '/test/test_filter',
         //     label: '筛选',
         //     component: () => import('@/pages/test/test_filter'),
+        //     menuHide:true,
         //     meta: {
-        //         // menuHide:true,
+        //         // 
         //     },
         // },
 
     ],
-}
+};

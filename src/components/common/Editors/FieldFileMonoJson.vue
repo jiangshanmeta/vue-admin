@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import FieldFileMono from './FieldFileMono'
-import _json_object_mixin from './_json_object_mixin'
-import _mono_json_struct_object_mixin from './_mono_json_struct_object_mixin'
+import FieldFileMono from './FieldFileMono';
+import _json_object_mixin from './_json_object_mixin';
+import _mono_json_struct_object_mixin from './_mono_json_struct_object_mixin';
 
 export default {
     name: 'FieldFileMonoJson',
@@ -20,5 +20,5 @@ export default {
         _mono_json_struct_object_mixin,
     ],
     inheritAttrs: true,
-}
+};
 </script>

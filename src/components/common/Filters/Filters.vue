@@ -11,7 +11,7 @@
             :label="item.label"
         >
             <component
-                :is="item.editorComponent.name"
+                :is="item.filterComponent.name"
                 :ref="item.field"
                 v-model="filtersValueMap[item.field]"
                 v-bind="generateFilterProp(item)"
@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import injectComponents from '@/widget/injectComponents'
-import getNeedInjectFilterComponentsList from '@/injectHelper/injectFilterComponentsHelper'
+import injectComponents from '@/widget/injectComponents';
+import getNeedInjectFilterComponentsList from '@/injectHelper/injectFilterComponentsHelper';
 
 export default {
     name: 'Filters',
@@ -63,6 +63,7 @@ export default {
         EditorTimeYear: () => import('../Editors/EditorTimeYear'),
         EditorTimeMonth: () => import('../Editors/EditorTimeMonth'),
         EditorTimeDay: () => import('../Editors/EditorTimeDay'),
+        EditorTimeTs:() => import('../Editors/EditorTimeTs'),
         EditorString: () => import('../Editors/EditorString'),
         EditorNumber: () => import('../Editors/EditorNumber'),
 
@@ -70,10 +71,9 @@ export default {
     },
     inheritAttrs: true,
     state: {
-        needInjectFilterComponentsList: [
-        ],
+        needInjectFilterComponentsList: [],
         get hasInjectFilterComponents () {
-            return this.needInjectFilterComponentsList.length > 0
+            return this.needInjectFilterComponentsList.length > 0;
         },
     },
     props: {
@@ -88,8 +88,7 @@ export default {
         filterOperators: {
             type: Array,
             default () {
-                return [
-                ]
+                return [];
             },
         },
     },
@@ -97,105 +96,99 @@ export default {
         return {
             componentsInjected: false,
             filtersValueMap: {},
-        }
+        };
     },
     computed: {
         formData () {
-            return JSON.parse(JSON.stringify(this.filtersValueMap))
+            return JSON.parse(JSON.stringify(this.filtersValueMap));
         },
     },
     created () {
-        this.needInjectFilterComponentsList = getNeedInjectFilterComponentsList(this.filters)
-        this.injectFilterComponents()
+        this.needInjectFilterComponentsList = getNeedInjectFilterComponentsList(this.filters);
+        this.injectFilterComponents();
 
-        this.resetValue()
-        this.initRelates()
-        this.initWatch()
+        this.resetValue();
+        this.initRelates();
+        this.initWatch();
     },
     methods: {
         search () {
-            this.$emit('search')
+            this.$emit('search');
         },
         injectFilterComponents () {
             if (!this.hasInjectFilterComponents) {
-                return
+                return;
             }
             injectComponents(this, this.needInjectFilterComponentsList).then(() => {
-                this.componentsInjected = true
-            })
+                this.componentsInjected = true;
+            });
         },
         resetValue () {
             this.filtersValueMap = this.filters.reduce((obj, item) => {
-                const defaultConfig = item.editorComponent.default
-                obj[item.field] = typeof defaultConfig === 'function' ? defaultConfig.call(this) : defaultConfig
-                return obj
-            }, {})
+                const defaultConfig = item.filterComponent.default;
+                obj[item.field] = typeof defaultConfig === 'function' ? defaultConfig.call(this) : defaultConfig;
+                return obj;
+            }, {});
         },
         getRelateData (relateItem) {
             if (Array.isArray(relateItem.relateField)) {
                 return relateItem.relateField.reduce((obj, field) => {
-                    obj[field] = this.filtersValueMap[field]
-                    return obj
-                }, {})
+                    obj[field] = this.filtersValueMap[field];
+                    return obj;
+                }, {});
             } else {
-                return this.filtersValueMap[relateItem.relateField]
+                return this.filtersValueMap[relateItem.relateField];
             }
         },
-        // 支持 editorComponent relates propField 模式
+        // 支持 filterComponent relates propField 模式
         generateFilterProp (filterItem) {
-            const config = filterItem.editorComponent.config || {}
-            const {
-                relates = [
-                ],
-            } = config
-
+            const relates = filterItem.relates || [];
+            const config = filterItem.filterComponent.config || {};
             const relateProps = relates.filter(item => item.propField).reduce((obj, item) => {
-                obj[item.propField] = this.getRelateData(item)
-                return obj
-            }, Object.create(null))
+                obj[item.propField] = this.getRelateData(item);
+                return obj;
+            }, Object.create(null));
 
-            return Object.assign({}, this.$attrs, config, relateProps)
+            return Object.assign({}, this.$attrs, config, relateProps);
         },
         initRelates () {
-            // 支持 editorComponent relates handler 模式
+            // 支持 filterComponent relates handler 模式
             this.filters.forEach((filterItem) => {
-                if (!filterItem.editorComponent || !filterItem.editorComponent.config || !Array.isArray(filterItem.editorComponent.config.relates)) {
-                    return
+                if(!Array.isArray(filterItem.relates)){
+                    return;
                 }
-
-                const relates = filterItem.editorComponent.config.relates
-                relates.filter((relateItem) => typeof relateItem.handler === 'function').forEach((relateItem) => {
+                filterItem.relates.filter((relateItem) => typeof relateItem.handler === 'function').forEach((relateItem) => {
                     const callback = function (newVal, oldVal) {
                         if (this.$refs[filterItem.field] && this.$refs[filterItem.field][0]) {
-                            relateItem.handler.call(this.$refs[filterItem.field][0], newVal, oldVal)
+                            relateItem.handler.call(this.$refs[filterItem.field][0], newVal, oldVal);
                         } else {
                             setTimeout(() => {
-                                callback.call(this, newVal, oldVal)
-                            }, 0)
+                                callback.call(this, newVal, oldVal);
+                            }, 0);
                         }
-                    }
+                    };
 
                     this.$watch(() => {
-                        return this.getRelateData(relateItem)
-                    }, callback, relateItem.config)
-                })
-            })
+                        return this.getRelateData(relateItem);
+                    }, callback, relateItem.config);
+                });
+            });
         },
         initWatch () {
-            const watchFilters = this.filters.filter(item => item.watch)
+            const watchFilters = this.filters.filter(item => item.watch);
             if (watchFilters.length) {
                 this.$watch(() => {
-                    return watchFilters.map(item => this.filtersValueMap[item.field])
-                }, this.search)
+                    return watchFilters.map(item => this.filtersValueMap[item.field]);
+                }, this.search);
             }
         },
     },
     provide () {
         return {
             filtersComponent: this,
-        }
+        };
     },
-}
+};
 </script>
 
 <style scoped>

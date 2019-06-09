@@ -24,26 +24,26 @@ export default {
         return {
             phone: '',
             pwd: '',
-        }
+        };
     },
     methods: {
         doLogin () {
-            const phone = this.phone
+            const phone = this.phone;
             if (!phone) {
-                alert('请输入手机号')
-                return
+                alert('请输入手机号');
+                return;
             }
-            const pwd = this.pwd
+            const pwd = this.pwd;
             if (!pwd) {
-                alert('请输入手机号')
-                return
+                alert('请输入手机号');
+                return;
             }
             const data = {
                 phone,
                 pwd,
-            }
-            this.$store.dispatch('doLogin', data)
+            };
+            this.$store.dispatch('doLogin', data);
         },
     },
-}
+};
 </script>

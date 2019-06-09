@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "async-validator": "^1.11.2",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "core-js": "^2.6.5",
     "csv-js": "^1.0.0",
     "deepmerge": "^3.2.0",

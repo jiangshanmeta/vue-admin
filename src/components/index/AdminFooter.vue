@@ -1,4 +1,4 @@
-<template>
+<template functional>
     <footer class="admin-footer">
         <div class="text-center">
             jiangshanmeta
@@ -7,9 +7,7 @@
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style scoped>

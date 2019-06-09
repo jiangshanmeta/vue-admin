@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import _props_value_number_mixin from './_props_value_number_mixin'
+import _props_value_number_mixin from './_props_value_number_mixin';
 
 export default {
     name: 'EditorInt',
@@ -21,26 +21,26 @@ export default {
     computed: {
         model: {
             get () {
-                return this.value
+                return this.value;
             },
             set (val) {
-                const intVal = Number.parseInt(val)
+                const intVal = Number.parseInt(val);
 
                 if (intVal !== val) {
                     this.$nextTick(() => {
-                        const inputNumber = this.$refs.EditorNumber.$refs.number
+                        const inputNumber = this.$refs.EditorNumber.$refs.number;
                         // 如果不修改input-number的currentValu值
                         // input-number的值为非法值
                         // 由于input组件监听了input-number组件的value
                         // 会被重写为非法值
-                        inputNumber.setCurrentValue(intVal)
-                        inputNumber.$refs.input.setCurrentValue(intVal)
-                    })
+                        inputNumber.setCurrentValue(intVal);
+                        inputNumber.$refs.input.setCurrentValue(intVal);
+                    });
                 } else {
-                    this.$emit('input', intVal)
+                    this.$emit('input', intVal);
                 }
             },
         },
     },
-}
+};
 </script>

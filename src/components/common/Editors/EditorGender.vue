@@ -7,13 +7,19 @@
 </template>
 
 <script>
-import _props_value_number_mixin from './_props_value_number_mixin.js'
-import _computed_model_mixin from './_computed_model_mixin.js'
+import _props_value_number_mixin from './_props_value_number_mixin.js';
+import _computed_model_mixin from './_computed_model_mixin.js';
 
 const sexCandidate = [
-    { value: 0, label: '男', },
-    { value: 1, label: '女', },
-]
+    {
+        value: 0,
+        label: '男', 
+    },
+    {
+        value: 1,
+        label: '女', 
+    },
+];
 export default {
     name: 'EditorGender',
     components: {
@@ -27,7 +33,7 @@ export default {
     data () {
         return {
             candidate: sexCandidate,
-        }
+        };
     },
-}
+};
 </script>

@@ -7,7 +7,7 @@ export default {
     },
     computed: {
         id () {
-            return this.data[this.idfield]
+            return this.data[this.idfield];
         },
     },
-}
+};

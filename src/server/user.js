@@ -1,4 +1,6 @@
-import { enumArr2Hash, } from '@/widget/utility.js'
+import {
+    enumArr2Hash, 
+} from '@/widget/utility.js';
 
 const userTable = [
     {
@@ -6,7 +8,9 @@ const userTable = [
         name: '渡边早季',
         gender: 1,
         password: '123456',
-        typ: { index: 999, },
+        typ: {
+            index: 999, 
+        },
         privilege: [
             1, 2, 3, 5, 11, 123, 999,
         ],
@@ -17,7 +21,9 @@ const userTable = [
         name: '朝比奈觉',
         gender: 0,
         password: 'qwerty',
-        typ: { index: 99, },
+        typ: {
+            index: 99, 
+        },
         privilege: [
             1, 2, 3, 5,
         ],
@@ -28,7 +34,9 @@ const userTable = [
         name: '秋月真理亚',
         gender: 1,
         password: '123456',
-        typ: { index: 99, },
+        typ: {
+            index: 99, 
+        },
         privilege: [
             1, 2,
         ],
@@ -39,7 +47,9 @@ const userTable = [
         name: '伊东守',
         gender: 0,
         password: 'wwwww',
-        typ: { index: 2, },
+        typ: {
+            index: 2, 
+        },
         privilege: [
             0, 1,
         ],
@@ -50,70 +60,107 @@ const userTable = [
         name: '青沼瞬',
         gender: 0,
         password: '1234567',
-        typ: { index: 1, },
+        typ: {
+            index: 1, 
+        },
         privilege: [
             0,
         ],
         desc: '业魔化~',
     },
 
-]
+];
 
-let id = userTable.length + 1
+let id = userTable.length + 1;
 
 const genderEnum = {
     0: '男',
     1: '女',
-}
+};
 
 const typEnum = [
-    { value: 0, label: '路人甲', },
-    { value: 1, label: '店小二', },
-    { value: 2, label: '收银员', },
-    { value: 99, label: '店掌柜', },
-    { value: 999, label: '管理员', },
-]
+    {
+        value: 0,
+        label: '路人甲', 
+    },
+    {
+        value: 1,
+        label: '店小二', 
+    },
+    {
+        value: 2,
+        label: '收银员', 
+    },
+    {
+        value: 99,
+        label: '店掌柜', 
+    },
+    {
+        value: 999,
+        label: '管理员', 
+    },
+];
 
 function getTypEnum (cb) {
-    cb(typEnum)
+    cb(typEnum);
 }
 
-const typHash = enumArr2Hash(typEnum)
+const typHash = enumArr2Hash(typEnum);
 
 const privilegeEnum = [
-    { 'id': 1, 'name': '游客', },
-    { 'id': 2, 'name': '打杂', },
-    { 'id': 3, 'name': '跑堂', },
-    { 'id': 5, 'name': '财务', },
-    { 'id': 11, 'name': '店长', },
-    { 'id': 123, 'name': '客服', },
-    { 'id': 999, 'name': '关小黑屋', },
-]
+    {
+        'id': 1,
+        'name': '游客', 
+    },
+    {
+        'id': 2,
+        'name': '打杂', 
+    },
+    {
+        'id': 3,
+        'name': '跑堂', 
+    },
+    {
+        'id': 5,
+        'name': '财务', 
+    },
+    {
+        'id': 11,
+        'name': '店长', 
+    },
+    {
+        'id': 123,
+        'name': '客服', 
+    },
+    {
+        'id': 999,
+        'name': '关小黑屋', 
+    },
+];
 
 function getPrivilege (cb, data) {
-    let typ = data.typ.index
-    let rst
+    let typ = data.typ.index;
+    let rst;
     switch (typ) {
     case 0:
-        rst = privilegeEnum.slice(0, 1)
-        break
+        rst = privilegeEnum.slice(0, 1);
+        break;
     case 1:
-        rst = privilegeEnum.slice(0, 2)
-        break
+        rst = privilegeEnum.slice(0, 2);
+        break;
     case 2:
-        rst = privilegeEnum.slice(0, 4)
-        break
+        rst = privilegeEnum.slice(0, 4);
+        break;
     case 99:
-        rst = privilegeEnum.slice(0, -2)
-        break
+        rst = privilegeEnum.slice(0, -2);
+        break;
     case 999:
-        rst = privilegeEnum.slice(0)
-        break
+        rst = privilegeEnum.slice(0);
+        break;
     default:
-        rst = [
-        ]
+        rst = [];
     }
-    cb(rst)
+    cb(rst);
 }
 
 const createFields = [
@@ -126,30 +173,30 @@ const createFields = [
     [
         'privilege',
     ],
-]
+];
 
 function getCreateFields (cb) {
-    cb(createFields)
+    cb(createFields);
 }
 
 function createUser (cb, data) {
-    data.id = id++
-    userTable.push(data)
-    cb()
+    data.id = id++;
+    userTable.push(data);
+    cb();
 }
 
 function getUserList (cb, params) {
-    let data = userTable
+    let data = userTable;
     let fieldList = [
         'name', 'gender', 'typ',
-    ]
-    let total = data.length
+    ];
+    let total = data.length;
 
     cb({
         data,
         fieldList,
         total,
-    })
+    });
 }
 
 const detailFields = [
@@ -162,18 +209,18 @@ const detailFields = [
     [
         'desc',
     ],
-]
+];
 
 function getUserDetail (cb) {
-    let id = this.data.id
+    let id = this.data.id;
 
     for (let item of userTable) {
         if (item.id === id) {
             cb({
                 fieldLayoutList: detailFields,
                 record: JSON.parse(JSON.stringify(item)),
-            })
-            return
+            });
+            return;
         }
     }
 }
@@ -191,43 +238,43 @@ const editFields = [
     [
         'desc',
     ],
-]
+];
 
 function getEditUserInfo (cb) {
-    let id = this.id
+    let id = this.id;
     for (let item of userTable) {
         if (item.id === id) {
-            console.log(item)
+            console.log(item);
             cb({
                 fieldLayoutList: JSON.parse(JSON.stringify(editFields)),
                 record: JSON.parse(JSON.stringify(item)),
-            })
-            return
+            });
+            return;
         }
     }
 }
 
 function editUser (cb, data) {
-    let id = this.id
+    let id = this.id;
     for (let item of userTable) {
         if (item.id === id) {
-            let keys = Object.keys(item)
+            let keys = Object.keys(item);
             keys.forEach((field) => {
                 if (field in data) {
-                    item[field] = data[field]
+                    item[field] = data[field];
                 }
-            })
-            break
+            });
+            break;
         }
     }
-    cb()
+    cb();
 }
 
 function delUser (cb) {
-    let id = this.id
+    let id = this.id;
     for (let index in userTable) {
         if (userTable[index]['id'] === id) {
-            userTable.splice(index, 1)
+            userTable.splice(index, 1);
         }
     }
 }
@@ -245,4 +292,4 @@ export {
     editUser,
     delUser,
     getTypEnum,
-}
+};

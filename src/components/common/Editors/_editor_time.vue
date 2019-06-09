@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import _props_value_mixin from './_props_value_mixin.js'
-import _computed_model_mixin from './_computed_model_mixin'
+import _props_value_mixin from './_props_value_mixin.js';
+import _computed_model_mixin from './_computed_model_mixin';
 
 export default {
     mixins: [
@@ -27,5 +27,5 @@ export default {
             default: 'timestamp',
         },
     },
-}
+};
 </script>

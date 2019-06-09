@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import _json_object_mixin from './_json_object_mixin'
-import _mono_json_struct_object_mixin from './_mono_json_struct_object_mixin'
+import _json_object_mixin from './_json_object_mixin';
+import _mono_json_struct_object_mixin from './_mono_json_struct_object_mixin';
 
 export default {
     name: 'FieldImageMonoJson',
@@ -19,5 +19,5 @@ export default {
         _mono_json_struct_object_mixin,
     ],
     inheritAttrs: true,
-}
+};
 </script>

@@ -103,37 +103,49 @@
 </template>
 
 <script>
-import EditorBool from '@/components/common/Editors/EditorBool.vue'
+import EditorBool from '@/components/common/Editors/EditorBool.vue';
 
-import EditorEnumRadio from '@/components/common/Editors/EditorEnumRadio'
-import EditorEnumSelect from '@/components/common/Editors/EditorEnumSelect'
-import EditorEnumAutocomplete from '@/components/common/Editors/EditorEnumAutocomplete'
+import EditorEnumRadio from '@/components/common/Editors/EditorEnumRadio';
+import EditorEnumSelect from '@/components/common/Editors/EditorEnumSelect';
+import EditorEnumAutocomplete from '@/components/common/Editors/EditorEnumAutocomplete';
 
-import EditorEnumAsyncRadio from '@/components/common/Editors/EditorEnumAsyncRadio'
-import EditorEnumAsyncSelect from '@/components/common/Editors/EditorEnumAsyncSelect'
-import EditorEnumAsyncAutocomplete from '@/components/common/Editors/EditorEnumAsyncAutocomplete'
+import EditorEnumAsyncRadio from '@/components/common/Editors/EditorEnumAsyncRadio';
+import EditorEnumAsyncSelect from '@/components/common/Editors/EditorEnumAsyncSelect';
+import EditorEnumAsyncAutocomplete from '@/components/common/Editors/EditorEnumAsyncAutocomplete';
 
 const fields = [
     'EditorEnumAsyncRadio',
     'EditorEnumAsyncSelect',
     'EditorEnumAsyncAutocomplete',
-]
+];
 
 const field_enum_candidate = [
-    { valuefield: 1, label: 'eins', },
-    { valuefield: 2, label: 'zwei', },
-    { valuefield: 3, label: 'drei', },
-    { valuefield: 4, label: 'fuer', },
-]
+    {
+        valuefield: 1,
+        label: 'eins', 
+    },
+    {
+        valuefield: 2,
+        label: 'zwei', 
+    },
+    {
+        valuefield: 3,
+        label: 'drei', 
+    },
+    {
+        valuefield: 4,
+        label: 'fuer', 
+    },
+];
 
 const getCandidate = fields.reduce((obj, field) => {
     obj[field] = (cb) => {
         setTimeout(() => {
-            cb(field_enum_candidate)
-        }, 1000)
-    }
-    return obj
-}, {})
+            cb(field_enum_candidate);
+        }, 1000);
+    };
+    return obj;
+}, {});
 
 export default {
     components: {
@@ -148,8 +160,8 @@ export default {
     config: {
         field_enum_candidate,
         handleInvalidValue: function (value, options) {
-            console.log(value, 'invalid value')
-            this.$emit('input', options[Math.floor(Math.random() * options.length)])
+            console.log(value, 'invalid value');
+            this.$emit('input', options[Math.floor(Math.random() * options.length)]);
         },
         getCandidate,
     },
@@ -163,7 +175,7 @@ export default {
             EditorEnumAsyncSelect: '',
             EditorEnumAsyncAutocomplete: 1,
 
-        }
+        };
     },
-}
+};
 </script>

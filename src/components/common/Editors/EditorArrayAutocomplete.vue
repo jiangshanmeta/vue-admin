@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import _editor_array_mixin from './_editor_array_mixin'
-import _props_value_array_mixin from './_props_value_array_mixin'
-import _computed_value_label_map_mixin from './_computed_value_label_map_mixin'
+import _editor_array_mixin from './_editor_array_mixin';
+import _props_value_array_mixin from './_props_value_array_mixin';
+import _computed_value_label_map_mixin from './_computed_value_label_map_mixin';
 
 export default {
     name: 'EditorArrayAutocomplete',
@@ -43,24 +43,24 @@ export default {
     data () {
         return {
             selectedId: '',
-        }
+        };
     },
     methods: {
         removeItem (index) {
-            const value = JSON.parse(JSON.stringify(this.value))
-            value.splice(index, 1)
-            this.$emit('input', value)
+            const value = JSON.parse(JSON.stringify(this.value));
+            value.splice(index, 1);
+            this.$emit('input', value);
         },
         addItem (selectedId) {
-            this.selectedId = selectedId
+            this.selectedId = selectedId;
             if (!this.value.includes(selectedId)) {
-                const value = JSON.parse(JSON.stringify(this.value))
-                value.push(selectedId)
-                this.$emit('input', value)
+                const value = JSON.parse(JSON.stringify(this.value));
+                value.push(selectedId);
+                this.$emit('input', value);
             }
         },
     },
-}
+};
 </script>
 
 <style scoped>

@@ -26,11 +26,13 @@
 </template>
 
 <script>
-import mergeAttrsConfig from '@/mixins/common/mergeAttrsConfig.js'
-import injectComponents from '@/widget/injectComponents'
-import getNeedInjectOperatorComponentsList from '@/injectHelper/injectOperatorComponentsHelper'
+import mergeAttrsConfig from '@/mixins/common/mergeAttrsConfig.js';
+import injectComponents from '@/widget/injectComponents';
+import getNeedInjectOperatorComponentsList from '@/injectHelper/injectOperatorComponentsHelper';
 
-import { logError, } from '@/widget/utility.js'
+import {
+    logError, 
+} from '@/widget/utility.js';
 
 export default {
     name: 'Operators',
@@ -39,18 +41,16 @@ export default {
     ],
     inheritAttrs: true,
     state: {
-        needInjectOperatorComponentsList: [
-        ],
+        needInjectOperatorComponentsList: [],
         get hasInjectOperatorComponents () {
-            return this.needInjectOperatorComponentsList.length > 0
+            return this.needInjectOperatorComponentsList.length > 0;
         },
     },
     props: {
         operators: {
             type: Array,
             default: function () {
-                return [
-                ]
+                return [];
             },
         },
         data: {
@@ -63,40 +63,40 @@ export default {
     data () {
         return {
             componentsInjected: false,
-        }
+        };
     },
     created () {
-        this.needInjectOperatorComponentsList = getNeedInjectOperatorComponentsList(this.operators)
-        this.injectOperatorComponents()
+        this.needInjectOperatorComponentsList = getNeedInjectOperatorComponentsList(this.operators);
+        this.injectOperatorComponents();
     },
     methods: {
         injectOperatorComponents () {
             if (this.hasInjectOperatorComponents) {
                 injectComponents(this, this.needInjectOperatorComponentsList).then(() => {
-                    this.componentsInjected = true
-                    this.notifytWidth()
-                })
+                    this.componentsInjected = true;
+                    this.notifytWidth();
+                });
             } else {
-                this.notifytWidth()
+                this.notifytWidth();
             }
         },
         handleOperatorClick (func) {
             new Promise((resolve, reject) => {
-                func.call(this, resolve, this.data)
+                func.call(this, resolve, this.data);
             }).then(() => {
-                this.notifyUpdate()
-            }).catch(logError)
+                this.notifyUpdate();
+            }).catch(logError);
         },
         notifyUpdate () {
-            this.$emit('update')
+            this.$emit('update');
         },
         notifytWidth () {
             this.$nextTick(() => {
-                this.$emit('setWidth', this.$refs.container.scrollWidth)
-            })
+                this.$emit('setWidth', this.$refs.container.scrollWidth);
+            });
         },
     },
-}
+};
 </script>
 
 <style scoped>

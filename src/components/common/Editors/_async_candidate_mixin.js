@@ -1,11 +1,12 @@
-import { logError, } from '@/widget/utility'
+import {
+    logError, 
+} from '@/widget/utility';
 export default {
     data () {
         return {
-            candidate: [
-            ],
+            candidate: [],
             isRequest: false,
-        }
+        };
     },
     props: {
         getCandidate: {
@@ -15,11 +16,11 @@ export default {
     },
     created () {
         new Promise((resolve, reject) => {
-            this.isRequest = true
-            this.getCandidate(resolve)
+            this.isRequest = true;
+            this.getCandidate(resolve);
         }).then((candidate) => {
-            this.isRequest = false
-            this.candidate = candidate
-        }).catch(logError)
+            this.isRequest = false;
+            this.candidate = candidate;
+        }).catch(logError);
     },
-}
+};
