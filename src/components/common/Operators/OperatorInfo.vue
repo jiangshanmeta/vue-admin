@@ -34,15 +34,8 @@
                         :view="fields[field].view"
                         :record="record"
                         :field="field"
-                    >
-                        <template #default="viewScope">
-                            <component
-                                :is="needInjectViewComponentsMap[field].name"
-                                v-if="needInjectViewComponentsMap[field]"
-                                v-bind="viewScope"
-                            />
-                        </template>
-                    </Views>
+                        :component="injectedViewComponents[field]"
+                    />
                 </template>
             </MetaTable>
         </el-dialog>
@@ -146,15 +139,16 @@ export default {
             if (!this.hasInjectLabelComponents) {
                 return this.labelComponentsInjected = true;
             }
-            injectComponents(this, this.needInjectLabelComponentsMap).then(() => {
+            injectComponents(this.needInjectLabelComponentsMap,this ).then(() => {
                 this.labelComponentsInjected = true;
             });
         },
         injectViewComponents () {
+            this.injectedViewComponents = {};
             if (!this.hasInjectViewComponents) {
                 return this.viewComponentsInjected = true;
             }
-            injectComponents(this, this.needInjectViewComponentsMap).then(() => {
+            injectComponents(this.needInjectViewComponentsMap,this.injectedViewComponents).then(() => {
                 this.viewComponentsInjected = true;
             });
         },

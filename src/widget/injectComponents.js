@@ -1,4 +1,10 @@
-export default function injectComponents (vm, components) {
+import Vue from 'vue';
+
+export default function injectComponents (components,target ) {
+    if(target instanceof Vue){
+        target = target.$options.components;
+    }
+
     if (!Array.isArray(components)) {
         components = Object.keys(components).map((field) => {
             return {
@@ -8,7 +14,7 @@ export default function injectComponents (vm, components) {
         });
     }
     components.forEach((item) => {
-        vm.$options.components[item.name] = item.component;
+        target[item.name] = item.component;
     });
 
     const dynamicImportComponents = components.filter(({
@@ -19,7 +25,7 @@ export default function injectComponents (vm, components) {
         component, name, 
     }) => {
         return component().then((realComponent) => {
-            vm.$options.components[name] = realComponent;
+            target[name] = realComponent;
         });
     });
     return Promise.all(dynamicImportComponents);

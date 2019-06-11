@@ -72,7 +72,7 @@ export default {
     methods: {
         injectOperatorComponents () {
             if (this.hasInjectOperatorComponents) {
-                injectComponents(this, this.needInjectOperatorComponentsList).then(() => {
+                injectComponents(this.needInjectOperatorComponentsList,this).then(() => {
                     this.componentsInjected = true;
                     this.notifytWidth();
                 });

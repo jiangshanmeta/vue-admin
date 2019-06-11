@@ -17,9 +17,15 @@ export default {
             type: String,
             required: true,
         },
+        component:{
+            type:[
+                Function,Object,
+            ],
+            default:null,
+        },
     },
     render (h, {
-        props, scopedSlots, parent, 
+        props, parent, 
     }) {
         let info = props.record[props.field];
 
@@ -27,10 +33,12 @@ export default {
             const {
                 config = {},
                 join,
-                component,
+                // component,
                 handler,
                 getViewValue = identity,
             } = props.view;
+
+            const component = props.component;
 
             const isJoinField = join && (typeof join === 'object');
             if (isJoinField) {
@@ -62,7 +70,14 @@ export default {
                         data: info,
                         ...config,
                     };
-                return scopedSlots.default(scopedSlotsData);
+                // vue的jsx 如果需要展开对象 需要用vue-data-object的形式 坑
+                return (
+                    <component
+                        {...{
+                            props:scopedSlotsData,
+                        }}
+                    />
+                );
             } else if (handler) {
                 // parent 是为了绑定this指向 可能会访问$store或者原型对象上的属性
                 return (

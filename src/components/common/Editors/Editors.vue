@@ -262,7 +262,7 @@ export default {
                 return this.labelComponentsInjected = true;
             }
 
-            injectComponents(this, this.needInjectLabelComponentsMap).then(() => {
+            injectComponents(this.needInjectLabelComponentsMap,this).then(() => {
                 this.labelComponentsInjected = true;
             });
         },
@@ -270,7 +270,7 @@ export default {
             if (!this.hasInjectEditorComponents) {
                 return this.editorComponentsInjected = true;
             }
-            injectComponents(this, this.needInjectEditorComponentsList).then(() => {
+            injectComponents(this.needInjectEditorComponentsList,this ).then(() => {
                 this.editorComponentsInjected = true;
             });
         },

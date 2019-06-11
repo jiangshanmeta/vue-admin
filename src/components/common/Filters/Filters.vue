@@ -119,7 +119,7 @@ export default {
             if (!this.hasInjectFilterComponents) {
                 return;
             }
-            injectComponents(this, this.needInjectFilterComponentsList).then(() => {
+            injectComponents(this.needInjectFilterComponentsList,this).then(() => {
                 this.componentsInjected = true;
             });
         },

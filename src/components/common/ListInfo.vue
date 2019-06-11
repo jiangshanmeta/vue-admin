@@ -49,18 +49,8 @@
                         :view="fields[field].view"
                         :record="row"
                         :field="field"
-                    >
-                        <template
-                            v-if="needInjectViewComponentsMap[field]"
-                            #default="viewScope"
-                        >
-                            <component
-                                :is="needInjectViewComponentsMap[field].name"
-                                v-if="needInjectViewComponentsMap[field]"
-                                v-bind="viewScope"
-                            />
-                        </template>
-                    </Views>
+                        :component="injectedViewComponents[field]"
+                    />
                 </template>
             </el-table-column>
             <el-table-column
@@ -273,11 +263,12 @@ export default {
     },
     methods: {
         injectViewComponents () {
+            this.injectedViewComponents = {};
             if (!this.hasInjectComponent) {
                 return;
             }
 
-            injectComponents(this, this.needInjectViewComponentsMap).then(() => {
+            injectComponents(this.needInjectViewComponentsMap,this.injectedViewComponents ).then(() => {
                 this.componentsInjected = true;
             });
         },
