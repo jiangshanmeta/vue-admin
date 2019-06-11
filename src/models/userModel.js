@@ -341,13 +341,14 @@ export default function () {
             createdHook(){
                 setTimeout(()=>{
                     userModelCacheData.asyncTypHash = JSON.parse(JSON.stringify(typHash));
-                    // asyncTypHash = JSON.parse(JSON.stringify(typHash));
                 },5000);
             },
             listRequest: getUserList,
             sortableFields:{
                 'typ':true,
             },
+            initialSortField:"name",
+            initialSortOrder:"desc",
             paginationConfig: {
                 layout: 'total, sizes, prev, pager, next, jumper',
                 pageSizes: [

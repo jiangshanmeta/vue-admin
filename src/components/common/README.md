@@ -12,9 +12,11 @@
 | filters | 否 | Array | 筛选组件的配置项 | 默认为空数组 |
 | filterOperators | 否 | Array | 筛选对应的操作 | 默认为空数组 |
 | createdHook | 否 | Function | 在ListInfo的created中调用，做一些初始化操作 |
-| pageSize | 否 | Number   | 分页组件需要的，每页多少条记录 | 默认为20 |
+| initialPageSize | 否 | Number   | 分页组件需要的，初始每页多少条记录 | 默认为20 |
 | pageIndexReqName | 否 | String   | 请求时pageIndex的key | 默认为 pageIndex |
 | pageSizeReqName  | 否 | String   | 请求时pageSize的key  | 默认为 pageSize  |
+| initialSortField | 否 | String   | 初始排序字段          | 默认为空字符串    |
+| initialSortOrder | 否 | String   | 初始排序顺序          | 默认为空字符串    |
 | sortFieldReqName | 否 | String   | 请求时排序字段的key  | 默认为 sortField |
 | sortOrderReqName | 否 | String   | 请求时排序顺序的key  | 默认为sortOrder 值为asc或者desc |
 | transformRequestData | 否 | Function | 请求列表前对请求参数做处理 | 默认原样返回 |

@@ -89,7 +89,7 @@
             v-if="paginated && data.length>0"
             v-bind="paginationConfig"
             :current-page.sync="pageIndex"
-            :page-size="localPageSize"
+            :page-size="pageSize"
             :total="total"
             class="center-table"
             @size-change="handleSizeChange"
@@ -144,7 +144,7 @@ export default {
             type:Function,
             default:()=>{},
         },
-        pageSize: {
+        initialPageSize: {
             type: Number,
             default: 20,
         },
@@ -155,6 +155,14 @@ export default {
         pageSizeReqName: {
             type: String,
             default: 'pageSize',
+        },
+        initialSortField:{
+            type:String,
+            default:'',
+        },
+        initialSortOrder:{
+            type:String,
+            default:'',
         },
         sortFieldReqName: {
             type: String,
@@ -230,13 +238,13 @@ export default {
             componentsInjected: false,
             data: [],
             pageIndex: 1,
-            sortField: '',
-            sortOrder: '',
+            sortField: this.initialSortField,
+            sortOrder: this.initialSortOrder,
             total: 0,
             fieldList: [],
             multipleSelection: [],
             operatorMinWidth: 0,
-            localPageSize: this.pageSize,
+            pageSize: this.initialPageSize,
         };
     },
     beforeCreate () {
@@ -254,7 +262,7 @@ export default {
 
         this.$watch(() => {
             return {
-                localPageSize: this.localPageSize,
+                pageSize: this.pageSize,
                 sortField: this.sortField,
                 sortOrder: this.sortOrder,
                 pageIndex: this.pageIndex,
@@ -284,7 +292,7 @@ export default {
             this.pageIndex = 1;
         },
         handleSizeChange (newPageSize) {
-            this.localPageSize = newPageSize;
+            this.pageSize = newPageSize;
             this.pageIndex = 1;
         },
         handleSelectionChange (section) {
@@ -315,7 +323,7 @@ export default {
 
             if (this.paginated) {
                 params[this.pageIndexReqName] = this.pageIndex;
-                params[this.pageSizeReqName] = this.localPageSize;
+                params[this.pageSizeReqName] = this.pageSize;
             }
 
             params[this.sortFieldReqName] = this.sortField;
