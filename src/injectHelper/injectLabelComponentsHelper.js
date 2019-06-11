@@ -11,6 +11,9 @@ export default function getNeedInjectLabelComponentsMap (fields, keys, type) {
                 }
             }
         }
+        if(obj[field]){
+            obj[field].name = field;
+        }
         return obj;
     }, {});
 }

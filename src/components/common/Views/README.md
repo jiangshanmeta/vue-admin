@@ -20,16 +20,13 @@ view:{
 },
 ```
 
-组件模式是在渲染相对比较复杂，或者可复用性比较强的时候使用，它需要配置name和component两个属性：
+组件模式是在渲染相对比较复杂，或者可复用性比较强的时候使用，它需要配置component这个属性：
 
 ```javascript
 view:{
-    name:'ViewMarkdown',
     component:() => import('@/components/common/Views/ViewMarkdown').then((rst) => rst.default),
 },
 ```
-
-name属性是必须的，尽可能与渲染组件文件名一致，这样易于管理，同时也能保持唯一性。
 
 要开发一个View类型组件，推荐使用函数式组件。一般情况下会被传入data属性，这个prop是该字段的值。
 
@@ -54,7 +51,6 @@ view:{
 
 ```javascript
 view:{
-    name:"ViewEnum",
     component:()=>import("@/components/common/Views/ViewEnum").then((rst)=>rst.default),
     config:{
         enums:{
@@ -102,7 +98,6 @@ view:{
 
 ```javascript
 view:{
-    name:'viewJoin',
     component:ViewJoin,
     join:{
         'address':'joinAddress',
@@ -120,7 +115,6 @@ getViewValue配置项是个函数，默认原样返回。用它对要展示的�
 
 ```javascript
 view:{
-    name:"ViewEnum",
     component:()=>import("@/components/common/Views/ViewEnum").then((rst)=>rst.default),
     config:{
         enums:{

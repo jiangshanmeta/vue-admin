@@ -56,7 +56,6 @@ export default {
                 default: 0,
             },
             view: {
-                name: 'ViewTransform',
                 component: () => import('@/components/common/Views/ViewTransform').then((rst) => rst.default),
                 config: {
                     transform: function (data) {
@@ -79,7 +78,6 @@ export default {
                 default: '',
             },
             view: {
-                name: 'ViewMarkdown',
                 component: () => import('@/components/common/Views/ViewMarkdown').then((rst) => rst.default),
                 config: {
                     breaks: false,
@@ -130,7 +128,6 @@ export default {
                     customername: 'name',
                     address: 'position',
                 },
-                name: 'ViewBookTestViewJoin',
                 component: () => import('@/components/book/Views/ViewBookTestViewJoin').then((rst) => rst.default),
                 config: {
                     glue: ' 的收货地址是 ',

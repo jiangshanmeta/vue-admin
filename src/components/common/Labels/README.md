@@ -20,7 +20,6 @@ labelComponent:{
 ```javascript
 labelComponent:{
     default:{
-        name:'LabelUserRedstar',
         component:() => import('@/components/user/Labels/LabelUserRedstar').then((rst) => rst.default),
         exclude:[
             'info',
@@ -31,7 +30,7 @@ labelComponent:{
 
 注意到default配置时有一个特殊的exclude选项，意味着不采用default的labelComponent，仅仅采用label值渲染。上面配置的含义是info、edit和create都没有独特的labelComponent，尝试采用默认值，但是默认值又排除了info组件，所以info组件会直接采用label值，而create和edit会采用默认的labelUserRedStar组件。
 
-另外，和name、component平级的还有一个config选项，用来配置组件。这个选项如果存在，需要是一个对象，然后会被展开传递给组件。
+另外，和component平级的还有一个config选项，用来配置组件。这个选项如果存在，需要是一个对象，然后会被展开传递给组件。
 
 ## 开发LabelComponent
 

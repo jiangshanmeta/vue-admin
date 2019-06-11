@@ -4,15 +4,41 @@ export default {
         label: {
             type: String,
         },
+        component:{
+            type:[
+                Function,Object,
+            ],
+            default:null,
+        },
+        config:{
+            type:Object,
+        },
     },
     render (h, {
-        props, scopedSlots, 
+        props, 
     }) {
-        if (scopedSlots.default) {
-            return scopedSlots.default();
+        const {
+            label,
+            component,
+            config = {},
+        } = props;
+
+        if (component) {
+            const propsData = {
+                label,
+                ...config,
+            };
+
+            return (
+                <component
+                    {...{
+                        props:propsData,
+                    }}
+                />
+            );
         } else {
             return (
-                <span>{props.label}</span>
+                <span>{label}</span>
             );
         }
     },

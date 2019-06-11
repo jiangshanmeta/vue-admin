@@ -8,14 +8,9 @@
         <template #label="{field}">
             <Labels
                 :label="fields[field].label"
-            >
-                <component
-                    :is="needInjectLabelComponentsMap[field].name"
-                    v-if="needInjectLabelComponentsMap[field]"
-                    :label="fields[field].label"
-                    v-bind="needInjectLabelComponentsMap[field].config || {}"
-                />
-            </Labels>
+                :component="injectedLabelComponents[field]"
+                :config="needInjectLabelComponentsMap[field] && needInjectLabelComponentsMap[field].config"
+            />
         </template>
 
         <template #default="{field}">
@@ -258,11 +253,12 @@ export default {
             }
         },
         injectLabelComponents () {
+            this.injectedLabelComponents = {};
             if (!this.hasInjectLabelComponents) {
                 return this.labelComponentsInjected = true;
             }
 
-            injectComponents(this.needInjectLabelComponentsMap,this).then(() => {
+            injectComponents(this.needInjectLabelComponentsMap,this.injectedLabelComponents).then(() => {
                 this.labelComponentsInjected = true;
             });
         },

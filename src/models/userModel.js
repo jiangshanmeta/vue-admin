@@ -110,7 +110,6 @@ export default function () {
                     default: 0,
                 },
                 view: {
-                    name: 'ViewEnum2',
                     component: () => import('@/components/common/Views/ViewEnum').then((rst) => rst.default),
                     config: {
                         enums: genderEnum,
@@ -124,14 +123,12 @@ export default function () {
                 },
                 labelComponent: {
                     default: {
-                        name: 'LabelUserRedstar',
                         component: () => import('@/components/user/Labels/LabelUserRedstar').then((rst) => rst.default),
                         exclude: [
                             'create',
                         ],
                     },
                     info: {
-                        name: 'LabelUserRedstar',
                         component: () => import('@/components/user/Labels/LabelUserRedstar').then((rst) => rst.default),
                     },
 
@@ -162,7 +159,6 @@ export default function () {
                     },
                 },
                 view: {
-                    name: 'ViewEnum',
                     component: () => import('@/components/common/Views/ViewEnum').then((rst) => rst.default),
                     config: {
                         get enums(){
@@ -220,7 +216,6 @@ export default function () {
                     default: '这是富文本编辑器蛤',
                 },
                 view: {
-                    name: 'ViewHTML',
                     component: () => import('@/components/common/Views/ViewHTML').then((rst) => rst.default),
                 },
                 colspan: {

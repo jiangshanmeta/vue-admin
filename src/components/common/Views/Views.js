@@ -33,7 +33,6 @@ export default {
             const {
                 config = {},
                 join,
-                // component,
                 handler,
                 getViewValue = identity,
             } = props.view;
@@ -61,7 +60,7 @@ export default {
             info = getViewValue.call(parent,info);
 
             if (component) {
-                const scopedSlotsData = isJoinField
+                const propsData = isJoinField
                     ? {
                         ...info,
                         ...config,
@@ -74,7 +73,7 @@ export default {
                 return (
                     <component
                         {...{
-                            props:scopedSlotsData,
+                            props:propsData,
                         }}
                     />
                 );
