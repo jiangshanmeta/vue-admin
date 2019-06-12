@@ -39,7 +39,7 @@
             <el-table-column
                 v-for="field in fieldList"
                 :key="field"
-                :label="fields[field]['label']"
+                :label="fields[field].labelName"
                 :prop="field"
                 :sortable="sortableFields[field]?'custom':false"
                 v-bind="fields[field].tableColumnConfig || {}"

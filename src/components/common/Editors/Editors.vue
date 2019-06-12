@@ -7,9 +7,9 @@
     >
         <template #label="{field}">
             <Labels
-                :label="fields[field].label"
+                :label-name="fields[field].labelName"
                 :component="injectedLabelComponents[field]"
-                :config="needInjectLabelComponentsMap[field] && needInjectLabelComponentsMap[field].config"
+                :label="labelMap[field]"
             />
         </template>
 
@@ -42,7 +42,10 @@ import AsyncValidator from 'async-validator';
 import Labels from '@/components/common/Labels/Labels';
 
 import injectComponents from '@/widget/injectComponents';
-import getNeedInjectLabelComponentsMap from '@/injectHelper/injectLabelComponentsHelper';
+import {
+    getLabelMapByMode,
+    getNeedInjectLabelComponentsList,
+} from '@/injectHelper/injectLabelComponentsHelper';
 import getNeedInjectEditorComponentsList from '@/injectHelper/injectEditorComponentsHelper';
 
 export default {
@@ -99,9 +102,10 @@ export default {
         FieldImageMultiJson: () => import('./FieldImageMultiJson'),
     },
     state: {
-        needInjectLabelComponentsMap: {},
+        labelMap:{},
+        needInjectLabelComponentsList:[],
         get hasInjectLabelComponents () {
-            return Object.keys(this.needInjectLabelComponentsMap).length > 0;
+            return this.needInjectLabelComponentsList.length>0;
         },
         needInjectEditorComponentsList: [],
         get hasInjectEditorComponents () {
@@ -178,7 +182,8 @@ export default {
         fields: {
             immediate: true,
             handler () {
-                this.needInjectLabelComponentsMap = getNeedInjectLabelComponentsMap(this.fields, this.editFieldsArray, this.mode);
+                this.labelMap = getLabelMapByMode(this.fields, this.editFieldsArray, this.mode);
+                this.needInjectLabelComponentsList = getNeedInjectLabelComponentsList(this.labelMap);
                 this.needInjectEditorComponentsList = getNeedInjectEditorComponentsList(this.fields, this.editFieldsArray);
                 this.labelComponentsInjected = false;
                 this.editorComponentsInjected = false;
@@ -258,7 +263,7 @@ export default {
                 return this.labelComponentsInjected = true;
             }
 
-            injectComponents(this.needInjectLabelComponentsMap,this.injectedLabelComponents).then(() => {
+            injectComponents(this.needInjectLabelComponentsList,this.injectedLabelComponents).then(() => {
                 this.labelComponentsInjected = true;
             });
         },

@@ -1,19 +1,33 @@
-export default function getNeedInjectLabelComponentsMap (fields, keys, type) {
-    return keys.reduce((obj, field) => {
-        const configLabelComponent = fields[field].labelComponent;
-        if (configLabelComponent) {
-            if (configLabelComponent[type]) {
-                obj[field] = configLabelComponent[type];
-            } else if (configLabelComponent.default) {
-                const exclude = configLabelComponent.default.exclude;
-                if (!Array.isArray(exclude) || !exclude.includes(type)) {
-                    obj[field] = configLabelComponent.default;
+function getLabelMapByMode(fields,keys,mode){
+    return keys.reduce((obj,field)=>{
+        const configLabel = fields[field].label;
+        if(configLabel){
+            if(configLabel[mode]){
+                obj[field] = configLabel[mode];
+            }else if(configLabel.default){
+                const exclude = configLabel.default.exclude;
+                if(!Array.isArray(exclude) || !exclude.includes(mode)){
+                    obj[field] = configLabel.default;
                 }
             }
         }
-        if(obj[field]){
-            obj[field].name = field;
-        }
         return obj;
-    }, {});
+    },{});
 }
+
+function getNeedInjectLabelComponentsList(labelMap){
+    return Object.keys(labelMap).reduce((list,field)=>{
+        if(labelMap[field].component){
+            list.push({
+                name:field,
+                component:labelMap[field].component,
+            });
+        }
+        return list;
+    },[]);
+}
+
+export {
+    getLabelMapByMode,
+    getNeedInjectLabelComponentsList,
+};

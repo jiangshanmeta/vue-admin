@@ -28,7 +28,7 @@ export default function () {
     return {
         fields: {
             name: {
-                label: '用户名',
+                labelName: '用户名',
                 editorComponent: {
                     name: 'field_string2',
                     component: () => import('@/components/common/Editors/EditorString').then((rst) => rst.default),
@@ -64,7 +64,7 @@ export default function () {
                 ],
             },
             password: {
-                label: '密码',
+                labelName: '密码',
                 editorComponent: {
                     name: 'EditorPwd',
                     relates: [
@@ -104,7 +104,7 @@ export default function () {
                 ],
             },
             gender: {
-                label: '性别',
+                labelName: '性别',
                 editorComponent: {
                     name: 'EditorGender',
                     default: 0,
@@ -121,7 +121,7 @@ export default function () {
                 tableColumnConfig: {
                     align: 'center',
                 },
-                labelComponent: {
+                label: {
                     default: {
                         component: () => import('@/components/user/Labels/LabelUserRedstar').then((rst) => rst.default),
                         exclude: [
@@ -129,14 +129,19 @@ export default function () {
                         ],
                     },
                     info: {
-                        component: () => import('@/components/user/Labels/LabelUserRedstar').then((rst) => rst.default),
+                        handler(labelName,config){
+                            return `${config.prefix}${labelName}`;
+                        },
+                        config:{
+                            prefix:"++",
+                        },
                     },
 
                 },
 
             },
             typ: {
-                label: '类型',
+                labelName: '类型',
                 editorComponent: {
                     name: 'EditorEnumAsyncSelect',
                     config: {
@@ -171,7 +176,7 @@ export default function () {
                 },
             },
             privilege: {
-                label: '权限',
+                labelName: '权限',
                 editorComponent: {
                     name: 'EditorArrayRelatesCheckbox',
                     relates: [
@@ -210,7 +215,7 @@ export default function () {
                 },
             },
             desc: {
-                label: '备注',
+                labelName: '备注',
                 editorComponent: {
                     name: 'EditorTextrich',
                     default: '这是富文本编辑器蛤',

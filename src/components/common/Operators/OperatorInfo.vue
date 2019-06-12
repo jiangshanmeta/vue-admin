@@ -19,9 +19,9 @@
             >
                 <template #label="{field}">
                     <Labels
-                        :label="fields[field].label"
+                        :label-name="fields[field].labelName"
                         :component="injectedLabelComponents[field]"
-                        :config="needInjectLabelComponentsMap[field] && needInjectLabelComponentsMap[field].config"
+                        :label="labelMap[field]"
                     />
                 </template>
                 <template #default="{field}">
@@ -39,7 +39,10 @@
 
 <script>
 import injectComponents from '@/widget/injectComponents';
-import getNeedInjectLabelComponentsMap from '@/injectHelper/injectLabelComponentsHelper';
+import {
+    getLabelMapByMode,
+    getNeedInjectLabelComponentsList,
+} from '@/injectHelper/injectLabelComponentsHelper';
 import getNeedInjectViewComponentsMap from '@/injectHelper/injectViewComponentsHelper';
 
 import {
@@ -56,10 +59,11 @@ export default {
     inheritAttrs: true,
     state: {
         injectInited: false,
-        needInjectLabelComponentsMap: {},
+        labelMap:{},
+        needInjectLabelComponentsList:[],
         needInjectViewComponentsMap: {},
         get hasInjectLabelComponents () {
-            return Object.keys(this.needInjectLabelComponentsMap).length > 0;
+            return this.needInjectLabelComponentsList.length>0;
         },
         get hasInjectViewComponents () {
             return Object.keys(this.needInjectViewComponentsMap).length > 0;
@@ -112,7 +116,8 @@ export default {
     methods: {
         handleClick () {
             if (!this.injectInited) {
-                this.needInjectLabelComponentsMap = getNeedInjectLabelComponentsMap(this.fields, Object.keys(this.fields),'info');
+                this.labelMap = getLabelMapByMode(this.fields, Object.keys(this.fields),'info');
+                this.needInjectLabelComponentsList = getNeedInjectLabelComponentsList(this.labelMap);
                 this.needInjectViewComponentsMap = getNeedInjectViewComponentsMap(this.fields, Object.keys(this.fields));
                 this.injectLabelComponents();
                 this.injectViewComponents();
@@ -135,7 +140,7 @@ export default {
             if (!this.hasInjectLabelComponents) {
                 return this.labelComponentsInjected = true;
             }
-            injectComponents(this.needInjectLabelComponentsMap,this.injectedLabelComponents).then(() => {
+            injectComponents(this.needInjectLabelComponentsList,this.injectedLabelComponents).then(() => {
                 this.labelComponentsInjected = true;
             });
         },

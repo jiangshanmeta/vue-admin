@@ -1,7 +1,11 @@
+import {
+    spawn, 
+} from "child_process";
+
 export default {
     functional: true,
     props: {
-        label: {
+        labelName: {
             type: String,
         },
         component:{
@@ -10,35 +14,41 @@ export default {
             ],
             default:null,
         },
-        config:{
+        label:{
             type:Object,
         },
     },
     render (h, {
-        props, 
+        props, parent,
     }) {
-        const {
-            label,
-            component,
-            config = {},
-        } = props;
+        const labelName = props.labelName;
+        if(props.label){
+            const component = props.component;
+            const {
+                handler,
+                config={},
+            } = props.label;
+            if(component){
+                const propsData = {
+                    labelName:labelName,
+                    ...config,
+                };
+                return (
+                    <component
+                        {...{
+                            props:propsData,
+                        }}
+                    />
+                );
+            }else if(handler){
+                return (
+                    <span>{handler.call(parent,labelName,config)}</span>
+                );
+            }
 
-        if (component) {
-            const propsData = {
-                label,
-                ...config,
-            };
-
+        }else {
             return (
-                <component
-                    {...{
-                        props:propsData,
-                    }}
-                />
-            );
-        } else {
-            return (
-                <span>{label}</span>
+                <span>{labelName}</span>
             );
         }
     },

@@ -13,7 +13,7 @@ import {
 export default {
     fields: {
         customername: {
-            label: '客户名',
+            labelName: '客户名',
             editorComponent: {
                 name: 'EditorString',
                 config: {
@@ -34,7 +34,7 @@ export default {
             },
         },
         totalprice: {
-            label: '金额',
+            labelName: '金额',
             editorComponent: {
                 name: 'EditorNumber',
                 relates: [
@@ -65,7 +65,7 @@ export default {
             },
         },
         address: {
-            label: '收货地址',
+            labelName: '收货地址',
             editorComponent: {
                 name: 'EditorBookAddress',
                 component: () => import('@/components/book/Editors/EditorBookAddress').then((rst) => rst.default),
@@ -88,7 +88,7 @@ export default {
             },
         },
         store: {
-            label: '店铺',
+            labelName: '店铺',
             editorComponent: {
                 name: 'EditorEnumAsyncSelect',
                 config: {
@@ -100,7 +100,7 @@ export default {
             },
         },
         saler: {
-            label: '销售',
+            labelName: '销售',
             editorComponent: {
                 name: 'EditorEnumRelatesSelect',
                 config: {
@@ -122,7 +122,7 @@ export default {
             },
         },
         nameAddress: {
-            label: '用户名&收货地址',
+            labelName: '用户名&收货地址',
             view: {
                 join: {
                     customername: 'name',

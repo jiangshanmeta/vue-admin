@@ -1,6 +1,6 @@
 <template>
     <span>
-        {{ label }}
+        {{ labelName }}
         <span style="color:red;">*</span>
     </span>
 </template>
@@ -9,7 +9,7 @@
 export default {
     name:'LabelUserRedstar',
     props: {
-        label: {
+        labelName: {
             type: String,
             required: true,
         },
