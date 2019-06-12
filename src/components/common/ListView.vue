@@ -11,8 +11,8 @@
         >
             <template #beforeFilters="scope">
                 <Operators
-                    v-if="staticOperators.length>0"
-                    :operators="staticOperators"
+                    v-if="listOperators.length>0"
+                    :operators="listOperators"
                     v-bind="scope"
                     :fields="fields"
                     style="margin-bottom:8px;"
@@ -46,7 +46,7 @@ export default {
             type: Object,
             required: true,
         },
-        staticOperators: {
+        listOperators: {
             type: Array,
             default: function () {
                 return [];

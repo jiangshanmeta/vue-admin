@@ -1,6 +1,6 @@
 export default {
     fields: {},
-    staticOperators: [],
+    listOperators: [],
     filters: [],
     filterOperators: [],
     listConfig: {},

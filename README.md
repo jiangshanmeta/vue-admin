@@ -17,7 +17,7 @@ model是对一个后台页面的描述，由以下几部分构成
   * tableColumnConfig 对应el-table-column的其他配置项 一个对象 展开传递
 * [listConfig](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common#ListInfo)，列表组件的配置项
 * [operators]((https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/Operators)) 针对一条记录的操作集
-* [staticOperators](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/StaticOperators/) 类似于operators，但staticOperators不针对于一条特定的记录，它对应的data是选中的数据数组。
+* [listOperators](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/ListOperators/) 类似于operators，但listOperators不针对于一条特定的记录，它对应的data是选中的数据数组。
 * [filters](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/Filters/)，筛选组件的配置项。
 * [filterOperators](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/FilterOperators/)
 
@@ -29,7 +29,7 @@ model是对一个后台页面的描述，由以下几部分构成
 
 整体风格为PascalCase。
 
-本系统把组件分为Editor、Filter、View、Label、Operator、StaticOperator、FilterOperator七大类，分属于这七大类的组件应以对应的类型作为组件名前缀。
+本系统把组件分为Editor、Filter、View、Label、Operator、ListOperator、FilterOperator七大类，分属于这七大类的组件应以对应的类型作为组件名前缀。
 
 业务组件，在类型的基础上添加业务前缀
 

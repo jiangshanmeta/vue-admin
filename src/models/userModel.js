@@ -238,10 +238,10 @@ export default function () {
                 },
             },
         },
-        staticOperators: [
+        listOperators: [
             {
-                name: 'StaticOperatorCreate',
-                component: () => import('@/components/common/StaticOperators/StaticOperatorCreate').then((rst) => rst.default),
+                name: 'ListOperatorCreate',
+                component: () => import('@/components/common/ListOperators/ListOperatorCreate').then((rst) => rst.default),
                 config: {
                     getCreateFields: getCreateFields,
                     doCreateRequest: createUser,

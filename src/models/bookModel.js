@@ -135,10 +135,10 @@ export default {
             },
         },
     },
-    staticOperators: [
+    listOperators: [
         {
-            name: 'StaticOperatorCreate',
-            component: () => import('@/components/common/StaticOperators/StaticOperatorCreate').then((rst) => rst.default),
+            name: 'ListOperatorCreate',
+            component: () => import('@/components/common/ListOperators/ListOperatorCreate').then((rst) => rst.default),
             config: {
                 getCreateFields: getCreateFields,
                 doCreateRequest: createBook,
@@ -176,8 +176,8 @@ export default {
             },
         },
         {
-            name: 'StaticOperatorCsv',
-            component: () => import('@/components/common/StaticOperators/StaticOperatorCsv').then((rst) => rst.default),
+            name: 'ListOperatorCsv',
+            component: () => import('@/components/common/ListOperators/ListOperatorCsv').then((rst) => rst.default),
             config: {
                 triggerConfig: {
                     text: '导入csv数据',
