@@ -124,6 +124,15 @@ export default {
             }).then(({
                 fieldLayoutList, record, 
             }) => {
+                fieldLayoutList.forEach((row)=>{
+                    row.forEach((field)=>{
+                        if(!record.hasOwnProperty(field)){
+                            const configDefault = this.fields[field].editor.default;
+                            record[field] = typeof configDefault === 'function' ? configDefault.call(this, field) : configDefault;
+                        }
+                    });
+                });
+
                 this.fieldLayoutList = fieldLayoutList;
                 this.record = record;
                 this.canInitDialog = true;

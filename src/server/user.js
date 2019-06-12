@@ -40,7 +40,7 @@ const userTable = [
         privilege: [
             1, 2,
         ],
-        desc: '早季的姬友',
+        // desc: '早季的姬友',
     },
     {
         id: 4,
