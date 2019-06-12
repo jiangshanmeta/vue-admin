@@ -9,7 +9,7 @@ model是对一个后台页面的描述，由以下几部分构成
 * fields 对字段的描述
   * labelName 字段的名称
   * [label](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/Labels/)
-  * [editorComponent](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/Editors/)
+  * [editor](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/Editors/)
   * [view](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/Views/)
   * validator 表单验证用的，底层依赖async-validator
   * tip tip用在Editor组件中，用于对应字段做些说明，它可以是一个函数(调用时this指向Editor组件实例，其返回值作为显示值)，也可以是个简单值(直接作为显示值)

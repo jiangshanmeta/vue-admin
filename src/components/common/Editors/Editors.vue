@@ -15,7 +15,7 @@
 
         <template #default="{field}">
             <component
-                :is="fields[field].editorComponent.name"
+                :is="fields[field].editor.name"
                 :ref="field"
                 v-model="localRecord[field]"
                 v-bind="generateEditorProp(field)"
@@ -210,11 +210,11 @@ export default {
             this.recordUnwatchs = [];
 
             this.editFieldsArray.forEach((field) => {
-                const editorComponent = this.fields[field].editorComponent;
-                if(!Array.isArray(editorComponent.relates)){
+                const editor = this.fields[field].editor;
+                if(!Array.isArray(editor.relates)){
                     return;
                 }
-                const relates = this.fields[field].editorComponent.relates;
+                const relates = this.fields[field].editor.relates;
 
                 relates.filter(relateItem => typeof relateItem.handler === 'function').forEach((relateItem) => {
                     const callback = function (newVal, oldVal) {
@@ -236,14 +236,14 @@ export default {
             });
         },
         generateEditorProp (field) {
-            const editorComponent = this.fields[field].editorComponent;
-            const relateProps = (editorComponent.relates || []).filter(item => item.propField).reduce((obj, item) => {
+            const editor = this.fields[field].editor;
+            const relateProps = (editor.relates || []).filter(item => item.propField).reduce((obj, item) => {
                 obj[item.propField] = this.getRelateData(item);
                 return obj;
             }, Object.create(null));
 
-            const defaultConfig = editorComponent.config || {};
-            const modeConfig = editorComponent[`${this.mode}Config`] || {};
+            const defaultConfig = editor.config || {};
+            const modeConfig = editor[`${this.mode}Config`] || {};
 
             return Object.assign({}, defaultConfig, modeConfig,relateProps);
         },

@@ -29,7 +29,7 @@ export default function () {
         fields: {
             name: {
                 labelName: '用户名',
-                editorComponent: {
+                editor: {
                     name: 'field_string2',
                     component: () => import('@/components/common/Editors/EditorString').then((rst) => rst.default),
                     config: {
@@ -65,7 +65,7 @@ export default function () {
             },
             password: {
                 labelName: '密码',
-                editorComponent: {
+                editor: {
                     name: 'EditorPwd',
                     relates: [
                         {
@@ -105,7 +105,7 @@ export default function () {
             },
             gender: {
                 labelName: '性别',
-                editorComponent: {
+                editor: {
                     name: 'EditorGender',
                     default: 0,
                 },
@@ -142,7 +142,7 @@ export default function () {
             },
             typ: {
                 labelName: '类型',
-                editorComponent: {
+                editor: {
                     name: 'EditorEnumAsyncSelect',
                     config: {
                         getCandidate: cacheGetTypEnum,
@@ -177,7 +177,7 @@ export default function () {
             },
             privilege: {
                 labelName: '权限',
-                editorComponent: {
+                editor: {
                     name: 'EditorArrayRelatesCheckbox',
                     relates: [
                         {
@@ -216,7 +216,7 @@ export default function () {
             },
             desc: {
                 labelName: '备注',
-                editorComponent: {
+                editor: {
                     name: 'EditorTextrich',
                     default: '这是富文本编辑器蛤',
                 },

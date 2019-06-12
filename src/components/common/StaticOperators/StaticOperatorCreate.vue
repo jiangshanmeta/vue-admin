@@ -111,7 +111,7 @@ export default {
         resetRecord () {
             this.record = this.fieldLayoutList.reduce((obj, row) => {
                 row.forEach((field) => {
-                    const configDefault = this.fields[field].editorComponent.default;
+                    const configDefault = this.fields[field].editor.default;
                     obj[field] = typeof configDefault === 'function' ? configDefault.call(this, field) : configDefault;
                 });
                 return obj;

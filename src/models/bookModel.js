@@ -14,7 +14,7 @@ export default {
     fields: {
         customername: {
             labelName: '客户名',
-            editorComponent: {
+            editor: {
                 name: 'EditorString',
                 config: {
                     placeholder: '请输入客户名',
@@ -35,7 +35,7 @@ export default {
         },
         totalprice: {
             labelName: '金额',
-            editorComponent: {
+            editor: {
                 name: 'EditorNumber',
                 relates: [
                     {
@@ -66,7 +66,7 @@ export default {
         },
         address: {
             labelName: '收货地址',
-            editorComponent: {
+            editor: {
                 name: 'EditorBookAddress',
                 component: () => import('@/components/book/Editors/EditorBookAddress').then((rst) => rst.default),
                 relates: [
@@ -89,7 +89,7 @@ export default {
         },
         store: {
             labelName: '店铺',
-            editorComponent: {
+            editor: {
                 name: 'EditorEnumAsyncSelect',
                 config: {
                     getCandidate: getStore,
@@ -101,7 +101,7 @@ export default {
         },
         saler: {
             labelName: '销售',
-            editorComponent: {
+            editor: {
                 name: 'EditorEnumRelatesSelect',
                 config: {
                     isValidValue (data) {
