@@ -13,7 +13,7 @@ import {
     logError, 
 } from '@/widget/utility.js';
 export default {
-    name: 'Toggle',
+    name: 'RecordOperatorToggle',
     props: {
         data: {
             type: Object,

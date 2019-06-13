@@ -54,14 +54,14 @@
                 </template>
             </el-table-column>
             <el-table-column
-                v-if="operators.length>0 && data.length>0"
+                v-if="recordOperators.length>0 && data.length>0"
                 :label="operatorsLabel"
                 :min-width="operatorMinWidth"
             >
                 <template #default="{row}">
                     <Operators
                         :fields="fields"
-                        :operators="operators"
+                        :operators="recordOperators"
                         :data="row"
                         @update="getListInfo"
                         @setWidth="setOperatorWidth"
@@ -89,7 +89,7 @@
 
 <script>
 import Filters from '@/components/common/Filters/Filters';
-import Operators from '@/components/common/Operators/Operators';
+import Operators from '@/components/common/Operators';
 import Views from '@/components/common/Views/Views';
 
 import {
@@ -196,7 +196,7 @@ export default {
             },
         },
 
-        operators: {
+        recordOperators: {
             type: Array,
             default: function () {
                 return [];

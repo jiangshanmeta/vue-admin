@@ -10,7 +10,7 @@
 
 <script>
 export default {
-    name: 'Reset',
+    name: 'FilterOperatorReset',
     props: {
         type: {
             type: String,

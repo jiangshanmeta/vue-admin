@@ -67,7 +67,7 @@ export default {
         EditorString: () => import('../Editors/EditorString'),
         EditorNumber: () => import('../Editors/EditorNumber'),
 
-        Operators: () => import('@/components/common/Operators/Operators'),
+        Operators: () => import('@/components/common/Operators'),
     },
     inheritAttrs: true,
     state: {

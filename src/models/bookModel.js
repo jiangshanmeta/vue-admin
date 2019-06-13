@@ -249,7 +249,7 @@ export default {
             ],
         },
     ],
-    operators: [
+    recordOperators: [
         {
             handler (resolve, data) {
                 this.$message({

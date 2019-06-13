@@ -43,7 +43,7 @@ import {
 } from '@/widget/utility';
 
 export default {
-    name: 'Create',
+    name: 'ListOperatorCreate',
     components: {
         Editors: () => import('@/components/common/Editors/Editors'),
     },

@@ -333,8 +333,8 @@ export default function () {
         ],
         filterOperators: [
             {
-                name: 'FilterOperatorsReset',
-                component: () => import('@/components/common/FilterOperators/FilterOperatorsReset').then((rst) => rst.default),
+                name: 'FilterOperatorReset',
+                component: () => import('@/components/common/FilterOperators/FilterOperatorReset').then((rst) => rst.default),
             },
         ],
         listConfig: {
@@ -357,10 +357,10 @@ export default function () {
             },
 
         },
-        operators: [
+        recordOperators: [
             {
                 name: 'info',
-                component: () => import('@/components/common/Operators/OperatorInfo').then((rst) => rst.default),
+                component: () => import('@/components/common/RecordOperators/RecordOperatorInfo').then((rst) => rst.default),
                 config: {
                     getDetailInfo: getUserDetail,
                     triggerConfig: {
@@ -375,7 +375,7 @@ export default function () {
             },
             {
                 name: 'edit',
-                component: () => import('@/components/common/Operators/OperatorEdit').then((rst) => rst.default),
+                component: () => import('@/components/common/RecordOperators/RecordOperatorEdit').then((rst) => rst.default),
                 config: {
                     getEditInfo: getEditUserInfo,
                     doEditRequest: editUser,
@@ -419,7 +419,7 @@ export default function () {
             },
             {
                 name: 'delete',
-                component: () => import('@/components/common/Operators/OperatorDelete').then((rst) => rst.default),
+                component: () => import('@/components/common/RecordOperators/RecordOperatorDelete').then((rst) => rst.default),
                 config: {
                     doDeleteRequest: delUser,
                     triggerConfig: {

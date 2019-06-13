@@ -2,7 +2,7 @@
 
 其实目前看来，这个设计用途不是那么大
 
-filterOperators底层是operators，data属性传递的是filtersValueMap update事件会刷新列表
+data属性传递的是filtersValueMap
 
 ## 内置filterOperators
 

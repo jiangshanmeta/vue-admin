@@ -23,6 +23,7 @@ import {
     logError, 
 } from '@/widget/utility.js';
 export default {
+    name:'ListOperatorCsv',
     props: {
         triggerConfig: {
             type: Object,

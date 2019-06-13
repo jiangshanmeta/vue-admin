@@ -44,7 +44,7 @@ import {
 } from '@/widget/utility.js';
 
 export default {
-    name: 'OperatorEdit',
+    name: 'RecordOperatorEdit',
     components: {
         Editors: () => import('@/components/common/Editors/Editors'),
     },

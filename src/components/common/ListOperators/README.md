@@ -1,6 +1,6 @@
 # ListOperators
 
-ListOperators类似于Operators，但是它的data不是一条记录，而是当前列表的所有记录(Array)。
+对于ListOperator，其data属性对应当前列表所有记录(Array)。
 
 它还有会被传入selectedData，如果有选择的话，对应选中的记录(Array)。
 

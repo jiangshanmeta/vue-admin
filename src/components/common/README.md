@@ -78,3 +78,35 @@ colspan: {
 ```
 
 上面是个比较全的例子，含义是 对于mode为info的，label和field均占两格；对于create，field占3格，label走默认占1格。edit没有自己特定的，所以尝试走default 但是default又使用了exclude排除了edit，所以edit只能走兜底默认，即label和field均为1格。
+
+## Operators
+
+在底层支撑listOperators/filterOperators/recordOperators这三个参数的就是Operators组件
+
+### 组件模式与函数模式
+
+声明一个operator有两种模式，组件模式和函数模式。
+
+#### 组件模式配置项
+
+组件模式有以下几个配置项
+
+* name 组件名称 必填
+* component 组件 必填
+* config 对组件的配置 如果有的话，应为一个对象，被展开传给组件
+
+#### 开发Operator组件
+
+* 组件会被传入fields，对应model的fields
+* 组件会被传入data属性，对于listOperator/filterOperator/recordOperator该参数含义不同
+* emit update事件，会刷新列表
+
+### 函数模式
+
+#### 函数模式配置项
+
+函数模式会被渲染为一个btn，点击btn会调用handler
+
+* handler 一个函数 调用时会被传入两个参数 cb 和 data 对应一个回调函数和这条记录 调用cb会刷新列表。调用handler时this指向Operators组件实例
+* triggerConfig 一个可选对象 用来配置该模式下对应的btn。其中text是按钮的内容
+* label 按钮的内容 同triggerConfig.text 但是优先级比triggerConfig.text低

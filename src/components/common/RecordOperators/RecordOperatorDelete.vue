@@ -13,7 +13,7 @@ import {
     logError, 
 } from '@/widget/utility.js';
 export default {
-    name: 'OperatorDelete',
+    name: 'RecordOperatorDelete',
     mixins: [
         _id_mixin,
     ],

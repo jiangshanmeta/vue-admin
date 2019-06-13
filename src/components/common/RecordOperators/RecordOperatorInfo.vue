@@ -50,7 +50,7 @@ import {
 } from '@/widget/utility.js';
 
 export default {
-    name: 'OperatorInfo',
+    name: 'RecordOperatorInfo',
     components: {
         MetaTable: () => import('@/components/common/MetaTable'),
         Views: () => import('@/components/common/Views/Views'),

@@ -5,7 +5,7 @@
             ref="listInfo"
             :fields="fields"
             :filters="filters"
-            :operators="operators"
+            :record-operators="recordOperators"
             :filter-operators="filterOperators"
             v-bind="listConfig"
         >
@@ -38,7 +38,7 @@ export default {
     name:'ListView',
     components: {
         ListInfo: () => import('@/components/common/ListInfo'),
-        Operators: () => import('@/components/common/Operators/Operators'),
+        Operators: () => import('@/components/common/Operators'),
     },
     inheritAttrs: true,
     props: {
@@ -64,7 +64,7 @@ export default {
                 return {};
             },
         },
-        operators: {
+        recordOperators: {
             type: Array,
             default: function () {
                 return [];

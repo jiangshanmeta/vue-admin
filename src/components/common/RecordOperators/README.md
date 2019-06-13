@@ -1,40 +1,8 @@
-# Operators
+# RecordOperators
 
-operators是针对一条记录的操作集合，它是个数组，数组中每一项对应一个针对一条记录的操作
+对于recordOperator，其data属性对应一条记录(一个对象)。
 
-## 组件模式与函数模式
-
-声明一个operator有两种模式，组件模式和函数模式。
-
-### 组件模式
-
-#### 组件模式配置项
-
-组件模式有以下几个配置项
-
-* name 组件名称 必填
-* component 组件 必填
-* config 对组件的配置 如果有的话，应为一个对象，被展开传给组件
-
-#### 开发Operator组件
-
-* 组件会被传入fields，对应model的fields
-* 组件会被传入data属性，对应一条记录
-* emit update时间，会刷新列表
-
-### 函数模式
-
-#### 函数模式配置项
-
-函数模式会被渲染为一个btn，点击btn会调用handler
-
-* handler 一个函数 调用时会被传入两个参数 cb 和 data 对应一个回调函数和这条记录 调用cb会刷新列表。调用handler时this指向operator组件实例
-* triggerConfig 一个可选对象 用来配置该模式下对应的btn。其中text是按钮的内容
-* label 按钮的内容 同triggerConfig.text 但是优先级比triggerConfig.text低
-
-## 内置Operators
-
-### OperatorInfo
+## RecordOperatorInfo
 
 详情操作组件
 
@@ -68,7 +36,7 @@ operators是针对一条记录的操作集合，它是个数组，数组中每�
 }
 ```
 
-### OperatorEdit
+### RecordOperatorEdit
 
 编辑操作组件
 
@@ -114,7 +82,7 @@ operators是针对一条记录的操作集合，它是个数组，数组中每�
 * transformData(data) data为表单中的数据，需要返回一个对象(处理后的数据)
 * doEditRequest(resolve,data) 一般情况下该函数的this指向edit组件实例，data是经过transformData处理的数据，更新完成后调用resolve，会刷新列表。
 
-### OperatorDelete
+### RecordOperatorDelete
 
 删除操作组件
 
