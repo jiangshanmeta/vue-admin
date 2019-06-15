@@ -48,11 +48,12 @@
 | doEditRequest | 是 | Function | 编辑操作的方法 | - |
 | triggerConfig | 否 | Object | 触发按钮的配置项 | 默认为空对象 |
 | dialogConfig | 否 | Object | 弹框组件的配置项 | 默认为空对象 |
+| fieldLayout  | 是 | Function Array | 字段布局 | - |
+| effectLayoutFields | 当fieldLayout为Function时必须 | Array | 影响布局的字段 | - |
 | editBtnConfig | 否 | Object | 取消按钮的配置项 | 默认为空对象 |
 | cancelBtnConfig | 否 | Object | 确认创建按钮的配置项 | 默认为空对象 |
 | autoValidate | 否 | Boolean | 是否自动表单验证 | 默认为false,第一次点提交时才自动表单验证 |
 | transformData | 否 | Function | 在doEditRequest前对表单数据做一次转换 |
-| reserveFields | 否 | Array | 不需要编辑但是需要提交的字段，例如id |
 | idfield | 否 | String | 指明id字段 | 默认是id |
 
 更多说明:
@@ -62,11 +63,12 @@
 ```javascript
 {
     // 需要编辑的字段
-    "fieldLayoutList":[
-        ["name"],
-        ["gender","typ"],
-        ["privilege"],
-        ["desc"]
+    "editableFields":[
+        "name",
+        "gender",
+        "typ",
+        "privilege",
+        "desc"
     ],
     // 字段及对应值
     "record":{
@@ -79,6 +81,7 @@
 }
 ```
 
+* fieldLayout Array形式应为二维数组，每一项表示一行需要哪些字段。函数形式应该返回二维数组，函数调用时第一个参数是新record(字段由effectLayoutFields确定)第二个参数为旧record
 * transformData(data) data为表单中的数据，需要返回一个对象(处理后的数据)
 * doEditRequest(resolve,data) 一般情况下该函数的this指向edit组件实例，data是经过transformData处理的数据，更新完成后调用resolve，会刷新列表。
 

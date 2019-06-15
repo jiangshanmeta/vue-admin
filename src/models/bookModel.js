@@ -142,6 +142,17 @@ export default {
             config: {
                 getCreateFields: getCreateFields,
                 doCreateRequest: createBook,
+                fieldLayout:[
+                    [
+                        'customername', 'totalprice',
+                    ],
+                    [
+                        'address',
+                    ],
+                    [
+                        'store', 'saler',
+                    ],
+                ],
                 triggerConfig: {
                     text: '新建订单',
                     type: 'primary',

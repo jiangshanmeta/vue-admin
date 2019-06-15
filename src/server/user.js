@@ -163,16 +163,14 @@ function getPrivilege (cb, data) {
     cb(rst);
 }
 
+
 const createFields = [
-    [
-        'name', 'password',
-    ],
-    [
-        'gender', 'typ',
-    ],
-    [
-        'privilege',
-    ],
+    'name',
+    'password',
+    'gender',
+    'typ',
+    'privilege',
+    'desc',
 ];
 
 function getCreateFields (cb) {
@@ -186,7 +184,7 @@ function createUser (cb, data) {
 }
 
 function getUserList (cb, params) {
-    let data = userTable;
+    let data = JSON.parse(JSON.stringify(userTable));
     let fieldList = [
         'name', 'gender', 'typ',
     ];
@@ -225,28 +223,22 @@ function getUserDetail (cb) {
     }
 }
 
+
 const editFields = [
-    [
-        'name', 'password',
-    ],
-    [
-        'gender', 'typ',
-    ],
-    [
-        'privilege',
-    ],
-    [
-        'desc',
-    ],
+    'name',
+    'password',
+    'gender',
+    'typ',
+    'privilege',
+    'desc',
 ];
 
 function getEditUserInfo (cb) {
     let id = this.id;
     for (let item of userTable) {
         if (item.id === id) {
-            console.log(item);
             cb({
-                fieldLayoutList: JSON.parse(JSON.stringify(editFields)),
+                editableFields: JSON.parse(JSON.stringify(editFields)),
                 record: JSON.parse(JSON.stringify(item)),
             });
             return;
@@ -255,16 +247,9 @@ function getEditUserInfo (cb) {
 }
 
 function editUser (cb, data) {
-    let id = this.id;
-    for (let item of userTable) {
-        if (item.id === id) {
-            let keys = Object.keys(item);
-            keys.forEach((field) => {
-                if (field in data) {
-                    item[field] = data[field];
-                }
-            });
-            break;
+    for(let i=0;i<userTable.length;i++){
+        if(userTable[i].id === data.id){
+            userTable[i] = data;
         }
     }
     cb();
@@ -277,6 +262,7 @@ function delUser (cb) {
             userTable.splice(index, 1);
         }
     }
+    cb();
 }
 
 export {

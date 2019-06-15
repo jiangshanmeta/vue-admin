@@ -104,13 +104,9 @@ export default {
     state: {
         labelMap:{},
         needInjectLabelComponentsList:[],
-        get hasInjectLabelComponents () {
-            return this.needInjectLabelComponentsList.length>0;
-        },
+        hasInjectLabelComponents:false,
         needInjectEditorComponentsList: [],
-        get hasInjectEditorComponents () {
-            return this.needInjectEditorComponentsList.length;
-        },
+        hasInjectEditorComponents:false,
         get hasInjectComponent () {
             return this.hasInjectLabelComponents || this.hasInjectEditorComponents;
         },
@@ -118,9 +114,21 @@ export default {
         recordUnwatchs: [],
     },
     props: {
-        fieldLayoutList: {
-            type: Array,
-            required: true,
+        editableFields:{
+            type:Array,
+            required:true,
+        },
+        fieldLayout:{
+            type:[
+                Function,Array,
+            ],
+            required:true,
+        },
+        effectLayoutFields:{
+            type:Array,
+            default(){
+                return [];
+            },
         },
         record: {
             type: Object,
@@ -145,23 +153,10 @@ export default {
             editorComponentsInjected: false,
             validators: {},
             localRecord: {},
+            fieldLayoutList:[],
         };
     },
     computed: {
-        editFieldsArray () {
-            return this.fieldLayoutList.reduce((arr, row) => {
-                return row.reduce((arr, field) => {
-                    arr.push(field);
-                    return arr;
-                }, arr);
-            }, []);
-        },
-        formData () {
-            return this.editFieldsArray.reduce((obj, field) => {
-                obj[field] = this.localRecord[field];
-                return obj;
-            }, {});
-        },
         componentsInjected () {
             return this.labelComponentsInjected && this.editorComponentsInjected;
         },
@@ -177,30 +172,33 @@ export default {
                 this.validators = {};
                 this.hasValidateListener = false;
                 this.initValidate();
-            },
-        },
-        fields: {
-            immediate: true,
-            handler () {
-                this.labelMap = getLabelMapByMode(this.fields, this.editFieldsArray, this.mode);
-                this.needInjectLabelComponentsList = getNeedInjectLabelComponentsList(this.labelMap);
-                this.needInjectEditorComponentsList = getNeedInjectEditorComponentsList(this.fields, this.editFieldsArray);
-                this.labelComponentsInjected = false;
-                this.editorComponentsInjected = false;
-                this.injectLabelComponents();
-                this.injectEditorComponents();
+                this.resetRelates();
             },
         },
     },
     created () {
-        this.$watch(() => {
-            return {
-                record: this.record,
-                fields: this.fields,
-            };
-        }, this.resetRelates, {
-            immediate: true,
-        });
+        this.labelMap = getLabelMapByMode(this.fields, this.editableFields, this.mode);
+        this.needInjectLabelComponentsList = getNeedInjectLabelComponentsList(this.labelMap);
+        this.needInjectEditorComponentsList = getNeedInjectEditorComponentsList(this.fields, this.editableFields);
+        this.hasInjectLabelComponents = this.needInjectLabelComponentsList.length>0;
+        this.hasInjectEditorComponents = this.needInjectEditorComponentsList.length>0;
+        this.injectLabelComponents();
+        this.injectEditorComponents();
+
+        if(typeof this.fieldLayout === 'function'){
+            this.$watch(()=>{
+                return this.effectLayoutFields.reduce((obj,field)=>{
+                    obj[field] = this.localRecord[field];
+                    return obj;
+                },Object.create(null));
+            },(newRecord,oldRecord)=>{
+                this.fieldLayoutList = this.fieldLayout(newRecord,oldRecord);
+            },{
+                immediate:true,
+            });
+        }else{
+            this.fieldLayoutList = this.fieldLayout;
+        }
     },
     methods: {
         resetRelates () {
@@ -209,7 +207,7 @@ export default {
             });
             this.recordUnwatchs = [];
 
-            this.editFieldsArray.forEach((field) => {
+            this.editableFields.forEach((field) => {
                 const editor = this.fields[field].editor;
                 if(!Array.isArray(editor.relates)){
                     return;
@@ -276,7 +274,7 @@ export default {
             });
         },
         initValidate () {
-            this.editFieldsArray.forEach((field) => {
+            this.editableFields.forEach((field) => {
                 if (!this.fields[field].validator) {
                     return;
                 }
@@ -304,7 +302,7 @@ export default {
             const keys = Object.keys(this.validators);
 
             const promises = keys.map((field) => {
-                return this.validateField(field, this.formData[field]);
+                return this.validateField(field, this.localRecord[field]);
             });
 
             if (!this.hasValidateListener) {
@@ -315,7 +313,7 @@ export default {
             }
 
             return Promise.all(promises).then(() => {
-                return JSON.parse(JSON.stringify(this.formData));
+                return JSON.parse(JSON.stringify(this.localRecord));
             });
         },
         addValidateInputListener (field) {

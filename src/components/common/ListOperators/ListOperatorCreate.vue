@@ -14,7 +14,9 @@
             <Editors
                 ref="createbox"
                 :fields="fields"
-                :field-layout-list="fieldLayoutList"
+                :editable-fields="editableFields"
+                :field-layout="fieldLayout"
+                :effect-layout-fields="effectLayoutFields"
                 :record="record"
                 :auto-validate="autoValidate"
                 mode="create"
@@ -73,6 +75,18 @@ export default {
                 return {};
             },
         },
+        fieldLayout:{
+            type:[
+                Function,Array,
+            ],
+            required:true,
+        },
+        effectLayoutFields:{
+            type:Array,
+            default(){
+                return [];
+            },
+        },
         createBtnConfig: {
             type: Object,
             default () {
@@ -99,7 +113,7 @@ export default {
     data () {
         return {
             isShowCreatebox: false,
-            fieldLayoutList: [],
+            editableFields: [],
             record: {},
             canInitDialog: false,
         };
@@ -109,20 +123,18 @@ export default {
             this.isShowCreatebox = true;
         },
         resetRecord () {
-            this.record = this.fieldLayoutList.reduce((obj, row) => {
-                row.forEach((field) => {
-                    const configDefault = this.fields[field].editor.default;
-                    obj[field] = typeof configDefault === 'function' ? configDefault.call(this, field) : configDefault;
-                });
+            this.record = this.editableFields.reduce((obj,field)=>{
+                const configDefault = this.fields[field].editor.default;
+                obj[field] = typeof configDefault === 'function' ? configDefault.call(this, field) : configDefault;
                 return obj;
-            }, {});
+            },{});
         },
         handleClick () {
-            if (this.fieldLayoutList.length === 0) {
+            if (this.editableFields.length === 0) {
                 new Promise((resolve, reject) => {
                     this.getCreateFields(resolve);
-                }).then((fieldLayoutList) => {
-                    this.fieldLayoutList = fieldLayoutList;
+                }).then((editableFields) => {
+                    this.editableFields = editableFields;
                     this.resetRecord();
                     this.canInitDialog = true;
                     this.showDialog();

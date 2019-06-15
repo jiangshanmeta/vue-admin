@@ -245,6 +245,39 @@ export default function () {
                 config: {
                     getCreateFields: getCreateFields,
                     doCreateRequest: createUser,
+                    fieldLayout(record){
+                        if(record.gender === 0){
+                            return [
+                                [
+                                    'name', 'password',
+                                ],
+                                [
+                                    'gender', 'typ',
+                                ],
+                                [
+                                    'privilege',
+                                ],
+                            ];
+                        }else{
+                            return [
+                                [
+                                    'name', 'password',
+                                ],
+                                [
+                                    'gender', 'typ',
+                                ],
+                                [
+                                    'privilege',
+                                ],
+                                [
+                                    'desc',
+                                ],
+                            ];
+                        }
+                    },
+                    effectLayoutFields:[
+                        'gender',
+                    ],
                     triggerConfig: {
                         text: '新建用户',
                         type: 'primary',
@@ -379,6 +412,20 @@ export default function () {
                 config: {
                     getEditInfo: getEditUserInfo,
                     doEditRequest: editUser,
+                    fieldLayout:[
+                        [
+                            'name', 'password',
+                        ],
+                        [
+                            'gender', 'typ',
+                        ],
+                        [
+                            'privilege',
+                        ],
+                        [
+                            'desc',
+                        ],
+                    ],
                     autoValidate: false,
                     reserveFields: [
                         'id',

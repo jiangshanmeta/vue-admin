@@ -107,15 +107,11 @@ const bookTable = [
 let id = bookTable.length + 1;
 
 const createFields = [
-    [
-        'customername', 'totalprice',
-    ],
-    [
-        'address',
-    ],
-    [
-        'store', 'saler',
-    ],
+    'customername',
+    'totalprice',
+    'address',
+    'store',
+    'saler',
 ];
 
 function getCreateFields (cb) {

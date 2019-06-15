@@ -15,7 +15,9 @@
                 ref="editbox"
                 :fields="fields"
                 :record="record"
-                :field-layout-list="fieldLayoutList"
+                :editable-fields="editableFields"
+                :effect-layout-fields="effectLayoutFields"
+                :field-layout="fieldLayout"
                 :auto-validate="autoValidate"
                 mode="edit"
             />
@@ -80,6 +82,18 @@ export default {
                 return {};
             },
         },
+        fieldLayout:{
+            type:[
+                Function,Array,
+            ],
+            required:true,
+        },
+        effectLayoutFields:{
+            type:Array,
+            default(){
+                return [];
+            },
+        },
         editBtnConfig: {
             type: Object,
             default () {
@@ -102,17 +116,11 @@ export default {
                 return data;
             },
         },
-        reserveFields: {
-            type: Array,
-            default: function () {
-                return [];
-            },
-        },
     },
     data () {
         return {
             isShowEditbox: false,
-            fieldLayoutList: [],
+            editableFields: [],
             record: {},
             canInitDialog: false,
         };
@@ -122,18 +130,16 @@ export default {
             new Promise((resolve, reject) => {
                 this.getEditInfo(resolve, this.data);
             }).then(({
-                fieldLayoutList, record, 
+                editableFields, record, 
             }) => {
-                fieldLayoutList.forEach((row)=>{
-                    row.forEach((field)=>{
-                        if(!record.hasOwnProperty(field)){
-                            const configDefault = this.fields[field].editor.default;
-                            record[field] = typeof configDefault === 'function' ? configDefault.call(this, field) : configDefault;
-                        }
-                    });
+                editableFields.forEach((field)=>{
+                    if(!record.hasOwnProperty(field)){
+                        const configDefault = this.fields[field].editor.default;
+                        record[field] = typeof configDefault === 'function' ? configDefault.call(this, field) : configDefault;
+                    }
                 });
 
-                this.fieldLayoutList = fieldLayoutList;
+                this.editableFields = editableFields;
                 this.record = record;
                 this.canInitDialog = true;
                 this.isShowEditbox = true;
@@ -141,10 +147,6 @@ export default {
         },
         doEdit () {
             this.$refs.editbox.validate().then((data) => {
-                this.reserveFields.forEach((field) => {
-                    data[field] = this.record[field];
-                });
-
                 new Promise((resolve, reject) => {
                     this.doEditRequest(resolve, this.transformData(data));
                 }).then(() => {
