@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
-export default function injectComponents (components,target ) {
-    if(target instanceof Vue){
+export default function injectComponents (components, target) {
+    if (target instanceof Vue) {
         target = target.$options.components;
     }
 
@@ -18,11 +18,11 @@ export default function injectComponents (components,target ) {
     });
 
     const dynamicImportComponents = components.filter(({
-        component, 
+        component,
     }) => {
         return typeof component === 'function' && !component.cid;
     }).map(({
-        component, name, 
+        component, name,
     }) => {
         return component().then((realComponent) => {
             target[name] = realComponent;

@@ -74,8 +74,6 @@ import FilterEnumAutocomplete from '@/components/common/Filters/FilterEnumAutoco
 import FilterEnumAsyncSelect from '@/components/common/Filters/FilterEnumAsyncSelect';
 import FilterEnumAsyncAutocomplete from '@/components/common/Filters/FilterEnumAsyncAutocomplete';
 
-import axios from '@/server/axios';
-
 const fields = {
     FilterEnumAsyncSelect: '/test/EditorEnumAsyncSelect',
     FilterEnumAsyncAutocomplete: '/test/EditorEnumAsyncSelect',
@@ -84,23 +82,23 @@ const fields = {
 const FilterEnumAutocomplete_candidate = [
     {
         id: 9,
-        name: '张三', 
+        name: '张三',
     },
     {
         id: 10,
-        name: '张四', 
+        name: '张四',
     },
     {
         id: 11,
-        name: '李四', 
+        name: '李四',
     },
     {
         id: 12,
-        name: '李五', 
+        name: '李五',
     },
     {
         id: 13,
-        name: '王五', 
+        name: '王五',
     },
 ];
 
@@ -118,15 +116,15 @@ export default {
         FilterEnumSelect_candidate: [
             {
                 id: 4,
-                name: 'value1', 
+                name: 'value1',
             },
             {
                 id: 5,
-                name: 'value2', 
+                name: 'value2',
             },
             {
                 id: 6,
-                name: 'value3', 
+                name: 'value3',
             },
         ],
         FilterEnumAutocomplete_candidate,

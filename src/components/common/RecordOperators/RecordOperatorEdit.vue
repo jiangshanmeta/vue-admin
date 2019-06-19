@@ -42,7 +42,7 @@
 <script>
 import _id_mixin from '@/mixins/common/_id_mixin.js';
 import {
-    logError, 
+    logError,
 } from '@/widget/utility.js';
 
 export default {
@@ -82,15 +82,15 @@ export default {
                 return {};
             },
         },
-        fieldLayout:{
-            type:[
-                Function,Array,
+        fieldLayout: {
+            type: [
+                Function, Array,
             ],
-            required:true,
+            required: true,
         },
-        effectLayoutFields:{
-            type:Array,
-            default(){
+        effectLayoutFields: {
+            type: Array,
+            default () {
                 return [];
             },
         },
@@ -130,10 +130,10 @@ export default {
             new Promise((resolve, reject) => {
                 this.getEditInfo(resolve, this.data);
             }).then(({
-                editableFields, record, 
+                editableFields, record,
             }) => {
-                editableFields.forEach((field)=>{
-                    if(!record.hasOwnProperty(field)){
+                editableFields.forEach((field) => {
+                    if (!record.hasOwnProperty(field)) {
                         const configDefault = this.fields[field].editor.default;
                         record[field] = typeof configDefault === 'function' ? configDefault.call(this, field) : configDefault;
                     }

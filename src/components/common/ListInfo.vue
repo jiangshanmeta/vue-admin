@@ -93,14 +93,14 @@ import Operators from '@/components/common/Operators';
 import Views from '@/components/common/Views/Views';
 
 import {
-    logError, 
+    logError,
 } from '@/widget/utility.js';
 
 import injectComponents from '@/widget/injectComponents';
 import getNeedInjectViewComponentsMap from '@/injectHelper/injectViewComponentsHelper';
 
 export default {
-    name:'ListInfo',
+    name: 'ListInfo',
     components: {
         Filters,
         Operators,
@@ -130,9 +130,9 @@ export default {
                 return [];
             },
         },
-        createdHook:{
-            type:Function,
-            default:()=>{},
+        createdHook: {
+            type: Function,
+            default: () => {},
         },
         initialPageSize: {
             type: Number,
@@ -146,13 +146,13 @@ export default {
             type: String,
             default: 'pageSize',
         },
-        initialSortField:{
-            type:String,
-            default:'',
+        initialSortField: {
+            type: String,
+            default: '',
         },
-        initialSortOrder:{
-            type:String,
-            default:'',
+        initialSortOrder: {
+            type: String,
+            default: '',
         },
         sortFieldReqName: {
             type: String,
@@ -268,7 +268,7 @@ export default {
                 return;
             }
 
-            injectComponents(this.needInjectViewComponentsMap,this.injectedViewComponents ).then(() => {
+            injectComponents(this.needInjectViewComponentsMap, this.injectedViewComponents).then(() => {
                 this.componentsInjected = true;
             });
         },
@@ -326,7 +326,7 @@ export default {
                 this.listRequest(resolve, this.transformRequestData(params));
             }).then((rst) => {
                 const {
-                    data, total, fieldList, 
+                    data, total, fieldList,
                 } = rst;
                 let promise = this.transformListData(data);
                 if (!(promise instanceof Promise)) {

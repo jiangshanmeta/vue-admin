@@ -1,5 +1,5 @@
 import {
-    logError, 
+    logError,
 } from '@/widget/utility';
 export default {
     data () {

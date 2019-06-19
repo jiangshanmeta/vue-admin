@@ -1,5 +1,5 @@
 import {
-    logError, 
+    logError,
 } from '@/widget/utility';
 
 export default {
@@ -8,17 +8,17 @@ export default {
             type: Function,
             required: true,
         },
-        isValidValue:{
+        isValidValue: {
             type: Function,
-            default: ()=>true,
+            default: () => true,
         },
-        getCacheKey:{
-            type:Function,
-            default: (item)=>item,
+        getCacheKey: {
+            type: Function,
+            default: (item) => item,
         },
         handleInvalidRelateIds: {
             type: Function,
-            default: ()=>{},
+            default: () => {},
         },
         relateData: {
             type: Object,

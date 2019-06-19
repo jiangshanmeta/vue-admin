@@ -19,7 +19,7 @@ import {
 import Vue from 'vue';
 
 const userModelCacheData = Vue.observable({
-    asyncTypHash:{},
+    asyncTypHash: {},
 });
 
 const cacheGetTypEnum = onceAsync(getTypEnum);
@@ -129,11 +129,11 @@ export default function () {
                         ],
                     },
                     info: {
-                        handler(labelName,config){
+                        handler (labelName, config) {
                             return `${config.prefix}${labelName}`;
                         },
-                        config:{
-                            prefix:"++",
+                        config: {
+                            prefix: '++',
                         },
                     },
 
@@ -166,7 +166,7 @@ export default function () {
                 view: {
                     component: () => import('@/components/common/Views/ViewEnum').then((rst) => rst.default),
                     config: {
-                        get enums(){
+                        get enums () {
                             return userModelCacheData.asyncTypHash;
                         },
                     },
@@ -245,8 +245,8 @@ export default function () {
                 config: {
                     getCreateFields: getCreateFields,
                     doCreateRequest: createUser,
-                    fieldLayout(record){
-                        if(record.gender === 0){
+                    fieldLayout (record) {
+                        if (record.gender === 0) {
                             return [
                                 [
                                     'name', 'password',
@@ -258,7 +258,7 @@ export default function () {
                                     'privilege',
                                 ],
                             ];
-                        }else{
+                        } else {
                             return [
                                 [
                                     'name', 'password',
@@ -275,7 +275,7 @@ export default function () {
                             ];
                         }
                     },
-                    effectLayoutFields:[
+                    effectLayoutFields: [
                         'gender',
                     ],
                     triggerConfig: {
@@ -371,17 +371,17 @@ export default function () {
             },
         ],
         listConfig: {
-            createdHook(){
-                setTimeout(()=>{
+            createdHook () {
+                setTimeout(() => {
                     userModelCacheData.asyncTypHash = JSON.parse(JSON.stringify(typHash));
-                },5000);
+                }, 5000);
             },
             listRequest: getUserList,
-            sortableFields:{
-                'typ':true,
+            sortableFields: {
+                'typ': true,
             },
-            initialSortField:"name",
-            initialSortOrder:"desc",
+            initialSortField: 'name',
+            initialSortOrder: 'desc',
             paginationConfig: {
                 layout: 'total, sizes, prev, pager, next, jumper',
                 pageSizes: [
@@ -412,7 +412,7 @@ export default function () {
                 config: {
                     getEditInfo: getEditUserInfo,
                     doEditRequest: editUser,
-                    fieldLayout:[
+                    fieldLayout: [
                         [
                             'name', 'password',
                         ],

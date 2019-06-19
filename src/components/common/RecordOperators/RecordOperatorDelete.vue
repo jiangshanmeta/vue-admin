@@ -10,7 +10,7 @@
 <script>
 import _id_mixin from '@/mixins/common/_id_mixin.js';
 import {
-    logError, 
+    logError,
 } from '@/widget/utility.js';
 export default {
     name: 'RecordOperatorDelete',

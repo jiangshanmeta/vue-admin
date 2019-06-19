@@ -42,7 +42,7 @@ const defaultColspan = {
 };
 
 export default {
-    name:'MetaTable',
+    name: 'MetaTable',
     props: {
         fieldLayoutList: {
             type: Array,

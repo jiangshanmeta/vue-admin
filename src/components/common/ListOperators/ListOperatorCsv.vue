@@ -20,10 +20,10 @@
 <script>
 import csvjs from 'csv-js';
 import {
-    logError, 
+    logError,
 } from '@/widget/utility.js';
 export default {
-    name:'ListOperatorCsv',
+    name: 'ListOperatorCsv',
     props: {
         triggerConfig: {
             type: Object,

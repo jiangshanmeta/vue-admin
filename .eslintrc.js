@@ -8,7 +8,7 @@ module.exports = {
         'plugin:vue/essential',
         'plugin:vue/strongly-recommended',
         'plugin:vue/recommended',
-        // '@vue/standard',
+        '@vue/standard',
     ],
     rules: {
         'indent': [
@@ -22,24 +22,26 @@ module.exports = {
         ],
         'array-bracket-newline': [
             'error', {
-                minItems:1,
+                minItems: 1,
             },
         ],
-        'object-curly-newline':[
-            'error',{
-                minProperties:1,
+        'object-curly-newline': [
+            'error', {
+                minProperties: 1,
             },
         ],
-        'object-property-newline':[
-            'error',{
-                allowAllPropertiesOnSameLine:false,
+        'object-property-newline': [
+            'error', {
+                allowAllPropertiesOnSameLine: false,
             },
         ],
-        // 'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+        'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'no-debugger': 'error',
-        'semi':[
-            'error','always',
+        'semi': [
+            'error', 'always',
         ],
+        'standard/no-callback-literal': 'off',
+        'camelcase': 'off',
     },
     parserOptions: {
         parser: 'babel-eslint',

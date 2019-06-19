@@ -1,5 +1,5 @@
 import {
-    enumArr2Hash, 
+    enumArr2Hash,
 } from '@/widget/utility.js';
 
 const userTable = [
@@ -9,7 +9,7 @@ const userTable = [
         gender: 1,
         password: '123456',
         typ: {
-            index: 999, 
+            index: 999,
         },
         privilege: [
             1, 2, 3, 5, 11, 123, 999,
@@ -22,7 +22,7 @@ const userTable = [
         gender: 0,
         password: 'qwerty',
         typ: {
-            index: 99, 
+            index: 99,
         },
         privilege: [
             1, 2, 3, 5,
@@ -35,7 +35,7 @@ const userTable = [
         gender: 1,
         password: '123456',
         typ: {
-            index: 99, 
+            index: 99,
         },
         privilege: [
             1, 2,
@@ -48,7 +48,7 @@ const userTable = [
         gender: 0,
         password: 'wwwww',
         typ: {
-            index: 2, 
+            index: 2,
         },
         privilege: [
             0, 1,
@@ -61,7 +61,7 @@ const userTable = [
         gender: 0,
         password: '1234567',
         typ: {
-            index: 1, 
+            index: 1,
         },
         privilege: [
             0,
@@ -81,23 +81,23 @@ const genderEnum = {
 const typEnum = [
     {
         value: 0,
-        label: '路人甲', 
+        label: '路人甲',
     },
     {
         value: 1,
-        label: '店小二', 
+        label: '店小二',
     },
     {
         value: 2,
-        label: '收银员', 
+        label: '收银员',
     },
     {
         value: 99,
-        label: '店掌柜', 
+        label: '店掌柜',
     },
     {
         value: 999,
-        label: '管理员', 
+        label: '管理员',
     },
 ];
 
@@ -110,31 +110,31 @@ const typHash = enumArr2Hash(typEnum);
 const privilegeEnum = [
     {
         'id': 1,
-        'name': '游客', 
+        'name': '游客',
     },
     {
         'id': 2,
-        'name': '打杂', 
+        'name': '打杂',
     },
     {
         'id': 3,
-        'name': '跑堂', 
+        'name': '跑堂',
     },
     {
         'id': 5,
-        'name': '财务', 
+        'name': '财务',
     },
     {
         'id': 11,
-        'name': '店长', 
+        'name': '店长',
     },
     {
         'id': 123,
-        'name': '客服', 
+        'name': '客服',
     },
     {
         'id': 999,
-        'name': '关小黑屋', 
+        'name': '关小黑屋',
     },
 ];
 
@@ -162,7 +162,6 @@ function getPrivilege (cb, data) {
     }
     cb(rst);
 }
-
 
 const createFields = [
     'name',
@@ -223,7 +222,6 @@ function getUserDetail (cb) {
     }
 }
 
-
 const editFields = [
     'name',
     'password',
@@ -247,8 +245,8 @@ function getEditUserInfo (cb) {
 }
 
 function editUser (cb, data) {
-    for(let i=0;i<userTable.length;i++){
-        if(userTable[i].id === data.id){
+    for (let i = 0; i < userTable.length; i++) {
+        if (userTable[i].id === data.id) {
             userTable[i] = data;
         }
     }

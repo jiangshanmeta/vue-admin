@@ -16,7 +16,7 @@ export default {
                 try {
                     return JSON.parse(this.value);
                 } catch (e) {
-                    const val = this.struct.call(this);
+                    const val = this.struct();
                     this.model = val;
                     return val;
                 }

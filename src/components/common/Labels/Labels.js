@@ -1,52 +1,47 @@
-import {
-    spawn, 
-} from "child_process";
-
 export default {
     functional: true,
     props: {
         labelName: {
             type: String,
         },
-        component:{
-            type:[
-                Function,Object,
+        component: {
+            type: [
+                Function, Object,
             ],
-            default:null,
+            default: null,
         },
-        label:{
-            type:Object,
+        label: {
+            type: Object,
         },
     },
     render (h, {
         props, parent,
     }) {
         const labelName = props.labelName;
-        if(props.label){
+        if (props.label) {
             const component = props.component;
             const {
                 handler,
-                config={},
+                config = {},
             } = props.label;
-            if(component){
+            if (component) {
                 const propsData = {
-                    labelName:labelName,
+                    labelName: labelName,
                     ...config,
                 };
                 return (
                     <component
                         {...{
-                            props:propsData,
+                            props: propsData,
                         }}
                     />
                 );
-            }else if(handler){
+            } else if (handler) {
                 return (
-                    <span>{handler.call(parent,labelName,config)}</span>
+                    <span>{handler.call(parent, labelName, config)}</span>
                 );
             }
-
-        }else {
+        } else {
             return (
                 <span>{labelName}</span>
             );

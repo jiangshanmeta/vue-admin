@@ -11,7 +11,7 @@ export default {
         },
     },
     render (h, {
-        props, 
+        props,
     }) {
         const {
             data,

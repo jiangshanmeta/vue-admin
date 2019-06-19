@@ -18,7 +18,7 @@
 
 <script>
 export default {
-    name:'AdminNav',
+    name: 'AdminNav',
     methods: {
         doLogout () {
             this.$store.dispatch('doLogout');

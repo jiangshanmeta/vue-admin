@@ -10,7 +10,7 @@
 <script>
 import fieldText from '@/components/common/Editors/EditorText';
 export default {
-    name:'EditorBookAddress',
+    name: 'EditorBookAddress',
     components: {
         fieldText,
     },

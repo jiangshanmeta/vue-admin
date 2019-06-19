@@ -46,11 +46,11 @@ export default {
             return [
                 {
                     value: this.falseValue,
-                    label: this.falseLabel, 
+                    label: this.falseLabel,
                 },
                 {
                     value: this.trueValue,
-                    label: this.trueLabel, 
+                    label: this.trueLabel,
                 },
             ];
         },

@@ -2,7 +2,7 @@ export default {
     data () {
         return {
             model: {},
-            modelLoaded:false,
+            modelLoaded: false,
         };
     },
     beforeRouteEnter (to, from, next) {
@@ -10,7 +10,7 @@ export default {
             vm.modelLoaded = false;
             if (to.meta && to.meta.model) {
                 import('@/models/' + to.meta.model + '.js').then(({
-                    default: defaultModel, 
+                    default: defaultModel,
                 }) => {
                     vm.model = typeof defaultModel === 'function' ? defaultModel.call(vm) : defaultModel;
                     vm.modelLoaded = true;

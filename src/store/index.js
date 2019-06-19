@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import {
-    doLogin, getUserInfo, doLogout, 
+    doLogin, getUserInfo, doLogout,
 } from '@/server/index.js';
 
 import userInfo from './userInfo.js';
@@ -31,7 +31,7 @@ export default new Vuex.Store({
     },
     actions: {
         doLogin ({
-            dispatch, 
+            dispatch,
         }, data) {
             doLogin(data).then((json) => {
                 Vue.localStorage.set('token', json.data.token);
@@ -39,7 +39,7 @@ export default new Vuex.Store({
             });
         },
         getUserInfo ({
-            commit, 
+            commit,
         }) {
             return getUserInfo().then((json) => {
                 commit('setLogin');
@@ -47,7 +47,7 @@ export default new Vuex.Store({
             });
         },
         doLogout ({
-            commit, 
+            commit,
         }) {
             return doLogout().then(() => {
                 commit('setLogout');

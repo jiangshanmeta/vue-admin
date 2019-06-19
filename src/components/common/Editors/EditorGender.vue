@@ -13,11 +13,11 @@ import _computed_model_mixin from './_computed_model_mixin.js';
 const sexCandidate = [
     {
         value: 0,
-        label: '男', 
+        label: '男',
     },
     {
         value: 1,
-        label: '女', 
+        label: '女',
     },
 ];
 export default {

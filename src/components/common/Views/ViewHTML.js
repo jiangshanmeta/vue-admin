@@ -7,7 +7,7 @@ export default {
         },
     },
     render (h, {
-        props, 
+        props,
     }) {
         return h('div', {
             domProps: {

@@ -31,7 +31,7 @@ import injectComponents from '@/widget/injectComponents';
 import getNeedInjectOperatorComponentsList from '@/injectHelper/injectOperatorComponentsHelper';
 
 import {
-    logError, 
+    logError,
 } from '@/widget/utility.js';
 
 export default {
@@ -72,7 +72,7 @@ export default {
     methods: {
         injectOperatorComponents () {
             if (this.hasInjectOperatorComponents) {
-                injectComponents(this.needInjectOperatorComponentsList,this).then(() => {
+                injectComponents(this.needInjectOperatorComponentsList, this).then(() => {
                     this.componentsInjected = true;
                     this.notifytWidth();
                 });

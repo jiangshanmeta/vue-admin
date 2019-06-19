@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Meta from 'vue-meta';
 import {
-    sync, 
+    sync,
 } from 'vuex-router-sync';
 import menu from './menu';
 import store from '@/store';
@@ -11,7 +11,7 @@ Vue.use(Router);
 Vue.use(Meta);
 
 const routes = menu.reduce((routes, {
-    pages = [], 
+    pages = [],
 }) => {
     routes.push(...pages);
     return routes;
@@ -24,6 +24,7 @@ const router = new Router({
 sync(store, router);
 
 router.beforeEach((to, from, next) => {
+    /* eslint-disable */
     const title = do {
         if (to.meta && to.meta.title) {
             to.meta.title;
@@ -31,6 +32,7 @@ router.beforeEach((to, from, next) => {
             'admin';
         }
     };
+    /* eslint-enable */
     store.commit('setTitie', title);
     next();
 });

@@ -46,7 +46,7 @@ import {
 import getNeedInjectViewComponentsMap from '@/injectHelper/injectViewComponentsHelper';
 
 import {
-    logError, 
+    logError,
 } from '@/widget/utility.js';
 
 export default {
@@ -59,11 +59,11 @@ export default {
     inheritAttrs: true,
     state: {
         injectInited: false,
-        labelMap:{},
-        needInjectLabelComponentsList:[],
+        labelMap: {},
+        needInjectLabelComponentsList: [],
         needInjectViewComponentsMap: {},
         get hasInjectLabelComponents () {
-            return this.needInjectLabelComponentsList.length>0;
+            return this.needInjectLabelComponentsList.length > 0;
         },
         get hasInjectViewComponents () {
             return Object.keys(this.needInjectViewComponentsMap).length > 0;
@@ -116,7 +116,7 @@ export default {
     methods: {
         handleClick () {
             if (!this.injectInited) {
-                this.labelMap = getLabelMapByMode(this.fields, Object.keys(this.fields),'info');
+                this.labelMap = getLabelMapByMode(this.fields, Object.keys(this.fields), 'info');
                 this.needInjectLabelComponentsList = getNeedInjectLabelComponentsList(this.labelMap);
                 this.needInjectViewComponentsMap = getNeedInjectViewComponentsMap(this.fields, Object.keys(this.fields));
                 this.injectLabelComponents();
@@ -127,7 +127,7 @@ export default {
             new Promise((resolve, reject) => {
                 this.getDetailInfo(resolve, this.data);
             }).then(({
-                fieldLayoutList, record, 
+                fieldLayoutList, record,
             }) => {
                 this.fieldLayoutList = fieldLayoutList;
                 this.record = record;
@@ -138,18 +138,20 @@ export default {
         injectLabelComponents () {
             this.injectedLabelComponents = {};
             if (!this.hasInjectLabelComponents) {
-                return this.labelComponentsInjected = true;
+                this.labelComponentsInjected = true;
+                return;
             }
-            injectComponents(this.needInjectLabelComponentsList,this.injectedLabelComponents).then(() => {
+            injectComponents(this.needInjectLabelComponentsList, this.injectedLabelComponents).then(() => {
                 this.labelComponentsInjected = true;
             });
         },
         injectViewComponents () {
             this.injectedViewComponents = {};
             if (!this.hasInjectViewComponents) {
-                return this.viewComponentsInjected = true;
+                this.viewComponentsInjected = true;
+                return;
             }
-            injectComponents(this.needInjectViewComponentsMap,this.injectedViewComponents).then(() => {
+            injectComponents(this.needInjectViewComponentsMap, this.injectedViewComponents).then(() => {
                 this.viewComponentsInjected = true;
             });
         },

@@ -40,7 +40,7 @@ axiosIns.interceptors.response.use(function (response) {
             router.push({
                 path: '/index/login',
                 query: {
-                    'redirect': store.state.route.query.redirect, 
+                    'redirect': store.state.route.query.redirect,
                 },
             });
         }

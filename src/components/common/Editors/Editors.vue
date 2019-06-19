@@ -49,7 +49,7 @@ import {
 import getNeedInjectEditorComponentsList from '@/injectHelper/injectEditorComponentsHelper';
 
 export default {
-    name:'Editors',
+    name: 'Editors',
     components: {
         Labels,
         MetaTable: () => import('@/components/common/MetaTable'),
@@ -71,21 +71,21 @@ export default {
         EditorEnumRelatesSelect: () => import('./EditorEnumRelatesSelect'),
         EditorEnumRelatesAutocomplete: () => import('./EditorEnumRelatesAutocomplete'),
         EditorBool: () => import('./EditorBool'),
-        EditorGender:()=>import("./EditorGender"),
+        EditorGender: () => import('./EditorGender'),
 
         EditorArrayCheckbox: () => import('./EditorArrayCheckbox'),
         EditorArrayAutocomplete: () => import('./EditorArrayAutocomplete'),
         EditorArrayAsyncCheckbox: () => import('./EditorArrayAsyncCheckbox'),
         EditorArrayAsyncAutocomplete: () => import('./EditorArrayAsyncAutocomplete'),
         EditorArrayRelatesCheckbox: () => import('./EditorArrayRelatesCheckbox'),
-        EditorArrayRelatesAutocomplete: ()=>import("./EditorArrayRelatesAutocomplete"),
+        EditorArrayRelatesAutocomplete: () => import('./EditorArrayRelatesAutocomplete'),
 
         EditorArrayJSONCheckbox: () => import('./EditorArrayJSONCheckbox'),
         EditorArrayJSONAutocomplete: () => import('./EditorArrayJSONAutocomplete'),
         EditorArrayJSONAsyncCheckbox: () => import('./EditorArrayJSONAsyncCheckbox'),
         EditorArrayJSONAsyncAutocomplete: () => import('./EditorArrayJSONAsyncAutocomplete'),
         EditorArrayJSONRelatesCheckbox: () => import('./EditorArrayJSONRelatesCheckbox'),
-        EditorArrayJSONRelatesAutocomplete : ()=>import("./EditorArrayJSONRelatesAutocomplete"),
+        EditorArrayJSONRelatesAutocomplete: () => import('./EditorArrayJSONRelatesAutocomplete'),
 
         EditorTimeTs: () => import('./EditorTimeTs'),
         EditorTimeYear: () => import('./EditorTimeYear'),
@@ -102,11 +102,11 @@ export default {
         FieldImageMultiJson: () => import('./FieldImageMultiJson'),
     },
     state: {
-        labelMap:{},
-        needInjectLabelComponentsList:[],
-        hasInjectLabelComponents:false,
+        labelMap: {},
+        needInjectLabelComponentsList: [],
+        hasInjectLabelComponents: false,
         needInjectEditorComponentsList: [],
-        hasInjectEditorComponents:false,
+        hasInjectEditorComponents: false,
         get hasInjectComponent () {
             return this.hasInjectLabelComponents || this.hasInjectEditorComponents;
         },
@@ -114,19 +114,19 @@ export default {
         recordUnwatchs: [],
     },
     props: {
-        editableFields:{
-            type:Array,
-            required:true,
+        editableFields: {
+            type: Array,
+            required: true,
         },
-        fieldLayout:{
-            type:[
-                Function,Array,
+        fieldLayout: {
+            type: [
+                Function, Array,
             ],
-            required:true,
+            required: true,
         },
-        effectLayoutFields:{
-            type:Array,
-            default(){
+        effectLayoutFields: {
+            type: Array,
+            default () {
                 return [];
             },
         },
@@ -153,7 +153,7 @@ export default {
             editorComponentsInjected: false,
             validators: {},
             localRecord: {},
-            fieldLayoutList:[],
+            fieldLayoutList: [],
         };
     },
     computed: {
@@ -180,23 +180,23 @@ export default {
         this.labelMap = getLabelMapByMode(this.fields, this.editableFields, this.mode);
         this.needInjectLabelComponentsList = getNeedInjectLabelComponentsList(this.labelMap);
         this.needInjectEditorComponentsList = getNeedInjectEditorComponentsList(this.fields, this.editableFields);
-        this.hasInjectLabelComponents = this.needInjectLabelComponentsList.length>0;
-        this.hasInjectEditorComponents = this.needInjectEditorComponentsList.length>0;
+        this.hasInjectLabelComponents = this.needInjectLabelComponentsList.length > 0;
+        this.hasInjectEditorComponents = this.needInjectEditorComponentsList.length > 0;
         this.injectLabelComponents();
         this.injectEditorComponents();
 
-        if(typeof this.fieldLayout === 'function'){
-            this.$watch(()=>{
-                return this.effectLayoutFields.reduce((obj,field)=>{
+        if (typeof this.fieldLayout === 'function') {
+            this.$watch(() => {
+                return this.effectLayoutFields.reduce((obj, field) => {
                     obj[field] = this.localRecord[field];
                     return obj;
-                },Object.create(null));
-            },(newRecord,oldRecord)=>{
-                this.fieldLayoutList = this.fieldLayout(newRecord,oldRecord);
-            },{
-                immediate:true,
+                }, Object.create(null));
+            }, (newRecord, oldRecord) => {
+                this.fieldLayoutList = this.fieldLayout(newRecord, oldRecord);
+            }, {
+                immediate: true,
             });
-        }else{
+        } else {
             this.fieldLayoutList = this.fieldLayout;
         }
     },
@@ -209,7 +209,7 @@ export default {
 
             this.editableFields.forEach((field) => {
                 const editor = this.fields[field].editor;
-                if(!Array.isArray(editor.relates)){
+                if (!Array.isArray(editor.relates)) {
                     return;
                 }
                 const relates = this.fields[field].editor.relates;
@@ -243,7 +243,7 @@ export default {
             const defaultConfig = editor.config || {};
             const modeConfig = editor[`${this.mode}Config`] || {};
 
-            return Object.assign({}, defaultConfig, modeConfig,relateProps);
+            return Object.assign({}, defaultConfig, modeConfig, relateProps);
         },
         getRelateData (relateItem) {
             if (Array.isArray(relateItem.relateField)) {
@@ -258,18 +258,20 @@ export default {
         injectLabelComponents () {
             this.injectedLabelComponents = {};
             if (!this.hasInjectLabelComponents) {
-                return this.labelComponentsInjected = true;
+                this.labelComponentsInjected = true;
+                return;
             }
 
-            injectComponents(this.needInjectLabelComponentsList,this.injectedLabelComponents).then(() => {
+            injectComponents(this.needInjectLabelComponentsList, this.injectedLabelComponents).then(() => {
                 this.labelComponentsInjected = true;
             });
         },
         injectEditorComponents () {
             if (!this.hasInjectEditorComponents) {
-                return this.editorComponentsInjected = true;
+                this.editorComponentsInjected = true;
+                return;
             }
-            injectComponents(this.needInjectEditorComponentsList,this ).then(() => {
+            injectComponents(this.needInjectEditorComponentsList, this).then(() => {
                 this.editorComponentsInjected = true;
             });
         },
@@ -279,7 +281,7 @@ export default {
                     return;
                 }
                 const asyncValidator = new AsyncValidator({
-                    [field]: this.fields[field].validator, 
+                    [field]: this.fields[field].validator,
                 });
 
                 this.$set(this.validators, field, {
@@ -327,7 +329,7 @@ export default {
             return new Promise((resolve, reject) => {
                 const asyncValidator = this.validators[field]['validator'];
                 asyncValidator.validate({
-                    [field]: value, 
+                    [field]: value,
                 }, (errors, fields) => {
                     if (errors) {
                         this.validators[field]['hasErr'] = true;

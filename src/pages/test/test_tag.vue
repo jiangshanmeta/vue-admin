@@ -121,8 +121,9 @@
 </template>
 
 <script>
+/* eslint-disable  */
 import {
-    unique, clearInvalidData, 
+    unique, clearInvalidData,
 } from '@/components/common/Editors/_validate_option';
 
 const fields = {
@@ -135,27 +136,27 @@ const fields = {
 const EditorArrayAutocomplete_candidate = [
     {
         id: 1,
-        name: '太年轻', 
+        name: '太年轻',
     },
     {
         id: 2,
-        name: '太天真', 
+        name: '太天真',
     },
     {
         id: 3,
-        name: '亦可赛艇', 
+        name: '亦可赛艇',
     },
     {
         id: 4,
-        name: 'exciting', 
+        name: 'exciting',
     },
     {
         id: 5,
-        name: 'simple', 
+        name: 'simple',
     },
     {
         id: 6,
-        name: 'naive', 
+        name: 'naive',
     },
 ];
 
@@ -173,23 +174,23 @@ export default {
         EditorArrayCheckbox_candidate: [
             {
                 value: 1,
-                label: 'aaa', 
+                label: 'aaa',
             },
             {
                 value: 2,
-                label: 'bbb', 
+                label: 'bbb',
             },
             {
                 value: 3,
-                label: 'ccc', 
+                label: 'ccc',
             },
             {
                 value: 4,
-                label: 'ddd', 
+                label: 'ddd',
             },
             {
                 value: 5,
-                label: 'eee', 
+                label: 'eee',
             },
         ],
         EditorArrayAutocomplete_candidate,

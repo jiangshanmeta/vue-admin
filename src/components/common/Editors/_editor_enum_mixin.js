@@ -14,7 +14,7 @@ export default merge.all([
 
                 // 对于单选，只有候选项不含该值的情况
                 if (!allvalueSet.has(this.value)) {
-                    this.handleInvalidValue.call(this, this.value, [
+                    this.handleInvalidValue(this.value, [
                         ...allvalueSet,
                     ]);
                 }

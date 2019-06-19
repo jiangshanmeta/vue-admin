@@ -3,7 +3,7 @@ function identity (value) {
 }
 
 export default {
-    name:'Views',
+    name: 'Views',
     functional: true,
     props: {
         view: {
@@ -17,15 +17,15 @@ export default {
             type: String,
             required: true,
         },
-        component:{
-            type:[
-                Function,Object,
+        component: {
+            type: [
+                Function, Object,
             ],
-            default:null,
+            default: null,
         },
     },
     render (h, {
-        props, parent, 
+        props, parent,
     }) {
         let info = props.record[props.field];
 
@@ -42,7 +42,7 @@ export default {
             const isJoinField = join && (typeof join === 'object');
             if (isJoinField) {
                 const obj = props.record.hasOwnProperty(props.field) ? {
-                    [props.field]: info, 
+                    [props.field]: info,
                 } : {};
                 if (Array.isArray(join)) {
                     info = join.reduce((obj, field) => {
@@ -57,7 +57,7 @@ export default {
                 }
             }
             // parent 是为了绑定this指向 可能会访问$store或者原型对象上的属性
-            info = getViewValue.call(parent,info);
+            info = getViewValue.call(parent, info);
 
             if (component) {
                 const propsData = isJoinField
@@ -73,7 +73,7 @@ export default {
                 return (
                     <component
                         {...{
-                            props:propsData,
+                            props: propsData,
                         }}
                     />
                 );

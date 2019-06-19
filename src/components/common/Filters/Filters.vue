@@ -63,7 +63,7 @@ export default {
         EditorTimeYear: () => import('../Editors/EditorTimeYear'),
         EditorTimeMonth: () => import('../Editors/EditorTimeMonth'),
         EditorTimeDay: () => import('../Editors/EditorTimeDay'),
-        EditorTimeTs:() => import('../Editors/EditorTimeTs'),
+        EditorTimeTs: () => import('../Editors/EditorTimeTs'),
         EditorString: () => import('../Editors/EditorString'),
         EditorNumber: () => import('../Editors/EditorNumber'),
 
@@ -119,7 +119,7 @@ export default {
             if (!this.hasInjectFilterComponents) {
                 return;
             }
-            injectComponents(this.needInjectFilterComponentsList,this).then(() => {
+            injectComponents(this.needInjectFilterComponentsList, this).then(() => {
                 this.componentsInjected = true;
             });
         },
@@ -154,7 +154,7 @@ export default {
         initRelates () {
             // 支持 filterComponent relates handler 模式
             this.filters.forEach((filterItem) => {
-                if(!Array.isArray(filterItem.relates)){
+                if (!Array.isArray(filterItem.relates)) {
                     return;
                 }
                 filterItem.relates.filter((relateItem) => typeof relateItem.handler === 'function').forEach((relateItem) => {

@@ -4,7 +4,7 @@ import _props_candidate_mixin from '../Editors/_props_candidate_mixin';
 import _props_label_value_mixin from '../Editors/_props_label_value_mixin';
 
 export default merge.all([
-    _props_candidate_mixin, 
+    _props_candidate_mixin,
     _props_label_value_mixin, {
         props: {
             allvalue: {

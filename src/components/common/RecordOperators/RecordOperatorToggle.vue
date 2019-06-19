@@ -10,7 +10,7 @@
 
 <script>
 import {
-    logError, 
+    logError,
 } from '@/widget/utility.js';
 export default {
     name: 'RecordOperatorToggle',

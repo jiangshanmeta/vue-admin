@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name:'ViewBookTestViewJoin',
+    name: 'ViewBookTestViewJoin',
     props: {
         name: {
             type: String,

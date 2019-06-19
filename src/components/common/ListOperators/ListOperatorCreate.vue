@@ -41,7 +41,7 @@
 
 <script>
 import {
-    logError, 
+    logError,
 } from '@/widget/utility';
 
 export default {
@@ -75,15 +75,15 @@ export default {
                 return {};
             },
         },
-        fieldLayout:{
-            type:[
-                Function,Array,
+        fieldLayout: {
+            type: [
+                Function, Array,
             ],
-            required:true,
+            required: true,
         },
-        effectLayoutFields:{
-            type:Array,
-            default(){
+        effectLayoutFields: {
+            type: Array,
+            default () {
                 return [];
             },
         },
@@ -123,11 +123,11 @@ export default {
             this.isShowCreatebox = true;
         },
         resetRecord () {
-            this.record = this.editableFields.reduce((obj,field)=>{
+            this.record = this.editableFields.reduce((obj, field) => {
                 const configDefault = this.fields[field].editor.default;
                 obj[field] = typeof configDefault === 'function' ? configDefault.call(this, field) : configDefault;
                 return obj;
-            },{});
+            }, {});
         },
         handleClick () {
             if (this.editableFields.length === 0) {

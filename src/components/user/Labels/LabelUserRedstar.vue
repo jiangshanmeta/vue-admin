@@ -7,7 +7,7 @@
 
 <script>
 export default {
-    name:'LabelUserRedstar',
+    name: 'LabelUserRedstar',
     props: {
         labelName: {
             type: String,

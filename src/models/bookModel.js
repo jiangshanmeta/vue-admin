@@ -7,7 +7,7 @@ import {
 } from '@/server/book.js';
 
 import {
-    download, 
+    download,
 } from '@/widget/utility.js';
 
 export default {
@@ -142,7 +142,7 @@ export default {
             config: {
                 getCreateFields: getCreateFields,
                 doCreateRequest: createBook,
-                fieldLayout:[
+                fieldLayout: [
                     [
                         'customername', 'totalprice',
                     ],

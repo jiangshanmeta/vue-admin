@@ -28,7 +28,7 @@
 <script>
 import menu from '@/router/menu';
 export default {
-    name:'SideMenu',
+    name: 'SideMenu',
     props: {
         path: {
             type: String,
@@ -36,24 +36,24 @@ export default {
         },
     },
     computed: {
-        computedMenu(){
-            return menu.reduce((menuList,item)=>{
+        computedMenu () {
+            return menu.reduce((menuList, item) => {
                 const pages = item.pages;
-                if(!Array.isArray(pages)){
+                if (!Array.isArray(pages)) {
                     return menuList;
                 }
                 const menuItem = {};
-                menuItem.children = pages.reduce((arr,subItem)=>{
-                    if(subItem.menuHide){
+                menuItem.children = pages.reduce((arr, subItem) => {
+                    if (subItem.menuHide) {
                         return arr;
                     }
                     arr.push({
-                        label:subItem.label,
-                        path:subItem.path,
+                        label: subItem.label,
+                        path: subItem.path,
                     });
                     return arr;
-                },[]);
-                if(menuItem.children.length === 0){
+                }, []);
+                if (menuItem.children.length === 0) {
                     return menuList;
                 }
                 menuItem.label = item.label;
@@ -61,7 +61,7 @@ export default {
                 menuItem.name = item.name;
                 menuList.push(menuItem);
                 return menuList;
-            },[]);
+            }, []);
         },
     },
 };

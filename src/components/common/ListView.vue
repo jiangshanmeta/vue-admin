@@ -35,7 +35,7 @@
 
 <script>
 export default {
-    name:'ListView',
+    name: 'ListView',
     components: {
         ListInfo: () => import('@/components/common/ListInfo'),
         Operators: () => import('@/components/common/Operators'),

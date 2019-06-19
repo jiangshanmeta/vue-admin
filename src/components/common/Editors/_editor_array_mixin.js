@@ -17,14 +17,14 @@ export default merge.all([
                 for (let item of this.value) {
                 // 候选项没有该值，按无效处理
                     if (!allvalueSet.has(item)) {
-                        return this.handleInvalidValue.call(this, this.value, [
+                        return this.handleInvalidValue(this.value, [
                             ...allvalueSet,
                         ]);
                     }
 
                     // 有重复的，按无效处理
                     if (valueSet.has(item)) {
-                        return this.handleInvalidValue.call(this, this.value, [
+                        return this.handleInvalidValue(this.value, [
                             ...allvalueSet,
                         ]);
                     }
