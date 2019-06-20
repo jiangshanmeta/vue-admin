@@ -427,9 +427,6 @@ export default function () {
                         ],
                     ],
                     autoValidate: false,
-                    reserveFields: [
-                        'id',
-                    ],
                     triggerConfig: {
                         text: '编辑',
                         size: 'small',
