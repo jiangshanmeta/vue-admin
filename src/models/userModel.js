@@ -410,7 +410,7 @@ export default function () {
         },
         recordOperators: [
             {
-                name: 'info',
+                name: 'RecordOperatorInfo',
                 component: () => import('@/components/common/RecordOperators/RecordOperatorInfo').then((rst) => rst.default),
                 config: {
                     getDetailInfo: getUserDetail,
@@ -425,7 +425,7 @@ export default function () {
                 },
             },
             {
-                name: 'edit',
+                name: 'RecordOperatorEdit',
                 component: () => import('@/components/common/RecordOperators/RecordOperatorEdit').then((rst) => rst.default),
                 config: {
                     getEditInfo: getEditUserInfo,
@@ -480,7 +480,7 @@ export default function () {
                 },
             },
             {
-                name: 'delete',
+                name: 'RecordOperatorDelete',
                 component: () => import('@/components/common/RecordOperators/RecordOperatorDelete').then((rst) => rst.default),
                 config: {
                     doDeleteRequest: delUser,

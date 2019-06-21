@@ -8,20 +8,20 @@ model是对一个后台页面的描述，由以下几部分构成
 
 * fields 对字段的描述
   * labelName 字段的名称
-  * [label](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/Labels/)
-  * [editor](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/Editors/)
-  * [view](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/Views/)
+  * [label](./src/components/common/Labels/)
+  * [editor](./src/components/common/Editors/)
+  * [view](./src/components/common/Views/)
   * validator 表单验证用的，底层依赖async-validator
   * tip tip用在Editor组件中，用于对应字段做些说明，它可以是一个函数(调用时this指向Editor组件实例，其返回值作为显示值)，也可以是个简单值(直接作为显示值)
-  * [colspan](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/#MetaTable)
+  * [colspan](./src/components/common/#MetaTable)
   * tableColumnConfig 对应el-table-column的其他配置项 一个对象 展开传递
-* [listConfig](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common#ListInfo)，列表组件的配置项
-* [recordOperators](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/RecordOperators/) 针对一条记录的操作集
-* [listOperators](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/ListOperators/) 类似于recordOperators，但listOperators不针对于一条特定的记录，它对应的data是选中的数据数组。
-* [filters](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/Filters/)，筛选组件的配置项。
-* [filterOperators](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/FilterOperators/)
+* [listConfig](./src/components/common#ListInfo)，列表组件的配置项
+* [recordOperators](./src/components/common/RecordOperators/) 针对一条记录的操作集
+* [listOperators](./src/components/common/ListOperators/) 类似于recordOperators，但listOperators不针对于一条特定的记录，它对应的data是选中的数据数组。
+* [filters](./src/components/common/Filters/)，筛选组件的配置项。
+* [filterOperators](./src/components/common/FilterOperators/)
 
-recordOperators/listOperators/filterOperators在底层都依赖于[Operators](https://github.com/jiangshanmeta/vue-admin/tree/master/src/components/common/#Operators)
+recordOperators/listOperators/filterOperators在底层都依赖于[Operators](./src/components/common/#Operators)
 
 声明了一个model后，我们还需要在vue-router配置中指明用了哪个model，因而用到了vue-router的meta属性。
 
