@@ -83,9 +83,7 @@ export default {
             return start;
         },
         hasValidIds () {
-            return this.relateKeys.every((field) => {
-                return this.isValidValue(this.relateData[field], field);
-            });
+            return this.isValidValue(this.relateData);
         },
         hasCachedOptions () {
             let start = this.optionsCache;

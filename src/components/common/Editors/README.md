@@ -56,7 +56,7 @@ handler模式还可以有一个config配置项，它本质上是vue的$watch方�
     * cb 一个函数，需要调用该方法传入候选项
 * EditorEnumRelatesRadio/EditorEnumRelatesSelect/EditorEnumRelatesAutocomplete 单选联动组件，是对EditorEnumRadio/EditorEnumSelect/EditorEnumAutocomplete进行的包装。这一类联动组件的的propField统一为**relateData**。参数如下:
   * getCandidate 类似于上面的几个Async组件，第一个参数是cb，调用它把候选项传递，第二个参数是关联字段及其对应值构成的对象。(组件内部做过优化，会缓存结果，只在必要时调用这个方法)
-  * isValidValue 判断关联字段的值是否有效，第一个参数是关联字段的值，第二个参数是关联字段名
+  * isValidValue 判断关联字段的值是否有效，第一个参数是关联字段及其值构成的对象
   * getCacheKey 似乎没什么用
   * handleInvalidRelateIds 当关联字段的值无效时调用，默认什么都不做
 

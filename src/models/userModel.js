@@ -191,12 +191,8 @@ export default function () {
                         getCandidate: getPrivilege,
                         labelfield: 'name',
                         valuefield: 'id',
-                        isValidValue (value, field) {
-                            if (field === 'typ') {
-                                value = value.index;
-                                return value !== 0;
-                            }
-                            return true;
+                        isValidValue (data) {
+                            return data.typ.index !== 0;
                         },
                         getCacheKey (value, field) {
                             if (field === 'typ') {
@@ -318,8 +314,20 @@ export default function () {
                         getCandidate: cacheGetTypEnum,
                         allvalue: -1,
                         alllabel: '全部',
+                        getModelValue (data) {
+                            return data.index;
+                        },
+                        setModelValue (data) {
+                            return {
+                                index: data,
+                            };
+                        },
                     },
-                    default: -1,
+                    default () {
+                        return {
+                            index: -1,
+                        };
+                    },
                 },
             },
             {
@@ -329,15 +337,19 @@ export default function () {
                     name: 'FilterEnumRelatesSelect',
                     config: {
                         getCandidate: getPrivilege,
+                        getCacheKey (value, field) {
+                            if (field === 'typ') {
+                                return value.index;
+                            }
+                            return value;
+                        },
                         valuefield: 'id',
                         labelfield: 'name',
-                        placeholder: '请选择权限',
                         allvalue: 'all',
                         alllabel: '不限',
-                        handleInvalidRelateIds () {
+                        handleInvalidValue () {
                             this.$emit('input', 'all');
                         },
-
                     },
                     default: 'all',
                 },

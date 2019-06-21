@@ -140,6 +140,7 @@ const privilegeEnum = [
 
 function getPrivilege (cb, data) {
     let typ = data.typ.index;
+    console.log(typ);
     let rst;
     switch (typ) {
     case 0:

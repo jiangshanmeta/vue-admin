@@ -105,7 +105,7 @@ export default {
                 name: 'EditorEnumRelatesSelect',
                 config: {
                     isValidValue (data) {
-                        return data;
+                        return data.store !== '';
                     },
                     getCandidate: getSaler,
                 },
