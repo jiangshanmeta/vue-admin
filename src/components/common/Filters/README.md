@@ -11,6 +11,7 @@ filters配置项应为一个数组，每一项都是一个筛选条件。
 * filterComponent 筛选所用的组件
 * relates 关联关系
 * watch 是否监听该筛选项，默认为```false```，设置为```true```时，一旦该筛选项的值变化，就发送请求刷新列表
+* isValidValue  一个函数，当watch为true时可用，第一个参数是该筛选项的值，第二个筛选项是field 返回布尔值。用来过滤掉一些不必要的请求 (比如输入要有N个字符才进行筛选)
 
 ## filterComponent
 

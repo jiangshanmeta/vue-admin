@@ -374,6 +374,12 @@ export default function () {
                     default: 'test',
                 },
                 watch: true,
+                isValidValue (value) {
+                    if (value === 'nil') {
+                        return false;
+                    }
+                    return true;
+                },
             },
         ],
         filterOperators: [

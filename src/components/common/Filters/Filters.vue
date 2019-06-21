@@ -179,7 +179,18 @@ export default {
             if (watchFilters.length) {
                 this.$watch(() => {
                     return watchFilters.map(item => this.filtersValueMap[item.field]);
-                }, this.search);
+                }, ()=>{
+                    const isWatchFilterValueValid = watchFilters.every((item)=>{
+                        if(!item.isValidValue){
+                            return true;
+                        }
+                        return item.isValidValue(this.filtersValueMap[item.field],item.field);
+                    });
+
+                    if(isWatchFilterValueValid){
+                        this.search();
+                    }
+                });
             }
         },
     },
