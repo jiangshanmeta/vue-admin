@@ -28,6 +28,8 @@ function initModel () {
         fs.mkdirSync(resolve(`src/components/${modelName}/${dir}`), {
             recursive: true,
         });
+        // .gitkeep 传空目录
+        fs.writeFileSync(resolve(`src/components/${modelName}/${dir}/.gitkeep`), '');
     });
 }
 
