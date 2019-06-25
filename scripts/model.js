@@ -1,23 +1,34 @@
-var path = require("path");
-var fs = require("fs");
+const fs = require('fs');
+const path = require('path');
+const dirs = [
+    'Editors',
+    'FilterOperators',
+    'Filters',
+    'Labels',
+    'ListOperators',
+    'RecordOperators',
+    'Views',
+];
 
-function resolve(dir){
-    return path.join(__dirname,'..','src/models/' + dir)
+function resolve (...args) {
+    return path.join(__dirname, '..', ...args);
 }
 
-
-function initModel(){
-    var modelName = process.argv[2] || 'template';
-    if(!modelName.endsWith('Model')){
-        modelName += 'Model';
+function initModel () {
+    var fileName = process.argv[2] || 'template';
+    if (!fileName.endsWith('Model')) {
+        fileName += 'Model';
     }
 
-    var src = resolve("_template.js");
-    var dst = resolve(modelName+'.js');
+    const modelName = fileName.slice(0, -5);
 
-    let template = fs.readFileSync(src,"utf8");
+    fs.writeFileSync(resolve(`src/models/${fileName}.js`), fs.readFileSync(resolve('scripts/_template.js'), 'utf8'));
 
-    fs.writeFileSync(dst,template);
+    dirs.forEach((dir) => {
+        fs.mkdirSync(resolve(`src/components/${modelName}/${dir}`), {
+            recursive: true,
+        });
+    });
 }
 
 initModel();
