@@ -47,17 +47,19 @@ export default {
     },
     methods: {
         removeItem (index) {
-            const value = JSON.parse(JSON.stringify(this.value));
+            const value = [
+                ...this.value,
+            ];
             value.splice(index, 1);
             this.$emit('input', value);
         },
         addItem (selectedId) {
             this.selectedId = selectedId;
-            if (!this.value.includes(selectedId)) {
-                const value = JSON.parse(JSON.stringify(this.value));
-                value.push(selectedId);
-                this.$emit('input', value);
-            }
+            const value = [
+                ...this.value,
+            ];
+            value.push(selectedId);
+            this.$emit('input', value);
         },
     },
 };
