@@ -9,7 +9,7 @@
 
 <script>
 import _async_candidate_mixin from './_async_candidate_mixin';
-import _computed_model_mixin from './_computed_model_mixin';
+import _editor_model_mixin from './_editor_model_mixin';
 import _props_value_array_mixin from './_props_value_array_mixin';
 
 export default {
@@ -19,7 +19,7 @@ export default {
     },
     mixins: [
         _async_candidate_mixin,
-        _computed_model_mixin,
+        _editor_model_mixin,
         _props_value_array_mixin,
     ],
     inheritAttrs: true,

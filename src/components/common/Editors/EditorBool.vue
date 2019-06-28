@@ -8,7 +8,7 @@
 
 <script>
 import _props_value_number_mixin from './_props_value_number_mixin.js';
-import _computed_model_mixin from './_computed_model_mixin.js';
+import _editor_model_mixin from './_editor_model_mixin.js';
 
 export default {
     name: 'EditorBool',
@@ -16,7 +16,7 @@ export default {
         EditorEnumSelect: () => import('./EditorEnumSelect.vue'),
     },
     mixins: [
-        _computed_model_mixin,
+        _editor_model_mixin,
         _props_value_number_mixin,
     ],
     props: {

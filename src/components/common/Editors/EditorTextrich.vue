@@ -13,7 +13,7 @@ import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
 
-import _computed_model_mixin from './_computed_model_mixin';
+import _editor_model_mixin from './_editor_model_mixin';
 
 export default {
     name: 'EditorTextrich',
@@ -21,7 +21,7 @@ export default {
         quillEditor,
     },
     mixins: [
-        _computed_model_mixin,
+        _editor_model_mixin,
     ],
     inheritAttrs: true,
 };

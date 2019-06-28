@@ -10,7 +10,7 @@
 
 <script>
 import _filter_all_mixin from './_filter_all_mixin';
-import _computed_model_mixin from '../Editors/_computed_model_mixin';
+import _editor_model_mixin from '../Editors/_editor_model_mixin';
 
 export default {
     name: 'FilterEnumAutocomplete',
@@ -19,7 +19,7 @@ export default {
     },
     mixins: [
         _filter_all_mixin,
-        _computed_model_mixin,
+        _editor_model_mixin,
     ],
     inheritAttrs: true,
     props: {

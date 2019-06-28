@@ -9,7 +9,7 @@
 
 <script>
 import _editor_relates_mixin from '../Editors/_editor_relates_mixin';
-import _computed_model_mixin from '../Editors/_computed_model_mixin';
+import _editor_model_mixin from '../Editors/_editor_model_mixin';
 
 export default {
     name: 'FilterEnumRelatesSelect',
@@ -18,7 +18,7 @@ export default {
     },
     mixins: [
         _editor_relates_mixin,
-        _computed_model_mixin,
+        _editor_model_mixin,
     ],
     inheritAttrs: true,
 };

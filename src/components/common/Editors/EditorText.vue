@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import _computed_model_mixin from './_computed_model_mixin';
+import _editor_model_mixin from './_editor_model_mixin';
 
 export default {
     name: 'EditorText',
     mixins: [
-        _computed_model_mixin,
+        _editor_model_mixin,
     ],
     inheritAttrs: true,
 };

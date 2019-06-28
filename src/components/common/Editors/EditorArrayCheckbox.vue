@@ -15,14 +15,14 @@
 
 <script>
 import _editor_array_mixin from './_editor_array_mixin';
-import _computed_model_mixin from './_computed_model_mixin';
+import _editor_model_mixin from './_editor_model_mixin';
 import _props_value_array_mixin from './_props_value_array_mixin';
 
 export default {
     name: 'EditorArrayCheckbox',
     mixins: [
         _editor_array_mixin,
-        _computed_model_mixin,
+        _editor_model_mixin,
         _props_value_array_mixin,
     ],
 };
