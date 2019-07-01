@@ -15,7 +15,6 @@
     "axios": "^0.18.1",
     "core-js": "^2.6.5",
     "csv-js": "^1.0.0",
-    "deepmerge": "^3.2.0",
     "element-ui": "^2.8.2",
     "file-saver": "^2.0.1",
     "is-promise": "^2.1.0",
