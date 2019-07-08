@@ -160,18 +160,21 @@ export default {
         componentsInjected () {
             return this.labelComponentsInjected && this.editorComponentsInjected;
         },
+        curEditableFields () {
+            return this.fieldLayoutList.reduce((obj, row) => {
+                row.forEach((field) => {
+                    obj[field] = true;
+                });
+                return obj;
+            }, Object.create(null));
+        },
     },
     watch: {
         record: {
             immediate: true,
             handler () {
-                Object.keys(this.validators).forEach((field) => {
-                    this.validators[field].unwatch && this.validators[field].unwatch();
-                });
                 this.localRecord = JSON.parse(JSON.stringify(this.record));
-                this.validators = {};
-                this.hasValidateListener = false;
-                this.initValidate();
+                this.resetValidate();
                 this.resetRelates();
             },
         },
@@ -216,6 +219,10 @@ export default {
 
                 relates.filter(relateItem => typeof relateItem.handler === 'function').forEach((relateItem) => {
                     const callback = function (newVal, oldVal) {
+                        if (!this.curEditableFields[field]) {
+                            return;
+                        }
+
                         if (this.$refs[field]) {
                             relateItem.handler.call(this.$refs[field], newVal, oldVal, this.fields[field]);
                         } else {
@@ -275,7 +282,13 @@ export default {
                 this.editorComponentsInjected = true;
             });
         },
-        initValidate () {
+        resetValidate () {
+            Object.keys(this.validators).forEach((field) => {
+                this.validators[field].unwatch && this.validators[field].unwatch();
+            });
+            this.validators = {};
+            this.hasValidateListener = false;
+
             this.editableFields.forEach((field) => {
                 if (!this.fields[field].validator) {
                     return;
