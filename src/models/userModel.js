@@ -16,12 +16,6 @@ import {
     onceAsync,
 } from '@/widget/utility';
 
-import Vue from 'vue';
-
-const userModelCacheData = Vue.observable({
-    asyncTypHash: {},
-});
-
 const cacheGetTypEnum = onceAsync(getTypEnum);
 
 export default function () {
@@ -166,8 +160,8 @@ export default function () {
                 view: {
                     component: () => import('@/components/common/Views/ViewEnum').then((rst) => rst.default),
                     config: {
-                        get enums () {
-                            return userModelCacheData.asyncTypHash;
+                        enums () {
+                            return this.$store.state.test.typHash;
                         },
                     },
                     getViewValue (data) {
@@ -391,7 +385,7 @@ export default function () {
         listConfig: {
             createdHook () {
                 setTimeout(() => {
-                    userModelCacheData.asyncTypHash = JSON.parse(JSON.stringify(typHash));
+                    this.$store.commit('test/setTypHash', JSON.parse(JSON.stringify(typHash)));
                 }, 5000);
             },
             listRequest: getUserList,

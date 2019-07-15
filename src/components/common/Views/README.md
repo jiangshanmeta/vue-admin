@@ -142,7 +142,7 @@ view:{
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
 | data   | 否 | String Number | 真实值 | 作为ViewComponent时该值自动传入   |
-| enums  |  是  | Object    | 枚举配置项 | - |
+| enums  |  是  | Object Function   | 枚举配置项 | 为函数时this指向一个vue实例(可以用来访问store) 函数应返回enums对象  |
 
 ### ViewHTML
 

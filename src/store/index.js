@@ -5,12 +5,14 @@ import {
     doLogin, getUserInfo, doLogout,
 } from '@/server/index.js';
 
+import test from './test';
 import userInfo from './userInfo.js';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     modules: {
+        test,
         userInfo,
     },
     state: {
