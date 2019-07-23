@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import injectComponents from '@/widget/injectComponents';
-import getNeedInjectFilterComponentsList from '@/injectHelper/injectFilterComponentsHelper';
+import injectComponents from '@/components/common/injectHelper/injectComponents';
+import getNeedInjectFilterComponentsList from '@/components/common/injectHelper/injectFilterComponentsHelper';
 
 export default {
     name: 'Filters',

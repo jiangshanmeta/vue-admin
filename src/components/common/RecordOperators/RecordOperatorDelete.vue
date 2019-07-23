@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import _id_mixin from '@/mixins/common/_id_mixin.js';
+import _id_mixin from '@/mixins/record/_id_mixin';
 import {
     logError,
 } from '@/widget/utility.js';

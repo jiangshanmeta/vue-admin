@@ -1,4 +1,3 @@
-import fileSaver from 'file-saver';
 
 const toString = Object.prototype.toString;
 
@@ -17,19 +16,6 @@ function logError (e) {
     console && console.log && console.log(e);
 }
 
-function download (blob, name = 'template', options) {
-    if (!(blob instanceof Blob)) {
-        if (typeof blob === 'string') {
-            blob = [
-                blob,
-            ];
-        }
-        blob = new Blob(blob, options);
-    }
-
-    fileSaver.saveAs(blob, name);
-}
-
 function onceAsync (fn) {
     let promise;
     return function (cb, ...args) {
@@ -46,6 +32,5 @@ export {
     isAsyncFunction,
     enumArr2Hash,
     logError,
-    download,
     onceAsync,
 };

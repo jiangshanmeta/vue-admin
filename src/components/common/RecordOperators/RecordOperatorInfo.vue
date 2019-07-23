@@ -38,12 +38,12 @@
 </template>
 
 <script>
-import injectComponents from '@/widget/injectComponents';
+import injectComponents from '@/components/common/injectHelper/injectComponents';
 import {
     getLabelMapByMode,
     getNeedInjectLabelComponentsList,
-} from '@/injectHelper/injectLabelComponentsHelper';
-import getNeedInjectViewComponentsMap from '@/injectHelper/injectViewComponentsHelper';
+} from '@/components/common/injectHelper/injectLabelComponentsHelper';
+import getNeedInjectViewComponentsMap from '@/components/common/injectHelper/injectViewComponentsHelper';
 
 import {
     logError,

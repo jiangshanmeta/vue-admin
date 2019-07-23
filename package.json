@@ -22,7 +22,7 @@
     "csv-js": "^1.0.0",
     "element-ui": "^2.8.2",
     "file-saver": "^2.0.1",
-    "is-promise": "^2.1.0",
+    "normalize.css": "^8.0.1",
     "qs": "^6.7.0",
     "vue": "^2.6.10",
     "vue-configs": "^1.0.1",

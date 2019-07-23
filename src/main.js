@@ -10,10 +10,10 @@ import router from './router';
 import store from './store';
 
 // 处理element ui库
+import 'normalize.css';
 import Element from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-import '@/assets/css/bootstrap-reboot.min.css';
 import '@/assets/css/layout.css';
 import '@/assets/css/display.css';
 import '@/assets/css/text.css';

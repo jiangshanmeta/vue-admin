@@ -8,7 +8,7 @@ import {
 
 import {
     download,
-} from '@/widget/utility.js';
+} from '@/widget/download';
 
 export default {
     fields: {

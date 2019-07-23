@@ -96,8 +96,8 @@ import {
     logError,
 } from '@/widget/utility.js';
 
-import injectComponents from '@/widget/injectComponents';
-import getNeedInjectViewComponentsMap from '@/injectHelper/injectViewComponentsHelper';
+import injectComponents from '@/components/common/injectHelper/injectComponents';
+import getNeedInjectViewComponentsMap from '@/components/common/injectHelper/injectViewComponentsHelper';
 
 export default {
     name: 'ListInfo',
