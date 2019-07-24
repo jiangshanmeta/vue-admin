@@ -170,7 +170,9 @@ export default {
 
                     this.$watch(() => {
                         return this.getRelateData(relateItem);
-                    }, callback, relateItem.config);
+                    }, callback, {
+                        ...relateItem.config,
+                    });
                 });
             });
         },
