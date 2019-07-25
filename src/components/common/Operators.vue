@@ -101,8 +101,6 @@ export default {
 
 <style scoped>
 .operator-container{
-    display:table;
-    width:max-content;
     white-space:nowrap;
 }
 .operator-container>*{

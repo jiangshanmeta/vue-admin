@@ -11,15 +11,12 @@ import store from './store';
 
 // 处理element ui库
 import 'normalize.css';
-import Element from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-
 import '@/assets/css/layout.css';
-import '@/assets/css/display.css';
 import '@/assets/css/text.css';
 import '@/assets/css/img.css';
 import '@/assets/css/table.css';
-import '@/assets/css/lib.css';
+import Element from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 import App from './App';
 Vue.use(VueCookie);

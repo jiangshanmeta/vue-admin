@@ -1,6 +1,7 @@
 import {
     logError,
 } from '@/widget/utility';
+
 export default {
     data () {
         return {
@@ -15,12 +16,12 @@ export default {
         },
     },
     created () {
-        new Promise((resolve, reject) => {
+        new Promise((resolve) => {
             this.isRequest = true;
             this.getCandidate(resolve);
         }).then((candidate) => {
             this.isRequest = false;
-            this.candidate = candidate;
+            this.candidate = Object.freeze(candidate);
         }).catch(logError);
     },
 };
