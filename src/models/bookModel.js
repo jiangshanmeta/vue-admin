@@ -275,5 +275,21 @@ export default {
                 size: 'small',
             },
         },
+        {
+            name: 'RecordOperatorLink',
+            component: () => import('@/components/common/RecordOperators/RecordOperatorLink').then((rst) => rst.default),
+            config: {
+                tag: 'el-button',
+                getLink (data) {
+                    return data.customername;
+                },
+                getText: '搜索地址',
+                triggerConfig: {
+                    size: 'small',
+                    type: 'primary',
+                },
+            },
+        },
+
     ],
 };

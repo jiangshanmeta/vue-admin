@@ -102,3 +102,17 @@
 
 * doDeleteRequest(resolve,data) 一般情况该函数调用时this指向Delete组件实例，data是这条记录原始数据，删除完成后调用resolve会刷新列表
 * 在doDeleteRequest中，可以通过```this.id```访问id字段，它本身是```this.data[this.idfield]```的语法糖
+
+### RecordOperatorLink
+
+链接操作组件，通常有关联表时才需要这种类型的组件
+
+参数：
+
+| 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
+| :---:  | :--:  | :--: | :-----:  | :--: |
+| data | 是 | Object | 这一条记录的数据  | 作为operator组件自动传入 |
+| tag | 否 | String | 渲染的组件 | 默认是a |
+| getLink | 是 | Function | 获取链接的方法 | 第一个参数是data值，返回值作为router-link的to参数，this指向一个vue实例 |
+| getText | 是 | Function | 获取展示文字的方法 | 第一个参数是data值，返回值作为router-link的内容，this指向一个vue实例 |
+| triggerConfig | 否 | Object | 触发按钮的配置项 | 默认为空对象 |

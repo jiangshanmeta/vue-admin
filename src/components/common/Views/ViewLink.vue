@@ -12,6 +12,9 @@ export default {
     name: 'ViewLink',
     props: {
         data: {
+            type: [
+                String, Number, Object,
+            ],
             required: true,
         },
         getLink: {
