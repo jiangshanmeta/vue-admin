@@ -9,7 +9,7 @@ export default {
     },
     render (h, context) {
         return (
-            <vueMarkdown {...context.data.attrs}>{context.props.data}</vueMarkdown>
+            <vueMarkdown {...context.data}>{context.props.data}</vueMarkdown>
         );
     },
 };

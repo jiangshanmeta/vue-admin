@@ -81,9 +81,6 @@ export default {
                 component: () => import('@/components/common/Views/ViewMarkdown').then((rst) => rst.default),
                 config: {
                     breaks: false,
-                    // transform:function(data){
-                    //     return "¥" + data;
-                    // },
                 },
             },
         },

@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import AdminNav from '@/components/index/AdminNav';
-import SideMenu from '@/components/index/SideMenu';
-import AdminFooter from '@/components/index/AdminFooter';
+import AdminNav from '@/components/app/AdminNav';
+import SideMenu from '@/components/app/SideMenu';
+import AdminFooter from '@/components/app/AdminFooter';
 
 export default {
     name: 'App',

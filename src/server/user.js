@@ -186,7 +186,7 @@ function createUser (cb, data) {
 function getUserList (cb, params) {
     let data = JSON.parse(JSON.stringify(userTable));
     let fieldList = [
-        'name', 'gender', 'typ',
+        'name', 'gender', 'typ', 'password',
     ];
     let total = data.length;
 

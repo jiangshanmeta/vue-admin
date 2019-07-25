@@ -82,6 +82,18 @@ export default function () {
                     },
                     default: '',
                 },
+                view: {
+                    component: () => import('@/components/common/Views/ViewLink').then((rst) => rst.default),
+                    config: {
+                        getLink (data) {
+                            return `https://www.google.com/search?q=${data}`;
+                        },
+                        getText (data) {
+                            return '*'.repeat(data.length);
+                        },
+                        tag: 'span',
+                    },
+                },
                 validator: [
                     {
                         validator (rule, value, cb) {

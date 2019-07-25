@@ -160,6 +160,16 @@ view:{
 | :---:  | :--:  | :--: | :-----:  | :--: |
 | data   | 否 | String | 真实值 | 作为ViewComponent时该值自动传入   |
 
+### ViewLink
+
+作为router-link的包装
+
+| 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
+| :---:  | :--:  | :--: | :-----:  | :--: |
+| data   | 否 | 不限 | 真实值 | 作为ViewComponent时该值自动传入，一般而言是关联id   |
+| getLink | 是 | Function | 获取链接的方法 | 第一个参数是data值，返回值作为router-link的to参数，this指向一个vue实例 |
+| getText | 是 | Function | 获取展示文字的方法 | 第一个参数是data值，返回值作为router-link的内容，this指向一个vue实例 |
+
 ### ViewTransform
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
