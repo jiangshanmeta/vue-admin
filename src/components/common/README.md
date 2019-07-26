@@ -81,7 +81,7 @@ colspan: {
 
 ## Operators
 
-在底层支撑listOperators/filterOperators/recordOperators这三个参数的就是Operators组件
+在底层支撑listOperators/filterOperators/recordOperators这三个参数的就是Operators组件。在model中对应的三个属性应该为数组或者返回数组的函数，当为函数类型时，this指向operators组件本身，函数的第一个参数为data值
 
 ### 组件模式与函数模式
 

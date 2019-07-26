@@ -86,7 +86,9 @@ export default {
             required: true,
         },
         filterOperators: {
-            type: Array,
+            type: [
+                Array, Function,
+            ],
             default () {
                 return [];
             },

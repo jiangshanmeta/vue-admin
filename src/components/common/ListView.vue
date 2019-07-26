@@ -11,7 +11,6 @@
         >
             <template #beforeFilters="scope">
                 <Operators
-                    v-if="listOperators.length>0"
                     :operators="listOperators"
                     v-bind="scope"
                     :fields="fields"
@@ -47,7 +46,9 @@ export default {
             required: true,
         },
         listOperators: {
-            type: Array,
+            type: [
+                Array, Function,
+            ],
             default: function () {
                 return [];
             },
@@ -65,13 +66,17 @@ export default {
             },
         },
         recordOperators: {
-            type: Array,
+            type: [
+                Array, Function,
+            ],
             default: function () {
                 return [];
             },
         },
         filterOperators: {
-            type: Array,
+            type: [
+                Array, Function,
+            ],
             default: function () {
                 return [];
             },

@@ -54,7 +54,6 @@
                 </template>
             </el-table-column>
             <el-table-column
-                v-if="recordOperators.length>0 && data.length>0"
                 :label="operatorsLabel"
                 :min-width="operatorMinWidth"
             >
@@ -125,7 +124,9 @@ export default {
             },
         },
         filterOperators: {
-            type: Array,
+            type: [
+                Array, Function,
+            ],
             default: function () {
                 return [];
             },
@@ -197,7 +198,9 @@ export default {
         },
 
         recordOperators: {
-            type: Array,
+            type: [
+                Array, Function,
+            ],
             default: function () {
                 return [];
             },

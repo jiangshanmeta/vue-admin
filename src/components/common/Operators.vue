@@ -4,7 +4,7 @@
         ref="container"
         class="operator-container"
     >
-        <template v-for="(item,index) in operators">
+        <template v-for="(item,index) in finalOperators">
             <component
                 :is="item.name"
                 v-if="item.component"
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import mergeAttrsConfig from '@/mixins/common/mergeAttrsConfig.js';
+import mergeAttrsConfig from '@/mixins/common/mergeAttrsConfig';
 import injectComponents from '@/components/common/injectHelper/injectComponents';
 import getNeedInjectOperatorComponentsList from '@/components/common/injectHelper/injectOperatorComponentsHelper';
 
@@ -48,7 +48,9 @@ export default {
     },
     props: {
         operators: {
-            type: Array,
+            type: [
+                Array, Function,
+            ],
             default: function () {
                 return [];
             },
@@ -65,8 +67,17 @@ export default {
             componentsInjected: false,
         };
     },
+    computed: {
+        finalOperators () {
+            if (Array.isArray(this.operators)) {
+                return this.operators;
+            } else {
+                return this.operators(this.data);
+            }
+        },
+    },
     created () {
-        this.needInjectOperatorComponentsList = getNeedInjectOperatorComponentsList(this.operators);
+        this.needInjectOperatorComponentsList = getNeedInjectOperatorComponentsList(this.finalOperators);
         this.injectOperatorComponents();
     },
     methods: {
@@ -101,6 +112,8 @@ export default {
 
 <style scoped>
 .operator-container{
+    display:table;
+    width:max-content;
     white-space:nowrap;
 }
 .operator-container>*{
