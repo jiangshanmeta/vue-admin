@@ -1,10 +1,8 @@
-import _props_candidate_mixin from '../Editors/_props_candidate_mixin';
-import _props_label_value_mixin from '../Editors/_props_label_value_mixin';
+import _candidate_mixin from '../Editors/_candidate_mixin';
 
 export default {
     mixins: [
-        _props_candidate_mixin,
-        _props_label_value_mixin,
+        _candidate_mixin,
     ],
     props: {
         allvalue: {

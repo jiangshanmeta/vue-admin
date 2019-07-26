@@ -45,7 +45,7 @@ export default {
             new Promise((resolve) => {
                 this.getCandidate(resolve, queryObj);
             }).then((candidate) => {
-                this.setCacheOptions(candidate, cacheObj);
+                this.setCacheOptions(Object.freeze(candidate), cacheObj);
             }).catch(logError);
         },
         setCacheOptions (options, cacheObj) {

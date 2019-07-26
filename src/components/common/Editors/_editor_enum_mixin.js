@@ -10,13 +10,11 @@ export default {
                 return;
             }
 
-            const allvalueSet = this.allvalueSet;
+            const allValueSet = this.allValueSet;
 
             // 对于单选，只有候选项不含该值的情况
-            if (!allvalueSet.has(this.value)) {
-                this.handleInvalidValue(this.value, [
-                    ...allvalueSet,
-                ]);
+            if (!allValueSet.has(this.value)) {
+                this.handleInvalidValue(this.value, this.allValue);
             }
         },
     },
