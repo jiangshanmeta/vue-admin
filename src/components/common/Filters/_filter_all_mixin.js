@@ -15,14 +15,13 @@ export default {
     },
     computed: {
         filter_candidate () {
-            const [
-                ...arr
-            ] = this.candidate;
-            arr.unshift({
-                [this.labelfield]: this.alllabel,
-                [this.valuefield]: this.allvalue,
-            });
-            return arr;
+            return [
+                {
+                    [this.labelfield]: this.alllabel,
+                    [this.valuefield]: this.allvalue,
+                },
+                ...this.candidate,
+            ];
         },
     },
 };

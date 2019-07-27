@@ -40,3 +40,4 @@ recordOperators/listOperators/filterOperators在底层都依赖于[Operators](./
 * 一般而言，一个model对应和一个后端model(对应一张表)对应，但实际上不一定。
 * 一个model的内容不一定要放在一个文件中，可以放在多个文件中最后组合
 * 一个具体的业务系统可能有非常多的相似配置项，可以写成辅助函数来生成这些配置(类似于redux的action，本身只是对象，但是可以有action creator)
+* 如果通过MetaPage页面级组件使用model, 会默认把model深度freeze优化性能。deepFreeze情况下如果model中有同步引用的组件(不是通过动态import)，需要手动使用Vue.extend转换为Vue子类，否则Vue自动调用extend将配置对象转换为子类时，由于配置对象被冻结转换为子类失败。

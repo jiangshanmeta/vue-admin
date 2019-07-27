@@ -125,15 +125,12 @@ function createBook (cb, data) {
 }
 
 function getBookList (cb, params) {
-    let data = bookTable;
-    let fieldList = [
-        'customername', 'totalprice', 'address', 'nameAddress',
-    ];
-    let total = data.length;
     cb({
-        data,
-        fieldList,
-        total,
+        data: JSON.parse(JSON.stringify(bookTable)),
+        fieldList: [
+            'customername', 'totalprice', 'address', 'nameAddress',
+        ],
+        total: bookTable.length,
     });
 }
 
