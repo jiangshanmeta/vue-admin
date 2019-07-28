@@ -15,13 +15,13 @@ export default {
     },
     computed: {
         filter_candidate () {
-            return [
+            return Object.freeze([
                 {
                     [this.labelfield]: this.alllabel,
                     [this.valuefield]: this.allvalue,
                 },
                 ...this.candidate,
-            ];
+            ]);
         },
     },
 };
