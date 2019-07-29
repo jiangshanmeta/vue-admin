@@ -66,34 +66,37 @@ export default {
 </script>
 
 <style scoped>
-.list-group{
-    display:flex;
-    flex-direction:column;
-    padding-left:0;
-    margin-bottom:0;
-}
-.list-group-item{
-    position:relative;
-    display:block;
-    font-size:14px;
-    padding:6px 12px;
-    margin-bottom:-1px;
-    background-color:#fff;
-    border:1px solid rgba(0,0,0,.125);
-}
-.list-group-item:first-child{
-    border-top-left-radius:.25rem;
-    border-top-right-radius:.25rem;
-}
-.list-group-item:last-child{
-    margin-bottom:0;
-    border-bottom-left-radius:.25rem;
-    border-bottom-right-radius:.25rem;
+.list-group {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
 }
 
-.list-group-item .el-icon-close{
-    font-size:12px;
-    position:relative;
-    top:5px;
+.list-group-item {
+    position: relative;
+    display: block;
+    font-size: 14px;
+    padding: 6px 12px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.list-group-item:last-child {
+    margin-bottom: 0;
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.list-group-item .el-icon-close {
+    font-size: 12px;
+    position: relative;
+    top: 5px;
 }
 </style>

@@ -2,7 +2,7 @@
     <el-menu
         :router="true"
         :default-active="path"
-        style="width:200px;"
+        style="width: 200px;"
         :unique-opened="true"
     >
         <el-submenu

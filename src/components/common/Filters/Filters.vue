@@ -21,7 +21,7 @@
             <section>
                 <el-button
                     type="primary"
-                    style="margin-right:10px;"
+                    style="margin-right: 10px;"
                     @click="search"
                 >
                     查询
@@ -32,7 +32,7 @@
                     :operators="filterOperators"
                     :data="filtersValueMap"
                     :filters="filters"
-                    style="display:inline-block;"
+                    style="display: inline-block;"
                     @update="search"
                 />
             </section>
@@ -207,7 +207,7 @@ export default {
 </script>
 
 <style scoped>
-.filters >>> .el-form-item{
-    margin-bottom:5px;
+.filters >>> .el-form-item {
+    margin-bottom: 5px;
 }
 </style>

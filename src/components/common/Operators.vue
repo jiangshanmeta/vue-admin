@@ -111,16 +111,18 @@ export default {
 </script>
 
 <style scoped>
-.operator-container{
-    display:table;
-    width:max-content;
-    white-space:nowrap;
+.operator-container {
+    display: table;
+    width: max-content;
+    white-space: nowrap;
 }
-.operator-container>*{
-    display:inline-block;
-    white-space:normal;
+
+.operator-container > * {
+    display: inline-block;
+    white-space: normal;
 }
-.operator-container>:first-child~*{
-    margin-left:10px;
+
+.operator-container > :first-child ~ * {
+    margin-left: 10px;
 }
 </style>

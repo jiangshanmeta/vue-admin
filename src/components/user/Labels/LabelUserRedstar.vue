@@ -1,7 +1,7 @@
 <template>
     <span>
         {{ labelName }}
-        <span style="color:red;">*</span>
+        <span style="color: red;">*</span>
     </span>
 </template>
 

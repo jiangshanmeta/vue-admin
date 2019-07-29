@@ -28,19 +28,21 @@ export default {
 </script>
 
 <style scoped>
-.admin-header{
-    padding:0 30px;
-    background-color:#101010;
+.admin-header {
+    padding: 0 30px;
+    background-color: #101010;
 }
-.admin-header a{
-    display:block;
-    padding:10px 15px;
-    line-height:20px;
-    color:#9d9d9d;
-    font-size:14px;
-    cursor:pointer;
+
+.admin-header a {
+    display: block;
+    padding: 10px 15px;
+    line-height: 20px;
+    color: #9d9d9d;
+    font-size: 14px;
+    cursor: pointer;
 }
-.admin-header a:hover{
-    color:#fff;
+
+.admin-header a:hover {
+    color: #fff;
 }
 </style>

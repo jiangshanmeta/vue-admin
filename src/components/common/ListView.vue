@@ -14,7 +14,7 @@
                     :operators="listOperators"
                     v-bind="scope"
                     :fields="fields"
-                    style="margin-bottom:8px;"
+                    style="margin-bottom: 8px;"
                     @update="refreshListData"
                 />
             </template>

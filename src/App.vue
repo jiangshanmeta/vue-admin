@@ -54,22 +54,25 @@ export default {
 </script>
 
 <style scoped>
-.app{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
-.app-section{
-    flex-grow:1;
-    display:flex;
-    max-width:100%;
+
+.app-section {
+    flex-grow: 1;
+    display: flex;
+    max-width: 100%;
 }
-.app-aside{
-    flex:0 0 auto;
+
+.app-aside {
+    flex: 0 0 auto;
 }
-.app-main{
-    flex:1 1 auto;
-    max-width:100%;
-    padding:15px;
+
+.app-main {
+    flex: 1 1 auto;
+    max-width: 100%;
+    padding: 15px;
 }
 </style>

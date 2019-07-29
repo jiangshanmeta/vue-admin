@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style scoped>
-.FieldImageMono >>> .el-upload-list:not(:empty)+.el-upload{
-    display:none;
+.FieldImageMono >>> .el-upload-list:not(:empty) + .el-upload {
+    display: none;
 }
 </style>

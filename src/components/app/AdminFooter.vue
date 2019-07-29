@@ -11,9 +11,9 @@ export default {};
 </script>
 
 <style scoped>
-.admin-footer{
-    padding:10px 15px;
-    background-color:#333;
-    color:#fff;
+.admin-footer {
+    padding: 10px 15px;
+    background-color: #333;
+    color: #fff;
 }
 </style>

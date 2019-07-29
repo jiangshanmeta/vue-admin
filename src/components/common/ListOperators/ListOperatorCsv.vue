@@ -11,7 +11,7 @@
             type="file"
             :multiple="false"
             accept=".csv"
-            style="display:none;"
+            style="display: none;"
             @change="handleChange"
         >
     </div>

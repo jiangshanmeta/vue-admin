@@ -369,14 +369,15 @@ export default {
 </script>
 
 <style scoped>
-.form-helper{
-    margin-top:5px;
-    margin-bottom:5px;
-    color:#737373;
-    font-size:12px;
-    line-height:1.42;
+.form-helper {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #737373;
+    font-size: 12px;
+    line-height: 1.42;
 }
-.text-danger{
-    color:#FF4949;
+
+.text-danger {
+    color: #ff4949;
 }
 </style>

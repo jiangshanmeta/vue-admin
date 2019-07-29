@@ -27,7 +27,7 @@
         <el-table
             v-if="fieldList.length>0 && data.length>0"
             :data="data"
-            style="width:100%;"
+            style="width: 100%;"
             v-bind="tableConfig"
             @sort-change="handleSortChange"
             @selection-change="handleSelectionChange"
@@ -70,7 +70,7 @@
         </el-table>
         <section
             v-if="data.length === 0"
-            style="margin:10px;text-align:center;font-size:28px;color:#777;letter-spacing:8px;"
+            style="margin: 10px; text-align: center; font-size: 28px; color: #777; letter-spacing: 8px;"
         >
             {{ emptyText }}
         </section>
