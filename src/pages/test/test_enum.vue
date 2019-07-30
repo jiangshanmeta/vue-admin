@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import EditorBool from '@/components/common/Editors/EditorBool.vue';
+import EditorBool from '@/components/common/Editors/EditorBool';
 
 import EditorEnumRadio from '@/components/common/Editors/EditorEnumRadio';
 import EditorEnumSelect from '@/components/common/Editors/EditorEnumSelect';

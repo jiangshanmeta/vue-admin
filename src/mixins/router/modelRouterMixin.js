@@ -13,7 +13,7 @@ export default {
         next((vm) => {
             vm.modelLoaded = false;
             if (to.meta && to.meta.model) {
-                import('@/models/' + to.meta.model + '.js').then(({
+                import('@/models/' + to.meta.model).then(({
                     default: defaultModel,
                 }) => {
                     vm.model = deepFreeze(typeof defaultModel === 'function' ? defaultModel.call(vm) : defaultModel);

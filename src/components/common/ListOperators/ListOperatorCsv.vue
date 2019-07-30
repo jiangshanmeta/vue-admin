@@ -21,7 +21,7 @@
 import csvjs from 'csv-js';
 import {
     logError,
-} from '@/widget/utility.js';
+} from '@/widget/utility';
 export default {
     name: 'ListOperatorCsv',
     props: {

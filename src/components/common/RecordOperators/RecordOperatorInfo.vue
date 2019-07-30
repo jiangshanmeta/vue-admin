@@ -47,7 +47,7 @@ import getNeedInjectViewComponentsMap from '@/components/common/injectHelper/inj
 
 import {
     logError,
-} from '@/widget/utility.js';
+} from '@/widget/utility';
 
 export default {
     name: 'RecordOperatorInfo',

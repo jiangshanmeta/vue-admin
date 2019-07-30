@@ -3,10 +3,10 @@ import Vuex from 'vuex';
 
 import {
     doLogin, getUserInfo, doLogout,
-} from '@/server/index.js';
+} from '@/server/index';
 
 import test from './test';
-import userInfo from './userInfo.js';
+import userInfo from './userInfo';
 
 Vue.use(Vuex);
 

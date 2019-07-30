@@ -1,6 +1,6 @@
 import {
     enumArr2Hash,
-} from '@/widget/utility.js';
+} from '@/widget/utility';
 
 const userTable = [
     {

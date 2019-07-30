@@ -32,7 +32,7 @@ import getNeedInjectOperatorComponentsList from '@/components/common/injectHelpe
 
 import {
     logError,
-} from '@/widget/utility.js';
+} from '@/widget/utility';
 
 export default {
     name: 'Operators',

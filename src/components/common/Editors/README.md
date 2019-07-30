@@ -68,17 +68,6 @@ handler模式还可以有一个config配置项，它本质上是vue的$watch方�
 * EditorArrayJSONCheckbox/EditorArrayJSONAutocomplete/EditorArrayJSONAsyncCheckbox/EditorArrayJSONAsyncAutocomplete/EditorArrayJSONRelatesCheckbox/EditorArrayJSONRelatesAutocomplete 最终把组件的值压成JSON。参数：
   * struct 当JSON.parse解析失败时调用该方法，默认返回一个空数组
 
-## 时间组件
-
-包括 EditorTimeDay/EditorTimeMonth/EditorTimeTs/EditorTimeYear
-
-* value 必传参数
-* placeholder
-* disabled 是否禁用 默认为false
-* format 所获取的值的格式，有 timestamp string object custom三种。timestamp对应js时间戳，string和input框内容一致，object获得的是Date实例，custom允许自定义格式化方法，需要结合 formatMethod 参数。默认为string。
-* formatMethod 函数类型，当format为custom时需要此方法，传入的参数与input框中内容一致。
-* parseDateFromValue 从value中解析出parse对象，入参是value值。考虑到最终存储数据格式的复杂性而设计。
-
 ## 上传组件
 
 上传组件是以Field为开头的那几个，由于element-ui底层的上传有点问题，可能会有bug，谨慎使用。

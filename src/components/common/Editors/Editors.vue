@@ -87,11 +87,6 @@ export default {
         EditorArrayJSONRelatesCheckbox: () => import('./EditorArrayJSONRelatesCheckbox'),
         EditorArrayJSONRelatesAutocomplete: () => import('./EditorArrayJSONRelatesAutocomplete'),
 
-        EditorTimeTs: () => import('./EditorTimeTs'),
-        EditorTimeYear: () => import('./EditorTimeYear'),
-        EditorTimeMonth: () => import('./EditorTimeMonth'),
-        EditorTimeDay: () => import('./EditorTimeDay'),
-
         FieldFileMono: () => import('./FieldFileMono'),
         FieldFileMonoJson: () => import('./FieldFileMonoJson'),
         FieldFileMulti: () => import('./FieldFileMulti'),

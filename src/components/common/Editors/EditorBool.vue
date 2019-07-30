@@ -7,13 +7,13 @@
 </template>
 
 <script>
-import _props_value_number_mixin from './_props_value_number_mixin.js';
-import _editor_model_mixin from './_editor_model_mixin.js';
+import _props_value_number_mixin from './_props_value_number_mixin';
+import _editor_model_mixin from './_editor_model_mixin';
 
 export default {
     name: 'EditorBool',
     components: {
-        EditorEnumSelect: () => import('./EditorEnumSelect.vue'),
+        EditorEnumSelect: () => import('./EditorEnumSelect'),
     },
     mixins: [
         _editor_model_mixin,

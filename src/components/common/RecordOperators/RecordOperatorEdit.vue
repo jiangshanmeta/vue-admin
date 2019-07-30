@@ -43,7 +43,7 @@
 import _id_mixin from '@/mixins/record/_id_mixin';
 import {
     logError,
-} from '@/widget/utility.js';
+} from '@/widget/utility';
 
 export default {
     name: 'RecordOperatorEdit',

@@ -15,11 +15,6 @@ export default {
         //     component: () => import('@/pages/test/test_upload'),
         // },
         // {
-        //     path: '/test/test_ts',
-        //     label: '时间editor',
-        //     component: () => import('@/pages/test/test_ts'),
-        // },
-        // {
         //     path: '/test/test_enum',
         //     label: '枚举editor',
         //     component: () => import('@/pages/test/test_enum'),

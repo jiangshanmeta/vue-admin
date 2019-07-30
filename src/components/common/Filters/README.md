@@ -43,10 +43,6 @@ filters组件是为了通用列表页的筛选条件所设计的，可直接使�
 
 * EditorString
 * EditorNumber
-* EditorTimeYear
-* EditorTimeMonth
-* EditorTimeDay
-* EditorTimeTs
 * EditorEnumSelect
 * EditorEnumAsyncSelect
 * EditorEnumRelatesSelect

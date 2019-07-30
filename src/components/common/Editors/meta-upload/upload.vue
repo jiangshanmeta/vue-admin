@@ -1,7 +1,7 @@
 <script>
 /* eslint-disable  */
 import ajax from './ajax'
-import UploadDragger from './upload-dragger.vue'
+import UploadDragger from './upload-dragger'
 
 export default {
     inject: ['uploader',],

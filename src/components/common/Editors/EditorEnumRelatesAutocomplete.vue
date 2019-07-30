@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import _editor_relates_mixin from './_editor_relates_mixin.js';
-import _editor_model_mixin from './_editor_model_mixin.js';
+import _editor_relates_mixin from './_editor_relates_mixin';
+import _editor_model_mixin from './_editor_model_mixin';
 
 export default {
     name: 'EditorEnumRelatesAutocomplete',

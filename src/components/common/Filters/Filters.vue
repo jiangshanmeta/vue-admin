@@ -59,10 +59,6 @@ export default {
         EditorEnumAutocomplete: () => import('../Editors/EditorEnumAutocomplete'),
         EditorEnumAsyncAutocomplete: () => import('../Editors/EditorEnumAsyncAutocomplete'),
         EditorEnumRelatesAutocomplete: () => import('../Editors/EditorEnumRelatesAutocomplete'),
-        EditorTimeYear: () => import('../Editors/EditorTimeYear'),
-        EditorTimeMonth: () => import('../Editors/EditorTimeMonth'),
-        EditorTimeDay: () => import('../Editors/EditorTimeDay'),
-        EditorTimeTs: () => import('../Editors/EditorTimeTs'),
         EditorString: () => import('../Editors/EditorString'),
         EditorNumber: () => import('../Editors/EditorNumber'),
 

@@ -4,7 +4,7 @@ import {
     getCreateFields,
     createBook,
     getBookList,
-} from '@/server/book.js';
+} from '@/server/book';
 
 import {
     download,

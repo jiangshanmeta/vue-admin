@@ -12,6 +12,10 @@
     border-top: 1px solid #eceeef;
 }
 
+.table tbody td {
+    border-bottom: none;
+}
+
 .table thead th {
     vertical-align: bottom;
     border-bottom: 2px solid #eceeef;

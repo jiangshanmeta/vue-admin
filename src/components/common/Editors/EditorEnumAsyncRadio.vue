@@ -9,8 +9,8 @@
 
 <script>
 import _props_value_mixin from './_props_value_mixin';
-import _editor_model_mixin from './_editor_model_mixin.js';
-import _async_candidate_mixin from './_async_candidate_mixin.js';
+import _editor_model_mixin from './_editor_model_mixin';
+import _async_candidate_mixin from './_async_candidate_mixin';
 
 export default {
     name: 'EditorEnumAsyncRadio',
