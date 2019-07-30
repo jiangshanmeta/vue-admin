@@ -299,95 +299,97 @@ export default function () {
             },
 
         ],
-        filters: [
-            {
-                label: '姓名',
-                field: 'username',
-                filterComponent: {
-                    name: 'EditorString',
-                    config: {
-                        placeholder: '请输入用户姓名',
-                    },
-                    default: '',
-                },
-            },
-            {
-                label: '类型',
-                field: 'typ',
-                filterComponent: {
-                    name: 'FilterEnumAsyncSelect',
-                    config: {
-                        getCandidate: cacheGetTypEnum,
-                        allvalue: -1,
-                        alllabel: '全部',
-                        getModelValue (data) {
-                            return data.index;
+        filters () {
+            return [
+                {
+                    label: '姓名',
+                    field: 'username',
+                    filterComponent: {
+                        name: 'EditorString',
+                        config: {
+                            placeholder: '请输入用户姓名',
                         },
-                        setModelValue (data) {
+                        default: '',
+                    },
+                },
+                {
+                    label: '类型',
+                    field: 'typ',
+                    filterComponent: {
+                        name: 'FilterEnumAsyncSelect',
+                        config: {
+                            getCandidate: cacheGetTypEnum,
+                            allvalue: -1,
+                            alllabel: '全部',
+                            getModelValue (data) {
+                                return data.index;
+                            },
+                            setModelValue (data) {
+                                return {
+                                    index: data,
+                                };
+                            },
+                        },
+                        default () {
                             return {
-                                index: data,
+                                index: -1,
                             };
                         },
                     },
-                    default () {
-                        return {
-                            index: -1,
-                        };
-                    },
                 },
-            },
-            {
-                label: '权限',
-                field: 'privilege',
-                filterComponent: {
-                    name: 'FilterEnumRelatesSelect',
-                    config: {
-                        getCandidate: getPrivilege,
-                        getCacheKey (value, field) {
-                            if (field === 'typ') {
-                                return value.index;
-                            }
-                            return value;
+                {
+                    label: '权限',
+                    field: 'privilege',
+                    filterComponent: {
+                        name: 'FilterEnumRelatesSelect',
+                        config: {
+                            getCandidate: getPrivilege,
+                            getCacheKey (value, field) {
+                                if (field === 'typ') {
+                                    return value.index;
+                                }
+                                return value;
+                            },
+                            valuefield: 'id',
+                            labelfield: 'name',
+                            allvalue: 'all',
+                            alllabel: '不限',
+                            handleInvalidValue () {
+                                this.$emit('input', 'all');
+                            },
                         },
-                        valuefield: 'id',
-                        labelfield: 'name',
-                        allvalue: 'all',
-                        alllabel: '不限',
-                        handleInvalidValue () {
-                            this.$emit('input', 'all');
+                        default: 'all',
+                    },
+                    relates: [
+                        {
+                            relateField: [
+                                'typ',
+                            ],
+                            propField: 'relateData',
                         },
-                    },
-                    default: 'all',
+                    ],
                 },
-                relates: [
-                    {
-                        relateField: [
-                            'typ',
-                        ],
-                        propField: 'relateData',
+                {
+                    label: '自定义filter',
+                    field: 'test',
+                    filterComponent: {
+                        name: 'test_custom_filter',
+                        config: {
+                            msg: '测试自定义filter',
+                        },
+                        component: () => import('@/components/user/Filters/FilterUserTestCustomFilter').then((rst) => rst.default),
+                        default: 'test',
                     },
-                ],
-            },
-            {
-                label: '自定义filter',
-                field: 'test',
-                filterComponent: {
-                    name: 'test_custom_filter',
-                    config: {
-                        msg: '测试自定义filter',
+                    watch: true,
+                    isValidValue (value) {
+                        if (value === 'nil') {
+                            return false;
+                        }
+                        return true;
                     },
-                    component: () => import('@/components/user/Filters/FilterUserTestCustomFilter').then((rst) => rst.default),
-                    default: 'test',
                 },
-                watch: true,
-                isValidValue (value) {
-                    if (value === 'nil') {
-                        return false;
-                    }
-                    return true;
-                },
-            },
-        ],
+            ];
+        },
         filterOperators: [
             {
                 name: 'FilterOperatorReset',

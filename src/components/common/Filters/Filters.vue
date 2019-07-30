@@ -1,12 +1,11 @@
 <template>
     <el-form
-        v-if="filters.length || (!hasInjectFilterComponents || componentsInjected)"
-        v-show="filters.length"
+        v-if="finalFilters.length || (!hasInjectFilterComponents || componentsInjected)"
         :inline="true"
         class="filters"
     >
         <el-form-item
-            v-for="item in filters"
+            v-for="item in finalFilters"
             :key="item.field"
             :label="item.label"
         >
@@ -31,7 +30,7 @@
                     :fields="fields"
                     :operators="filterOperators"
                     :data="filtersValueMap"
-                    :filters="filters"
+                    :filters="finalFilters"
                     style="display: inline-block;"
                     @update="search"
                 />
@@ -78,8 +77,12 @@ export default {
     },
     props: {
         filters: {
-            type: Array,
-            required: true,
+            type: [
+                Array, Function,
+            ],
+            default () {
+                return [];
+            },
         },
         fields: {
             type: Object,
@@ -101,12 +104,19 @@ export default {
         };
     },
     computed: {
+        finalFilters () {
+            if (Array.isArray(this.filters)) {
+                return this.filters;
+            } else {
+                return this.filters();
+            }
+        },
         formData () {
             return JSON.parse(JSON.stringify(this.filtersValueMap));
         },
     },
     created () {
-        this.needInjectFilterComponentsList = getNeedInjectFilterComponentsList(this.filters);
+        this.needInjectFilterComponentsList = getNeedInjectFilterComponentsList(this.finalFilters);
         this.injectFilterComponents();
 
         this.resetValue();
@@ -126,7 +136,7 @@ export default {
             });
         },
         resetValue () {
-            this.filtersValueMap = this.filters.reduce((obj, item) => {
+            this.filtersValueMap = this.finalFilters.reduce((obj, item) => {
                 const defaultConfig = item.filterComponent.default;
                 obj[item.field] = typeof defaultConfig === 'function' ? defaultConfig.call(this) : defaultConfig;
                 return obj;
@@ -155,7 +165,7 @@ export default {
         },
         initRelates () {
             // 支持 filterComponent relates handler 模式
-            this.filters.forEach((filterItem) => {
+            this.finalFilters.forEach((filterItem) => {
                 if (!Array.isArray(filterItem.relates)) {
                     return;
                 }
@@ -179,7 +189,7 @@ export default {
             });
         },
         initWatch () {
-            const watchFilters = this.filters.filter(item => item.watch);
+            const watchFilters = this.finalFilters.filter(item => item.watch);
             if (watchFilters.length) {
                 this.$watch(() => {
                     return watchFilters.map(item => this.filtersValueMap[item.field]);

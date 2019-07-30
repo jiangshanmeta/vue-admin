@@ -119,7 +119,9 @@ export default {
         },
 
         filters: {
-            type: Array,
+            type: [
+                Array, Function,
+            ],
             default: function () {
                 return [];
             },
@@ -295,11 +297,9 @@ export default {
         },
         getListInfo () {
             const params = {};
-            // 有filters 要拿到filters的formData，所以需要等到filters组件实例化完成
-            // 有时filters组件虽然实例化了，但是formData数据为空，需要等待formData对应数据形成
-            // console.log(this.$refs.filters,!this.$refs.filters || this.$refs.filters.formData )
-            if (this.filters.length && ((!this.$refs.filters) || (Object.keys(this.$refs.filters.formData).length === 0)
-            )) {
+
+            // 所以需要等到filters组件实例化完成
+            if (!this.$refs.filters) {
                 // 这里之所以用setTimeout而不是$nextTick
                 // 是因为$nextTick会优先尝试使用Promise
                 // 当getListInfo作为microTask的一个任务时
@@ -312,9 +312,7 @@ export default {
                 return;
             }
 
-            if (this.filters.length) {
-                Object.assign(params, this.$refs.filters.formData);
-            }
+            Object.assign(params, this.$refs.filters.formData);
 
             if (this.paginated) {
                 params[this.pageIndexReqName] = this.pageIndex;

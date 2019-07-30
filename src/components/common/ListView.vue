@@ -54,7 +54,9 @@ export default {
             },
         },
         filters: {
-            type: Array,
+            type: [
+                Array, Function,
+            ],
             default: function () {
                 return [];
             },
