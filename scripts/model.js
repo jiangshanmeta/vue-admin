@@ -5,8 +5,8 @@ const dirs = [
     'FilterOperators',
     'Filters',
     'Labels',
-    'ListOperators',
-    'RecordOperators',
+    'CollectionOperators',
+    'DocumentOperators',
     'Views',
 ];
 

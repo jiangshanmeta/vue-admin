@@ -22,8 +22,9 @@ import csvjs from 'csv-js';
 import {
     logError,
 } from '@/widget/utility';
+
 export default {
-    name: 'ListOperatorCsv',
+    name: 'CollectionOperatorCsv',
     props: {
         triggerConfig: {
             type: Object,

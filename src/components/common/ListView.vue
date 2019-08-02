@@ -5,13 +5,13 @@
             ref="listInfo"
             :fields="fields"
             :filters="filters"
-            :record-operators="recordOperators"
+            :document-operators="documentOperators"
             :filter-operators="filterOperators"
             v-bind="listConfig"
         >
             <template #beforeFilters="scope">
                 <Operators
-                    :operators="listOperators"
+                    :operators="collectionOperators"
                     v-bind="scope"
                     :fields="fields"
                     style="margin-bottom: 8px;"
@@ -45,7 +45,7 @@ export default {
             type: Object,
             required: true,
         },
-        listOperators: {
+        collectionOperators: {
             type: [
                 Array, Function,
             ],
@@ -67,7 +67,7 @@ export default {
                 return {};
             },
         },
-        recordOperators: {
+        documentOperators: {
             type: [
                 Array, Function,
             ],

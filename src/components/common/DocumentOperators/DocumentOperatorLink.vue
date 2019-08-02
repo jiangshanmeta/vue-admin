@@ -10,7 +10,7 @@
 
 <script>
 export default {
-    name: 'RecordOperatorLink',
+    name: 'DocumentOperatorLink',
     props: {
         data: {
             type: Object,

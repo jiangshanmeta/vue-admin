@@ -1,6 +1,6 @@
-# ListOperators
+# CollectionOperators
 
-对于ListOperator，其data属性对应当前列表所有记录(Array)。
+对于CollectionOperator，其data属性对应当前列表所有记录(Array)。
 
 它还有会被传入selectedData，如果有选择的话，对应选中的记录(Array)。
 
@@ -8,9 +8,9 @@
 
 如果采用函数模式，可通过```this.$attrs.selectedData```和```this.$attrs.formData```在handler中访问到这两个属性
 
-## 内置ListOperators
+## 内置CollectionOperators
 
-### ListOperatorCreate
+### CollectionOperatorCreate
 
 创建model的组件
 
@@ -18,7 +18,7 @@
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-| fields | 是 | Object | model的字段列表 | 作为listOperator被自动传入 |
+| fields | 是 | Object | model的字段列表 | 作为CollectionOperator被自动传入 |
 | getCreateFields | 是 | Function | 获取创建需要的字段的请求 | - |
 | doCreateRequest | 是 | Function | 创建需要进行的请求 | - |
 | triggerConfig | 否 | Object | 触发弹框的按钮的配置项 | 默认为空对象 |

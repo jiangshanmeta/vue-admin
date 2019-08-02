@@ -81,7 +81,7 @@ colspan: {
 
 ## Operators
 
-在底层支撑listOperators/filterOperators/recordOperators这三个参数的就是Operators组件。在model中对应的三个属性应该为数组或者返回数组的函数，当为函数类型时，this指向operators组件本身，函数的第一个参数为data值
+在底层支撑collectionOperators/filterOperators/documentOperators这三个参数的就是Operators组件。在model中对应的三个属性应该为数组或者返回数组的函数，当为函数类型时，this指向operators组件本身，函数的第一个参数为data值
 
 ### 组件模式与函数模式
 
@@ -98,7 +98,7 @@ colspan: {
 #### 开发Operator组件
 
 * 组件会被传入fields，对应model的fields
-* 组件会被传入data属性，对于listOperator/filterOperator/recordOperator该参数含义不同
+* 组件会被传入data属性，对于collectionOperator/filterOperator/documentOperator该参数含义不同
 * emit update事件，会刷新列表
 
 ### 函数模式

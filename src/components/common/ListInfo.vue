@@ -60,7 +60,7 @@
                 <template #default="{row}">
                     <Operators
                         :fields="fields"
-                        :operators="recordOperators"
+                        :operators="documentOperators"
                         :data="row"
                         @update="getListInfo"
                         @setWidth="setOperatorWidth"
@@ -200,7 +200,7 @@ export default {
             },
         },
 
-        recordOperators: {
+        documentOperators: {
             type: [
                 Array, Function,
             ],

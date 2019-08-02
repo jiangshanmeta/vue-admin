@@ -1,8 +1,8 @@
-# RecordOperators
+# DocumentOperators
 
-对于recordOperator，其data属性对应一条记录(一个对象)。
+对于DocumentOperator，其data属性对应一条记录(一个对象)。
 
-## RecordOperatorInfo
+## DocumentOperatorInfo
 
 详情操作组件
 
@@ -36,7 +36,7 @@
 }
 ```
 
-### RecordOperatorEdit
+### DocumentOperatorEdit
 
 编辑操作组件
 
@@ -85,7 +85,7 @@
 * transformData(data) data为表单中的数据，需要返回一个对象(处理后的数据)
 * doEditRequest(resolve,data) 一般情况下该函数的this指向edit组件实例，data是经过transformData处理的数据，更新完成后调用resolve，会刷新列表。
 
-### RecordOperatorDelete
+### DocumentOperatorDelete
 
 删除操作组件
 
@@ -103,7 +103,7 @@
 * doDeleteRequest(resolve,data) 一般情况该函数调用时this指向Delete组件实例，data是这条记录原始数据，删除完成后调用resolve会刷新列表
 * 在doDeleteRequest中，可以通过```this.id```访问id字段，它本身是```this.data[this.idfield]```的语法糖
 
-### RecordOperatorLink
+### DocumentOperatorLink
 
 链接操作组件，通常有关联表时才需要这种类型的组件
 

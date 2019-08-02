@@ -16,12 +16,12 @@ model是对一个后台页面的描述，由以下几部分构成
   * [colspan](./src/components/common/#MetaTable)
   * tableColumnConfig 对应el-table-column的其他配置项 一个对象 展开传递
 * [listConfig](./src/components/common#ListInfo)，列表组件的配置项
-* [recordOperators](./src/components/common/RecordOperators/) 针对一条记录的操作集
-* [listOperators](./src/components/common/ListOperators/) 类似于recordOperators，但listOperators不针对于一条特定的记录，它对应的data是选中的数据数组。
+* [documentOperators](./src/components/common/DocumentOperators/) 针对一条记录的操作集
+* [collectionOperators](./src/components/common/CollectionOperators/) 类似于documentOperators，但collectionOperators不针对于一条特定的记录，它对应的data是选中的数据数组。
 * [filters](./src/components/common/Filters/)，筛选组件的配置项。
 * [filterOperators](./src/components/common/FilterOperators/)
 
-recordOperators/listOperators/filterOperators在底层都依赖于[Operators](./src/components/common/#Operators)
+documentOperators/collectionOperators/filterOperators在底层都依赖于[Operators](./src/components/common/#Operators)
 
 声明了一个model后，我们还需要在vue-router配置中指明用了哪个model，因而用到了vue-router的meta属性。
 
@@ -29,7 +29,7 @@ recordOperators/listOperators/filterOperators在底层都依赖于[Operators](./
 
 整体风格为PascalCase。
 
-本系统把组件分为Editor、Filter、View、Label、RecordOperator、ListOperator、FilterOperator七大类，分属于这七大类的组件应以对应的类型作为组件名前缀。
+本系统把组件分为Editor、Filter、View、Label、DocumentOperator、CollectionOperator、FilterOperator七大类，分属于这七大类的组件应以对应的类型作为组件名前缀。
 
 对于Editor、Filter组件，优先描述数据结构，然后是前端特殊功能，最后是前端展示。
 

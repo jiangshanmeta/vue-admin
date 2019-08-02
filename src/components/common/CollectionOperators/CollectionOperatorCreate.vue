@@ -45,7 +45,7 @@ import {
 } from '@/widget/utility';
 
 export default {
-    name: 'ListOperatorCreate',
+    name: 'CollectionOperatorCreate',
     components: {
         Editors: () => import('@/components/common/Editors/Editors'),
     },

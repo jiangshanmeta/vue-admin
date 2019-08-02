@@ -1,6 +1,6 @@
 # label
 
-label这个配置项是labelName配置项的补充。labelName配置项只是一个简单的字符串，label支持一个组件或者函数。目前该配置项应用在 OperatorInfo、OperatorEdit、ListOperatorCreate三个组件中。
+label这个配置项是labelName配置项的补充。labelName配置项只是一个简单的字符串，label支持一个组件或者函数。目前该配置项应用在 OperatorInfo、OperatorEdit、CollectionOperatorCreate三个组件中。
 
 ## 多种mode
 

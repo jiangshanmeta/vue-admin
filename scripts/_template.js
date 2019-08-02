@@ -1,8 +1,8 @@
 export default {
     fields: {},
-    listOperators: [],
+    collectionOperators: [],
     filters: [],
     filterOperators: [],
     listConfig: {},
-    recordOperators: [],
+    documentOperators: [],
 };

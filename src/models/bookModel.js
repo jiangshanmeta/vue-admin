@@ -132,10 +132,10 @@ export default {
             },
         },
     },
-    listOperators: [
+    collectionOperators: [
         {
-            name: 'ListOperatorCreate',
-            component: () => import('@/components/common/ListOperators/ListOperatorCreate').then((rst) => rst.default),
+            name: 'CollectionOperatorCreate',
+            component: () => import('@/components/common/CollectionOperators/CollectionOperatorCreate').then((rst) => rst.default),
             config: {
                 getCreateFields: getCreateFields,
                 doCreateRequest: createBook,
@@ -184,8 +184,8 @@ export default {
             },
         },
         {
-            name: 'ListOperatorCsv',
-            component: () => import('@/components/common/ListOperators/ListOperatorCsv').then((rst) => rst.default),
+            name: 'CollectionOperatorCsv',
+            component: () => import('@/components/common/CollectionOperators/CollectionOperatorCsv').then((rst) => rst.default),
             config: {
                 triggerConfig: {
                     text: '导入csv数据',
@@ -257,7 +257,7 @@ export default {
             ],
         },
     ],
-    recordOperators: [
+    documentOperators: [
         {
             handler (resolve, data) {
                 this.$message({
@@ -276,8 +276,8 @@ export default {
             },
         },
         {
-            name: 'RecordOperatorLink',
-            component: () => import('@/components/common/RecordOperators/RecordOperatorLink').then((rst) => rst.default),
+            name: 'DocumentOperatorLink',
+            component: () => import('@/components/common/DocumentOperators/DocumentOperatorLink').then((rst) => rst.default),
             config: {
                 tag: 'el-button',
                 getLink (data) {

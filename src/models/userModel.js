@@ -240,10 +240,10 @@ export default function () {
                 },
             },
         },
-        listOperators: [
+        collectionOperators: [
             {
-                name: 'ListOperatorCreate',
-                component: () => import('@/components/common/ListOperators/ListOperatorCreate').then((rst) => rst.default),
+                name: 'CollectionOperatorCreate',
+                component: () => import('@/components/common/CollectionOperators/CollectionOperatorCreate').then((rst) => rst.default),
                 config: {
                     getCreateFields: getCreateFields,
                     doCreateRequest: createUser,
@@ -416,10 +416,10 @@ export default function () {
             },
 
         },
-        recordOperators: [
+        documentOperators: [
             {
-                name: 'RecordOperatorInfo',
-                component: () => import('@/components/common/RecordOperators/RecordOperatorInfo').then((rst) => rst.default),
+                name: 'DocumentOperatorInfo',
+                component: () => import('@/components/common/DocumentOperators/DocumentOperatorInfo').then((rst) => rst.default),
                 config: {
                     getDetailInfo: getUserDetail,
                     triggerConfig: {
@@ -433,8 +433,8 @@ export default function () {
                 },
             },
             {
-                name: 'RecordOperatorEdit',
-                component: () => import('@/components/common/RecordOperators/RecordOperatorEdit').then((rst) => rst.default),
+                name: 'DocumentOperatorEdit',
+                component: () => import('@/components/common/DocumentOperators/DocumentOperatorEdit').then((rst) => rst.default),
                 config: {
                     getEditInfo: getEditUserInfo,
                     doEditRequest: editUser,
@@ -488,8 +488,8 @@ export default function () {
                 },
             },
             {
-                name: 'RecordOperatorDelete',
-                component: () => import('@/components/common/RecordOperators/RecordOperatorDelete').then((rst) => rst.default),
+                name: 'DocumentOperatorDelete',
+                component: () => import('@/components/common/DocumentOperators/DocumentOperatorDelete').then((rst) => rst.default),
                 config: {
                     doDeleteRequest: delUser,
                     triggerConfig: {

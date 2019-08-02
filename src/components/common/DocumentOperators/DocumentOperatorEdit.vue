@@ -40,13 +40,13 @@
 </template>
 
 <script>
-import _id_mixin from '@/mixins/record/_id_mixin';
+import _id_mixin from '@/mixins/document/_id_mixin';
 import {
     logError,
 } from '@/widget/utility';
 
 export default {
-    name: 'RecordOperatorEdit',
+    name: 'DocumentOperatorEdit',
     components: {
         Editors: () => import('@/components/common/Editors/Editors'),
     },
