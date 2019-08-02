@@ -117,11 +117,13 @@ export default {
             },
         },
     },
+    state: {
+        editableFields: [],
+        record: {},
+    },
     data () {
         return {
             isShowEditbox: false,
-            editableFields: [],
-            record: {},
             canInitDialog: false,
         };
     },

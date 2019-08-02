@@ -110,11 +110,13 @@ export default {
             default: false,
         },
     },
+    state: {
+        editableFields: [],
+        record: {},
+    },
     data () {
         return {
             isShowCreatebox: false,
-            editableFields: [],
-            record: {},
             canInitDialog: false,
         };
     },

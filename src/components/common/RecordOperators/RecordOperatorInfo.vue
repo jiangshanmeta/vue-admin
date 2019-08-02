@@ -71,6 +71,8 @@ export default {
         get hasInjectComponent () {
             return this.hasInjectLabelComponents || this.hasInjectViewComponents;
         },
+        fieldLayoutList: [],
+        record: {},
     },
     props: {
         fields: {
@@ -103,8 +105,6 @@ export default {
             labelComponentsInjected: false,
             viewComponentsInjected: false,
             isShowLightbox: false,
-            fieldLayoutList: [],
-            record: {},
             canInitDialog: false,
         };
     },

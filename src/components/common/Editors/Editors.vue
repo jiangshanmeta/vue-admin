@@ -148,12 +148,22 @@ export default {
             editorComponentsInjected: false,
             validators: {},
             localRecord: {},
-            fieldLayoutList: [],
         };
     },
     computed: {
         componentsInjected () {
             return this.labelComponentsInjected && this.editorComponentsInjected;
+        },
+        fieldLayoutList () {
+            if (Array.isArray(this.fieldLayout)) {
+                return this.fieldLayout;
+            } else {
+                const effectLayoutData = this.effectLayoutFields.reduce((obj, field) => {
+                    obj[field] = this.localRecord[field];
+                    return obj;
+                }, Object.create(null));
+                return this.fieldLayout(effectLayoutData);
+            }
         },
         curEditableFields () {
             return this.fieldLayoutList.reduce((obj, row) => {
@@ -182,21 +192,6 @@ export default {
         this.hasInjectEditorComponents = this.needInjectEditorComponentsList.length > 0;
         this.injectLabelComponents();
         this.injectEditorComponents();
-
-        if (typeof this.fieldLayout === 'function') {
-            this.$watch(() => {
-                return this.effectLayoutFields.reduce((obj, field) => {
-                    obj[field] = this.localRecord[field];
-                    return obj;
-                }, Object.create(null));
-            }, (newRecord, oldRecord) => {
-                this.fieldLayoutList = this.fieldLayout(newRecord, oldRecord);
-            }, {
-                immediate: true,
-            });
-        } else {
-            this.fieldLayoutList = this.fieldLayout;
-        }
     },
     methods: {
         resetRelates () {
