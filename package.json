@@ -7,7 +7,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint":"npm run lint:es && npm run lint:css",
+    "lint": "npm run lint:es && npm run lint:css",
     "lint:es": "vue-cli-service lint",
     "lint:css": "stylelint **/*.{vue,css} --fix",
     "electron:build": "vue-cli-service electron:build",
@@ -20,7 +20,6 @@
   "dependencies": {
     "async-validator": "^1.11.2",
     "axios": "^0.18.1",
-    "core-js": "^2.6.5",
     "csv-js": "^1.0.0",
     "element-ui": "^2.8.2",
     "file-saver": "^2.0.1",
@@ -39,7 +38,6 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-do-expressions": "^7.2.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@vue/cli-plugin-babel": "^3.7.0",
     "@vue/cli-plugin-eslint": "^3.7.0",
     "@vue/cli-service": "^3.7.0",
