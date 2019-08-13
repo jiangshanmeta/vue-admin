@@ -7,37 +7,35 @@
 </template>
 
 <script>
-import _props_value_number_mixin from './_props_value_number_mixin';
-
 export default {
     name: 'EditorInt',
     components: {
         EditorNumber: () => import('./EditorNumber'),
     },
-    mixins: [
-        _props_value_number_mixin,
-    ],
     inheritAttrs: true,
+    props: {
+        value: {
+            type: Number,
+            required: true,
+            validator (val) {
+                return Number.isInteger(val);
+            },
+        },
+    },
     computed: {
         model: {
             get () {
                 return this.value;
             },
             set (val) {
-                const intVal = Number.parseInt(val);
-
-                if (intVal !== val) {
-                    this.$nextTick(() => {
-                        const inputNumber = this.$refs.EditorNumber.$refs.number;
-                        // 如果不修改input-number的currentValu值
-                        // input-number的值为非法值
-                        // 由于input组件监听了input-number组件的value
-                        // 会被重写为非法值
-                        inputNumber.setCurrentValue(intVal);
-                        inputNumber.$refs.input.setCurrentValue(intVal);
-                    });
+                if (Number.isInteger(val)) {
+                    this.$emit('input', val);
                 } else {
-                    this.$emit('input', intVal);
+                    this.$nextTick(() => {
+                        // 有点hack element-ui底层的坑
+                        const inputNumber = this.$refs.EditorNumber.$refs.number;
+                        inputNumber.setCurrentValue(Number.parseInt(val));
+                    });
                 }
             },
         },

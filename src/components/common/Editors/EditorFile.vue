@@ -1,30 +1,22 @@
 <template>
-    <FieldImageMulti
+    <EditorArrayFile
         v-model="model"
-        class="FieldImageMono"
+        :limit="1"
         v-bind="$attrs"
     />
 </template>
 
 <script>
-import FieldImageMulti from './FieldImageMulti';
 import _mono_multi_mixin from './_mono_multi_mixin';
 
 export default {
-    name: 'FieldImageMono',
+    name: 'EditorFile',
     components: {
-        FieldImageMulti,
+        EditorArrayFile: () => import('./EditorArrayFile'),
     },
     mixins: [
         _mono_multi_mixin,
     ],
     inheritAttrs: true,
 };
-
 </script>
-
-<style scoped>
-.FieldImageMono >>> .el-upload-list:not(:empty) + .el-upload {
-    display: none;
-}
-</style>

@@ -17,9 +17,6 @@ module.exports = {
         'comma-dangle': [
             'error', 'always',
         ],
-        'vue/html-indent': [
-            'error', 4,
-        ],
         'array-bracket-newline': [
             'error', {
                 minItems: 1,
@@ -42,6 +39,10 @@ module.exports = {
         ],
         'standard/no-callback-literal': 'off',
         'camelcase': 'off',
+        'vue/html-indent': [
+            'error', 4,
+        ],
+        'vue/prop-name-casing': 'off',
     },
     parserOptions: {
         parser: 'babel-eslint',

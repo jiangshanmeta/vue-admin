@@ -8,7 +8,7 @@ export default {
         },
         isMonoValid: {
             type: [
-                Boolean, Function,
+                Function,
             ],
             default () {
                 return true;

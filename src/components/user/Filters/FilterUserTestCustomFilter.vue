@@ -6,26 +6,27 @@
 </template>
 
 <script>
-/* eslint-disable  */
 export default {
     name: 'FilterUserTestCustomFilter',
     props: {
         value: {
-
+            type: String,
+            required: true,
         },
         msg: {
-
+            type: String,
+            required: true,
         },
     },
     computed: {
         model: {
             get () {
-                return this.value
+                return this.value;
             },
             set (val) {
-                this.$emit('input', val)
+                this.$emit('input', val);
             },
         },
     },
-}
+};
 </script>

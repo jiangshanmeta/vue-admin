@@ -17,7 +17,7 @@
                             valuefield="id"
                             allvalue="all"
                             alllabel="不限1"
-                            :candidate="FilterEnumSelect_candidate"
+                            :candidate="FilterEnumSelectCandidate"
                         />
                     </td>
                 </tr>
@@ -31,7 +31,7 @@
                             labelfield="name"
                             allvalue="all"
                             alllabel="全部"
-                            :candidate="FilterEnumAutocomplete_candidate"
+                            :candidate="FilterEnumAutocompleteCandidate"
                         />
                     </td>
                 </tr>
@@ -74,12 +74,12 @@ import FilterEnumAutocomplete from '@/components/common/Filters/FilterEnumAutoco
 import FilterEnumAsyncSelect from '@/components/common/Filters/FilterEnumAsyncSelect';
 import FilterEnumAsyncAutocomplete from '@/components/common/Filters/FilterEnumAsyncAutocomplete';
 
-const fields = {
-    FilterEnumAsyncSelect: '/test/EditorEnumAsyncSelect',
-    FilterEnumAsyncAutocomplete: '/test/EditorEnumAsyncSelect',
-};
+const fields = [
+    'FilterEnumAsyncSelect',
+    'FilterEnumAsyncAutocomplete',
+];
 
-const FilterEnumAutocomplete_candidate = [
+const FilterEnumAutocompleteCandidate = [
     {
         id: 9,
         name: '张三',
@@ -102,10 +102,10 @@ const FilterEnumAutocomplete_candidate = [
     },
 ];
 
-const getCandidate = Object.keys(fields).reduce((obj, field) => {
+const getCandidate = fields.reduce((obj, field) => {
     obj[field] = function (cb) {
         setTimeout(() => {
-            cb(FilterEnumAutocomplete_candidate);
+            cb(FilterEnumAutocompleteCandidate);
         }, 1000);
     };
     return obj;
@@ -113,7 +113,7 @@ const getCandidate = Object.keys(fields).reduce((obj, field) => {
 
 export default {
     config: {
-        FilterEnumSelect_candidate: [
+        FilterEnumSelectCandidate: [
             {
                 id: 4,
                 name: 'value1',
@@ -127,7 +127,7 @@ export default {
                 name: 'value3',
             },
         ],
-        FilterEnumAutocomplete_candidate,
+        FilterEnumAutocompleteCandidate,
         getCandidate,
     },
     components: {

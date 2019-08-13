@@ -1,5 +1,5 @@
 <template>
-    <FieldImageMulti
+    <EditorArrayFile
         v-model="model"
         v-bind="$attrs"
     />
@@ -9,9 +9,9 @@
 import _json_object_mixin from './_json_object_mixin';
 
 export default {
-    name: 'FieldImageMultiJson',
+    name: 'EditorArrayJSONFile',
     components: {
-        FieldImageMulti: () => import('./FieldImageMulti'),
+        EditorArrayFile: () => import('./EditorArrayFile'),
     },
     mixins: [
         _json_object_mixin,

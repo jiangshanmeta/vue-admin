@@ -11,7 +11,7 @@
             <tbody>
                 <tr>
                     <td>EditorNumber</td>
-                    <td>{{ EditorNumber }}</td>
+                    <td>{{ EditorNumber }} | {{ typeof EditorNumber }}</td>
                     <td>
                         <EditorNumber
                             v-model="EditorNumber"
@@ -21,11 +21,11 @@
                 </tr>
                 <tr>
                     <td>EditorInt</td>
-                    <td>{{ EditorInt }}</td>
+                    <td>{{ EditorInt }} | {{ typeof EditorInt }} | {{ Number.isInteger(EditorInt) }}</td>
                     <td>
                         <EditorInt
                             v-model="EditorInt"
-                            placeholder="sssss"
+                            :max="1024"
                         />
                     </td>
                 </tr>
@@ -35,7 +35,8 @@
                     <td>
                         <EditorString
                             v-model="EditorString"
-                            placeholder="EditorString"
+                            placeholder="EditorStringPlaceholder"
+                            size="mini"
                         />
                     </td>
                 </tr>
@@ -45,7 +46,7 @@
                     <td>
                         <EditorText
                             v-model="EditorText"
-                            placeholder="placeholder"
+                            placeholder="EditorTextPlaceholder"
                         />
                     </td>
                 </tr>
@@ -55,7 +56,7 @@
                     <td>
                         <EditorPwd
                             v-model="EditorPwd"
-                            placeholder="EditorPwd"
+                            placeholder="EditorPwdPlaceholder"
                         />
                     </td>
                 </tr>

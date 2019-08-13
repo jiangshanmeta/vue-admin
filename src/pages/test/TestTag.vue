@@ -1,6 +1,5 @@
 <template>
     <section>
-        <el-input v-model="relates" />
         <table class="table">
             <thead>
                 <tr>
@@ -16,18 +15,18 @@
                     <td>
                         <EditorArrayCheckbox
                             v-model="EditorArrayCheckbox"
-                            :candidate="EditorArrayCheckbox_candidate"
+                            :candidate="EditorArrayCheckboxCandidate"
                             :handle-invalid-value="handleTagInvalid"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td>EditorArrayJsonCheckbox</td>
-                    <td>{{ EditorArrayJsonCheckbox }} || {{ typeof EditorArrayJsonCheckbox }}</td>
+                    <td>EditorArrayJSONCheckbox</td>
+                    <td>{{ EditorArrayJSONCheckbox }} || {{ typeof EditorArrayJSONCheckbox }}</td>
                     <td>
-                        <EditorArrayJsonCheckbox
-                            v-model="EditorArrayJsonCheckbox"
-                            :candidate="EditorArrayCheckbox_candidate"
+                        <EditorArrayJSONCheckbox
+                            v-model="EditorArrayJSONCheckbox"
+                            :candidate="EditorArrayCheckboxCandidate"
                             :handle-invalid-value="handleTagInvalid"
                         />
                     </td>
@@ -47,13 +46,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>EditorArrayAsyncCheckboxJson</td>
-                    <td>{{ EditorArrayAsyncCheckboxJson }} || {{ typeof EditorArrayAsyncCheckboxJson }}</td>
+                    <td>EditorArrayJSONAsyncCheckbox</td>
+                    <td>{{ EditorArrayJSONAsyncCheckbox }} || {{ typeof EditorArrayJSONAsyncCheckbox }}</td>
                     <td>
-                        <EditorArrayAsyncCheckboxJson
-                            v-model="EditorArrayAsyncCheckboxJson"
+                        <EditorArrayJSONAsyncCheckbox
+                            v-model="EditorArrayJSONAsyncCheckbox"
                             :handle-invalid-value="handleTagInvalid"
-                            :get-candidate="getCandidate.EditorArrayAsyncCheckboxJson"
+                            :get-candidate="getCandidate.EditorArrayJSONAsyncCheckbox"
                             valuefield="id"
                             labelfield="name"
                         />
@@ -66,7 +65,7 @@
                     <td>
                         <EditorArrayAutocomplete
                             v-model="EditorArrayAutocomplete"
-                            :candidate="EditorArrayAutocomplete_candidate"
+                            :candidate="EditorArrayAutocompleteCandidate"
                             placeholder="placeholder2"
                             labelfield="name"
                             valuefield="id"
@@ -75,12 +74,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>EditorArrayJsonAutocomplete</td>
-                    <td>{{ EditorArrayJsonAutocomplete }}</td>
+                    <td>EditorArrayJSONAutocomplete</td>
+                    <td>{{ EditorArrayJSONAutocomplete }}</td>
                     <td>
-                        <EditorArrayJsonAutocomplete
-                            v-model="EditorArrayJsonAutocomplete"
-                            :candidate="EditorArrayAutocomplete_candidate"
+                        <EditorArrayJSONAutocomplete
+                            v-model="EditorArrayJSONAutocomplete"
+                            :candidate="EditorArrayAutocompleteCandidate"
                             placeholder="placeholder2"
                             labelfield="name"
                             valuefield="id"
@@ -103,15 +102,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>EditorArrayAsyncAutocompleteJson</td>
-                    <td>{{ EditorArrayAsyncAutocompleteJson }} || {{ typeof EditorArrayAsyncAutocompleteJson }}</td>
+                    <td>EditorArrayJSONAsyncAutocomplete</td>
+                    <td>{{ EditorArrayJSONAsyncAutocomplete }} || {{ typeof EditorArrayJSONAsyncAutocomplete }}</td>
                     <td>
-                        <EditorArrayAsyncAutocompleteJson
-                            v-model="EditorArrayAsyncAutocompleteJson"
+                        <EditorArrayJSONAsyncAutocomplete
+                            v-model="EditorArrayJSONAsyncAutocomplete"
                             labelfield="name"
                             valuefield="id"
                             :handle-invalid-value="handleTagInvalid"
-                            :get-candidate="getCandidate.EditorArrayAsyncAutocompleteJson"
+                            :get-candidate="getCandidate.EditorArrayJSONAsyncAutocomplete"
                         />
                     </td>
                 </tr>
@@ -121,19 +120,18 @@
 </template>
 
 <script>
-/* eslint-disable  */
 import {
-    unique, clearInvalidData,
+    clearInvalidData,
 } from '@/components/common/Editors/_validate_option';
 
-const fields = {
-    EditorArrayAsyncCheckbox: 'EditorArrayAsyncCheckbox',
-    EditorArrayAsyncCheckboxJson: 'EditorArrayAsyncCheckbox',
-    EditorArrayAsyncAutocomplete: 'EditorArrayAsyncAutocomplete',
-    EditorArrayAsyncAutocompleteJson: 'EditorArrayAsyncAutocomplete',
-};
+const fields = [
+    'EditorArrayAsyncCheckbox',
+    'EditorArrayJSONAsyncCheckbox',
+    'EditorArrayAsyncAutocomplete',
+    'EditorArrayJSONAsyncAutocomplete',
+];
 
-const EditorArrayAutocomplete_candidate = [
+const EditorArrayAutocompleteCandidate = [
     {
         id: 1,
         name: '太年轻',
@@ -160,10 +158,10 @@ const EditorArrayAutocomplete_candidate = [
     },
 ];
 
-const getCandidate = Object.keys(fields).reduce((obj, field) => {
+const getCandidate = fields.reduce((obj, field) => {
     obj[field] = function (cb) {
         setTimeout(() => {
-            cb(EditorArrayAutocomplete_candidate);
+            cb(EditorArrayAutocompleteCandidate);
         }, 2000);
     };
     return obj;
@@ -171,7 +169,7 @@ const getCandidate = Object.keys(fields).reduce((obj, field) => {
 
 export default {
     config: {
-        EditorArrayCheckbox_candidate: [
+        EditorArrayCheckboxCandidate: [
             {
                 value: 1,
                 label: 'aaa',
@@ -193,44 +191,42 @@ export default {
                 label: 'eee',
             },
         ],
-        EditorArrayAutocomplete_candidate,
+        EditorArrayAutocompleteCandidate,
         handleTagInvalid: function (value, allvalue) {
             this.$emit('input', clearInvalidData(value, allvalue));
-        },
-        handleInvalidRelateIds: function () {
-            console.log(this);
         },
         getCandidate,
     },
     components: {
         EditorArrayCheckbox: () => import('@/components/common/Editors/EditorArrayCheckbox'),
-        EditorArrayJsonCheckbox: () => import('@/components/common/Editors/EditorArrayJsonCheckbox'),
+        EditorArrayJSONCheckbox: () => import('@/components/common/Editors/EditorArrayJSONCheckbox'),
         EditorArrayAsyncCheckbox: () => import('@/components/common/Editors/EditorArrayAsyncCheckbox'),
-        EditorArrayAsyncCheckboxJson: () => import('@/components/common/Editors/EditorArrayAsyncCheckboxJson'),
+        EditorArrayJSONAsyncCheckbox: () => import('@/components/common/Editors/EditorArrayJSONAsyncCheckbox'),
+
         EditorArrayAutocomplete: () => import('@/components/common/Editors/EditorArrayAutocomplete'),
-        EditorArrayJsonAutocomplete: () => import('@/components/common/Editors/EditorArrayJsonAutocomplete'),
+        EditorArrayJSONAutocomplete: () => import('@/components/common/Editors/EditorArrayJSONAutocomplete'),
         EditorArrayAsyncAutocomplete: () => import('@/components/common/Editors/EditorArrayAsyncAutocomplete'),
-        EditorArrayAsyncAutocompleteJson: () => import('@/components/common/Editors/EditorArrayAsyncAutocompleteJson'),
+        EditorArrayJSONAsyncAutocomplete: () => import('@/components/common/Editors/EditorArrayJSONAsyncAutocomplete'),
     },
     data () {
         return {
-            relates: '',
             EditorArrayCheckbox: [
                 1, 1, 5, 7,
             ],
-            EditorArrayJsonCheckbox: '',
+            EditorArrayJSONCheckbox: '',
             EditorArrayAsyncCheckbox: [
                 1, 1, 9,
             ],
-            EditorArrayAsyncCheckboxJson: '',
+            EditorArrayJSONAsyncCheckbox: '',
+
             EditorArrayAutocomplete: [
                 2, 2, 8,
             ],
-            EditorArrayJsonAutocomplete: '',
+            EditorArrayJSONAutocomplete: '',
             EditorArrayAsyncAutocomplete: [
                 2, 2, 8,
             ],
-            EditorArrayAsyncAutocompleteJson: '',
+            EditorArrayJSONAsyncAutocomplete: '',
         };
     },
 };

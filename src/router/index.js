@@ -24,15 +24,7 @@ const router = new Router({
 sync(store, router);
 
 router.beforeEach((to, from, next) => {
-    /* eslint-disable */
-    const title = do {
-        if (to.meta && to.meta.title) {
-            to.meta.title;
-        } else {
-            'admin';
-        }
-    };
-    /* eslint-enable */
+    const title = to.meta && to.meta.title ? to.meta.title : 'admin';
     store.commit('setTitie', title);
     next();
 });

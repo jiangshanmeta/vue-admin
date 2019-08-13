@@ -1,5 +1,5 @@
 <template>
-    <FieldImageMono
+    <EditorArrayImage
         v-model="model"
         v-bind="$attrs"
     />
@@ -7,16 +7,14 @@
 
 <script>
 import _json_object_mixin from './_json_object_mixin';
-import _mono_json_struct_object_mixin from './_mono_json_struct_object_mixin';
 
 export default {
-    name: 'FieldImageMonoJson',
+    name: 'EditorArrayJSONImage',
     components: {
-        FieldImageMono: () => import('./FieldImageMono'),
+        EditorArrayImage: () => import('./EditorArrayImage'),
     },
     mixins: [
         _json_object_mixin,
-        _mono_json_struct_object_mixin,
     ],
     inheritAttrs: true,
 };

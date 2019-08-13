@@ -70,4 +70,21 @@ handler模式还可以有一个config配置项，它本质上是vue的$watch方�
 
 ## 上传组件
 
-上传组件是以Field为开头的那几个，由于element-ui底层的上传有点问题，可能会有bug，谨慎使用。
+上传组件是给予element-ui的Upload组件改造的，同时只能上传一个文件
+
+* EditorArrayFile是最基础的文件上传，其值为一个数组; EditorArrayImage是在EditorArrayFile基础上将上传文件类型限定为图片;EditorArrayJSONFile、EditorArrayJSONImage把数组结果压成了JSON字符串
+  * limit 允许的数组最大长度，默认为Infinity
+  * drag 布尔值，是否允许拖拽上传，默认为false
+  * accept 接受上传的文件类型(上面两个图片的已预置)
+  * filename 上传的文件字段名 默认为 file
+  * httpRequest 上传HTTP请求
+  * headers 设置上传的请求头部 对象类型 默认为 null (给默认httpRequest用的)
+  * withCredentials 支持发送 cookie 凭证信息(给默认httpRequest用的)
+  * data 上传时附带的额外参数 (给默认httpRequest用的)
+  * action 上传的地址 (给默认httpRequest用的)
+  * getValueFromResponse function 从结果中解析出表单元素需要的值 默认是Identity
+  * listType 文件列表的类型 text/picture/picture-card 默认为 text
+  * getImageUrl 从数组的一项中解析出图片的url 默认是Identity
+  * getFileName 从数组的一项中解析出图片的name 默认是Identity
+  * onRemove function(file,index) 返回promise 可以用来删除服务器端的图片 默认返回 Promise.resolve()
+* EditorFile限定了最多只能有一个，EditorImage在此基础上限定了文件类型

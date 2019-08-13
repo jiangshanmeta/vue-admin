@@ -122,19 +122,19 @@ const fields = [
 const field_enum_candidate = [
     {
         valuefield: 1,
-        label: 'eins',
+        label: 'one',
     },
     {
         valuefield: 2,
-        label: 'zwei',
+        label: 'two',
     },
     {
         valuefield: 3,
-        label: 'drei',
+        label: 'three',
     },
     {
         valuefield: 4,
-        label: 'fuer',
+        label: 'four',
     },
 ];
 

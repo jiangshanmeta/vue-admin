@@ -1,6 +1,7 @@
 <template>
-    <FieldFileMulti
+    <EditorArrayImage
         v-model="model"
+        :limit="1"
         v-bind="$attrs"
     />
 </template>
@@ -9,9 +10,9 @@
 import _mono_multi_mixin from './_mono_multi_mixin';
 
 export default {
-    name: 'FieldFileMono',
+    name: 'EditorImage',
     components: {
-        FieldFileMulti: () => import('./FieldFileMulti'),
+        EditorArrayImage: () => import('./EditorArrayImage'),
     },
     mixins: [
         _mono_multi_mixin,
