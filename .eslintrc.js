@@ -38,8 +38,8 @@ module.exports = {
                 allowAllPropertiesOnSameLine: false,
             },
         ],
-        'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        'no-debugger': 'error',
+        'no-console': 'off',
+        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'semi': [
             'error', 'always',
         ],

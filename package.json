@@ -16,6 +16,7 @@
   "dependencies": {
     "async-validator": "^1.11.2",
     "axios": "^0.18.1",
+    "core-js": "^3.6.1",
     "csv-js": "^1.0.0",
     "element-ui": "^2.8.2",
     "file-saver": "^2.0.1",
@@ -33,9 +34,9 @@
     "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.7.0",
-    "@vue/cli-plugin-eslint": "^3.11.0",
-    "@vue/cli-service": "^3.7.0",
+    "@vue/cli-plugin-babel": "^4.1.0",
+    "@vue/cli-plugin-eslint": "^4.1.0",
+    "@vue/cli-service": "^4.1.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.5.0",
