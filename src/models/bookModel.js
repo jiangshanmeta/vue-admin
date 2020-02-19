@@ -168,7 +168,7 @@ export default {
             },
         },
         {
-            handler (resolve) {
+            handler () {
                 console.log(this.$attrs.formData);
                 console.log(this.$attrs.selectedData);
                 console.log(this.data);
@@ -176,7 +176,7 @@ export default {
                     type: 'warning',
                     message: '就把选中的取消选中',
                 });
-                resolve();
+                this.$emit('update');
             },
             triggerConfig: {
                 type: 'danger',
@@ -198,7 +198,7 @@ export default {
             },
         },
         {
-            handler (resolve, data) {
+            handler (data) {
                 const keys = [
                     'customername', 'totalprice', 'address',
                 ];
@@ -259,14 +259,14 @@ export default {
     ],
     documentOperators: [
         {
-            handler (resolve, data) {
+            handler (data) {
                 this.$message({
                     message: `${data.customername}再来一单`,
                     type: 'success',
                     duration: 2000,
                 });
                 setTimeout(() => {
-                    resolve();
+                    this.$emit('update');
                 }, 1000);
             },
             triggerConfig: {

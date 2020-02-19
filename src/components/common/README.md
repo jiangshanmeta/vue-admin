@@ -107,6 +107,7 @@ colspan: {
 
 函数模式会被渲染为一个btn，点击btn会调用handler
 
-* handler 一个函数 调用时会被传入两个参数 cb 和 data 对应一个回调函数和这条记录 调用cb会刷新列表。调用handler时this指向Operators组件实例
+* handler 一个函数 调用时会被传入参数data,collectionOperator/filterOperator/documentOperator该参数含义不同。调用handler时this指向Operators组件实例
 * triggerConfig 一个可选对象 用来配置该模式下对应的btn。其中text是按钮的内容
 * label 按钮的内容 同triggerConfig.text 但是优先级比triggerConfig.text低
+* emit update事件，会刷新列表

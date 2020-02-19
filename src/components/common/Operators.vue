@@ -30,10 +30,6 @@ import mergeAttrsConfig from '@/mixins/common/mergeAttrsConfig';
 import injectComponents from '@/components/common/injectHelper/injectComponents';
 import getNeedInjectOperatorComponentsList from '@/components/common/injectHelper/injectOperatorComponentsHelper';
 
-import {
-    logError,
-} from '@/widget/utility';
-
 export default {
     name: 'Operators',
     mixins: [
@@ -91,12 +87,8 @@ export default {
                 this.notifytWidth();
             }
         },
-        handleOperatorClick (func) {
-            new Promise((resolve, reject) => {
-                func.call(this, resolve, this.data);
-            }).then(() => {
-                this.notifyUpdate();
-            }).catch(logError);
+        handleOperatorClick (handler) {
+            handler.call(this, this.data);
         },
         notifyUpdate () {
             this.$emit('update');

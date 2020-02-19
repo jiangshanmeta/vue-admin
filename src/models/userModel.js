@@ -471,14 +471,14 @@ export default function () {
                 },
             },
             {
-                handler (resolve, data) {
+                handler (data) {
                     this.$message({
                         message: `${data.name}不要总想着搞个大新闻`,
                         type: 'success',
                         duration: 2000,
                     });
                     setTimeout(() => {
-                        resolve();
+                        this.$emit('update');
                     }, 1000);
                 },
                 triggerConfig: {
