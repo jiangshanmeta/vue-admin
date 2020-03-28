@@ -158,7 +158,7 @@ export default {
                     title: '新建订单',
                     width: '800px',
                 },
-                createBtnConfig: {
+                confirmBtnConfig: {
                     text: '确认创建',
                     type: 'success',
                 },

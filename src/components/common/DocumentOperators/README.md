@@ -50,7 +50,7 @@
 | dialogConfig | 否 | Object | 弹框组件的配置项 | 默认为空对象 |
 | fieldLayout  | 是 | Function Array | 字段布局 | - |
 | effectLayoutFields | 当fieldLayout为Function时必须 | Array | 影响布局的字段 | - |
-| editBtnConfig | 否 | Object | 取消按钮的配置项 | 默认为空对象 |
+| confirmBtnConfig | 否 | Object | 取消按钮的配置项 | 默认为空对象 |
 | cancelBtnConfig | 否 | Object | 确认创建按钮的配置项 | 默认为空对象 |
 | autoValidate | 否 | Boolean | 是否自动表单验证 | 默认为false,第一次点提交时才自动表单验证 |
 | transformData | 否 | Function | 在doEditRequest前对表单数据做一次转换 |

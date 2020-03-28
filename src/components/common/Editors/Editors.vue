@@ -183,15 +183,26 @@ export default {
         },
     },
     created () {
-        this.labelMap = getLabelMapByMode(this.fields, this.editableFields, this.mode);
-        this.needInjectLabelComponentsList = getNeedInjectLabelComponentsList(this.labelMap);
-        this.needInjectEditorComponentsList = getNeedInjectEditorComponentsList(this.fields, this.editableFields);
-        this.hasInjectLabelComponents = this.needInjectLabelComponentsList.length > 0;
-        this.hasInjectEditorComponents = this.needInjectEditorComponentsList.length > 0;
-        this.injectLabelComponents();
-        this.injectEditorComponents();
+        this.$watch(() => {
+            return {
+                fields: this.fields,
+                editableFields: this.editableFields,
+                mode: this.mode,
+            };
+        }, this.init, {
+            immediate: true,
+        });
     },
     methods: {
+        init () {
+            this.labelMap = getLabelMapByMode(this.fields, this.editableFields, this.mode);
+            this.needInjectLabelComponentsList = getNeedInjectLabelComponentsList(this.labelMap);
+            this.needInjectEditorComponentsList = getNeedInjectEditorComponentsList(this.fields, this.editableFields);
+            this.hasInjectLabelComponents = this.needInjectLabelComponentsList.length > 0;
+            this.hasInjectEditorComponents = this.needInjectEditorComponentsList.length > 0;
+            this.injectLabelComponents();
+            this.injectEditorComponents();
+        },
         resetRelates () {
             this.recordUnwatchs.forEach((unwatch) => {
                 unwatch && unwatch();

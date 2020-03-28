@@ -287,7 +287,7 @@ export default function () {
                     dialogConfig: {
                         title: '新建用户',
                     },
-                    createBtnConfig: {
+                    confirmBtnConfig: {
                         text: '确认创建',
                         type: 'success',
                     },
@@ -461,7 +461,7 @@ export default function () {
                     dialogConfig: {
                         title: '编辑用户',
                     },
-                    editBtnConfig: {
+                    confirmBtnConfig: {
                         type: 'primary',
                         text: '确定编辑',
                     },

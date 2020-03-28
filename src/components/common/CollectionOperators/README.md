@@ -25,7 +25,7 @@
 | dialogConfig | 否 | Object | 弹框的配置项 | 默认为空对象 |
 | fieldLayout  | 是 | Function Array | 字段布局 | - |
 | effectLayoutFields | 当fieldLayout为Function时必须 | Array | 影响布局的字段 | - |
-| createBtnConfig | 否 | Object | 创建按钮的配置项 | 默认为空对象 |
+| confirmBtnConfig | 否 | Object | 创建按钮的配置项 | 默认为空对象 |
 | cancelBtnConfig | 否 | Object | 取消配置项 | 默认为空对象 |
 | transformData | 否  | Function | 用来在doCreateRequest前对表单数据进行一次处理，比如修改某个字段的格式 | 默认方法是原样返回表单数据 |
 | autoValidate | 否 | Boolean | 是否一开始输入就表单验证 | 默认为false，第一次点击确定才开始表单验证 |

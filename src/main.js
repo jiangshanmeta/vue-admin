@@ -5,6 +5,7 @@ import VueCookie from 'vue-cookie';
 import VueLocalStorage from 'vue-localstorage';
 
 import VueConfigs from 'vue-configs';
+import VueSingleton from '@/plugins/vue-singleton';
 
 import router from './router';
 import store from './store';
@@ -23,9 +24,13 @@ Vue.use(VueCookie);
 Vue.use(VueLocalStorage);
 Vue.use(VueConfigs, {
     optionKeys: [
-        'config', 'staticMethod', 'state',
+        'config',
+        'staticMethod',
+        'state',
+        'singleton',
     ],
 });
+Vue.use(VueSingleton);
 Vue.use(Element);
 
 Vue.config.productionTip = false;

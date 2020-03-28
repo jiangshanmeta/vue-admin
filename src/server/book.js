@@ -26,7 +26,6 @@ function getStore (cb) {
 function getSaler (cb, data) {
     let storeId = data.store;
     let rst;
-    console.log('get saler', storeId);
     switch (storeId) {
     case 3:
         rst = [

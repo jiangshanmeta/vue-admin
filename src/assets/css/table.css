@@ -5,6 +5,10 @@
     background-color: transparent;
 }
 
+.table th{
+    text-align: left;
+}
+
 .table th,
 .table td {
     padding: 0.75rem;

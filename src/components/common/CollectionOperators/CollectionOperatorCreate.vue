@@ -1,42 +1,10 @@
 <template>
-    <div>
-        <el-button
-            v-bind="triggerConfig"
-            @click="handleClick"
-        >
-            {{ triggerConfig.text }}
-        </el-button>
-        <el-dialog
-            v-if="canInitDialog"
-            :visible.sync="isShowCreatebox"
-            v-bind="dialogConfig"
-        >
-            <Editors
-                ref="createbox"
-                :fields="fields"
-                :editable-fields="editableFields"
-                :field-layout="fieldLayout"
-                :effect-layout-fields="effectLayoutFields"
-                :record="record"
-                :auto-validate="autoValidate"
-                mode="create"
-            />
-            <template #footer>
-                <el-button
-                    v-bind="cancelBtnConfig"
-                    @click="isShowCreatebox=false"
-                >
-                    {{ cancelBtnConfig.text }}
-                </el-button>
-                <el-button
-                    v-bind="createBtnConfig"
-                    @click="doCreate"
-                >
-                    {{ createBtnConfig.text }}
-                </el-button>
-            </template>
-        </el-dialog>
-    </div>
+    <el-button
+        v-bind="triggerConfig"
+        @click="handleClick"
+    >
+        {{ triggerConfig.text }}
+    </el-button>
 </template>
 
 <script>
@@ -44,11 +12,10 @@ import {
     logError,
 } from '@/widget/utility';
 
+import SingletonDialogEditors from '@/components/common/Editors/SingletonDialogEditors';
+
 export default {
     name: 'CollectionOperatorCreate',
-    components: {
-        Editors: () => import('@/components/common/Editors/Editors'),
-    },
     inheritAttrs: true,
     props: {
         fields: {
@@ -69,60 +36,35 @@ export default {
                 return {};
             },
         },
-        dialogConfig: {
-            type: Object,
-            default () {
-                return {};
-            },
-        },
-        fieldLayout: {
-            type: [
-                Function, Array,
-            ],
-            required: true,
-        },
-        effectLayoutFields: {
-            type: Array,
-            default () {
-                return [];
-            },
-        },
-        createBtnConfig: {
-            type: Object,
-            default () {
-                return {};
-            },
-        },
-        cancelBtnConfig: {
-            type: Object,
-            default () {
-                return {};
-            },
-        },
         transformData: {
             type: Function,
             default (data) {
                 return data;
             },
         },
-        autoValidate: {
-            type: Boolean,
-            default: false,
-        },
     },
     state: {
         editableFields: [],
         record: {},
     },
-    data () {
-        return {
-            isShowCreatebox: false,
-            canInitDialog: false,
-        };
+    singleton: {
+        singletonDialogEditors: null,
     },
     methods: {
         showDialog () {
-            this.isShowCreatebox = true;
+            this.singletonDialogEditors = this.$singleton(
+                SingletonDialogEditors,
+                {
+                    ...this.$attrs,
+                    visible: true,
+                    fields: this.fields,
+                    editableFields: this.editableFields,
+                    record: this.record,
+                    handleConfirm: this.handleConfirm,
+                    mode: 'create',
+                },
+                this.$root
+            );
         },
         resetRecord () {
             this.record = this.editableFields.reduce((obj, field) => {
@@ -138,7 +80,6 @@ export default {
                 }).then((editableFields) => {
                     this.editableFields = editableFields;
                     this.resetRecord();
-                    this.canInitDialog = true;
                     this.showDialog();
                 }).catch(logError);
             } else {
@@ -146,17 +87,13 @@ export default {
                 this.showDialog();
             }
         },
-        doCreate () {
-            this.$refs.createbox.validate().then((data) => {
-                new Promise((resolve) => {
-                    this.doCreateRequest(resolve, this.transformData(data));
-                }).then(() => {
-                    this.isShowCreatebox = false;
-                    this.$emit('update');
-                }).catch(logError);
-            }).catch((err) => {
-                this.$message(err);
-            });
+        handleConfirm (data) {
+            new Promise((resolve) => {
+                this.doCreateRequest(resolve, this.transformData(data));
+            }).then(() => {
+                this.singletonDialogEditors.visible = false;
+                this.$emit('update');
+            }).catch(logError);
         },
     },
 };
