@@ -73,7 +73,9 @@ export default {
         needInjectViewComponentsMap: {},
         hasInjectLabelComponents: true,
         hasInjectViewComponents: true,
-        hasInjectComponent: true,
+        get hasInjectComponent () {
+            return this.hasInjectLabelComponents || this.hasInjectViewComponents;
+        },
     },
     data () {
         return {
@@ -99,7 +101,6 @@ export default {
             this.needInjectViewComponentsMap = getNeedInjectViewComponentsMap(this.fields, Object.keys(this.fields));
             this.hasInjectLabelComponents = this.needInjectLabelComponentsList.length > 0;
             this.hasInjectViewComponents = Object.keys(this.needInjectViewComponentsMap).length > 0;
-            this.hasInjectComponent = this.hasInjectLabelComponents || this.hasInjectViewComponents;
 
             this.injectLabelComponents();
             this.injectViewComponents();
