@@ -23,7 +23,7 @@
     "normalize.css": "^8.0.1",
     "qs": "^6.7.0",
     "vue": "^2.6.10",
-    "vue-configs": "^1.0.2",
+    "vue-configs": "^1.0.3",
     "vue-cookie": "^1.1.4",
     "vue-localstorage": "^0.6.2",
     "vue-markdown": "^2.2.4",
