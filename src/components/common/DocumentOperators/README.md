@@ -55,6 +55,7 @@
 | autoValidate | 否 | Boolean | 是否自动表单验证 | 默认为false,第一次点提交时才自动表单验证 |
 | transformData | 否 | Function | 在doEditRequest前对表单数据做一次转换 |
 | idfield | 否 | String | 指明id字段 | 默认是id |
+| recordWatch | 否 | Function | 对表单数据进行观察，用于复杂联动 | 需要返回unwatch数组 |
 
 更多说明:
 
@@ -84,6 +85,7 @@
 * fieldLayout Array形式应为二维数组，每一项表示一行需要哪些字段。函数形式应该返回二维数组，函数调用时第一个参数是新record(字段由effectLayoutFields确定)第二个参数为旧record
 * transformData(data) data为表单中的数据，需要返回一个对象(处理后的数据)
 * doEditRequest(resolve,data) 一般情况下该函数的this指向edit组件实例，data是经过transformData处理的数据，更新完成后调用resolve，会刷新列表。
+* recordWatch(data) data是表单中的数据，可以进行自定义观察，用于处理复杂的联动关系，一定要返回unwatch数组
 
 ### DocumentOperatorDelete
 

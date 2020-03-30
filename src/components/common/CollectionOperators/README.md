@@ -4,9 +4,9 @@
 
 它还有会被传入selectedData，如果有选择的话，对应选中的记录(Array)。
 
-还有一个formData，是筛选项构成的对象。
+还有一个filterData，是筛选项构成的对象。
 
-如果采用函数模式，可通过```this.$attrs.selectedData```和```this.$attrs.formData```在handler中访问到这两个属性
+如果采用函数模式，可通过```this.$attrs.selectedData```和```this.$attrs.filterData```在handler中访问到这两个属性
 
 ## 内置CollectionOperators
 
@@ -29,6 +29,7 @@
 | cancelBtnConfig | 否 | Object | 取消配置项 | 默认为空对象 |
 | transformData | 否  | Function | 用来在doCreateRequest前对表单数据进行一次处理，比如修改某个字段的格式 | 默认方法是原样返回表单数据 |
 | autoValidate | 否 | Boolean | 是否一开始输入就表单验证 | 默认为false，第一次点击确定才开始表单验证 |
+| recordWatch | 否 | Function | 对表单数据进行观察，用于复杂联动 | 需要返回unwatch数组 |
 
 更多说明:
 
@@ -37,3 +38,4 @@
 * fieldLayout Array形式应为二维数组，每一项表示一行需要哪些字段。函数形式应该返回二维数组，函数调用时第一个参数是新record(字段由effectLayoutFields确定)第二个参数为旧record
 * transformData(data) data为表单中的数据，需要返回一个对象(处理后的数据)
 * doCreateRequest(resolve,data) data是经过transformData处理过的表单数据，resolve是个函数，创建完成后需调用resolve方法刷新列表。一般情况下该函数的this指向create组件实例
+* recordWatch(data) data是表单中的数据，可以进行自定义观察，用于处理复杂的联动关系，一定要返回unwatch数组

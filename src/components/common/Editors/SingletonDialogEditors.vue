@@ -5,7 +5,6 @@
     >
         <Editors
             ref="editors"
-            v-bind="$attrs"
             :fields="fields"
             :editable-fields="editableFields"
             :field-layout="fieldLayout"
@@ -13,6 +12,7 @@
             :record="record"
             :auto-validate="autoValidate"
             :mode="mode"
+            :record-watch="recordWatch"
         />
         <template #footer>
             <el-button
@@ -33,12 +33,18 @@
 
 <script>
 import Editors from './Editors';
+// 由于使用vue-singleton创建实例而不是传统的render，这里$attrs实际上是无效的
+// 因而不能省略Editors相关props声明
+import _editor_form_prop_mixin from './_editor_form_prop_mixin';
 
 export default {
     name: 'SingletonDialogEditors',
     components: {
         Editors,
     },
+    mixins: [
+        _editor_form_prop_mixin,
+    ],
     inheritAttrs: false,
     props: {
         visible: {
@@ -50,40 +56,6 @@ export default {
             default () {
                 return {};
             },
-        },
-        // 由于使用vue-singleton创建实例而不是传统的render，这里$attrs实际上是无效的
-        // 因而不能省略Editors相关props声明
-        fields: {
-            type: Object,
-            required: true,
-        },
-        editableFields: {
-            type: Array,
-            required: true,
-        },
-        fieldLayout: {
-            type: [
-                Function, Array,
-            ],
-            required: true,
-        },
-        effectLayoutFields: {
-            type: Array,
-            default () {
-                return [];
-            },
-        },
-        record: {
-            type: Object,
-            required: true,
-        },
-        autoValidate: {
-            type: Boolean,
-            default: false,
-        },
-        mode: {
-            type: String,
-            required: true,
         },
         cancelBtnConfig: {
             type: Object,

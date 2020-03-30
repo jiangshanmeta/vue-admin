@@ -169,7 +169,7 @@ export default {
         },
         {
             handler () {
-                console.log(this.$attrs.formData);
+                console.log(this.$attrs.filterData);
                 console.log(this.$attrs.selectedData);
                 console.log(this.data);
                 this.$message({

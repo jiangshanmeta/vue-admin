@@ -294,7 +294,6 @@ export default function () {
                     cancelBtnConfig: {
                         text: '取消',
                     },
-
                 },
             },
 
@@ -468,6 +467,24 @@ export default function () {
                     cancelBtnConfig: {
                         text: '取消',
                     },
+                    recordWatch (data) {
+                        const unwatch = this.$watch(() => {
+                            return {
+                                name: data.name,
+                                password: data.password,
+                            };
+                        }, (info) => {
+                            if (info.name === '渡边早季' && info.password === '123456') {
+                                setTimeout(() => {
+                                    data.desc = 'test recordWatch';
+                                }, 1000);
+                            }
+                        });
+                        return [
+                            unwatch,
+                        ];
+                    },
+
                 },
             },
             {

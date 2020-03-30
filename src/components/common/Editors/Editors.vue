@@ -48,6 +48,8 @@ import {
 } from '@/components/common/injectHelper/injectLabelComponentsHelper';
 import getNeedInjectEditorComponentsList from '@/components/common/injectHelper/injectEditorComponentsHelper';
 
+import _editor_form_prop_mixin from './_editor_form_prop_mixin';
+
 export default {
     name: 'Editors',
     components: {
@@ -94,6 +96,9 @@ export default {
         EditorArrayImage: () => import('./EditorArrayImage'),
         EditorArrayJSONImage: () => import('./EditorArrayJSONImage'),
     },
+    mixins: [
+        _editor_form_prop_mixin,
+    ],
     state: {
         labelMap: {},
         needInjectLabelComponentsList: [],
@@ -105,40 +110,6 @@ export default {
         },
         hasValidateListener: false,
         recordUnwatchs: [],
-    },
-    props: {
-        editableFields: {
-            type: Array,
-            required: true,
-        },
-        fieldLayout: {
-            type: [
-                Function, Array,
-            ],
-            required: true,
-        },
-        effectLayoutFields: {
-            type: Array,
-            default () {
-                return [];
-            },
-        },
-        record: {
-            type: Object,
-            required: true,
-        },
-        fields: {
-            type: Object,
-            required: true,
-        },
-        autoValidate: {
-            type: Boolean,
-            default: false,
-        },
-        mode: {
-            type: String,
-            required: true,
-        },
     },
     data () {
         return {
@@ -208,6 +179,7 @@ export default {
                 unwatch && unwatch();
             });
             this.recordUnwatchs = [];
+            this.recordUnwatchs.push(...this.recordWatch(this.localRecord));
 
             this.editableFields.forEach((field) => {
                 const editor = this.fields[field].editor;

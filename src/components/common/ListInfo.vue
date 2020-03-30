@@ -5,7 +5,7 @@
         <slot
             name="beforeFilters"
             :data="data"
-            :formData="formData"
+            :filterData="filterData"
             :selectedData="multipleSelection"
         />
 
@@ -20,7 +20,7 @@
         <slot
             name="afterFilters"
             :data="data"
-            :formData="formData"
+            :filterData="filterData"
             :selectedData="multipleSelection"
         />
 
@@ -244,7 +244,7 @@ export default {
         };
     },
     beforeCreate () {
-        Object.defineProperty(this, 'formData', {
+        Object.defineProperty(this, 'filterData', {
             get () {
                 return this.$refs.filters && this.$refs.filters.formData;
             },
