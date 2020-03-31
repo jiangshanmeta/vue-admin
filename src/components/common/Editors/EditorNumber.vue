@@ -4,7 +4,7 @@
         v-model="model"
         :controls="false"
         v-bind="$attrs"
-        v-on="$listeners"
+        v-on="listenersWithoutInput"
     />
 </template>
 

@@ -4,7 +4,7 @@
         :candidate="finalOptions"
         v-bind="$attrs"
         :is-candidate-valid="hasCachedOptions"
-        v-on="$listeners"
+        v-on="listenersWithoutInput"
     />
 </template>
 

@@ -2,7 +2,7 @@
     <el-radio-group
         v-model="model"
         v-bind="$attrs"
-        v-on="$listeners"
+        v-on="listenersWithoutInput"
     >
         <el-radio
             v-for="item in candidate"

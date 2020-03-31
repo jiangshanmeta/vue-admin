@@ -2,7 +2,7 @@
     <el-select
         v-model="model"
         v-bind="$attrs"
-        v-on="$listeners"
+        v-on="listenersWithoutInput"
     >
         <el-option
             v-for="item in candidate"

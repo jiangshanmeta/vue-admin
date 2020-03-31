@@ -1,4 +1,9 @@
+import _listeners_without_input_mixin from './_listeners_without_input_mixin';
+
 export default {
+    mixins: [
+        _listeners_without_input_mixin,
+    ],
     props: {
         value: {
             type: [

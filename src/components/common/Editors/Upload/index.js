@@ -1,5 +1,6 @@
 import UploadList from './UploadList';
 import Upload from './Upload';
+import _listeners_without_input_mixin from '../_listeners_without_input_mixin';
 
 function identity (val) {
     return val;
@@ -10,6 +11,9 @@ export default {
         UploadList,
         Upload,
     },
+    mixins: [
+        _listeners_without_input_mixin,
+    ],
     props: {
         value: {
             type: [

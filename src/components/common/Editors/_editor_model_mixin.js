@@ -1,8 +1,13 @@
+import _listeners_without_input_mixin from './_listeners_without_input_mixin';
+
 function identity (value) {
     return value;
 }
 
 export default {
+    mixins: [
+        _listeners_without_input_mixin,
+    ],
     props: {
         value: {
             required: true,

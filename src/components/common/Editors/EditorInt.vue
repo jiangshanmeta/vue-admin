@@ -3,16 +3,21 @@
         ref="EditorNumber"
         v-model="model"
         v-bind="$attrs"
-        v-on="$listeners"
+        v-on="listenersWithoutInput"
     />
 </template>
 
 <script>
+import _listeners_without_input_mixin from './_listeners_without_input_mixin';
+
 export default {
     name: 'EditorInt',
     components: {
         EditorNumber: () => import('./EditorNumber'),
     },
+    mixins: [
+        _listeners_without_input_mixin,
+    ],
     inheritAttrs: true,
     props: {
         value: {

@@ -2,7 +2,7 @@
     <el-checkbox-group
         v-model="model"
         v-bind="$attrs"
-        v-on="$listeners"
+        v-on="listenersWithoutInput"
     >
         <el-checkbox
             v-for="item in candidate"
