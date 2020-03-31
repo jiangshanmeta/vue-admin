@@ -4,6 +4,7 @@
         :candidate="candidate"
         :is-candidate-valid="!isRequest"
         v-bind="$attrs"
+        v-on="$listeners"
     >
         <template>
             <slot />

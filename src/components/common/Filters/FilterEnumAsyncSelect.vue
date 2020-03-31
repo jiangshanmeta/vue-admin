@@ -3,6 +3,7 @@
         v-model="model"
         v-bind="$attrs"
         :candidate="candidate"
+        v-on="$listeners"
     />
 </template>
 

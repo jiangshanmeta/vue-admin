@@ -18,6 +18,7 @@
                             allvalue="all"
                             alllabel="不限1"
                             :candidate="FilterEnumSelectCandidate"
+                            @blur="handleBlur"
                         />
                     </td>
                 </tr>
@@ -46,6 +47,7 @@
                             alllabel="不限2"
                             labelfield="name"
                             valuefield="id"
+                            @blur="handleBlur"
                         />
                     </td>
                 </tr>
@@ -143,6 +145,11 @@ export default {
             FilterEnumAsyncSelect: -1,
             FilterEnumAsyncAutocomplete: -1,
         };
+    },
+    methods: {
+        handleBlur () {
+            console.log('blur');
+        },
     },
 };
 

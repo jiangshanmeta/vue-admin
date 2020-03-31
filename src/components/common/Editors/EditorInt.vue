@@ -3,6 +3,7 @@
         ref="EditorNumber"
         v-model="model"
         v-bind="$attrs"
+        v-on="$listeners"
     />
 </template>
 

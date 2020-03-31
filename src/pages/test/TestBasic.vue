@@ -16,6 +16,7 @@
                         <EditorNumber
                             v-model="EditorNumber"
                             placeholder="placeholder"
+                            @blur="handleBlur"
                         />
                     </td>
                 </tr>
@@ -26,6 +27,7 @@
                         <EditorInt
                             v-model="EditorInt"
                             :max="1024"
+                            @blur="handleBlur"
                         />
                     </td>
                 </tr>
@@ -37,6 +39,7 @@
                             v-model="EditorString"
                             placeholder="EditorStringPlaceholder"
                             size="mini"
+                            @blur="handleBlur"
                         />
                     </td>
                 </tr>
@@ -47,6 +50,7 @@
                         <EditorText
                             v-model="EditorText"
                             placeholder="EditorTextPlaceholder"
+                            @blur="handleBlur"
                         />
                     </td>
                 </tr>
@@ -57,6 +61,7 @@
                         <EditorPwd
                             v-model="EditorPwd"
                             placeholder="EditorPwdPlaceholder"
+                            @blur="handleBlur"
                         />
                     </td>
                 </tr>
@@ -89,8 +94,10 @@ export default {
             EditorPwd: '',
         };
     },
-    created () {
-
+    methods: {
+        handleBlur () {
+            console.log('blur');
+        },
     },
 };
 </script>

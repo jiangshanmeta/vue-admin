@@ -2,6 +2,7 @@
     <EditorArrayCheckbox
         v-model="model"
         v-bind="$attrs"
+        v-on="listenersWithoutInput"
     />
 </template>
 

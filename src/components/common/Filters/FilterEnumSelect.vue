@@ -5,6 +5,7 @@
         :valuefield="valuefield"
         :candidate="filter_candidate"
         v-bind="$attrs"
+        v-on="$listeners"
     />
 </template>
 

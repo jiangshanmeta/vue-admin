@@ -15,6 +15,7 @@
                     <td>
                         <EditorBool
                             v-model="EditorBool"
+                            @blur="handleBlur"
                         />
                     </td>
                 </tr>
@@ -27,6 +28,7 @@
                             :candidate="field_enum_candidate"
                             valuefield="valuefield"
                             :handle-invalid-value="handleInvalidValue"
+                            @change="handleChange"
                         />
                     </td>
                 </tr>
@@ -38,8 +40,8 @@
                             v-model="EditorEnumSelect"
                             :candidate="field_enum_candidate"
                             valuefield="valuefield"
-                            disabled
                             :handle-invalid-value="handleInvalidValue"
+                            @blur="handleBlur"
                         />
                     </td>
                 </tr>
@@ -66,6 +68,7 @@
                             valuefield="valuefield"
                             :handle-invalid-value="handleInvalidValue"
                             :get-candidate="getCandidate.EditorEnumAsyncRadio"
+                            @change="handleChange"
                         />
                     </td>
                 </tr>
@@ -80,6 +83,7 @@
                             placeholder="the placeholder"
                             :handle-invalid-value="handleInvalidValue"
                             :get-candidate="getCandidate.EditorEnumAsyncSelect"
+                            @blur="handleBlur"
                         />
                     </td>
                 </tr>
@@ -176,6 +180,14 @@ export default {
             EditorEnumAsyncAutocomplete: 1,
 
         };
+    },
+    methods: {
+        handleBlur () {
+            console.log('blur');
+        },
+        handleChange () {
+            console.log('change');
+        },
     },
 };
 </script>

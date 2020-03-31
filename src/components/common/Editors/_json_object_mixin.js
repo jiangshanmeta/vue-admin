@@ -1,4 +1,9 @@
+import _listeners_without_input_mixin from './_listeners_without_input_mixin';
+
 export default {
+    mixins: [
+        _listeners_without_input_mixin,
+    ],
     props: {
         struct: {
             type: Function,
@@ -25,5 +30,6 @@ export default {
                 this.$emit('input', JSON.stringify(val));
             },
         },
+
     },
 };

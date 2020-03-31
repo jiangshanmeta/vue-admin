@@ -17,6 +17,7 @@
                             v-model="EditorArrayCheckbox"
                             :candidate="EditorArrayCheckboxCandidate"
                             :handle-invalid-value="handleTagInvalid"
+                            @change="handleChange"
                         />
                     </td>
                 </tr>
@@ -28,6 +29,7 @@
                             v-model="EditorArrayJSONCheckbox"
                             :candidate="EditorArrayCheckboxCandidate"
                             :handle-invalid-value="handleTagInvalid"
+                            @change="handleChange"
                         />
                     </td>
                 </tr>
@@ -42,6 +44,7 @@
                             :get-candidate="getCandidate.EditorArrayAsyncCheckbox"
                             valuefield="id"
                             labelfield="name"
+                            @change="handleChange"
                         />
                     </td>
                 </tr>
@@ -55,6 +58,7 @@
                             :get-candidate="getCandidate.EditorArrayJSONAsyncCheckbox"
                             valuefield="id"
                             labelfield="name"
+                            @change="handleChange"
                         />
                     </td>
                 </tr>
@@ -228,6 +232,11 @@ export default {
             ],
             EditorArrayJSONAsyncAutocomplete: '',
         };
+    },
+    methods: {
+        handleChange () {
+            console.log('change');
+        },
     },
 };
 </script>
