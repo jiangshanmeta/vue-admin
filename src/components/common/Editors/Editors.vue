@@ -313,17 +313,17 @@ export default {
         },
         validateField (field, value) {
             return new Promise((resolve, reject) => {
-                const asyncValidator = this.validators[field]['validator'];
+                const asyncValidator = this.validators[field].validator;
                 asyncValidator.validate({
                     [field]: value,
                 }, (errors, fields) => {
                     if (errors) {
-                        this.validators[field]['hasErr'] = true;
-                        this.validators[field]['errMsg'] = errors[0]['message'];
-                        reject(errors[0]['message']);
+                        this.validators[field].hasErr = true;
+                        this.validators[field].errMsg = errors[0].message;
+                        reject(errors[0].message);
                     } else {
-                        this.validators[field]['hasErr'] = false;
-                        this.validators[field]['errMsg'] = '';
+                        this.validators[field].hasErr = false;
+                        this.validators[field].errMsg = '';
                         resolve();
                     }
                 });

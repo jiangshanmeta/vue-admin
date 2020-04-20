@@ -11,16 +11,16 @@ module.exports = {
         '@vue/standard',
     ],
     rules: {
-        'indent': [
+        indent: [
             'error', 4,
         ],
         'comma-dangle': [
             'error', {
-                'arrays': 'always',
-                'objects': 'always',
-                'imports': 'always',
-                'exports': 'always',
-                'functions': 'never',
+                arrays: 'always',
+                objects: 'always',
+                imports: 'always',
+                exports: 'always',
+                functions: 'never',
             },
         ],
         'array-bracket-newline': [
@@ -40,11 +40,11 @@ module.exports = {
         ],
         'no-console': 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        'semi': [
+        semi: [
             'error', 'always',
         ],
         'standard/no-callback-literal': 'off',
-        'camelcase': 'off',
+        camelcase: 'off',
         'vue/html-indent': [
             'error', 4,
         ],

@@ -403,7 +403,7 @@ export default function () {
             },
             listRequest: getUserList,
             sortableFields: {
-                'typ': true,
+                typ: true,
             },
             initialSortField: 'name',
             initialSortOrder: 'desc',

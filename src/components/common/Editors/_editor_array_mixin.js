@@ -14,7 +14,7 @@ export default {
 
             const valueSet = new Set();
 
-            for (let item of this.value) {
+            for (const item of this.value) {
                 // 候选项没有该值，按无效处理
                 if (!allValueSet.has(item)) {
                     return this.handleInvalidValue(this.value, this.allValue);

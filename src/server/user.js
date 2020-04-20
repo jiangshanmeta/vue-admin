@@ -109,37 +109,37 @@ const typHash = enumArr2Hash(typEnum);
 
 const privilegeEnum = [
     {
-        'id': 1,
-        'name': '游客',
+        id: 1,
+        name: '游客',
     },
     {
-        'id': 2,
-        'name': '打杂',
+        id: 2,
+        name: '打杂',
     },
     {
-        'id': 3,
-        'name': '跑堂',
+        id: 3,
+        name: '跑堂',
     },
     {
-        'id': 5,
-        'name': '财务',
+        id: 5,
+        name: '财务',
     },
     {
-        'id': 11,
-        'name': '店长',
+        id: 11,
+        name: '店长',
     },
     {
-        'id': 123,
-        'name': '客服',
+        id: 123,
+        name: '客服',
     },
     {
-        'id': 999,
-        'name': '关小黑屋',
+        id: 999,
+        name: '关小黑屋',
     },
 ];
 
 function getPrivilege (cb, data) {
-    let typ = data.typ.index;
+    const typ = data.typ.index;
     let rst;
     switch (typ) {
     case 0:
@@ -183,11 +183,11 @@ function createUser (cb, data) {
 }
 
 function getUserList (cb, params) {
-    let data = JSON.parse(JSON.stringify(userTable));
-    let fieldList = [
+    const data = JSON.parse(JSON.stringify(userTable));
+    const fieldList = [
         'name', 'gender', 'typ', 'password',
     ];
-    let total = data.length;
+    const total = data.length;
 
     cb({
         data,
@@ -209,9 +209,9 @@ const detailFields = [
 ];
 
 function getUserDetail (cb) {
-    let id = this.data.id;
+    const id = this.data.id;
 
-    for (let item of userTable) {
+    for (const item of userTable) {
         if (item.id === id) {
             cb({
                 fieldLayoutList: detailFields,
@@ -232,8 +232,8 @@ const editFields = [
 ];
 
 function getEditUserInfo (cb) {
-    let id = this.id;
-    for (let item of userTable) {
+    const id = this.id;
+    for (const item of userTable) {
         if (item.id === id) {
             cb({
                 editableFields: JSON.parse(JSON.stringify(editFields)),
@@ -254,9 +254,9 @@ function editUser (cb, data) {
 }
 
 function delUser (cb) {
-    let id = this.id;
-    for (let index in userTable) {
-        if (userTable[index]['id'] === id) {
+    const id = this.id;
+    for (const index in userTable) {
+        if (userTable[index].id === id) {
             userTable.splice(index, 1);
         }
     }

@@ -37,10 +37,15 @@ function deepFreeze (obj) {
     return Object.freeze(obj);
 }
 
+function hasOwnProperty (target, key) {
+    return Object.prototype.hasOwnProperty.call(target, key);
+}
+
 export {
     isAsyncFunction,
     enumArr2Hash,
     logError,
     onceAsync,
     deepFreeze,
+    hasOwnProperty,
 };

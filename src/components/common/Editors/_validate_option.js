@@ -50,7 +50,7 @@ export function unique (valueArr) {
 export function clearInvalidData (valueArr, optionArr) {
     const set = new Set(optionArr);
     const resultSet = new Set();
-    for (let item of valueArr) {
+    for (const item of valueArr) {
         if (set.has(item)) {
             resultSet.add(item);
         }

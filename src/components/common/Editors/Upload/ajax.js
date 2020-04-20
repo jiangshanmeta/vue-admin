@@ -1,3 +1,7 @@
+import {
+    hasOwnProperty,
+} from '@/widget/utility';
+
 function getError (action, option, xhr) {
     let msg;
     if (xhr.response) {
@@ -75,8 +79,8 @@ export default function upload (option) {
 
     const headers = option.headers || {};
 
-    for (let item in headers) {
-        if (headers.hasOwnProperty(item) && headers[item] !== null) {
+    for (const item in headers) {
+        if (hasOwnProperty(headers, item) && headers[item] !== null) {
             xhr.setRequestHeader(item, headers[item]);
         }
     }

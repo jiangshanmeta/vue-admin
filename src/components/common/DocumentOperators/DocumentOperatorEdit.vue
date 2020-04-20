@@ -11,6 +11,7 @@
 import _id_mixin from '@/mixins/document/_id_mixin';
 import {
     logError,
+    hasOwnProperty,
 } from '@/widget/utility';
 
 import SingletonDialogEditors from '@/components/common/Editors/SingletonDialogEditors';
@@ -80,7 +81,7 @@ export default {
                 editableFields, record,
             }) => {
                 editableFields.forEach((field) => {
-                    if (!record.hasOwnProperty(field)) {
+                    if (!hasOwnProperty(record, field)) {
                         const configDefault = this.fields[field].editor.default;
                         record[field] = typeof configDefault === 'function' ? configDefault.call(this, field) : configDefault;
                     }

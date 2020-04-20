@@ -1,3 +1,7 @@
+import {
+    hasOwnProperty,
+} from '@/widget/utility';
+
 function identity (value) {
     return value;
 }
@@ -41,7 +45,7 @@ export default {
 
             const isJoinField = join && (typeof join === 'object');
             if (isJoinField) {
-                const obj = props.record.hasOwnProperty(props.field) ? {
+                const obj = hasOwnProperty(props.record, props.field) ? {
                     [props.field]: info,
                 } : {};
                 if (Array.isArray(join)) {

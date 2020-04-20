@@ -1,5 +1,5 @@
 function doLogin (data) {
-    let rst = {
+    const rst = {
         data: {
             token: 'admin',
         },
@@ -9,7 +9,7 @@ function doLogin (data) {
 }
 
 function doLogout () {
-    let rst = {
+    const rst = {
         data: {
             msg: '登出成功',
         },
@@ -19,7 +19,7 @@ function doLogout () {
 }
 
 function getUserInfo () {
-    let rst = {
+    const rst = {
         data: {
             name: '不萌的山山',
         },

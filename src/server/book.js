@@ -1,30 +1,30 @@
 function getStore (cb) {
     cb([
         {
-            '_id': 3,
-            'storename': '北京店',
+            _id: 3,
+            storename: '北京店',
         },
         {
-            '_id': 5,
-            'storename': '上海店',
+            _id: 5,
+            storename: '上海店',
         },
         {
-            '_id': 7,
-            'storename': '广州店',
+            _id: 7,
+            storename: '广州店',
         },
         {
-            '_id': 9,
-            'storename': '深圳店',
+            _id: 9,
+            storename: '深圳店',
         },
         {
-            '_id': 11,
-            'storename': '杭州店',
+            _id: 11,
+            storename: '杭州店',
         },
     ]);
 }
 
 function getSaler (cb, data) {
-    let storeId = data.store;
+    const storeId = data.store;
     let rst;
     switch (storeId) {
     case 3:

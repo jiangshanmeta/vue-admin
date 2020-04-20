@@ -1,5 +1,6 @@
 import {
     logError,
+    hasOwnProperty,
 } from '@/widget/utility';
 
 export default {
@@ -55,7 +56,7 @@ export default {
             while (counter < len - 1) {
                 const field = this.relateKeys[counter++];
                 const cacheKey = this.getCacheKey(cacheObj[field], cacheObj);
-                if (!start.hasOwnProperty(cacheKey)) {
+                if (!hasOwnProperty(start, cacheKey)) {
                     this.$set(start, cacheKey, {});
                 }
                 start = start[cacheKey];
@@ -93,10 +94,10 @@ export default {
             let relateId;
 
             while (counter < len) {
-                let field = this.relateKeys[counter++];
+                const field = this.relateKeys[counter++];
                 relateId = this.getCacheKey(this.relateData[field], field);
 
-                if (!start.hasOwnProperty(relateId)) {
+                if (!hasOwnProperty(start, relateId)) {
                     return false;
                 }
                 start = start[relateId];
