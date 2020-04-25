@@ -263,11 +263,13 @@ export default {
             this.hasValidateListener = false;
 
             this.editableFields.forEach((field) => {
-                if (!this.fields[field].validator) {
+                const validator = this.fields[field].validator;
+                if (!validator) {
                     return;
                 }
+
                 const asyncValidator = new AsyncValidator({
-                    [field]: this.fields[field].validator,
+                    [field]: typeof validator === 'function' ? validator.call(this, this.localRecord, this.mode) : validator,
                 });
 
                 this.$set(this.validators, field, {

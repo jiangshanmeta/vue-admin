@@ -43,19 +43,25 @@ export default function () {
                         prefix: '用户名',
                     },
                 },
-                validator: [
-                    {
-                        validator: function (rule, value, cb) {
-                            if (value.length < 2) {
-                                cb([
-                                    new Error('姓名最少两个字符'),
-                                ]);
-                            } else {
-                                cb();
-                            }
+                validator (record, mode) {
+                    return [
+                        {
+                            validator: function (rule, value, cb) {
+                                if (mode === 'edit' && record.gender === 0 && value === '渡边早季') {
+                                    cb('早季是女孩子的名字');
+                                }
+
+                                if (value.length < 2) {
+                                    cb([
+                                        new Error('姓名最少两个字符'),
+                                    ]);
+                                } else {
+                                    cb();
+                                }
+                            },
                         },
-                    },
-                ],
+                    ];
+                },
             },
             password: {
                 labelName: '密码',
