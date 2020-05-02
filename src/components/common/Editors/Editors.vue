@@ -50,6 +50,11 @@ import getNeedInjectEditorComponentsList from '@/components/common/injectHelper/
 
 import _editor_form_prop_mixin from './_editor_form_prop_mixin';
 
+AsyncValidator.warning = function () {};
+const validatorOption = {
+    first: true,
+};
+
 export default {
     name: 'Editors',
     components: {
@@ -318,7 +323,9 @@ export default {
                 const asyncValidator = this.validators[field].validator;
                 asyncValidator.validate({
                     [field]: value,
-                }, (errors, fields) => {
+                },
+                validatorOption,
+                (errors, fields) => {
                     if (errors) {
                         this.validators[field].hasErr = true;
                         this.validators[field].errMsg = errors[0].message;

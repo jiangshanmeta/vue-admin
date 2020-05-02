@@ -104,11 +104,18 @@ export default function () {
                     {
                         validator (rule, value, cb) {
                             if (value.length > 15) {
-                                cb([
-                                    new Error('密码位数最多为15位'),
-                                ]);
+                                cb(
+                                    new Error('密码位数最多为15位')
+                                );
                             } else {
                                 cb();
+                            }
+                        },
+                    },
+                    {
+                        validator (rule, value, cb) {
+                            if (value.includes('???')) {
+                                cb(new Error('???'));
                             }
                         },
                     },
