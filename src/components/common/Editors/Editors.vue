@@ -272,6 +272,15 @@ export default {
                 if (!validator) {
                     return;
                 }
+                let autoValidate = this.autoValidate;
+                const autoValidateConfig = this.fields[field].autoValidate;
+                if (autoValidateConfig !== undefined) {
+                    if (typeof autoValidateConfig === 'function') {
+                        autoValidate = autoValidateConfig(this.mode);
+                    } else {
+                        autoValidate = !!autoValidateConfig;
+                    }
+                }
 
                 const asyncValidator = new AsyncValidator({
                     [field]: typeof validator === 'function' ? validator.call(this, this.localRecord, this.mode) : validator,
@@ -284,14 +293,10 @@ export default {
                     unwatch: null,
                 });
 
-                if (this.autoValidate) {
+                if (autoValidate) {
                     this.validators[field].unwatch = this.addValidateInputListener(field);
                 }
             });
-
-            if (this.autoValidate) {
-                this.hasValidateListener = true;
-            }
         },
         validate () {
             const keys = Object.keys(this.validators);
@@ -302,7 +307,9 @@ export default {
 
             if (!this.hasValidateListener) {
                 keys.forEach((field) => {
-                    this.validators[field].unwatch = this.addValidateInputListener(field);
+                    if (!this.validators[field].unwatch) {
+                        this.validators[field].unwatch = this.addValidateInputListener(field);
+                    }
                 });
                 this.hasValidateListener = true;
             }

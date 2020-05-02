@@ -121,6 +121,12 @@ export default function () {
                     },
 
                 ],
+                autoValidate (mode) {
+                    if (mode === 'create') {
+                        return true;
+                    }
+                    return false;
+                },
             },
             gender: {
                 labelName: '性别',
