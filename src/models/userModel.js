@@ -329,6 +329,19 @@ export default function () {
                         },
                         default: '',
                     },
+                    validator: [
+                        {
+                            validator (rule, value, cb) {
+                                console.log('here');
+                                if (value === '小管家') {
+                                    cb(new Error('不能搜索小管家'));
+                                } else {
+                                    cb();
+                                }
+                            },
+                        },
+                    ],
+                    autoValidate: false,
                 },
                 {
                     label: '类型',
@@ -399,12 +412,6 @@ export default function () {
                         default: 'test',
                     },
                     watch: true,
-                    isValidValue (value) {
-                        if (value === 'nil') {
-                            return false;
-                        }
-                        return true;
-                    },
                 },
             ];
         },

@@ -15,6 +15,12 @@
                 v-model="filtersValueMap[item.field]"
                 v-bind="generateFilterProp(item)"
             />
+            <p
+                v-if="validators[item.field] && validators[item.field]['hasErr']"
+                class="text-danger form-helper"
+            >
+                {{ validators[item.field]['errMsg'] }}
+            </p>
         </el-form-item>
         <el-form-item>
             <section>
@@ -40,8 +46,14 @@
 </template>
 
 <script>
+import AsyncValidator from 'async-validator';
+
 import injectComponents from '@/components/common/injectHelper/injectComponents';
 import getNeedInjectFilterComponentsList from '@/components/common/injectHelper/injectFilterComponentsHelper';
+
+const validatorOption = {
+    first: true,
+};
 
 export default {
     name: 'Filters',
@@ -70,6 +82,7 @@ export default {
         get hasInjectFilterComponents () {
             return this.needInjectFilterComponentsList.length > 0;
         },
+        hasValidateListener: false,
     },
     props: {
         filters: {
@@ -97,6 +110,7 @@ export default {
         return {
             componentsInjected: false,
             filtersValueMap: {},
+            validators: {},
         };
     },
     computed: {
@@ -118,10 +132,28 @@ export default {
         this.resetValue();
         this.initRelates();
         this.initWatch();
+        this.initValidate();
     },
     methods: {
         search () {
-            this.$emit('search');
+            const keys = Object.keys(this.validators);
+
+            const promises = keys.map((field) => {
+                return this.validateField(field, this.filtersValueMap[field]);
+            });
+
+            if (!this.hasValidateListener) {
+                keys.forEach((field) => {
+                    if (!this.validators[field].unwatch) {
+                        this.validators[field].unwatch = this.addValidateInputListener(field);
+                    }
+                });
+                this.hasValidateListener = true;
+            }
+            console.log(this.validators);
+            Promise.all(promises).then(() => {
+                this.$emit('search');
+            }).catch(() => {});
         },
         injectFilterComponents () {
             if (!this.hasInjectFilterComponents) {
@@ -189,20 +221,60 @@ export default {
             if (watchFilters.length) {
                 this.$watch(() => {
                     return watchFilters.map(item => this.filtersValueMap[item.field]);
-                }, () => {
-                    const isWatchFilterValueValid = watchFilters.every((item) => {
-                        if (!item.isValidValue) {
-                            return true;
-                        }
-                        return item.isValidValue(this.filtersValueMap[item.field], item.field);
-                    });
-
-                    if (isWatchFilterValueValid) {
-                        this.search();
-                    }
-                });
+                }, this.search);
             }
         },
+        initValidate () {
+            this.finalFilters.forEach(({
+                field,
+                validator,
+                autoValidate = true,
+            }) => {
+                if (!validator) {
+                    return;
+                }
+                const asyncValidator = new AsyncValidator({
+                    [field]: typeof validator === 'function' ? validator.call(this, this.filtersValueMap) : validator,
+                });
+                this.$set(this.validators, field, {
+                    hasErr: false,
+                    errMsg: '',
+                    validator: asyncValidator,
+                    unwatch: null,
+                });
+                if (autoValidate) {
+                    this.validators[field].unwatch = this.addValidateInputListener(field);
+                }
+            });
+        },
+        addValidateInputListener (field) {
+            return this.$watch(() => {
+                return this.filtersValueMap[field];
+            }, (value) => {
+                this.validateField(field, value).catch(() => {});
+            });
+        },
+        validateField (field, value) {
+            return new Promise((resolve, reject) => {
+                const asyncValidator = this.validators[field].validator;
+                asyncValidator.validate({
+                    [field]: value,
+                },
+                validatorOption,
+                (errors, fields) => {
+                    if (errors) {
+                        this.validators[field].hasErr = true;
+                        this.validators[field].errMsg = errors[0].message;
+                        reject(errors[0].message);
+                    } else {
+                        this.validators[field].hasErr = false;
+                        this.validators[field].errMsg = '';
+                        resolve();
+                    }
+                });
+            });
+        },
+
     },
     provide () {
         return {
@@ -215,5 +287,17 @@ export default {
 <style scoped>
 .filters >>> .el-form-item {
     margin-bottom: 5px;
+}
+
+.form-helper {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #737373;
+    font-size: 12px;
+    line-height: 1.42;
+}
+
+.text-danger {
+    color: #ff4949;
 }
 </style>
