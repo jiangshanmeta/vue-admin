@@ -347,7 +347,7 @@ export default {
         },
         genTip (tip) {
             if (typeof tip === 'function') {
-                tip = tip.call(this);
+                tip = tip.call(this, this.mode);
             }
             return tip;
         },

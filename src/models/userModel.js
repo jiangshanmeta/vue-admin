@@ -140,8 +140,8 @@ export default function () {
                         enums: genderEnum,
                     },
                 },
-                tip () {
-                    return '暂不支持LGBT';
+                tip (mode) {
+                    return `暂不支持LGBT ${mode}`;
                 },
                 tableColumnConfig: {
                     align: 'center',
