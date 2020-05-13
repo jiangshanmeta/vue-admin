@@ -59,6 +59,7 @@ handler模式还可以有一个config配置项，它本质上是vue的$watch方�
   * isValidValue 判断关联字段的值是否有效，第一个参数是关联字段及其值构成的对象
   * getCacheKey 似乎没什么用
   * handleInvalidRelateIds 当关联字段的值无效时调用，默认什么都不做
+  * handleRelateDataChange 当relateData变化时调用，参数为relateData
 
 ## 多选组件
 

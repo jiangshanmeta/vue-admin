@@ -105,6 +105,9 @@ export default {
                         return data.store !== '';
                     },
                     getCandidate: getSaler,
+                    handleRelateDataChange (relateData) {
+                        console.log(relateData);
+                    },
                 },
                 relates: [
                     {

@@ -25,6 +25,9 @@ export default {
             type: Object,
             required: true,
         },
+        handleRelateDataChange: {
+            type: Function,
+        },
     },
     methods: {
         getOptions () {
@@ -112,7 +115,12 @@ export default {
     },
     watch: {
         relateData: {
-            handler: 'getOptions',
+            handler (newRelateData, oldRelateData) {
+                if (this.handleRelateDataChange) {
+                    this.handleRelateDataChange(newRelateData, oldRelateData);
+                }
+                this.getOptions();
+            },
             immediate: true,
         },
     },
