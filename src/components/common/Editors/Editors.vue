@@ -122,6 +122,7 @@ export default {
             editorComponentsInjected: false,
             validators: {},
             localRecord: {},
+            relatesDataByField: {},
         };
     },
     computed: {
@@ -184,16 +185,28 @@ export default {
                 unwatch && unwatch();
             });
             this.recordUnwatchs = [];
+            this.relatesDataByField = {};
             this.recordUnwatchs.push(...this.recordWatch(this.localRecord));
 
             this.editableFields.forEach((field) => {
-                const editor = this.fields[field].editor;
-                if (!Array.isArray(editor.relates)) {
+                const relates = this.fields[field].editor.relates;
+                if (!Array.isArray(relates) || relates.length === 0) {
                     return;
                 }
-                const relates = this.fields[field].editor.relates;
+                this.$set(this.relatesDataByField, field, []);
+                relates.forEach((relateItem, index) => {
+                    const unwatchRelateItem = this.$watch(() => {
+                        return this.getRelateData(relateItem);
+                    }, (newValue) => {
+                        this.relatesDataByField[field].splice(index, 1, newValue);
+                    }, {
+                        immediate: true,
+                    });
+                    this.recordUnwatchs.push(unwatchRelateItem);
 
-                relates.filter(relateItem => typeof relateItem.handler === 'function').forEach((relateItem) => {
+                    if (typeof relateItem.handler !== 'function') {
+                        return;
+                    }
                     const callback = function (newVal, oldVal) {
                         if (!this.curEditableFields[field]) {
                             return;
@@ -208,20 +221,22 @@ export default {
                         }
                     };
 
-                    const unwatch = this.$watch(() => {
-                        return this.getRelateData(relateItem);
+                    const unwatchRelateHandler = this.$watch(() => {
+                        return this.relatesDataByField[field][index];
                     }, callback, {
                         ...relateItem.config,
                     });
 
-                    this.recordUnwatchs.push(unwatch);
+                    this.recordUnwatchs.push(unwatchRelateHandler);
                 });
             });
         },
         generateEditorProp (field) {
             const editor = this.fields[field].editor;
-            const relateProps = (editor.relates || []).filter(item => item.propField).reduce((obj, item) => {
-                obj[item.propField] = this.getRelateData(item);
+            const relateProps = (editor.relates || []).reduce((obj, item, index) => {
+                if (item.propField) {
+                    obj[item.propField] = this.relatesDataByField[field][index];
+                }
                 return obj;
             }, Object.create(null));
 

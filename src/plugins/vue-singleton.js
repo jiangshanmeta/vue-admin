@@ -4,8 +4,8 @@ export default {
             Component = Vue.extend(Component);
             if (!Component.instance) {
                 Component.instance = new Component({
-                    // 处理store
-                    store: this.$store,
+                    // 修正$root $parent $store $router $route
+                    parent: this.$root,
                     propsData,
                 });
 

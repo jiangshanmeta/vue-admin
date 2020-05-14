@@ -111,6 +111,7 @@ export default {
             componentsInjected: false,
             filtersValueMap: {},
             validators: {},
+            relatesDataByField: {},
         };
     },
     computed: {
@@ -150,7 +151,6 @@ export default {
                 });
                 this.hasValidateListener = true;
             }
-            console.log(this.validators);
             Promise.all(promises).then(() => {
                 this.$emit('search');
             }).catch(() => {});
@@ -184,8 +184,10 @@ export default {
         generateFilterProp (filterItem) {
             const relates = filterItem.relates || [];
             const config = filterItem.filterComponent.config || {};
-            const relateProps = relates.filter(item => item.propField).reduce((obj, item) => {
-                obj[item.propField] = this.getRelateData(item);
+            const relateProps = relates.reduce((obj, item, index) => {
+                if (item.propField) {
+                    obj[item.propField] = this.relatesDataByField[filterItem.field][index];
+                }
                 return obj;
             }, Object.create(null));
 
@@ -193,23 +195,36 @@ export default {
         },
         initRelates () {
             // 支持 filterComponent relates handler 模式
-            this.finalFilters.forEach((filterItem) => {
-                if (!Array.isArray(filterItem.relates)) {
+            this.finalFilters.forEach(({
+                relates,
+                field,
+            }, index) => {
+                if (!Array.isArray(relates) || relates.length === 0) {
                     return;
                 }
-                filterItem.relates.filter((relateItem) => typeof relateItem.handler === 'function').forEach((relateItem) => {
+                this.$set(this.relatesDataByField, field, []);
+                relates.forEach((relateItem, index) => {
+                    this.$watch(() => {
+                        return this.getRelateData(relateItem);
+                    }, (newValue) => {
+                        this.relatesDataByField[field].splice(index, 1, newValue);
+                    }, {
+                        immediate: true,
+                    });
+                    if (typeof relateItem.handler !== 'function') {
+                        return;
+                    }
                     const callback = function (newVal, oldVal) {
-                        if (this.$refs[filterItem.field] && this.$refs[filterItem.field][0]) {
-                            relateItem.handler.call(this.$refs[filterItem.field][0], newVal, oldVal);
+                        if (this.$refs[field] && this.$refs[field][0]) {
+                            relateItem.handler.call(this.$refs[field][0], newVal, oldVal);
                         } else {
                             setTimeout(() => {
                                 callback.call(this, newVal, oldVal);
                             }, 0);
                         }
                     };
-
                     this.$watch(() => {
-                        return this.getRelateData(relateItem);
+                        return this.relatesDataByField[field][index];
                     }, callback, {
                         ...relateItem.config,
                     });
