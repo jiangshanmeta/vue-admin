@@ -77,6 +77,10 @@ export default {
     methods: {
         doConfirm () {
             this.$refs.editors.validate()
+                .then((data) => {
+                    console.log(data);
+                    return data;
+                })
                 .then(this.handleConfirm)
                 .catch((err) => {
                     this.$message(err);

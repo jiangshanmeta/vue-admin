@@ -116,6 +116,8 @@ export default function () {
                         validator (rule, value, cb) {
                             if (value.includes('???')) {
                                 cb(new Error('???'));
+                            } else {
+                                cb();
                             }
                         },
                     },

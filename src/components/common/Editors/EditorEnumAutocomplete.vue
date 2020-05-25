@@ -1,11 +1,11 @@
 <template>
     <el-autocomplete
-        :value="showValue"
+        v-model="showValue"
+
         :value-key="labelfield"
         :fetch-suggestions="queryModel"
         v-bind="$attrs"
         @select="handleSelect"
-        @input="handleInput"
     />
 </template>
 
@@ -42,12 +42,8 @@ export default {
             }) : this.candidate;
             cb(data);
         },
-        handleInput (value) {
-            this.showValue = value;
-        },
         handleSelect (item) {
             this.$emit('input', item[this.valuefield]);
-            this.setShowValueByValue();
         },
         setShowValueByValue () {
             const value = this.value;

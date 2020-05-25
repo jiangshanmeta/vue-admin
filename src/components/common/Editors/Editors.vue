@@ -299,6 +299,7 @@ export default {
 
                 const asyncValidator = new AsyncValidator({
                     [field]: typeof validator === 'function' ? validator.call(this, this.localRecord, this.mode) : validator,
+
                 });
 
                 this.$set(this.validators, field, {
