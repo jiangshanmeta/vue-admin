@@ -101,6 +101,19 @@
                         />
                     </td>
                 </tr>
+                <tr>
+                    <td>EditorEnumRemoteAutocomplete</td>
+                    <td>{{ EditorEnumRemoteAutocomplete }}</td>
+                    <td>
+                        <EditorEnumRemoteAutocomplete
+                            v-model="EditorEnumRemoteAutocomplete"
+                            labelfield="label"
+                            valuefield="valuefield"
+                            :get-label-by-value="getLabelByValue"
+                            :fetch-suggestions="fetchSuggestions"
+                        />
+                    </td>
+                </tr>
             </tbody>
         </table>
     </section>
@@ -116,6 +129,8 @@ import EditorEnumAutocomplete from '@/components/common/Editors/EditorEnumAutoco
 import EditorEnumAsyncRadio from '@/components/common/Editors/EditorEnumAsyncRadio';
 import EditorEnumAsyncSelect from '@/components/common/Editors/EditorEnumAsyncSelect';
 import EditorEnumAsyncAutocomplete from '@/components/common/Editors/EditorEnumAsyncAutocomplete';
+
+import EditorEnumRemoteAutocomplete from '@/components/common/Editors/EditorEnumRemoteAutocomplete';
 
 const fields = [
     'EditorEnumAsyncRadio',
@@ -160,6 +175,7 @@ export default {
         EditorEnumAsyncRadio,
         EditorEnumAsyncSelect,
         EditorEnumAsyncAutocomplete,
+        EditorEnumRemoteAutocomplete,
     },
     config: {
         field_enum_candidate,
@@ -178,7 +194,7 @@ export default {
             EditorEnumAsyncRadio: '',
             EditorEnumAsyncSelect: '',
             EditorEnumAsyncAutocomplete: 1,
-
+            EditorEnumRemoteAutocomplete: 666,
         };
     },
     methods: {
@@ -187,6 +203,15 @@ export default {
         },
         handleChange () {
             console.log('change');
+        },
+        getLabelByValue (cb, value) {
+            console.log(value);
+            cb('sixsixsix');
+        },
+        fetchSuggestions (cb, queryString) {
+            setTimeout(() => {
+                cb(field_enum_candidate);
+            }, 1000);
         },
     },
 };
