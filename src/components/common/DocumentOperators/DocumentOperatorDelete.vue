@@ -12,6 +12,7 @@ import _id_mixin from '@/mixins/document/_id_mixin';
 import {
     logError,
 } from '@/widget/utility';
+
 export default {
     name: 'DocumentOperatorDelete',
     mixins: [
@@ -33,8 +34,16 @@ export default {
             },
         },
     },
+    state: {
+        isDeleting: false,
+    },
     methods: {
         handleClick () {
+            if (this.isDeleting) {
+                return;
+            }
+            this.isDeleting = true;
+
             this.$confirm('确认删除？', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
@@ -45,7 +54,9 @@ export default {
                 }).then(() => {
                     this.$emit('update');
                 }).catch(logError);
-            }).catch(logError);
+            }).catch(logError).finally(() => {
+                this.isDeleting = false;
+            });
         },
     },
 };

@@ -12,6 +12,8 @@
 import {
     logError,
 } from '@/widget/utility';
+
+// @deprecated
 export default {
     name: 'DocumentOperatorToggle',
     props: {
