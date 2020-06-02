@@ -1,9 +1,10 @@
 <template>
-    <MetaTable
+    <MetaFieldsLayout
         v-if="!hasInjectComponent || componentsInjected"
         :fields="fields"
         :mode="mode"
         :field-layout-list="fieldLayoutList"
+        v-bind="fieldsLayoutConfig"
     >
         <template #label="{field}">
             <Labels
@@ -34,7 +35,7 @@
                 {{ validators[field]['errMsg'] }}
             </p>
         </template>
-    </MetaTable>
+    </MetaFieldsLayout>
 </template>
 
 <script>
@@ -59,7 +60,7 @@ export default {
     name: 'Editors',
     components: {
         Labels,
-        MetaTable: () => import('@/components/common/MetaTable'),
+        MetaFieldsLayout: () => import('@/components/common/MetaFieldsLayout'),
 
         EditorString: () => import('./EditorString'),
         EditorText: () => import('./EditorText'),
@@ -71,6 +72,7 @@ export default {
         EditorEnumRadio: () => import('./EditorEnumRadio'),
         EditorEnumSelect: () => import('./EditorEnumSelect'),
         EditorEnumAutocomplete: () => import('./EditorEnumAutocomplete'),
+        EditorEnumRemoteAutocomplete: () => import('./EditorEnumRemoteAutocomplete'),
         EditorEnumAsyncRadio: () => import('./EditorEnumAsyncRadio'),
         EditorEnumAsyncSelect: () => import('./EditorEnumAsyncSelect'),
         EditorEnumAsyncAutocomplete: () => import('./EditorEnumAsyncAutocomplete'),
@@ -115,6 +117,14 @@ export default {
         },
         hasValidateListener: false,
         recordUnwatchs: [],
+    },
+    props: {
+        fieldsLayoutConfig: {
+            type: Object,
+            default () {
+                return {};
+            },
+        },
     },
     data () {
         return {

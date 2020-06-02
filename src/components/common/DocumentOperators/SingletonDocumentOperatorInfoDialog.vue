@@ -3,11 +3,12 @@
         :visible.sync="visible"
         v-bind="dialogConfig"
     >
-        <MetaTable
+        <MetaFieldsLayout
             v-if="!hasInjectComponent || componentsInjected"
             :fields="fields"
             :field-layout-list="fieldLayoutList"
             mode="info"
+            v-bind="fieldsLayoutConfig"
         >
             <template #label="{field}">
                 <Labels
@@ -24,7 +25,7 @@
                     :component="injectedViewComponents[field]"
                 />
             </template>
-        </MetaTable>
+        </MetaFieldsLayout>
     </el-dialog>
 </template>
 
@@ -39,7 +40,7 @@ import getNeedInjectViewComponentsMap from '@/components/common/injectHelper/inj
 export default {
     name: 'SingletonDocumentOperatorInfoDialog',
     components: {
-        MetaTable: () => import('@/components/common/MetaTable'),
+        MetaFieldsLayout: () => import('@/components/common/MetaFieldsLayout'),
         Views: () => import('@/components/common/Views/Views'),
         Labels: () => import('@/components/common/Labels/Labels'),
     },
@@ -65,6 +66,12 @@ export default {
         record: {
             type: Object,
             required: true,
+        },
+        fieldsLayoutConfig: {
+            type: Object,
+            default () {
+                return {};
+            },
         },
     },
     state: {

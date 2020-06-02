@@ -54,6 +54,7 @@ export default {
     state: {
         editableFields: [],
         record: {},
+        isUpdating: false,
     },
     singleton: {
         singletonDialogEditors: null,
@@ -93,12 +94,18 @@ export default {
             }).catch(logError);
         },
         handleConfirm (data) {
+            if (this.isUpdating) {
+                return;
+            }
+            this.isUpdating = true;
             new Promise((resolve, reject) => {
                 this.doEditRequest(resolve, this.transformData(data));
             }).then(() => {
                 this.singletonDialogEditors.visible = false;
                 this.$emit('update');
-            }).catch(logError);
+            }).catch(logError).finally(() => {
+                this.isUpdating = false;
+            });
         },
     },
 };
