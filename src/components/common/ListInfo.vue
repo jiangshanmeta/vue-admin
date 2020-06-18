@@ -14,7 +14,7 @@
             :filters="filters"
             :fields="fields"
             :filter-operators="filterOperators"
-            @search="getListInfo"
+            @search="handleSearch"
         />
 
         <slot
@@ -277,6 +277,10 @@ export default {
             injectComponents(this.needInjectViewComponentsMap, this.injectedViewComponents).then(() => {
                 this.componentsInjected = true;
             });
+        },
+        handleSearch () {
+            this.pageIndex = 1;
+            this.getListInfo();
         },
         handleSortChange (sortInfo) {
             if (sortInfo.prop) {
