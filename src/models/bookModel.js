@@ -56,7 +56,7 @@ export default {
                 default: 0,
             },
             view: {
-                component: () => import('@/components/common/Views/ViewTransform').then((rst) => rst.default),
+                component: () => import('@/components/common/Views/ViewTransform'),
                 config: {
                     transform: function (data) {
                         return '¥' + data;
@@ -68,7 +68,7 @@ export default {
             labelName: '收货地址',
             editor: {
                 name: 'EditorBookAddress',
-                component: () => import('@/components/book/Editors/EditorBookAddress').then((rst) => rst.default),
+                component: () => import('@/components/book/Editors/EditorBookAddress'),
                 relates: [
                     {
                         relateField: 'customername',
@@ -78,7 +78,7 @@ export default {
                 default: '',
             },
             view: {
-                component: () => import('@/components/common/Views/ViewMarkdown').then((rst) => rst.default),
+                component: () => import('@/components/common/Views/ViewMarkdown'),
                 config: {
                     breaks: false,
                 },
@@ -128,7 +128,7 @@ export default {
                     customername: 'name',
                     address: 'position',
                 },
-                component: () => import('@/components/book/Views/ViewBookTestViewJoin').then((rst) => rst.default),
+                component: () => import('@/components/book/Views/ViewBookTestViewJoin'),
                 config: {
                     glue: ' 的收货地址是 ',
                 },
@@ -138,7 +138,7 @@ export default {
     collectionOperators: [
         {
             name: 'CollectionOperatorCreate',
-            component: () => import('@/components/common/CollectionOperators/CollectionOperatorCreate').then((rst) => rst.default),
+            component: () => import('@/components/common/CollectionOperators/CollectionOperatorCreate'),
             config: {
                 getCreateFields: getCreateFields,
                 doCreateRequest: createBook,
@@ -188,7 +188,7 @@ export default {
         },
         {
             name: 'CollectionOperatorCsv',
-            component: () => import('@/components/common/CollectionOperators/CollectionOperatorCsv').then((rst) => rst.default),
+            component: () => import('@/components/common/CollectionOperators/CollectionOperatorCsv'),
             config: {
                 triggerConfig: {
                     text: '导入csv数据',
@@ -280,7 +280,7 @@ export default {
         },
         {
             name: 'DocumentOperatorLink',
-            component: () => import('@/components/common/DocumentOperators/DocumentOperatorLink').then((rst) => rst.default),
+            component: () => import('@/components/common/DocumentOperators/DocumentOperatorLink'),
             config: {
                 tag: 'el-button',
                 getLink (data) {

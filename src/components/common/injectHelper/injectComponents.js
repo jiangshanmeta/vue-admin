@@ -25,7 +25,7 @@ export default function injectComponents (components, target) {
         component, name,
     }) => {
         return component().then((realComponent) => {
-            target[name] = realComponent;
+            target[name] = realComponent.default ? realComponent.default : realComponent;
         });
     });
     return Promise.all(dynamicImportComponents);

@@ -25,7 +25,7 @@ export default function () {
                 labelName: '用户名',
                 editor: {
                     name: 'field_string2',
-                    component: () => import('@/components/common/Editors/EditorString').then((rst) => rst.default),
+                    component: () => import('@/components/common/Editors/EditorString'),
                     config: {
                         placeholder: '请输入用户名',
                     },
@@ -89,7 +89,7 @@ export default function () {
                     default: '',
                 },
                 view: {
-                    component: () => import('@/components/common/Views/ViewLink').then((rst) => rst.default),
+                    component: () => import('@/components/common/Views/ViewLink'),
                     config: {
                         getLink (data) {
                             return `https://www.google.com/search?q=${data}`;
@@ -137,7 +137,7 @@ export default function () {
                     default: 0,
                 },
                 view: {
-                    component: () => import('@/components/common/Views/ViewEnum').then((rst) => rst.default),
+                    component: () => import('@/components/common/Views/ViewEnum'),
                     config: {
                         enums: genderEnum,
                     },
@@ -150,7 +150,7 @@ export default function () {
                 },
                 label: {
                     default: {
-                        component: () => import('@/components/user/Labels/LabelUserRedstar').then((rst) => rst.default),
+                        component: () => import('@/components/user/Labels/LabelUserRedstar'),
                         exclude: [
                             'create',
                         ],
@@ -191,7 +191,7 @@ export default function () {
                     },
                 },
                 view: {
-                    component: () => import('@/components/common/Views/ViewEnum').then((rst) => rst.default),
+                    component: () => import('@/components/common/Views/ViewEnum'),
                     config: {
                         enums () {
                             return this.$store.state.test.typHash;
@@ -244,7 +244,7 @@ export default function () {
                     default: '这是富文本编辑器蛤',
                 },
                 view: {
-                    component: () => import('@/components/common/Views/ViewHTML').then((rst) => rst.default),
+                    component: () => import('@/components/common/Views/ViewHTML'),
                 },
                 colspan: {
                     default: {
@@ -264,7 +264,7 @@ export default function () {
         collectionOperators: [
             {
                 name: 'CollectionOperatorCreate',
-                component: () => import('@/components/common/CollectionOperators/CollectionOperatorCreate').then((rst) => rst.default),
+                component: () => import('@/components/common/CollectionOperators/CollectionOperatorCreate'),
                 config: {
                     getCreateFields: getCreateFields,
                     doCreateRequest: createUser,
@@ -410,7 +410,7 @@ export default function () {
                         config: {
                             msg: '测试自定义filter',
                         },
-                        component: () => import('@/components/user/Filters/FilterUserTestCustomFilter').then((rst) => rst.default),
+                        component: () => import('@/components/user/Filters/FilterUserTestCustomFilter'),
                         default: 'test',
                     },
                     watch: true,
@@ -420,7 +420,7 @@ export default function () {
         filterOperators: [
             {
                 name: 'FilterOperatorReset',
-                component: () => import('@/components/common/FilterOperators/FilterOperatorReset').then((rst) => rst.default),
+                component: () => import('@/components/common/FilterOperators/FilterOperatorReset'),
             },
         ],
         listConfig: {
@@ -446,7 +446,7 @@ export default function () {
         documentOperators: [
             {
                 name: 'DocumentOperatorInfo',
-                component: () => import('@/components/common/DocumentOperators/DocumentOperatorInfo').then((rst) => rst.default),
+                component: () => import('@/components/common/DocumentOperators/DocumentOperatorInfo'),
                 config: {
                     getDetailInfo: getUserDetail,
                     triggerConfig: {
@@ -461,7 +461,7 @@ export default function () {
             },
             {
                 name: 'DocumentOperatorEdit',
-                component: () => import('@/components/common/DocumentOperators/DocumentOperatorEdit').then((rst) => rst.default),
+                component: () => import('@/components/common/DocumentOperators/DocumentOperatorEdit'),
                 config: {
                     getEditInfo: getEditUserInfo,
                     doEditRequest: editUser,
@@ -534,7 +534,7 @@ export default function () {
             },
             {
                 name: 'DocumentOperatorDelete',
-                component: () => import('@/components/common/DocumentOperators/DocumentOperatorDelete').then((rst) => rst.default),
+                component: () => import('@/components/common/DocumentOperators/DocumentOperatorDelete'),
                 config: {
                     doDeleteRequest: delUser,
                     triggerConfig: {

@@ -20,7 +20,7 @@ label:{
 ```javascript
 labelComponent:{
     default:{
-        component:() => import('@/components/user/Labels/LabelUserRedstar').then((rst) => rst.default),
+        component:() => import('@/components/user/Labels/LabelUserRedstar'),
         exclude:[
             'info',
         ],

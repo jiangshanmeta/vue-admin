@@ -24,7 +24,7 @@ view:{
 
 ```javascript
 view:{
-    component:() => import('@/components/common/Views/ViewMarkdown').then((rst) => rst.default),
+    component:() => import('@/components/common/Views/ViewMarkdown'),
 },
 ```
 
@@ -51,7 +51,7 @@ view:{
 
 ```javascript
 view:{
-    component:()=>import("@/components/common/Views/ViewEnum").then((rst)=>rst.default),
+    component:()=>import("@/components/common/Views/ViewEnum"),
     config:{
         enums:{
             1:'失败人士',
@@ -115,7 +115,7 @@ getViewValue配置项是个函数，默认原样返回。用它对要展示的�
 
 ```javascript
 view:{
-    component:()=>import("@/components/common/Views/ViewEnum").then((rst)=>rst.default),
+    component:()=>import("@/components/common/Views/ViewEnum"),
     config:{
         enums:{
             1:'失败人士',
