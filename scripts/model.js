@@ -22,7 +22,7 @@ function initModel () {
 
     const modelName = fileName.slice(0, -5);
 
-    fs.writeFileSync(resolve(`src/models/${fileName}.js`), fs.readFileSync(resolve('scripts/_template.js'), 'utf8'));
+    fs.copyFileSync(resolve('scripts/_template.js'), resolve(`src/models/${fileName}.js`));
 
     dirs.forEach((dir) => {
         fs.mkdirSync(resolve(`src/components/${modelName}/${dir}`), {
