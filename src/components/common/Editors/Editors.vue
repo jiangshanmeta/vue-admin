@@ -253,7 +253,17 @@ export default {
             const defaultConfig = editor.config || {};
             const modeConfig = editor[`${this.mode}Config`] || {};
 
-            return Object.assign({}, defaultConfig, modeConfig, relateProps);
+            const args = [
+                this.localRecord[field],
+                this.localRecord,
+                this.record,
+            ];
+
+            return {
+                ...(typeof defaultConfig === 'function' ? defaultConfig(...args) : defaultConfig),
+                ...(typeof modeConfig === 'function' ? modeConfig(...args) : modeConfig),
+                ...relateProps,
+            };
         },
         getRelateData (relateItem) {
             if (Array.isArray(relateItem.relateField)) {

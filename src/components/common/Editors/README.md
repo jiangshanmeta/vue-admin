@@ -6,7 +6,10 @@ Editors目录下的组件是对element-ui的表单组件的包装，更加关注
 
 * name 必填项，使用哪个表单组件
 * component 使用自定义表单元素组件
-* config 表单元素组件的配置项，如果有的话，是对象形式
+* config 表单元素组件的配置项，支持对象形式和函数形式(函数形式必须返回一个对象)。函数形式入参如下:
+  * val 该字段当前值
+  * localRecord 当前编辑记录
+  * record 原始记录
 * [mode]Config 包括createConfig和editConfig不同mode下的额外配置项
 * default 默认值，目前在CollectionOperatorCreate中用到
 * relates 联动配置，Array，具体描述见下

@@ -83,8 +83,15 @@ export default function () {
                             },
                         },
                     ],
-                    config: {
-                        placeholder: '请输入密码',
+                    config (val, localRecord, record) {
+                        if (record.name === 'lelouch' || localRecord.name === '渡边早季') {
+                            return {
+                                disabled: true,
+                            };
+                        }
+                        return {
+                            placeholder: '请输入密码',
+                        };
                     },
                     default: '',
                 },
