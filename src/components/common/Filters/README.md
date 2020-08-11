@@ -20,7 +20,9 @@ filterComponent选项是用来配置筛选组件的。它非常类似于在field
 
 * name 组件名称 必填
 * component 采用的自定义筛选组件
-* config 对筛选组件的配置
+* config 对筛选组件的配置,支持对象以及返回对象的函数。函数形式入参如下:
+  * val 该字段当前值
+  * filtersValueMap 所有筛选项构成的map
 * default 筛选组件的初始值 如果为函数，则调用时的this指向Filters组件
 
 ## relates
