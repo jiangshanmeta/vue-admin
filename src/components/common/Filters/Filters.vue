@@ -191,7 +191,11 @@ export default {
                 return obj;
             }, Object.create(null));
 
-            return Object.assign({}, this.$attrs, config, relateProps);
+            return {
+                ...this.$attrs,
+                ...(typeof config === 'function' ? config(this.filtersValueMap[filterItem.field], this.filtersValueMap) : config),
+                ...relateProps,
+            };
         },
         initRelates () {
             // 支持 filterComponent relates handler 模式

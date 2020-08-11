@@ -357,19 +357,27 @@ export default function () {
                     field: 'typ',
                     filterComponent: {
                         name: 'FilterEnumAsyncSelect',
-                        config: {
-                            getCandidate: cacheGetTypEnum,
-                            allvalue: -1,
-                            alllabel: '全部',
-                            getModelValue (data) {
-                                return data.index;
-                            },
-                            setModelValue (data) {
-                                return {
-                                    index: data,
-                                };
-                            },
+                        config (val, record) {
+                            const result = {
+                                getCandidate: cacheGetTypEnum,
+                                allvalue: -1,
+                                alllabel: '全部',
+                                getModelValue (data) {
+                                    return data.index;
+                                },
+                                setModelValue (data) {
+                                    return {
+                                        index: data,
+                                    };
+                                },
+                            };
+                            if (record.username === 'lelouch') {
+                                result.disabled = true;
+                            }
+
+                            return result;
                         },
+
                         default () {
                             return {
                                 index: -1,
