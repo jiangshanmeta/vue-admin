@@ -2,7 +2,7 @@ export default {
     name: 'ViewHTML',
     functional: true,
     props: {
-        data: {
+        value: {
             type: String,
         },
     },
@@ -11,7 +11,7 @@ export default {
     }) {
         return h('div', {
             domProps: {
-                innerHTML: props.data,
+                innerHTML: props.value,
             },
         });
     },

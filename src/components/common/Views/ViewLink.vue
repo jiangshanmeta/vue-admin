@@ -1,9 +1,9 @@
 <template functional>
     <router-link
-        :to="props.getLink.call(parent,props.data)"
+        :to="props.getLink.call(parent,props.value)"
         v-bind="data.props"
     >
-        {{ props.getText.call(parent,props.data) }}
+        {{ props.getText.call(parent,props.value) }}
     </router-link>
 </template>
 
@@ -11,7 +11,7 @@
 export default {
     name: 'ViewLink',
     props: {
-        data: {
+        value: {
             type: [
                 String, Number, Object,
             ],

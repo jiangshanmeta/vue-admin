@@ -28,7 +28,7 @@ view:{
 },
 ```
 
-要开发一个View类型组件，推荐使用函数式组件。一般情况下会被传入data属性，这个prop是该字段的值。
+要开发一个View类型组件，推荐使用函数式组件。一般情况下会被传入value属性，这个prop是该字段的值。
 
 ## config属性
 
@@ -66,7 +66,7 @@ view:{
 
 ```javascript
 props:{
-    data:{
+    value:{
         type:[Number,String],
         required:true,
     },
@@ -141,7 +141,7 @@ view:{
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-| data   | 否 | String Number | 真实值 | 作为ViewComponent时该值自动传入   |
+| value   | 否 | String Number | 真实值 | 作为ViewComponent时该值自动传入   |
 | enums  |  是  | Object Function   | 枚举配置项 | 为函数时this指向一个vue实例(可以用来访问store) 函数应返回enums对象  |
 
 ### ViewHTML
@@ -150,7 +150,7 @@ view:{
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-| data   | 否 | String | 真实值 | 作为ViewComponent时该值自动传入   |
+| value   | 否 | String | 真实值 | 作为ViewComponent时该值自动传入   |
 
 ### ViewMarkdown
 
@@ -158,7 +158,7 @@ view:{
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-| data   | 否 | String | 真实值 | 作为ViewComponent时该值自动传入   |
+| value   | 否 | String | 真实值 | 作为ViewComponent时该值自动传入   |
 
 ### ViewLink
 
@@ -166,15 +166,15 @@ view:{
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-| data   | 否 | 不限 | 真实值 | 作为ViewComponent时该值自动传入，一般而言是关联id   |
-| getLink | 是 | Function | 获取链接的方法 | 第一个参数是data值，返回值作为router-link的to参数，this指向一个vue实例 |
-| getText | 是 | Function | 获取展示文字的方法 | 第一个参数是data值，返回值作为router-link的内容，this指向一个vue实例 |
+| value   | 否 | 不限 | 真实值 | 作为ViewComponent时该值自动传入，一般而言是关联id   |
+| getLink | 是 | Function | 获取链接的方法 | 第一个参数是value值，返回值作为router-link的to参数，this指向一个vue实例 |
+| getText | 是 | Function | 获取展示文字的方法 | 第一个参数是value值，返回值作为router-link的内容，this指向一个vue实例 |
 
 ### ViewTransform
 
 | 属性名 | 是否必需  | 类型      | 属性描述 |  备注 |
 | :---:  | :--:  | :--: | :-----:  | :--: |
-| data   | 否 | String Number | 真实值 | 作为viewComponent时该值自动传入   |
-| transform  |  是  | Function    | 转换函数，第一个参数是data | - |
+| value   | 否 | String Number | 真实值 | 作为viewComponent时该值自动传入   |
+| transform  |  是  | Function    | 转换函数，第一个参数是value | - |
 
 这个组件其实是函数模式的前身，用处不大

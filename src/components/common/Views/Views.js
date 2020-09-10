@@ -70,7 +70,7 @@ export default {
                         ...config,
                     }
                     : {
-                        data: info,
+                        value: info,
                         ...config,
                     };
                 // vue的jsx 如果需要展开对象 需要用vue-data-object的形式 坑

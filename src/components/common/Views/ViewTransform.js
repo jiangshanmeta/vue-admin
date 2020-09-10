@@ -2,7 +2,7 @@ export default {
     name: 'ViewTransform',
     functional: true,
     props: {
-        data: {},
+        value: {},
         transform: {
             type: Function,
             default: function (data) {
@@ -14,11 +14,11 @@ export default {
         props,
     }) {
         const {
-            data,
+            value,
             transform,
         } = props;
         return (
-            <span>{transform(data)}</span>
+            <span>{transform(value)}</span>
         );
     },
 };

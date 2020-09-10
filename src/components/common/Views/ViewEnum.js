@@ -2,7 +2,7 @@ export default {
     name: 'ViewEnum',
     functional: true,
     props: {
-        data: {
+        value: {
             type: [
                 Number, String,
             ],
@@ -19,14 +19,14 @@ export default {
         props,
         parent,
     }) {
-        const data = props.data;
+        const value = props.value;
         let enums = props.enums;
         if (typeof enums === 'function') {
             enums = enums.call(parent);
         }
 
         return (
-            <span>{enums[data]}</span>
+            <span>{enums[value]}</span>
         );
     },
 };
