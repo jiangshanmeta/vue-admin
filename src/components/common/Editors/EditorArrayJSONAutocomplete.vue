@@ -16,6 +16,5 @@ export default {
     mixins: [
         _json_object_mixin,
     ],
-    inheritAttrs: true,
 };
 </script>

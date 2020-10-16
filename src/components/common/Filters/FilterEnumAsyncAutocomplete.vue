@@ -19,6 +19,5 @@ export default {
         _async_candidate_mixin,
         _editor_model_mixin,
     ],
-    inheritAttrs: true,
 };
 </script>

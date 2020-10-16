@@ -23,6 +23,5 @@ export default {
         _async_candidate_mixin,
         _props_value_mixin,
     ],
-    inheritAttrs: true,
 };
 </script>

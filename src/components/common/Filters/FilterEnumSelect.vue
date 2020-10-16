@@ -22,6 +22,5 @@ export default {
         _filter_all_mixin,
         _editor_model_mixin,
     ],
-    inheritAttrs: true,
 };
 </script>

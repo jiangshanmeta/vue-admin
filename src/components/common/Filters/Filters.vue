@@ -76,7 +76,6 @@ export default {
 
         Operators: () => import('@/components/common/Operators'),
     },
-    inheritAttrs: true,
     state: {
         needInjectFilterComponentsList: [],
         get hasInjectFilterComponents () {

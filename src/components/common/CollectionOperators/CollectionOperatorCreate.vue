@@ -16,7 +16,6 @@ import SingletonDialogEditors from '@/components/common/Editors/SingletonDialogE
 
 export default {
     name: 'CollectionOperatorCreate',
-    inheritAttrs: true,
     props: {
         fields: {
             type: Object,

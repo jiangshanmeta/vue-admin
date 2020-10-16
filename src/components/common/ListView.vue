@@ -39,7 +39,6 @@ export default {
         ListInfo: () => import('@/components/common/ListInfo'),
         Operators: () => import('@/components/common/Operators'),
     },
-    inheritAttrs: true,
     props: {
         fields: {
             type: Object,

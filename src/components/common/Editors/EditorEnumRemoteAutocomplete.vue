@@ -22,7 +22,6 @@ export default {
         _props_value_mixin,
         _props_label_value_mixin,
     ],
-    inheritAttrs: true,
     props: {
         fetchSuggestions: {
             type: Function,

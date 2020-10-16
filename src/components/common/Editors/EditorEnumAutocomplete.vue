@@ -19,7 +19,6 @@ export default {
         _editor_enum_mixin,
         _computed_value_label_map_mixin,
     ],
-    inheritAttrs: true,
     props: {
         fetchSuggestions: {
             type: Function,

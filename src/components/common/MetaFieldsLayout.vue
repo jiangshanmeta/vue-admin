@@ -27,7 +27,6 @@ export default {
     components: {
         MetaTable,
     },
-    inheritAttrs: true,
     props: {
         layoutComponentName: {
             type: String,

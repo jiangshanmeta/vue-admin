@@ -17,6 +17,5 @@ export default {
     mixins: [
         _mono_multi_mixin,
     ],
-    inheritAttrs: true,
 };
 </script>

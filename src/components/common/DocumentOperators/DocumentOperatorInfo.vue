@@ -16,7 +16,6 @@ import {
 
 export default {
     name: 'DocumentOperatorInfo',
-    inheritAttrs: true,
     props: {
         getDetailInfo: {
             type: Function,

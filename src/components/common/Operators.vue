@@ -35,7 +35,6 @@ export default {
     mixins: [
         mergeAttrsConfig,
     ],
-    inheritAttrs: true,
     state: {
         needInjectOperatorComponentsList: [],
         get hasInjectOperatorComponents () {

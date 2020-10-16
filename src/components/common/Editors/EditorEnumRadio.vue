@@ -24,6 +24,5 @@ export default {
         _editor_enum_mixin,
         _editor_model_mixin,
     ],
-    inheritAttrs: true,
 };
 </script>

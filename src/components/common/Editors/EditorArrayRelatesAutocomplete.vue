@@ -22,6 +22,5 @@ export default {
         _editor_model_mixin,
         _props_value_array_mixin,
     ],
-    inheritAttrs: true,
 };
 </script>

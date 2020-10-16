@@ -39,7 +39,6 @@ export default {
         _props_value_array_mixin,
         _computed_value_label_map_mixin,
     ],
-    inheritAttrs: true,
     data () {
         return {
             selectedId: '',

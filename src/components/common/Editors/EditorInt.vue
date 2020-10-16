@@ -18,7 +18,6 @@ export default {
     mixins: [
         _listeners_without_input_mixin,
     ],
-    inheritAttrs: true,
     props: {
         value: {
             type: Number,

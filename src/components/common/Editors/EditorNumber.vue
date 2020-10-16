@@ -18,6 +18,5 @@ export default {
         _editor_model_mixin,
         _props_value_number_mixin,
     ],
-    inheritAttrs: true,
 };
 </script>
