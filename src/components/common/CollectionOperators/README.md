@@ -34,8 +34,8 @@
 更多说明:
 
 * 按钮的文案可以通过相应配置项的text属性配置
-* getCreateFields(resolve) 获取的创建字段(一维数组)通过调用resolve返回，一般情况下该函数的this指向create组件实例
+* getCreateFields(resolve,reject) 获取的创建字段(一维数组)通过调用resolve返回，一般情况下该函数的this指向create组件实例
 * fieldLayout Array形式应为二维数组，每一项表示一行需要哪些字段。函数形式应该返回二维数组，函数调用时第一个参数是新record(字段由effectLayoutFields确定)第二个参数为旧record
 * transformData(data) data为表单中的数据，需要返回一个对象(处理后的数据)
-* doCreateRequest(resolve,data) data是经过transformData处理过的表单数据，resolve是个函数，创建完成后需调用resolve方法刷新列表。一般情况下该函数的this指向create组件实例
+* doCreateRequest(resolve,data,reject) data是经过transformData处理过的表单数据，resolve是个函数，创建完成后需调用resolve方法刷新列表。一般情况下该函数的this指向create组件实例
 * recordWatch(data) data是表单中的数据，可以进行自定义观察，用于处理复杂的联动关系，一定要返回unwatch数组

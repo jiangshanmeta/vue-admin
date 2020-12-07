@@ -50,7 +50,7 @@ export default {
                 type: 'warning',
             }).then(() => {
                 new Promise((resolve, reject) => {
-                    this.doDeleteRequest(resolve, this.data);
+                    this.doDeleteRequest(resolve, this.data, reject);
                 }).then(() => {
                     this.$emit('update');
                 }).catch(logError);

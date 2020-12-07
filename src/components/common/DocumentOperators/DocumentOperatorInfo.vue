@@ -39,7 +39,7 @@ export default {
     methods: {
         handleClick () {
             new Promise((resolve, reject) => {
-                this.getDetailInfo(resolve, this.data);
+                this.getDetailInfo(resolve, this.data, reject);
             }).then(({
                 fieldLayoutList, record,
             }) => {

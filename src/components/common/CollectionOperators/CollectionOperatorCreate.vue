@@ -76,7 +76,7 @@ export default {
         handleClick () {
             if (this.editableFields.length === 0) {
                 new Promise((resolve, reject) => {
-                    this.getCreateFields(resolve);
+                    this.getCreateFields(resolve, reject);
                 }).then((editableFields) => {
                     this.editableFields = editableFields;
                     this.resetRecord();
@@ -93,8 +93,8 @@ export default {
             }
             this.isCreating = true;
 
-            new Promise((resolve) => {
-                this.doCreateRequest(resolve, this.transformData(data));
+            new Promise((resolve, reject) => {
+                this.doCreateRequest(resolve, this.transformData(data), reject);
             }).then(() => {
                 this.singletonDialogEditors.visible = false;
                 this.$emit('update');

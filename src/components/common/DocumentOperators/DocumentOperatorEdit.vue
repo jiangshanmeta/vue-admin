@@ -77,7 +77,7 @@ export default {
         },
         getEditFields () {
             new Promise((resolve, reject) => {
-                this.getEditInfo(resolve, this.data);
+                this.getEditInfo(resolve, this.data, reject);
             }).then(({
                 editableFields, record,
             }) => {
@@ -99,7 +99,7 @@ export default {
             }
             this.isUpdating = true;
             new Promise((resolve, reject) => {
-                this.doEditRequest(resolve, this.transformData(data));
+                this.doEditRequest(resolve, this.transformData(data), reject);
             }).then(() => {
                 this.singletonDialogEditors.visible = false;
                 this.$emit('update');
