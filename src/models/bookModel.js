@@ -171,10 +171,14 @@ export default {
             },
         },
         {
-            handler () {
-                console.log(this.$attrs.filterData);
-                console.log(this.$attrs.selectedData);
-                console.log(this.data);
+            handler (data, {
+                filterData,
+                selectedData,
+            }) {
+                console.log(data);
+                console.log(filterData);
+                console.log(selectedData);
+
                 this.$message({
                     type: 'warning',
                     message: '就把选中的取消选中',

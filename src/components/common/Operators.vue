@@ -87,7 +87,7 @@ export default {
             }
         },
         handleOperatorClick (handler) {
-            handler.call(this, this.data);
+            handler.call(this, this.data, this.$attrs);
         },
         notifyUpdate () {
             this.$emit('update');

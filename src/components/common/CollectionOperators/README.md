@@ -6,7 +6,7 @@
 
 还有一个filterData，是筛选项构成的对象。
 
-如果采用函数模式，可通过```this.$attrs.selectedData```和```this.$attrs.filterData```在handler中访问到这两个属性
+如果采用函数模式，可通过handler的第二个参数获取selectedData filterData
 
 ## 内置CollectionOperators
 
