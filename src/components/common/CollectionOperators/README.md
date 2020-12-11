@@ -6,7 +6,9 @@
 
 还有一个filterData，是筛选项构成的对象。
 
-如果采用函数模式，可通过handler的第二个参数获取selectedData filterData
+以及分页信息pagination。
+
+如果采用函数模式，可通过handler的第二个参数获取selectedData filterData pagination
 
 ## 内置CollectionOperators
 

@@ -7,6 +7,7 @@
             :data="data"
             :filterData="filterData"
             :selectedData="multipleSelection"
+            :pagination="pagination"
         />
 
         <Filters
@@ -22,6 +23,7 @@
             :data="data"
             :filterData="filterData"
             :selectedData="multipleSelection"
+            :pagination="pagination"
         />
 
         <el-table
@@ -242,6 +244,14 @@ export default {
             operatorMinWidth: 0,
             pageSize: this.initialPageSize,
         };
+    },
+    computed: {
+        pagination () {
+            return {
+                pageSize: this.pageSize,
+                pageIndex: this.pageIndex,
+            };
+        },
     },
     beforeCreate () {
         Object.defineProperty(this, 'filterData', {

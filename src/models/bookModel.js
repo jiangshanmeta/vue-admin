@@ -174,10 +174,12 @@ export default {
             handler (data, {
                 filterData,
                 selectedData,
+                pagination,
             }) {
                 console.log(data);
                 console.log(filterData);
                 console.log(selectedData);
+                console.log(pagination);
 
                 this.$message({
                     type: 'warning',
