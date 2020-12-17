@@ -563,7 +563,11 @@ export default function () {
                 name: 'DocumentOperatorDelete',
                 component: () => import('@/components/common/DocumentOperators/DocumentOperatorDelete'),
                 config: {
-                    doDeleteRequest: delUser,
+                    doDeleteRequest(data){
+                        return new Promise((resolve)=>{
+                            delUser(resolve,data)
+                        })
+                    },
                     triggerConfig: {
                         text: '删除用户',
                         type: 'danger',

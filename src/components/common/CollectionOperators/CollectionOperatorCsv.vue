@@ -18,6 +18,7 @@
 </template>
 
 <script>
+// @deprecated
 import csvjs from 'csv-js';
 import {
     logError,

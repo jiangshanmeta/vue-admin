@@ -42,21 +42,19 @@ export default {
             if (this.isDeleting) {
                 return;
             }
-            this.isDeleting = true;
 
             this.$confirm('确认删除？', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning',
             }).then(() => {
-                new Promise((resolve, reject) => {
-                    this.doDeleteRequest(resolve, this.data, reject);
-                }).then(() => {
+                this.isDeleting = true;
+                this.doDeleteRequest(this.data).then(()=>{
                     this.$emit('update');
-                }).catch(logError);
-            }).catch(logError).finally(() => {
-                this.isDeleting = false;
-            });
+                }).catch(logError).finally(()=>{
+                    this.isDeleting = false;
+                })
+            }).catch(logError)
         },
     },
 };

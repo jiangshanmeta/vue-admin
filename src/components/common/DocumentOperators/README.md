@@ -102,7 +102,7 @@
 
 更多说明:
 
-* doDeleteRequest(resolve,data,reject) 一般情况该函数调用时this指向Delete组件实例，data是这条记录原始数据，删除完成后调用resolve会刷新列表
+* doDeleteRequest(data) 一般情况该函数调用时this指向Delete组件实例，data是这条记录原始数据，返回promise
 * 在doDeleteRequest中，可以通过```this.id```访问id字段，它本身是```this.data[this.idfield]```的语法糖
 
 ### DocumentOperatorLink
