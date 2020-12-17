@@ -47,6 +47,7 @@
 
 <script>
 import AsyncValidator from 'async-validator';
+import { klona } from 'klona';
 
 import injectComponents from '@/components/common/injectHelper/injectComponents';
 import getNeedInjectFilterComponentsList from '@/components/common/injectHelper/injectFilterComponentsHelper';
@@ -122,7 +123,7 @@ export default {
             }
         },
         formData () {
-            return JSON.parse(JSON.stringify(this.filtersValueMap));
+            return klona(this.filtersValueMap);
         },
     },
     created () {

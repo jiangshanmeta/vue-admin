@@ -40,6 +40,8 @@
 
 <script>
 import AsyncValidator from 'async-validator';
+import { klona } from 'klona';
+
 import Labels from '@/components/common/Labels/Labels';
 
 import injectComponents from '@/components/common/injectHelper/injectComponents';
@@ -163,7 +165,7 @@ export default {
         record: {
             immediate: true,
             handler () {
-                this.localRecord = JSON.parse(JSON.stringify(this.record));
+                this.localRecord = klona(this.record);
                 this.resetValidate();
                 this.resetRelates();
             },
@@ -351,7 +353,7 @@ export default {
             }
 
             return Promise.all(promises).then(() => {
-                return JSON.parse(JSON.stringify(this.localRecord));
+                return klona(this.localRecord);
             });
         },
         addValidateInputListener (field) {

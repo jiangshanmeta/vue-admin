@@ -3,6 +3,8 @@ import {
     hasOwnProperty,
 } from '@/widget/utility';
 
+import { klona } from 'klona';
+
 export default {
     props: {
         getCandidate: {
@@ -44,7 +46,7 @@ export default {
                 return queryObj;
             }, Object.create(null));
 
-            const cacheObj = JSON.parse(JSON.stringify(this.relateData));
+            const cacheObj = klona(this.relateData);
 
             new Promise((resolve) => {
                 this.getCandidate(resolve, queryObj);
