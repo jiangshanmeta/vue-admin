@@ -3,7 +3,9 @@ import {
     hasOwnProperty,
 } from '@/widget/utility';
 
-import { klona } from 'klona';
+import {
+    klona,
+} from 'klona';
 
 export default {
     props: {

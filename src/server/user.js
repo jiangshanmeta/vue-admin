@@ -208,7 +208,7 @@ const detailFields = [
     ],
 ];
 
-function getUserDetail (cb,data) {
+function getUserDetail (cb, data) {
     const id = data.id;
 
     for (const item of userTable) {
@@ -231,8 +231,8 @@ const editFields = [
     'desc',
 ];
 
-function getEditUserInfo (cb) {
-    const id = this.id;
+function getEditUserInfo (cb, data) {
+    const id = data.id;
     for (const item of userTable) {
         if (item.id === id) {
             cb({
@@ -253,7 +253,7 @@ function editUser (cb, data) {
     cb();
 }
 
-function delUser (cb,data) {
+function delUser (cb, data) {
     const id = data.id;
     for (const index in userTable) {
         if (userTable[index].id === id) {

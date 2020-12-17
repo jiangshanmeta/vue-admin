@@ -273,14 +273,14 @@ export default function () {
                 name: 'CollectionOperatorCreate',
                 component: () => import('@/components/common/CollectionOperators/CollectionOperatorCreate'),
                 config: {
-                    getCreateFields(){
-                        return new Promise((resolve)=>{
+                    getCreateFields () {
+                        return new Promise((resolve) => {
                             getCreateFields(resolve);
-                        })
+                        });
                     },
-                    doCreateRequest(data){
-                        return new Promise((resolve)=>{
-                            createUser(resolve,data);
+                    doCreateRequest (data) {
+                        return new Promise((resolve) => {
+                            createUser(resolve, data);
                         });
                     },
                     fieldLayout (record) {
@@ -452,9 +452,9 @@ export default function () {
                     this.$store.commit('test/setTypHash', JSON.parse(JSON.stringify(typHash)));
                 }, 5000);
             },
-            listRequest(params){
-                return new Promise((resolve)=>{
-                    getUserList(resolve,params)
+            listRequest (params) {
+                return new Promise((resolve) => {
+                    getUserList(resolve, params);
                 });
             },
             sortableFields: {
@@ -475,9 +475,9 @@ export default function () {
                 name: 'DocumentOperatorInfo',
                 component: () => import('@/components/common/DocumentOperators/DocumentOperatorInfo'),
                 config: {
-                    getDetailInfo(data){
-                        return new Promise((resolve)=>{
-                            getUserDetail(resolve,data)
+                    getDetailInfo (data) {
+                        return new Promise((resolve) => {
+                            getUserDetail(resolve, data);
                         });
                     },
                     triggerConfig: {
@@ -494,8 +494,16 @@ export default function () {
                 name: 'DocumentOperatorEdit',
                 component: () => import('@/components/common/DocumentOperators/DocumentOperatorEdit'),
                 config: {
-                    getEditInfo: getEditUserInfo,
-                    doEditRequest: editUser,
+                    getEditInfo (data) {
+                        return new Promise((resolve) => {
+                            getEditUserInfo(resolve, data);
+                        });
+                    },
+                    doEditRequest (data) {
+                        return new Promise((resolve) => {
+                            editUser(resolve, data);
+                        });
+                    },
                     fieldLayout: [
                         [
                             'name', 'password',
@@ -567,10 +575,10 @@ export default function () {
                 name: 'DocumentOperatorDelete',
                 component: () => import('@/components/common/DocumentOperators/DocumentOperatorDelete'),
                 config: {
-                    doDeleteRequest(data){
-                        return new Promise((resolve)=>{
-                            delUser(resolve,data)
-                        })
+                    doDeleteRequest (data) {
+                        return new Promise((resolve) => {
+                            delUser(resolve, data);
+                        });
                     },
                     triggerConfig: {
                         text: '删除用户',

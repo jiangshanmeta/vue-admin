@@ -40,7 +40,9 @@
 
 <script>
 import AsyncValidator from 'async-validator';
-import { klona } from 'klona';
+import {
+    klona,
+} from 'klona';
 
 import Labels from '@/components/common/Labels/Labels';
 

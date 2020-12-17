@@ -75,7 +75,7 @@ export default {
         },
         handleClick () {
             if (this.editableFields.length === 0) {
-                this.getCreateFields().then((editableFields)=>{
+                this.getCreateFields().then((editableFields) => {
                     this.editableFields = editableFields;
                     this.resetRecord();
                     this.showDialog();
@@ -91,12 +91,12 @@ export default {
             }
             this.isCreating = true;
 
-            this.doCreateRequest(this.transformData(data)).then(()=>{
+            this.doCreateRequest(this.transformData(data)).then(() => {
                 this.singletonDialogEditors.visible = false;
                 this.$emit('update');
-            }).catch(logError).finally(()=>{
+            }).catch(logError).finally(() => {
                 this.isCreating = false;
-            })
+            });
         },
     },
 };

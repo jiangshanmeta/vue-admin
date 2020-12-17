@@ -140,14 +140,14 @@ export default {
             name: 'CollectionOperatorCreate',
             component: () => import('@/components/common/CollectionOperators/CollectionOperatorCreate'),
             config: {
-                getCreateFields(){
-                    return new Promise((resolve)=>{
+                getCreateFields () {
+                    return new Promise((resolve) => {
                         getCreateFields(resolve);
-                    })
+                    });
                 },
-                doCreateRequest(data){
-                    return new Promise((resolve)=>{
-                        createBook(resolve,data);
+                doCreateRequest (data) {
+                    return new Promise((resolve) => {
+                        createBook(resolve, data);
                     });
                 },
                 fieldLayout: [
@@ -236,10 +236,10 @@ export default {
     ],
     listConfig: {
         selection: true,
-        listRequest(params){
-            return new Promise((resolve)=>{
-                getBookList(resolve,params)
-            })
+        listRequest (params) {
+            return new Promise((resolve) => {
+                getBookList(resolve, params);
+            });
         },
         paginated: false,
     },

@@ -49,12 +49,12 @@ export default {
                 type: 'warning',
             }).then(() => {
                 this.isDeleting = true;
-                this.doDeleteRequest(this.data).then(()=>{
+                this.doDeleteRequest(this.data).then(() => {
                     this.$emit('update');
-                }).catch(logError).finally(()=>{
+                }).catch(logError).finally(() => {
                     this.isDeleting = false;
-                })
-            }).catch(logError)
+                });
+            }).catch(logError);
         },
     },
 };

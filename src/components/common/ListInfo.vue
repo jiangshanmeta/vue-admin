@@ -180,7 +180,7 @@ export default {
         },
         transformListData: {
             type: Function,
-            default(data){
+            default (data) {
                 return data;
             },
         },
@@ -326,7 +326,7 @@ export default {
 
             const params = {
                 ...this.$refs.filters.formData,
-            }
+            };
 
             if (this.paginated) {
                 params[this.pageIndexReqName] = this.pageIndex;
@@ -341,9 +341,9 @@ export default {
             this.listRequest(this.transformRequestData(params)).then(({
                 data,
                 total,
-                fieldList
-            })=>{
-                Promise.resolve(this.transformListData(data)).then((data)=>{
+                fieldList,
+            }) => {
+                Promise.resolve(this.transformListData(data)).then((data) => {
                     this.fieldList = Object.freeze(fieldList);
                     this.total = total;
                     this.data = deepFreeze(data);

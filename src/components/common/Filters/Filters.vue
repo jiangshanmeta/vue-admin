@@ -47,7 +47,9 @@
 
 <script>
 import AsyncValidator from 'async-validator';
-import { klona } from 'klona';
+import {
+    klona,
+} from 'klona';
 
 import injectComponents from '@/components/common/injectHelper/injectComponents';
 import getNeedInjectFilterComponentsList from '@/components/common/injectHelper/injectFilterComponentsHelper';

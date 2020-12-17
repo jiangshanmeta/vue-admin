@@ -40,8 +40,8 @@ export default {
         handleClick () {
             this.getDetailInfo(this.data).then(({
                 fieldLayoutList,
-                record
-            })=>{
+                record,
+            }) => {
                 this.fieldLayoutList = fieldLayoutList;
                 this.record = record;
                 this.$singleton(

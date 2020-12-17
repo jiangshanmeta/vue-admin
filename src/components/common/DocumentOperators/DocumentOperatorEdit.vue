@@ -76,10 +76,9 @@ export default {
             );
         },
         getEditFields () {
-            new Promise((resolve, reject) => {
-                this.getEditInfo(resolve, this.data, reject);
-            }).then(({
-                editableFields, record,
+            this.getEditInfo(this.data).then(({
+                editableFields,
+                record,
             }) => {
                 editableFields.forEach((field) => {
                     if (!hasOwnProperty(record, field)) {
@@ -98,9 +97,7 @@ export default {
                 return;
             }
             this.isUpdating = true;
-            new Promise((resolve, reject) => {
-                this.doEditRequest(resolve, this.transformData(data), reject);
-            }).then(() => {
+            this.doEditRequest(this.transformData(data)).then(() => {
                 this.singletonDialogEditors.visible = false;
                 this.$emit('update');
             }).catch(logError).finally(() => {

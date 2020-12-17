@@ -59,7 +59,7 @@
 
 更多说明:
 
-* getEditInfo(resolve,data,reject) , 一般情况下该函数的this指向edit组件实例,data是这条记录的原始记录,编辑需要的信息通过resolve传入，示例如下：
+* getEditInfo(data) , 一般情况下该函数的this指向edit组件实例,data是这条记录的原始记录,返回promise，返回数据示例如下：
 
 ```javascript
 {
@@ -84,7 +84,7 @@
 
 * fieldLayout Array形式应为二维数组，每一项表示一行需要哪些字段。函数形式应该返回二维数组，函数调用时第一个参数是新record(字段由effectLayoutFields确定)第二个参数为旧record
 * transformData(data) data为表单中的数据，需要返回一个对象(处理后的数据)
-* doEditRequest(resolve,data,reject) 一般情况下该函数的this指向edit组件实例，data是经过transformData处理的数据，更新完成后调用resolve，会刷新列表。
+* doEditRequest(data) 一般情况下该函数的this指向edit组件实例，data是经过transformData处理的数据，返回promise，promise resolve后会刷新列表。
 * recordWatch(data) data是表单中的数据，可以进行自定义观察，用于处理复杂的联动关系，一定要返回unwatch数组
 
 ### DocumentOperatorDelete
