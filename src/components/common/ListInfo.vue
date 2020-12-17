@@ -180,7 +180,7 @@ export default {
         },
         transformListData: {
             type: Function,
-            default: async (data) => {
+            default(data){
                 return data;
             },
         },

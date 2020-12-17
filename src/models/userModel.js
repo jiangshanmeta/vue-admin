@@ -273,8 +273,16 @@ export default function () {
                 name: 'CollectionOperatorCreate',
                 component: () => import('@/components/common/CollectionOperators/CollectionOperatorCreate'),
                 config: {
-                    getCreateFields: getCreateFields,
-                    doCreateRequest: createUser,
+                    getCreateFields(){
+                        return new Promise((resolve)=>{
+                            getCreateFields(resolve);
+                        })
+                    },
+                    doCreateRequest(data){
+                        return new Promise((resolve)=>{
+                            createUser(resolve,data);
+                        });
+                    },
                     fieldLayout (record) {
                         if (record.gender === 0) {
                             return [

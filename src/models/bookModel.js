@@ -140,8 +140,16 @@ export default {
             name: 'CollectionOperatorCreate',
             component: () => import('@/components/common/CollectionOperators/CollectionOperatorCreate'),
             config: {
-                getCreateFields: getCreateFields,
-                doCreateRequest: createBook,
+                getCreateFields(){
+                    return new Promise((resolve)=>{
+                        getCreateFields(resolve);
+                    })
+                },
+                doCreateRequest(data){
+                    return new Promise((resolve)=>{
+                        createBook(resolve,data);
+                    });
+                },
                 fieldLayout: [
                     [
                         'customername', 'totalprice',
