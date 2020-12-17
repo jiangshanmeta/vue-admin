@@ -208,8 +208,8 @@ const detailFields = [
     ],
 ];
 
-function getUserDetail (cb) {
-    const id = this.data.id;
+function getUserDetail (cb,data) {
+    const id = data.id;
 
     for (const item of userTable) {
         if (item.id === id) {
@@ -253,8 +253,8 @@ function editUser (cb, data) {
     cb();
 }
 
-function delUser (cb) {
-    const id = this.id;
+function delUser (cb,data) {
+    const id = data.id;
     for (const index in userTable) {
         if (userTable[index].id === id) {
             userTable.splice(index, 1);

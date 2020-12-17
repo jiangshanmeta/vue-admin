@@ -38,11 +38,10 @@ export default {
     },
     methods: {
         handleClick () {
-            new Promise((resolve, reject) => {
-                this.getDetailInfo(resolve, this.data, reject);
-            }).then(({
-                fieldLayoutList, record,
-            }) => {
+            this.getDetailInfo(this.data).then(({
+                fieldLayoutList,
+                record
+            })=>{
                 this.fieldLayoutList = fieldLayoutList;
                 this.record = record;
                 this.$singleton(

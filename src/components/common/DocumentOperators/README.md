@@ -16,7 +16,7 @@
 
 更多说明:
 
-* getDetailInfo(resolve,data,reject) 一般情况下该函数的this指向info组件实例，data是这条记录的原始记录,详情信息通过resolve方法传入，格式如下：
+* getDetailInfo(data) 一般情况下该函数的this指向info组件实例，data是这条记录的原始记录,返回promise，内容格式如下：
 
 ```javascript
 {

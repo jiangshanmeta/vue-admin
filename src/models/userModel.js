@@ -475,7 +475,11 @@ export default function () {
                 name: 'DocumentOperatorInfo',
                 component: () => import('@/components/common/DocumentOperators/DocumentOperatorInfo'),
                 config: {
-                    getDetailInfo: getUserDetail,
+                    getDetailInfo(data){
+                        return new Promise((resolve)=>{
+                            getUserDetail(resolve,data)
+                        });
+                    },
                     triggerConfig: {
                         text: '查看详情',
                         size: 'small',
