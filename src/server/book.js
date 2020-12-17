@@ -123,7 +123,7 @@ function createBook (cb, data) {
     cb();
 }
 
-function getBookList (cb, params) {
+function getBookList (cb) {
     cb({
         data: JSON.parse(JSON.stringify(bookTable)),
         fieldList: [

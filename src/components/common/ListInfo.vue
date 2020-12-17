@@ -310,8 +310,6 @@ export default {
             this.multipleSelection = section;
         },
         getListInfo () {
-            const params = {};
-
             // 所以需要等到filters组件实例化完成
             if (!this.$refs.filters) {
                 // 这里之所以用setTimeout而不是$nextTick
@@ -326,7 +324,9 @@ export default {
                 return;
             }
 
-            Object.assign(params, this.$refs.filters.formData);
+            const params = {
+                ...this.$refs.filters.formData,
+            }
 
             if (this.paginated) {
                 params[this.pageIndexReqName] = this.pageIndex;
@@ -338,18 +338,12 @@ export default {
 
             console.log(params);
 
-            return new Promise((resolve) => {
-                this.listRequest(resolve, this.transformRequestData(params));
-            }).then((rst) => {
-                const {
-                    data, total, fieldList,
-                } = rst;
-                let promise = this.transformListData(data);
-                if (!(promise instanceof Promise)) {
-                    promise = Promise.resolve(promise);
-                }
-
-                promise.then((data) => {
+            this.listRequest(this.transformRequestData(params)).then(({
+                data,
+                total,
+                fieldList
+            })=>{
+                Promise.resolve(this.transformListData(data)).then((data)=>{
                     this.fieldList = Object.freeze(fieldList);
                     this.total = total;
                     this.data = deepFreeze(data);

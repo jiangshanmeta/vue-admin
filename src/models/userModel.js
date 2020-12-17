@@ -444,7 +444,11 @@ export default function () {
                     this.$store.commit('test/setTypHash', JSON.parse(JSON.stringify(typHash)));
                 }, 5000);
             },
-            listRequest: getUserList,
+            listRequest(params){
+                return new Promise((resolve)=>{
+                    getUserList(resolve,params)
+                });
+            },
             sortableFields: {
                 typ: true,
             },

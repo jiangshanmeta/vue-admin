@@ -228,7 +228,11 @@ export default {
     ],
     listConfig: {
         selection: true,
-        listRequest: getBookList,
+        listRequest(params){
+            return new Promise((resolve)=>{
+                getBookList(resolve,params)
+            })
+        },
         paginated: false,
     },
     filters: [

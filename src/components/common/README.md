@@ -34,7 +34,7 @@
 函数类型配置项的参数：
 
 * transformRequestData(data) data是请求的参数
-* listRequest(resolve,data) 请求列表数据，返回字段格式如下：
+* listRequest(data) 请求列表数据，需要返回promise,返回字段格式如下：
 
 ```javascript
 {
