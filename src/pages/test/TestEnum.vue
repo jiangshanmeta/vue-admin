@@ -158,10 +158,12 @@ const field_enum_candidate = [
 ];
 
 const getCandidate = fields.reduce((obj, field) => {
-    obj[field] = (cb) => {
-        setTimeout(() => {
-            cb(field_enum_candidate);
-        }, 1000);
+    obj[field] = () => {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(field_enum_candidate);
+            }, 1000);
+        });
     };
     return obj;
 }, {});

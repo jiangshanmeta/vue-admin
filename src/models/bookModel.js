@@ -89,7 +89,11 @@ export default {
             editor: {
                 name: 'EditorEnumAsyncSelect',
                 config: {
-                    getCandidate: getStore,
+                    getCandidate () {
+                        return new Promise((resolve) => {
+                            getStore(resolve);
+                        });
+                    },
                     labelfield: 'storename',
                     valuefield: '_id',
                 },
@@ -104,7 +108,11 @@ export default {
                     isValidValue (data) {
                         return data.store !== '';
                     },
-                    getCandidate: getSaler,
+                    getCandidate (params) {
+                        return new Promise((resolve) => {
+                            getSaler(resolve, params);
+                        });
+                    },
                     handleRelateDataChange (relateData) {
                         console.log(relateData);
                     },

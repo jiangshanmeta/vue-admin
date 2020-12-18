@@ -16,10 +16,7 @@ export default {
         },
     },
     created () {
-        new Promise((resolve) => {
-            this.isRequest = true;
-            this.getCandidate(resolve);
-        }).then((candidate) => {
+        this.getCandidate().then((candidate) => {
             this.isRequest = false;
             this.candidate = Object.freeze(candidate);
         }).catch(logError);

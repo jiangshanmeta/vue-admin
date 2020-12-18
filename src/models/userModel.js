@@ -179,7 +179,11 @@ export default function () {
                 editor: {
                     name: 'EditorEnumAsyncSelect',
                     config: {
-                        getCandidate: cacheGetTypEnum,
+                        getCandidate () {
+                            return new Promise((resolve) => {
+                                cacheGetTypEnum(resolve);
+                            });
+                        },
                         valuefield: 'value',
                         labelfield: 'label',
                         getModelValue (data) {
@@ -222,7 +226,11 @@ export default function () {
                         },
                     ],
                     config: {
-                        getCandidate: getPrivilege,
+                        getCandidate (params) {
+                            return new Promise((resolve) => {
+                                getPrivilege(resolve, params);
+                            });
+                        },
                         labelfield: 'name',
                         valuefield: 'id',
                         isValidValue (data) {
@@ -367,7 +375,11 @@ export default function () {
                         name: 'FilterEnumAsyncSelect',
                         config (val, record) {
                             const result = {
-                                getCandidate: cacheGetTypEnum,
+                                getCandidate () {
+                                    return new Promise((resolve) => {
+                                        cacheGetTypEnum(resolve);
+                                    });
+                                },
                                 allvalue: -1,
                                 alllabel: '全部',
                                 getModelValue (data) {
@@ -399,7 +411,11 @@ export default function () {
                     filterComponent: {
                         name: 'FilterEnumRelatesSelect',
                         config: {
-                            getCandidate: getPrivilege,
+                            getCandidate (params) {
+                                return new Promise((resolve) => {
+                                    getPrivilege(resolve, params);
+                                });
+                            },
                             getCacheKey (value, field) {
                                 if (field === 'typ') {
                                     return value.index;

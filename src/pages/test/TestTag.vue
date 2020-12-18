@@ -163,10 +163,12 @@ const EditorArrayAutocompleteCandidate = [
 ];
 
 const getCandidate = fields.reduce((obj, field) => {
-    obj[field] = function (cb) {
-        setTimeout(() => {
-            cb(EditorArrayAutocompleteCandidate);
-        }, 2000);
+    obj[field] = function () {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(EditorArrayAutocompleteCandidate);
+            }, 2000);
+        });
     };
     return obj;
 }, {});

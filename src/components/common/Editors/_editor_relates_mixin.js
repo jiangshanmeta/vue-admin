@@ -50,9 +50,7 @@ export default {
 
             const cacheObj = klona(this.relateData);
 
-            new Promise((resolve) => {
-                this.getCandidate(resolve, queryObj);
-            }).then((candidate) => {
+            this.getCandidate(queryObj).then((candidate) => {
                 this.setCacheOptions(Object.freeze(candidate), cacheObj);
             }).catch(logError);
         },

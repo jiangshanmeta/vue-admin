@@ -105,10 +105,12 @@ const FilterEnumAutocompleteCandidate = [
 ];
 
 const getCandidate = fields.reduce((obj, field) => {
-    obj[field] = function (cb) {
-        setTimeout(() => {
-            cb(FilterEnumAutocompleteCandidate);
-        }, 1000);
+    obj[field] = function () {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(FilterEnumAutocompleteCandidate);
+            }, 1000);
+        });
     };
     return obj;
 }, {});
