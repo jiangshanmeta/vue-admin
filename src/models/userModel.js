@@ -47,11 +47,10 @@ export default function () {
                     return [
                         {
                             validator: function (rule, value, cb) {
+                                console.log(record, '---', value);
                                 if (mode === 'edit' && record.gender === 0 && value === '渡边早季') {
                                     cb('早季是女孩子的名字');
-                                }
-
-                                if (value.length < 2) {
+                                } else if (value.length < 2) {
                                     cb([
                                         new Error('姓名最少两个字符'),
                                     ]);
@@ -533,6 +532,11 @@ export default function () {
                         [
                             'desc',
                         ],
+                    ],
+                    effectValidateFields: [
+                        'name',
+                        'password',
+                        'gender',
                     ],
                     autoValidate: false,
                     triggerConfig: {

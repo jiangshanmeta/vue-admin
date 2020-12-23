@@ -77,6 +77,7 @@ export default {
                 ],
                 default: '',
             },
+            validator: 'custom',
             view: {
                 component: () => import('@/components/common/Views/ViewMarkdown'),
                 config: {

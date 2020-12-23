@@ -1,18 +1,22 @@
 <template>
     <section>
         customername:{{ customername }}
-        <fieldText
-            v-model="model"
-        />
+        <el-form-item
+            :error="error"
+        >
+            <EditorText
+                v-model="model"
+            />
+        </el-form-item>
     </section>
 </template>
 
 <script>
-import fieldText from '@/components/common/Editors/EditorText';
+import EditorText from '@/components/common/Editors/EditorText';
 export default {
     name: 'EditorBookAddress',
     components: {
-        fieldText,
+        EditorText,
     },
     props: {
         value: {
@@ -32,6 +36,22 @@ export default {
             set (value) {
                 this.$emit('input', value);
             },
+        },
+        error () {
+            if (this.value === '北极') {
+                return '不去北极去广州';
+            } else {
+                return '';
+            }
+        },
+    },
+    methods: {
+        validate () {
+            if (this.error) {
+                return Promise.reject(new Error('不去北极'));
+            } else {
+                return Promise.resolve();
+            }
         },
     },
 };

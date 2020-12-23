@@ -13,6 +13,7 @@
             :auto-validate="autoValidate"
             :mode="mode"
             :record-watch="recordWatch"
+            :effect-validate-fields="effectValidateFields"
         />
         <template #footer>
             <el-button
@@ -78,7 +79,6 @@ export default {
         doConfirm () {
             this.$refs.editors.validate()
                 .then((data) => {
-                    console.log(data);
                     return data;
                 })
                 .then(this.handleConfirm)

@@ -16,6 +16,12 @@ export default {
                 return [];
             },
         },
+        effectValidateFields: {
+            type: Array,
+            default () {
+                return [];
+            },
+        },
         record: {
             type: Object,
             required: true,

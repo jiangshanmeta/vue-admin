@@ -1,41 +1,41 @@
 <template>
-    <MetaFieldsLayout
-        v-if="!hasInjectComponent || componentsInjected"
-        :fields="fields"
-        :mode="mode"
-        :field-layout-list="fieldLayoutList"
-        v-bind="fieldsLayoutConfig"
-    >
-        <template #label="{field}">
-            <Labels
-                :label-name="fields[field].labelName"
-                :component="injectedLabelComponents[field]"
-                :label="labelMap[field]"
-            />
-        </template>
+    <el-form>
+        <MetaFieldsLayout
+            v-if="!hasInjectComponent || componentsInjected"
+            :fields="fields"
+            :mode="mode"
+            :field-layout-list="fieldLayoutList"
+            v-bind="fieldsLayoutConfig"
+        >
+            <template #label="{field}">
+                <Labels
+                    :label-name="fields[field].labelName"
+                    :component="injectedLabelComponents[field]"
+                    :label="labelMap[field]"
+                />
+            </template>
 
-        <template #default="{field}">
-            <component
-                :is="fields[field].editor.name"
-                :ref="field"
-                v-model="localRecord[field]"
-                v-bind="generateEditorProp(field)"
-            />
+            <template #default="{field}">
+                <el-form-item
+                    :error="genError(field)"
+                >
+                    <component
+                        :is="fields[field].editor.name"
+                        :ref="field"
+                        v-model="localRecord[field]"
+                        v-bind="generateEditorProp(field)"
+                    />
 
-            <div
-                v-if="fields[field].tip"
-                class="form-helper"
-            >
-                {{ genTip(fields[field].tip) }}
-            </div>
-            <p
-                v-if="validators[field] && validators[field]['hasErr']"
-                class="text-danger form-helper"
-            >
-                {{ validators[field]['errMsg'] }}
-            </p>
-        </template>
-    </MetaFieldsLayout>
+                    <div
+                        v-if="fields[field].tip"
+                        class="form-helper"
+                    >
+                        {{ genTip(fields[field].tip) }}
+                    </div>
+                </el-form-item>
+            </template>
+        </MetaFieldsLayout>
+    </el-form>
 </template>
 
 <script>
@@ -300,12 +300,9 @@ export default {
             });
         },
         resetValidate () {
-            Object.keys(this.validators).forEach((field) => {
-                this.validators[field].unwatch && this.validators[field].unwatch();
-            });
             this.validators = {};
             this.hasValidateListener = false;
-
+            let globalAutoValidate = false;
             this.editableFields.forEach((field) => {
                 const validator = this.fields[field].validator;
                 if (!validator) {
@@ -321,53 +318,76 @@ export default {
                     }
                 }
 
-                const asyncValidator = new AsyncValidator({
-                    [field]: typeof validator === 'function' ? validator.call(this, this.localRecord, this.mode) : validator,
+                globalAutoValidate = globalAutoValidate || autoValidate;
 
-                });
+                let asyncValidator;
+                if (validator === 'custom') {
+                    asyncValidator = validator;
+                } else {
+                    asyncValidator = new AsyncValidator({
+                        [field]: typeof validator === 'function' ? validator.call(this, this.localRecord, this.mode) : validator,
+                    });
+                }
 
                 this.$set(this.validators, field, {
                     hasErr: false,
                     errMsg: '',
                     validator: asyncValidator,
-                    unwatch: null,
+                    autoValidate,
                 });
-
-                if (autoValidate) {
-                    this.validators[field].unwatch = this.addValidateInputListener(field);
-                }
             });
+
+            globalAutoValidate && this.addValidateInputListener();
         },
         validate () {
             const keys = Object.keys(this.validators);
-
             const promises = keys.map((field) => {
                 return this.validateField(field, this.localRecord[field]);
             });
 
             if (!this.hasValidateListener) {
                 keys.forEach((field) => {
-                    if (!this.validators[field].unwatch) {
-                        this.validators[field].unwatch = this.addValidateInputListener(field);
-                    }
+                    this.validators[field].autoValidate = true;
                 });
-                this.hasValidateListener = true;
+                this.addValidateInputListener();
             }
 
             return Promise.all(promises).then(() => {
                 return klona(this.localRecord);
             });
         },
-        addValidateInputListener (field) {
-            return this.$watch(() => {
-                return this.localRecord[field];
-            }, (value) => {
-                this.validateField(field, value).catch(() => {});
+        addValidateInputListener () {
+            if (this.hasValidateListener) {
+                return;
+            }
+            this.hasValidateListener = true;
+            let effectValidateFields = this.effectValidateFields;
+
+            if (effectValidateFields.length === 0) {
+                effectValidateFields = Object.keys(this.validators);
+            }
+
+            const unwatch = this.$watch(() => {
+                return effectValidateFields.reduce((obj, field) => {
+                    obj[field] = this.localRecord[field];
+                    return obj;
+                }, Object.create(null));
+            }, (localRecord) => {
+                Object.keys(this.validators).forEach((field) => {
+                    if (this.validators[field].autoValidate) {
+                        this.validateField(field, localRecord[field]).catch(() => {});
+                    }
+                });
             });
+            this.recordUnwatchs.push(unwatch);
         },
         validateField (field, value) {
+            const asyncValidator = this.validators[field].validator;
+            if (asyncValidator === 'custom') {
+                return this.$refs[field].validate();
+            }
+
             return new Promise((resolve, reject) => {
-                const asyncValidator = this.validators[field].validator;
                 asyncValidator.validate({
                     [field]: value,
                 },
@@ -391,6 +411,12 @@ export default {
             }
             return tip;
         },
+        genError (field) {
+            if (this.validators[field] && this.validators[field].hasErr) {
+                return this.validators[field].errMsg;
+            }
+            return '';
+        },
     },
 };
 </script>
@@ -402,9 +428,5 @@ export default {
     color: #737373;
     font-size: 12px;
     line-height: 1.42;
-}
-
-.text-danger {
-    color: #ff4949;
 }
 </style>
