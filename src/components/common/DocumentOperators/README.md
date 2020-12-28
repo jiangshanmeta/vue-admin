@@ -13,6 +13,7 @@
 | getDetailInfo | 是 | Function | 获得详情信息的方法 | - |
 | triggerConfig | 否 | Object | 触发按钮的配置项 | 默认为空对象 |
 | dialogConfig | 否 | Object | 弹框组件的配置项 | 默认为空对象 |
+| fieldsLayoutConfig | 否 | Object | MetaFieldsLayout组建的配置 | - |
 
 更多说明:
 
@@ -56,6 +57,7 @@
 | transformData | 否 | Function | 在doEditRequest前对表单数据做一次转换 |
 | idfield | 否 | String | 指明id字段 | 默认是id |
 | recordWatch | 否 | Function | 对表单数据进行观察，用于复杂联动 | 需要返回unwatch数组 |
+| fieldsLayoutConfig | 否 | Object | MetaFieldsLayout组建的配置 | - |
 
 更多说明:
 

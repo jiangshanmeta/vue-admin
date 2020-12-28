@@ -44,6 +44,12 @@ export default {
                 return [];
             },
         },
+        fieldsLayoutConfig: {
+            type: Object,
+            default () {
+                return {};
+            },
+        },
+
     },
-}
-;
+};

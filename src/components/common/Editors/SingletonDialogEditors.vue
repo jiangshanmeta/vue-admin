@@ -14,6 +14,7 @@
             :mode="mode"
             :record-watch="recordWatch"
             :effect-validate-fields="effectValidateFields"
+            :fields-layout-config="fieldsLayoutConfig"
         />
         <template #footer>
             <el-button

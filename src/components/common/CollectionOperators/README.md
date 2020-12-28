@@ -32,6 +32,7 @@
 | transformData | 否  | Function | 用来在doCreateRequest前对表单数据进行一次处理，比如修改某个字段的格式 | 默认方法是原样返回表单数据 |
 | autoValidate | 否 | Boolean | 是否一开始输入就表单验证 | 默认为false，第一次点击确定才开始表单验证 |
 | recordWatch | 否 | Function | 对表单数据进行观察，用于复杂联动 | 需要返回unwatch数组 |
+| fieldsLayoutConfig | 否 | Object | MetaFieldsLayout组建的配置 | - |
 
 更多说明:
 

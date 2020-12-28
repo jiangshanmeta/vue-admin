@@ -122,14 +122,6 @@ export default {
         hasValidateListener: false,
         recordUnwatchs: [],
     },
-    props: {
-        fieldsLayoutConfig: {
-            type: Object,
-            default () {
-                return {};
-            },
-        },
-    },
     data () {
         return {
             labelComponentsInjected: false,
