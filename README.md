@@ -16,11 +16,13 @@ model是对一个后台页面的描述，由以下几部分构成
   * tip tip用在Editor组件中，用于对应字段做些说明，它可以是一个函数(调用时this指向Editor组件实例，被传入一个参数mode(值为create或edit),其返回值作为显示值)，也可以是个简单值(直接作为显示值)
   * [colspan](./src/components/common/#MetaTable)
   * tableColumnConfig 对应el-table-column的其他配置项 一个对象 展开传递
-* [listConfig](./src/components/common#ListInfo)，列表组件的配置项
-* [documentOperators](./src/components/common/DocumentOperators/) 针对一条记录的操作集
-* [collectionOperators](./src/components/common/CollectionOperators/) 类似于documentOperators，但collectionOperators不针对于一条特定的记录，它对应的data是选中的数据数组。
-* [filters](./src/components/common/Filters/)，筛选组件的配置项。
-* [filterOperators](./src/components/common/FilterOperators/)
+* pages关联页面的描述
+  * list 列表页配置
+    * [listConfig](./src/components/common#ListInfo)，列表组件的配置项
+    * [documentOperators](./src/components/common/DocumentOperators/) 针对一条记录的操作集
+    * [collectionOperators](./src/components/common/CollectionOperators/) 类似于documentOperators，但collectionOperators不针对于一条特定的记录，它对应的data是选中的数据数组。
+    * [filters](./src/components/common/Filters/)，筛选组件的配置项。
+    * [filterOperators](./src/components/common/FilterOperators/)
 
 documentOperators/collectionOperators/filterOperators在底层都依赖于[Operators](./src/components/common/#Operators)
 

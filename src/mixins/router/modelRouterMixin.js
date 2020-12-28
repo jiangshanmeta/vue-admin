@@ -16,7 +16,17 @@ export default {
                 import('@/models/' + to.meta.model).then(({
                     default: defaultModel,
                 }) => {
-                    vm.model = deepFreeze(typeof defaultModel === 'function' ? defaultModel.call(vm) : defaultModel);
+                    const {
+                        fields,
+                        pages: {
+                            list,
+                        },
+                    } = typeof defaultModel === 'function' ? defaultModel.call(vm) : defaultModel;
+                    vm.model = deepFreeze({
+                        fields,
+                        ...list,
+                    });
+
                     vm.modelLoaded = true;
                 });
             }

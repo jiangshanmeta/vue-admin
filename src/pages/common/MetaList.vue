@@ -11,7 +11,7 @@ import ListView from '@/components/common/ListView';
 import modelRouterMixin from '@/mixins/router/modelRouterMixin';
 
 export default {
-    name: 'MetaPage',
+    name: 'MetaList',
     components: {
         ListView,
     },

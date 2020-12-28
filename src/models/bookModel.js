@@ -144,182 +144,187 @@ export default {
             },
         },
     },
-    collectionOperators: [
-        {
-            name: 'CollectionOperatorCreate',
-            component: () => import('@/components/common/CollectionOperators/CollectionOperatorCreate'),
-            config: {
-                getCreateFields () {
-                    return new Promise((resolve) => {
-                        getCreateFields(resolve);
-                    });
-                },
-                doCreateRequest (data) {
-                    return new Promise((resolve) => {
-                        createBook(resolve, data);
-                    });
-                },
-                fieldLayout: [
-                    [
-                        'customername', 'totalprice',
-                    ],
-                    [
-                        'address',
-                    ],
-                    [
-                        'store', 'saler',
-                    ],
-                ],
-                triggerConfig: {
-                    text: '新建订单',
-                    type: 'primary',
-                },
-                dialogConfig: {
-                    title: '新建订单',
-                    width: '800px',
-                },
-                confirmBtnConfig: {
-                    text: '确认创建',
-                    type: 'success',
-                },
-                cancelBtnConfig: {
-                    text: '取消',
-                },
-            },
-        },
-        {
-            handler (data, {
-                filterData,
-                selectedData,
-                pagination,
-            }) {
-                console.log(data);
-                console.log(filterData);
-                console.log(selectedData);
-                console.log(pagination);
-
-                this.$message({
-                    type: 'warning',
-                    message: '就把选中的取消选中',
-                });
-                this.$emit('update');
-            },
-            triggerConfig: {
-                type: 'danger',
-                text: '删除多项',
-            },
-        },
-        {
-            name: 'CollectionOperatorCsv',
-            component: () => import('@/components/common/CollectionOperators/CollectionOperatorCsv'),
-            config: {
-                triggerConfig: {
-                    text: '导入csv数据',
-                    type: 'warning',
-                },
-                handleData: function (resolve, data) {
-                    console.log(data);
-                    resolve();
-                },
-            },
-        },
-        {
-            handler (data) {
-                const keys = [
-                    'customername', 'totalprice', 'address',
-                ];
-                const rst = data.map((item) => {
-                    return keys.map((key) => {
-                        return item[key];
-                    }).join(',');
-                }).join('\r\n');
-
-                download(rst, 'template.csv');
-            },
-            triggerConfig: {
-                text: '下载CSV',
-                type: 'primary',
-            },
-
-        },
-    ],
-    listConfig: {
-        selection: true,
-        listRequest (params) {
-            return new Promise((resolve) => {
-                getBookList(resolve, params);
-            });
-        },
-        paginated: false,
-    },
-    filters: [
-        {
-            label: '客户名',
-            field: 'customername',
-            filterComponent: {
-                name: 'EditorString',
-                config: {
-                    placeholder: '请输入客户名',
-                },
-                default: '',
-            },
-        },
-        {
-            label: '金额',
-            field: 'totalprice',
-            filterComponent: {
-                name: 'EditorNumber',
-                default: 500,
-            },
-            relates: [
+    pages: {
+        list: {
+            collectionOperators: [
                 {
-                    relateField: 'customername',
-                    handler (customername) {
-                        console.log(customername);
-                        if (customername === 'lelouch') {
-                            this.$emit('input', 2333);
-                        }
-                    },
+                    name: 'CollectionOperatorCreate',
+                    component: () => import('@/components/common/CollectionOperators/CollectionOperatorCreate'),
                     config: {
-                        immediate: true,
+                        getCreateFields () {
+                            return new Promise((resolve) => {
+                                getCreateFields(resolve);
+                            });
+                        },
+                        doCreateRequest (data) {
+                            return new Promise((resolve) => {
+                                createBook(resolve, data);
+                            });
+                        },
+                        fieldLayout: [
+                            [
+                                'customername', 'totalprice',
+                            ],
+                            [
+                                'address',
+                            ],
+                            [
+                                'store', 'saler',
+                            ],
+                        ],
+                        triggerConfig: {
+                            text: '新建订单',
+                            type: 'primary',
+                        },
+                        dialogConfig: {
+                            title: '新建订单',
+                            width: '800px',
+                        },
+                        confirmBtnConfig: {
+                            text: '确认创建',
+                            type: 'success',
+                        },
+                        cancelBtnConfig: {
+                            text: '取消',
+                        },
                     },
+                },
+                {
+                    handler (data, {
+                        filterData,
+                        selectedData,
+                        pagination,
+                    }) {
+                        console.log(data);
+                        console.log(filterData);
+                        console.log(selectedData);
+                        console.log(pagination);
+
+                        this.$message({
+                            type: 'warning',
+                            message: '就把选中的取消选中',
+                        });
+                        this.$emit('update');
+                    },
+                    triggerConfig: {
+                        type: 'danger',
+                        text: '删除多项',
+                    },
+                },
+                {
+                    name: 'CollectionOperatorCsv',
+                    component: () => import('@/components/common/CollectionOperators/CollectionOperatorCsv'),
+                    config: {
+                        triggerConfig: {
+                            text: '导入csv数据',
+                            type: 'warning',
+                        },
+                        handleData: function (resolve, data) {
+                            console.log(data);
+                            resolve();
+                        },
+                    },
+                },
+                {
+                    handler (data) {
+                        const keys = [
+                            'customername', 'totalprice', 'address',
+                        ];
+                        const rst = data.map((item) => {
+                            return keys.map((key) => {
+                                return item[key];
+                            }).join(',');
+                        }).join('\r\n');
+
+                        download(rst, 'template.csv');
+                    },
+                    triggerConfig: {
+                        text: '下载CSV',
+                        type: 'primary',
+                    },
+
                 },
             ],
-        },
-    ],
-    documentOperators: [
-        {
-            handler (data) {
-                this.$message({
-                    message: `${data.customername}再来一单`,
-                    type: 'success',
-                    duration: 2000,
-                });
-                setTimeout(() => {
-                    this.$emit('update');
-                }, 1000);
-            },
-            triggerConfig: {
-                text: '再来一单',
-                type: 'success',
-                size: 'small',
-            },
-        },
-        {
-            name: 'DocumentOperatorLink',
-            component: () => import('@/components/common/DocumentOperators/DocumentOperatorLink'),
-            config: {
-                tag: 'el-button',
-                getLink (data) {
-                    return data.customername;
+            listConfig: {
+                selection: true,
+                listRequest (params) {
+                    return new Promise((resolve) => {
+                        getBookList(resolve, params);
+                    });
                 },
-                getText: '搜索地址',
-                triggerConfig: {
-                    size: 'small',
-                    type: 'primary',
-                },
+                paginated: false,
             },
-        },
+            filters: [
+                {
+                    label: '客户名',
+                    field: 'customername',
+                    filterComponent: {
+                        name: 'EditorString',
+                        config: {
+                            placeholder: '请输入客户名',
+                        },
+                        default: '',
+                    },
+                },
+                {
+                    label: '金额',
+                    field: 'totalprice',
+                    filterComponent: {
+                        name: 'EditorNumber',
+                        default: 500,
+                    },
+                    relates: [
+                        {
+                            relateField: 'customername',
+                            handler (customername) {
+                                console.log(customername);
+                                if (customername === 'lelouch') {
+                                    this.$emit('input', 2333);
+                                }
+                            },
+                            config: {
+                                immediate: true,
+                            },
+                        },
+                    ],
+                },
+            ],
+            documentOperators: [
+                {
+                    handler (data) {
+                        this.$message({
+                            message: `${data.customername}再来一单`,
+                            type: 'success',
+                            duration: 2000,
+                        });
+                        setTimeout(() => {
+                            this.$emit('update');
+                        }, 1000);
+                    },
+                    triggerConfig: {
+                        text: '再来一单',
+                        type: 'success',
+                        size: 'small',
+                    },
+                },
+                {
+                    name: 'DocumentOperatorLink',
+                    component: () => import('@/components/common/DocumentOperators/DocumentOperatorLink'),
+                    config: {
+                        tag: 'el-button',
+                        getLink (data) {
+                            return data.customername;
+                        },
+                        getText: '搜索地址',
+                        triggerConfig: {
+                            size: 'small',
+                            type: 'primary',
+                        },
+                    },
+                },
 
-    ],
+            ],
+        },
+    },
+
 };

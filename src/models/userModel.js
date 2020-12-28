@@ -275,36 +275,253 @@ export default function () {
                 },
             },
         },
-        collectionOperators: [
-            {
-                name: 'CollectionOperatorCreate',
-                component: () => import('@/components/common/CollectionOperators/CollectionOperatorCreate'),
-                config: {
-                    getCreateFields () {
+        pages: {
+            list: {
+                collectionOperators: [
+                    {
+                        name: 'CollectionOperatorCreate',
+                        component: () => import('@/components/common/CollectionOperators/CollectionOperatorCreate'),
+                        config: {
+                            getCreateFields () {
+                                return new Promise((resolve) => {
+                                    getCreateFields(resolve);
+                                });
+                            },
+                            doCreateRequest (data) {
+                                return new Promise((resolve) => {
+                                    createUser(resolve, data);
+                                });
+                            },
+                            fieldLayout (record) {
+                                if (record.gender === 0) {
+                                    return [
+                                        [
+                                            'name', 'password',
+                                        ],
+                                        [
+                                            'gender', 'typ',
+                                        ],
+                                        [
+                                            'privilege',
+                                        ],
+                                    ];
+                                } else {
+                                    return [
+                                        [
+                                            'name', 'password',
+                                        ],
+                                        [
+                                            'gender', 'typ',
+                                        ],
+                                        [
+                                            'privilege',
+                                        ],
+                                        [
+                                            'desc',
+                                        ],
+                                    ];
+                                }
+                            },
+                            effectLayoutFields: [
+                                'gender',
+                            ],
+                            triggerConfig: {
+                                text: '新建用户',
+                                type: 'primary',
+                            },
+                            dialogConfig: {
+                                title: '新建用户',
+                            },
+                            confirmBtnConfig: {
+                                text: '确认创建',
+                                type: 'success',
+                            },
+                            cancelBtnConfig: {
+                                text: '取消',
+                            },
+                        },
+                    },
+
+                ],
+                filters () {
+                    return [
+                        {
+                            label: '姓名',
+                            field: 'username',
+                            filterComponent: {
+                                name: 'EditorString',
+                                config: {
+                                    placeholder: '请输入用户姓名',
+                                },
+                                default: '',
+                            },
+                            validator: [
+                                {
+                                    validator (rule, value, cb) {
+                                        console.log('here');
+                                        if (value === '小管家') {
+                                            cb(new Error('不能搜索小管家'));
+                                        } else {
+                                            cb();
+                                        }
+                                    },
+                                },
+                            ],
+                            autoValidate: false,
+                        },
+                        {
+                            label: '类型',
+                            field: 'typ',
+                            filterComponent: {
+                                name: 'FilterEnumAsyncSelect',
+                                config (val, record) {
+                                    const result = {
+                                        getCandidate () {
+                                            return new Promise((resolve) => {
+                                                cacheGetTypEnum(resolve);
+                                            });
+                                        },
+                                        allvalue: -1,
+                                        alllabel: '全部',
+                                        getModelValue (data) {
+                                            return data.index;
+                                        },
+                                        setModelValue (data) {
+                                            return {
+                                                index: data,
+                                            };
+                                        },
+                                    };
+                                    if (record.username === 'lelouch') {
+                                        result.disabled = true;
+                                    }
+
+                                    return result;
+                                },
+
+                                default () {
+                                    return {
+                                        index: -1,
+                                    };
+                                },
+                            },
+                        },
+                        {
+                            label: '权限',
+                            field: 'privilege',
+                            filterComponent: {
+                                name: 'FilterEnumRelatesSelect',
+                                config: {
+                                    getCandidate (params) {
+                                        return new Promise((resolve) => {
+                                            getPrivilege(resolve, params);
+                                        });
+                                    },
+                                    getCacheKey (value, field) {
+                                        if (field === 'typ') {
+                                            return value.index;
+                                        }
+                                        return value;
+                                    },
+                                    valuefield: 'id',
+                                    labelfield: 'name',
+                                    allvalue: 'all',
+                                    alllabel: '不限',
+                                    handleInvalidValue () {
+                                        this.$emit('input', 'all');
+                                    },
+                                },
+                                default: 'all',
+                            },
+                            relates: [
+                                {
+                                    relateField: [
+                                        'typ',
+                                    ],
+                                    propField: 'relateData',
+                                },
+                            ],
+                        },
+                        {
+                            label: '自定义filter',
+                            field: 'test',
+                            filterComponent: {
+                                name: 'test_custom_filter',
+                                config: {
+                                    msg: '测试自定义filter',
+                                },
+                                component: () => import('@/components/user/Filters/FilterUserTestCustomFilter'),
+                                default: 'test',
+                            },
+                            watch: true,
+                        },
+                    ];
+                },
+                filterOperators: [
+                    {
+                        name: 'FilterOperatorReset',
+                        component: () => import('@/components/common/FilterOperators/FilterOperatorReset'),
+                    },
+                ],
+                listConfig: {
+                    createdHook () {
+                        setTimeout(() => {
+                            this.$store.commit('test/setTypHash', JSON.parse(JSON.stringify(typHash)));
+                        }, 5000);
+                    },
+                    listRequest (params) {
                         return new Promise((resolve) => {
-                            getCreateFields(resolve);
+                            getUserList(resolve, params);
                         });
                     },
-                    doCreateRequest (data) {
-                        return new Promise((resolve) => {
-                            createUser(resolve, data);
-                        });
+                    sortableFields: {
+                        typ: true,
                     },
-                    fieldLayout (record) {
-                        if (record.gender === 0) {
-                            return [
-                                [
-                                    'name', 'password',
-                                ],
-                                [
-                                    'gender', 'typ',
-                                ],
-                                [
-                                    'privilege',
-                                ],
-                            ];
-                        } else {
-                            return [
+                    initialSortField: 'name',
+                    initialSortOrder: 'desc',
+                    paginationConfig: {
+                        layout: 'total, sizes, prev, pager, next, jumper',
+                        pageSizes: [
+                            2, 10, 20, 30, 50,
+                        ],
+                    },
+
+                },
+                documentOperators: [
+                    {
+                        name: 'DocumentOperatorInfo',
+                        component: () => import('@/components/common/DocumentOperators/DocumentOperatorInfo'),
+                        config: {
+                            getDetailInfo (data) {
+                                return new Promise((resolve) => {
+                                    getUserDetail(resolve, data);
+                                });
+                            },
+                            triggerConfig: {
+                                text: '查看详情',
+                                size: 'small',
+                                type: 'primary',
+                            },
+                            dialogConfig: {
+                                title: '用户详情',
+                            },
+                        },
+                    },
+                    {
+                        name: 'DocumentOperatorEdit',
+                        component: () => import('@/components/common/DocumentOperators/DocumentOperatorEdit'),
+                        config: {
+                            getEditInfo (data) {
+                                return new Promise((resolve) => {
+                                    getEditUserInfo(resolve, data);
+                                });
+                            },
+                            doEditRequest (data) {
+                                return new Promise((resolve) => {
+                                    editUser(resolve, data);
+                                });
+                            },
+                            fieldLayout: [
                                 [
                                     'name', 'password',
                                 ],
@@ -317,296 +534,84 @@ export default function () {
                                 [
                                     'desc',
                                 ],
-                            ];
-                        }
-                    },
-                    effectLayoutFields: [
-                        'gender',
-                    ],
-                    triggerConfig: {
-                        text: '新建用户',
-                        type: 'primary',
-                    },
-                    dialogConfig: {
-                        title: '新建用户',
-                    },
-                    confirmBtnConfig: {
-                        text: '确认创建',
-                        type: 'success',
-                    },
-                    cancelBtnConfig: {
-                        text: '取消',
-                    },
-                },
-            },
-
-        ],
-        filters () {
-            return [
-                {
-                    label: '姓名',
-                    field: 'username',
-                    filterComponent: {
-                        name: 'EditorString',
-                        config: {
-                            placeholder: '请输入用户姓名',
-                        },
-                        default: '',
-                    },
-                    validator: [
-                        {
-                            validator (rule, value, cb) {
-                                console.log('here');
-                                if (value === '小管家') {
-                                    cb(new Error('不能搜索小管家'));
-                                } else {
-                                    cb();
-                                }
+                            ],
+                            effectValidateFields: [
+                                'name',
+                                'password',
+                                'gender',
+                            ],
+                            autoValidate: false,
+                            triggerConfig: {
+                                text: '编辑',
+                                size: 'small',
+                                type: 'primary',
                             },
-                        },
-                    ],
-                    autoValidate: false,
-                },
-                {
-                    label: '类型',
-                    field: 'typ',
-                    filterComponent: {
-                        name: 'FilterEnumAsyncSelect',
-                        config (val, record) {
-                            const result = {
-                                getCandidate () {
-                                    return new Promise((resolve) => {
-                                        cacheGetTypEnum(resolve);
-                                    });
-                                },
-                                allvalue: -1,
-                                alllabel: '全部',
-                                getModelValue (data) {
-                                    return data.index;
-                                },
-                                setModelValue (data) {
+                            dialogConfig: {
+                                title: '编辑用户',
+                            },
+                            confirmBtnConfig: {
+                                type: 'primary',
+                                text: '确定编辑',
+                            },
+                            cancelBtnConfig: {
+                                text: '取消',
+                            },
+                            recordWatch (data) {
+                                const unwatch = this.$watch(() => {
                                     return {
-                                        index: data,
+                                        name: data.name,
+                                        password: data.password,
                                     };
-                                },
-                            };
-                            if (record.username === 'lelouch') {
-                                result.disabled = true;
-                            }
+                                }, (info) => {
+                                    if (info.name === '渡边早季' && info.password === '123456') {
+                                        setTimeout(() => {
+                                            data.desc = 'test recordWatch';
+                                        }, 1000);
+                                    }
+                                });
+                                return [
+                                    unwatch,
+                                ];
+                            },
 
-                            return result;
-                        },
-
-                        default () {
-                            return {
-                                index: -1,
-                            };
                         },
                     },
-                },
-                {
-                    label: '权限',
-                    field: 'privilege',
-                    filterComponent: {
-                        name: 'FilterEnumRelatesSelect',
+                    {
+                        handler (data) {
+                            this.$message({
+                                message: `${data.name}不要总想着搞个大新闻`,
+                                type: 'success',
+                                duration: 2000,
+                            });
+                            setTimeout(() => {
+                                this.$emit('update');
+                            }, 1000);
+                        },
+                        triggerConfig: {
+                            text: '搞个大新闻',
+                            type: 'warning',
+                            size: 'small',
+                        },
+                    },
+                    {
+                        name: 'DocumentOperatorDelete',
+                        component: () => import('@/components/common/DocumentOperators/DocumentOperatorDelete'),
                         config: {
-                            getCandidate (params) {
+                            doDeleteRequest (data) {
                                 return new Promise((resolve) => {
-                                    getPrivilege(resolve, params);
+                                    delUser(resolve, data);
                                 });
                             },
-                            getCacheKey (value, field) {
-                                if (field === 'typ') {
-                                    return value.index;
-                                }
-                                return value;
-                            },
-                            valuefield: 'id',
-                            labelfield: 'name',
-                            allvalue: 'all',
-                            alllabel: '不限',
-                            handleInvalidValue () {
-                                this.$emit('input', 'all');
+                            triggerConfig: {
+                                text: '删除用户',
+                                type: 'danger',
+                                size: 'small',
                             },
                         },
-                        default: 'all',
                     },
-                    relates: [
-                        {
-                            relateField: [
-                                'typ',
-                            ],
-                            propField: 'relateData',
-                        },
-                    ],
-                },
-                {
-                    label: '自定义filter',
-                    field: 'test',
-                    filterComponent: {
-                        name: 'test_custom_filter',
-                        config: {
-                            msg: '测试自定义filter',
-                        },
-                        component: () => import('@/components/user/Filters/FilterUserTestCustomFilter'),
-                        default: 'test',
-                    },
-                    watch: true,
-                },
-            ];
-        },
-        filterOperators: [
-            {
-                name: 'FilterOperatorReset',
-                component: () => import('@/components/common/FilterOperators/FilterOperatorReset'),
-            },
-        ],
-        listConfig: {
-            createdHook () {
-                setTimeout(() => {
-                    this.$store.commit('test/setTypHash', JSON.parse(JSON.stringify(typHash)));
-                }, 5000);
-            },
-            listRequest (params) {
-                return new Promise((resolve) => {
-                    getUserList(resolve, params);
-                });
-            },
-            sortableFields: {
-                typ: true,
-            },
-            initialSortField: 'name',
-            initialSortOrder: 'desc',
-            paginationConfig: {
-                layout: 'total, sizes, prev, pager, next, jumper',
-                pageSizes: [
-                    2, 10, 20, 30, 50,
                 ],
             },
-
         },
-        documentOperators: [
-            {
-                name: 'DocumentOperatorInfo',
-                component: () => import('@/components/common/DocumentOperators/DocumentOperatorInfo'),
-                config: {
-                    getDetailInfo (data) {
-                        return new Promise((resolve) => {
-                            getUserDetail(resolve, data);
-                        });
-                    },
-                    triggerConfig: {
-                        text: '查看详情',
-                        size: 'small',
-                        type: 'primary',
-                    },
-                    dialogConfig: {
-                        title: '用户详情',
-                    },
-                },
-            },
-            {
-                name: 'DocumentOperatorEdit',
-                component: () => import('@/components/common/DocumentOperators/DocumentOperatorEdit'),
-                config: {
-                    getEditInfo (data) {
-                        return new Promise((resolve) => {
-                            getEditUserInfo(resolve, data);
-                        });
-                    },
-                    doEditRequest (data) {
-                        return new Promise((resolve) => {
-                            editUser(resolve, data);
-                        });
-                    },
-                    fieldLayout: [
-                        [
-                            'name', 'password',
-                        ],
-                        [
-                            'gender', 'typ',
-                        ],
-                        [
-                            'privilege',
-                        ],
-                        [
-                            'desc',
-                        ],
-                    ],
-                    effectValidateFields: [
-                        'name',
-                        'password',
-                        'gender',
-                    ],
-                    autoValidate: false,
-                    triggerConfig: {
-                        text: '编辑',
-                        size: 'small',
-                        type: 'primary',
-                    },
-                    dialogConfig: {
-                        title: '编辑用户',
-                    },
-                    confirmBtnConfig: {
-                        type: 'primary',
-                        text: '确定编辑',
-                    },
-                    cancelBtnConfig: {
-                        text: '取消',
-                    },
-                    recordWatch (data) {
-                        const unwatch = this.$watch(() => {
-                            return {
-                                name: data.name,
-                                password: data.password,
-                            };
-                        }, (info) => {
-                            if (info.name === '渡边早季' && info.password === '123456') {
-                                setTimeout(() => {
-                                    data.desc = 'test recordWatch';
-                                }, 1000);
-                            }
-                        });
-                        return [
-                            unwatch,
-                        ];
-                    },
 
-                },
-            },
-            {
-                handler (data) {
-                    this.$message({
-                        message: `${data.name}不要总想着搞个大新闻`,
-                        type: 'success',
-                        duration: 2000,
-                    });
-                    setTimeout(() => {
-                        this.$emit('update');
-                    }, 1000);
-                },
-                triggerConfig: {
-                    text: '搞个大新闻',
-                    type: 'warning',
-                    size: 'small',
-                },
-            },
-            {
-                name: 'DocumentOperatorDelete',
-                component: () => import('@/components/common/DocumentOperators/DocumentOperatorDelete'),
-                config: {
-                    doDeleteRequest (data) {
-                        return new Promise((resolve) => {
-                            delUser(resolve, data);
-                        });
-                    },
-                    triggerConfig: {
-                        text: '删除用户',
-                        type: 'danger',
-                        size: 'small',
-                    },
-                },
-            },
-        ],
     };
 }

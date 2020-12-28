@@ -5,7 +5,7 @@ export default {
     pages: [
         {
             path: '/crm/index',
-            component: () => import('@/pages/common/MetaPage'),
+            component: () => import('@/pages/common/MetaList'),
             label: '客户列表',
             meta: {
                 model: 'userModel',
