@@ -8,15 +8,17 @@
 <script>
 import ListView from '@/components/common/ListView';
 
-import modelRouterMixin from '@/mixins/router/modelRouterMixin';
+import {
+    listPageMixin,
+} from '@/mixins/router/modelRouterMixin';
 
 export default {
-    name: 'MetaList',
+    name: 'MetaPageList',
     components: {
         ListView,
     },
     mixins: [
-        modelRouterMixin,
+        listPageMixin,
     ],
 };
 </script>

@@ -23,6 +23,7 @@ model是对一个后台页面的描述，由以下几部分构成
     * [collectionOperators](./src/components/common/CollectionOperators/) 类似于documentOperators，但collectionOperators不针对于一条特定的记录，它对应的data是选中的数据数组。
     * [filters](./src/components/common/Filters/)，筛选组件的配置项。
     * [filterOperators](./src/components/common/FilterOperators/)
+  * info 详情页面 配置同DocumentOperatorInfo只是展示为页面级而不是弹窗
 
 documentOperators/collectionOperators/filterOperators在底层都依赖于[Operators](./src/components/common/#Operators)
 

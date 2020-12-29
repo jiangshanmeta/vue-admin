@@ -2,34 +2,35 @@ import {
     deepFreeze,
 } from '@/widget/utility';
 
-export default {
-    data () {
-        return {
-            model: {},
-            modelLoaded: false,
-        };
-    },
-    beforeRouteEnter (to, from, next) {
-        next((vm) => {
-            vm.modelLoaded = false;
-            if (to.meta && to.meta.model) {
-                import('@/models/' + to.meta.model).then(({
-                    default: defaultModel,
-                }) => {
-                    const {
-                        fields,
-                        pages: {
-                            list,
-                        },
-                    } = typeof defaultModel === 'function' ? defaultModel.call(vm) : defaultModel;
-                    vm.model = deepFreeze({
-                        fields,
-                        ...list,
-                    });
+function genRouterMixin (pageKey) {
+    return {
+        data () {
+            return {
+                model: {},
+                modelLoaded: false,
+            };
+        },
+        beforeRouteEnter (to, from, next) {
+            next((vm) => {
+                vm.modelLoaded = false;
+                if (to.meta && to.meta.model) {
+                    import('@/models/' + to.meta.model).then(({
+                        default: defaultModel,
+                    }) => {
+                        const model = typeof defaultModel === 'function' ? defaultModel.call(vm) : defaultModel;
+                        vm.model = deepFreeze({
+                            fields: model.fields,
+                            ...model.pages[pageKey],
+                        });
 
-                    vm.modelLoaded = true;
-                });
-            }
-        });
-    },
-};
+                        vm.modelLoaded = true;
+                    });
+                }
+            });
+        },
+
+    };
+}
+
+export const listPageMixin = genRouterMixin('list');
+export const infoPageMixin = genRouterMixin('info');

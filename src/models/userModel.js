@@ -578,17 +578,15 @@ export default function () {
                     },
                     {
                         handler (data) {
-                            this.$message({
-                                message: `${data.name}不要总想着搞个大新闻`,
-                                type: 'success',
-                                duration: 2000,
+                            this.$router.push({
+                                path: '/crm/detail',
+                                query: {
+                                    id: data.id,
+                                },
                             });
-                            setTimeout(() => {
-                                this.$emit('update');
-                            }, 1000);
                         },
                         triggerConfig: {
-                            text: '搞个大新闻',
+                            text: '详情页面',
                             type: 'warning',
                             size: 'small',
                         },
@@ -610,6 +608,13 @@ export default function () {
                         },
                     },
                 ],
+            },
+            info: {
+                getDetailInfo (data) {
+                    return new Promise((resolve) => {
+                        getUserDetail(resolve, this.$route.query);
+                    });
+                },
             },
         },
 

@@ -6,7 +6,7 @@ export default {
         {
             path: '/book/index',
             label: '订单列表',
-            component: () => import('@/pages/common/MetaList'),
+            component: () => import('@/pages/common/MetaPageList'),
             meta: {
                 model: 'bookModel',
                 title: '订单列表',
