@@ -50,6 +50,21 @@ export default {
                 return {};
             },
         },
-
+    },
+    computed: {
+        editorRenderProp () {
+            return {
+                fields: this.fields,
+                editableFields: this.editableFields,
+                fieldLayout: this.fieldLayout,
+                effectLayoutFields: this.effectLayoutFields,
+                record: this.record,
+                autoValidate: this.autoValidate,
+                mode: this.mode,
+                recordWatch: this.recordWatch,
+                effectValidateFields: this.effectValidateFields,
+                fieldsLayoutConfig: this.fieldsLayoutConfig,
+            };
+        },
     },
 };

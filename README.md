@@ -24,6 +24,7 @@ model是对一个后台页面的描述，由以下几部分构成
     * [filters](./src/components/common/Filters/)，筛选组件的配置项。
     * [filterOperators](./src/components/common/FilterOperators/)
   * info 详情页面 配置同DocumentOperatorInfo只是展示为页面级而不是弹窗
+  * create [新建页面](./src/components/common#MetaComponentCreate)
 
 documentOperators/collectionOperators/filterOperators在底层都依赖于[Operators](./src/components/common/#Operators)
 

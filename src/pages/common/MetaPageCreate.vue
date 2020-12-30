@@ -1,23 +1,24 @@
 <template>
-    <MetaComponentInfo
+    <MetaComponentCreate
         v-if="modelLoaded"
         v-bind="model"
     />
 </template>
 
 <script>
-import MetaComponentInfo from '@/components/common/MetaComponentInfo';
 import {
-    infoPageMixin,
+    createPageMixin,
 } from '@/mixins/router/modelRouterMixin';
 
+import MetaComponentCreate from '@/components/common/MetaComponentCreate';
+
 export default {
-    name: 'MetaPageInfo',
+    name: 'MetaPageCreate',
     components: {
-        MetaComponentInfo,
+        MetaComponentCreate,
     },
     mixins: [
-        infoPageMixin,
+        createPageMixin,
     ],
 };
 </script>

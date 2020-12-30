@@ -1,5 +1,9 @@
 <template>
     <div>
+        <el-button @click="back">
+            返回
+        </el-button>
+
         <InfoRender
             v-if="record"
             :record="record"
@@ -17,7 +21,7 @@ import {
 } from '@/widget/utility';
 
 export default {
-    name: 'InfoView',
+    name: 'MetaComponentInfo',
     components: {
         InfoRender,
     },
@@ -41,6 +45,11 @@ export default {
             this.fieldLayoutList = fieldLayoutList;
             this.record = record;
         }).catch(logError);
+    },
+    methods: {
+        back () {
+            this.$router.back();
+        },
     },
 };
 </script>

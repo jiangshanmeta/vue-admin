@@ -325,6 +325,29 @@ export default {
 
             ],
         },
+        create: {
+            getCreateFields () {
+                return new Promise((resolve) => {
+                    getCreateFields(resolve);
+                });
+            },
+            doCreateRequest (data) {
+                return new Promise((resolve) => {
+                    createBook(resolve, data);
+                });
+            },
+            fieldLayout: [
+                [
+                    'customername', 'totalprice',
+                ],
+                [
+                    'address',
+                ],
+                [
+                    'store', 'saler',
+                ],
+            ],
+        },
     },
 
 };

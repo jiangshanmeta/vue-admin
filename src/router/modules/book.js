@@ -12,6 +12,14 @@ export default {
                 title: '订单列表',
             },
         },
-
+        {
+            path: '/book/create',
+            label: '订单创建',
+            component: () => import('@/pages/common/MetaPageCreate'),
+            meta: {
+                model: 'bookModel',
+                title: '订单创建',
+            },
+        },
     ],
 };

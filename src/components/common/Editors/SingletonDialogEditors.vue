@@ -5,16 +5,7 @@
     >
         <Editors
             ref="editors"
-            :fields="fields"
-            :editable-fields="editableFields"
-            :field-layout="fieldLayout"
-            :effect-layout-fields="effectLayoutFields"
-            :record="record"
-            :auto-validate="autoValidate"
-            :mode="mode"
-            :record-watch="recordWatch"
-            :effect-validate-fields="effectValidateFields"
-            :fields-layout-config="fieldsLayoutConfig"
+            v-bind="editorRenderProp"
         />
         <template #footer>
             <el-button
@@ -75,13 +66,11 @@ export default {
             type: Function,
             required: true,
         },
+
     },
     methods: {
         doConfirm () {
             this.$refs.editors.validate()
-                .then((data) => {
-                    return data;
-                })
                 .then(this.handleConfirm)
                 .catch((err) => {
                     this.$message(err);

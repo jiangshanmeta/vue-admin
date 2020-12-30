@@ -14,38 +14,20 @@ import {
 
 import SingletonDialogEditors from '@/components/common/Editors/SingletonDialogEditors';
 
+import _createMixin from './_createMixin';
+
 export default {
     name: 'CollectionOperatorCreate',
+    mixins: [
+        _createMixin,
+    ],
     props: {
-        fields: {
-            type: Object,
-            required: true,
-        },
-        getCreateFields: {
-            type: Function,
-            required: true,
-        },
-        doCreateRequest: {
-            type: Function,
-            required: true,
-        },
         triggerConfig: {
             type: Object,
             default () {
                 return {};
             },
         },
-        transformData: {
-            type: Function,
-            default (data) {
-                return data;
-            },
-        },
-    },
-    state: {
-        editableFields: [],
-        record: {},
-        isCreating: false,
     },
     singleton: {
         singletonDialogEditors: null,
@@ -65,13 +47,6 @@ export default {
                 },
                 this.$root
             );
-        },
-        resetRecord () {
-            this.record = this.editableFields.reduce((obj, field) => {
-                const configDefault = this.fields[field].editor.default;
-                obj[field] = typeof configDefault === 'function' ? configDefault.call(this, field) : configDefault;
-                return obj;
-            }, {});
         },
         handleClick () {
             if (this.editableFields.length === 0) {

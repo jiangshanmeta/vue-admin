@@ -88,3 +88,10 @@
 * triggerConfig 一个可选对象 用来配置该模式下对应的btn。其中text是按钮的内容
 * label 按钮的内容 同triggerConfig.text 但是优先级比triggerConfig.text低
 * emit update事件，会刷新列表
+
+## MetaComponentCreate
+
+配置参数可参考CollectionOperatorCreate
+
+* handleCancel 取消按钮点击回调函数
+* handleCreateSuccess 新建成功后执行的函数

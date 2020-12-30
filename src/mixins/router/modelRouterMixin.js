@@ -22,7 +22,7 @@ function genRouterMixin (pageKey) {
                             fields: model.fields,
                             ...model.pages[pageKey],
                         });
-
+                        console.log(vm.model);
                         vm.modelLoaded = true;
                     });
                 }
@@ -34,3 +34,4 @@ function genRouterMixin (pageKey) {
 
 export const listPageMixin = genRouterMixin('list');
 export const infoPageMixin = genRouterMixin('info');
+export const createPageMixin = genRouterMixin('create');
