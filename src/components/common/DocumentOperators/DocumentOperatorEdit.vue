@@ -16,26 +16,17 @@ import {
 
 import SingletonDialogEditors from '@/components/common/Editors/SingletonDialogEditors';
 
+import _edit_mixin from './_edit_mixin';
+
 export default {
     name: 'DocumentOperatorEdit',
     mixins: [
         _id_mixin,
+        _edit_mixin,
     ],
     props: {
         data: {
             type: Object,
-            required: true,
-        },
-        fields: {
-            type: Object,
-            required: true,
-        },
-        getEditInfo: {
-            type: Function,
-            required: true,
-        },
-        doEditRequest: {
-            type: Function,
             required: true,
         },
         triggerConfig: {
@@ -44,17 +35,6 @@ export default {
                 return {};
             },
         },
-        transformData: {
-            type: Function,
-            default: function (data) {
-                return data;
-            },
-        },
-    },
-    state: {
-        editableFields: [],
-        record: {},
-        isUpdating: false,
     },
     singleton: {
         singletonDialogEditors: null,

@@ -6,10 +6,9 @@
             :fields="fields"
             :editable-fields="editableFields"
             :record="record"
-            mode="create"
+            mode="edit"
             v-bind="$attrs"
         />
-
         <div>
             <el-button
                 v-bind="cancelBtnConfig"
@@ -29,19 +28,21 @@
 
 <script>
 import Editors from './Editors/Editors';
+
 import {
     logError,
+    hasOwnProperty,
 } from '@/widget/utility';
 
-import _createMixin from './CollectionOperators/_createMixin';
+import _edit_mixin from './DocumentOperators/_edit_mixin';
 
 export default {
-    name: 'MetaComponentCreate',
+    name: 'MetaComponentEdit',
     components: {
         Editors,
     },
     mixins: [
-        _createMixin,
+        _edit_mixin,
     ],
     props: {
         handleCancel: {
@@ -50,7 +51,7 @@ export default {
                 this.$router.back();
             },
         },
-        handleCreateSuccess: {
+        handleEditSuccess: {
             type: Function,
             default () {
                 this.$router.back();
@@ -73,16 +74,29 @@ export default {
                 };
             },
         },
+
     },
     created () {
-        this.getCreateFields().then((editableFields) => {
-            this.editableFields = editableFields;
-            this.resetRecord();
-        });
+        this.getEditFields();
     },
     methods: {
         doCancel () {
             this.handleCancel();
+        },
+        getEditFields () {
+            this.getEditInfo(this.data).then(({
+                editableFields,
+                record,
+            }) => {
+                editableFields.forEach((field) => {
+                    if (!hasOwnProperty(record, field)) {
+                        const configDefault = this.fields[field].editor.default;
+                        record[field] = typeof configDefault === 'function' ? configDefault.call(this, field) : configDefault;
+                    }
+                });
+                this.editableFields = editableFields;
+                this.record = record;
+            }).catch(logError);
         },
         handleConfirmClick () {
             this.$refs.editors.validate()
@@ -90,14 +104,14 @@ export default {
                 .catch(logError);
         },
         handleConfirm (data) {
-            if (this.isCreating) {
+            if (this.isUpdating) {
                 return;
             }
-            this.isCreating = true;
-            this.doCreateRequest(this.transformData(data)).then(() => {
-                this.handleCreateSuccess();
+            this.isUpdating = true;
+            this.doEditRequest(this.transformData(data)).then(() => {
+                this.handleEditSuccess();
             }).catch(logError).finally(() => {
-                this.isCreating = false;
+                this.isUpdating = false;
             });
         },
     },

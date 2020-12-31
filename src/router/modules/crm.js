@@ -21,5 +21,15 @@ export default {
                 title: '客户详情',
             },
         },
+        {
+            path: '/crm/edit',
+            component: () => import('@/pages/common/MetaPageEdit'),
+            menuHide: true,
+            meta: {
+                model: 'userModel',
+                title: '客户编辑',
+            },
+        },
+
     ],
 };

@@ -592,6 +592,22 @@ export default function () {
                         },
                     },
                     {
+                        handler (data) {
+                            this.$router.push({
+                                path: '/crm/edit',
+                                query: {
+                                    id: data.id,
+                                },
+                            });
+                        },
+                        triggerConfig: {
+                            text: '编辑页面',
+                            type: 'warning',
+                            size: 'small',
+                        },
+                    },
+
+                    {
                         name: 'DocumentOperatorDelete',
                         component: () => import('@/components/common/DocumentOperators/DocumentOperatorDelete'),
                         config: {
@@ -615,6 +631,56 @@ export default function () {
                         getUserDetail(resolve, this.$route.query);
                     });
                 },
+            },
+            edit: {
+                getEditInfo () {
+                    return new Promise((resolve) => {
+                        getEditUserInfo(resolve, this.$route.query);
+                    });
+                },
+                doEditRequest (data) {
+                    return new Promise((resolve) => {
+                        editUser(resolve, data);
+                    });
+                },
+                fieldLayout: [
+                    [
+                        'name', 'password',
+                    ],
+                    [
+                        'gender', 'typ',
+                    ],
+                    [
+                        'privilege',
+                    ],
+                    [
+                        'desc',
+                    ],
+                ],
+                effectValidateFields: [
+                    'name',
+                    'password',
+                    'gender',
+                ],
+                autoValidate: false,
+                recordWatch (data) {
+                    const unwatch = this.$watch(() => {
+                        return {
+                            name: data.name,
+                            password: data.password,
+                        };
+                    }, (info) => {
+                        if (info.name === '渡边早季' && info.password === '123456') {
+                            setTimeout(() => {
+                                data.desc = 'test recordWatch';
+                            }, 1000);
+                        }
+                    });
+                    return [
+                        unwatch,
+                    ];
+                },
+
             },
         },
 

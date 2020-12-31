@@ -232,7 +232,7 @@ const editFields = [
 ];
 
 function getEditUserInfo (cb, data) {
-    const id = data.id;
+    const id = +data.id;
     for (const item of userTable) {
         if (item.id === id) {
             cb({

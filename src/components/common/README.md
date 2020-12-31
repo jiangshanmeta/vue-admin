@@ -93,5 +93,12 @@
 
 配置参数可参考CollectionOperatorCreate
 
-* handleCancel 取消按钮点击回调函数
-* handleCreateSuccess 新建成功后执行的函数
+* handleCancel 取消按钮点击回调函数 默认跳转到上一个页面
+* handleCreateSuccess 新建成功后执行的函数 默认跳转到上一个页面
+
+## MetaComponentEdit
+
+配置参数可参考DocumentOperatorEdit
+
+* handleCancel 取消按钮点击回调函数 默认跳转到上一个页面
+* handleEditSuccess 编辑成功后执行的函数 默认跳转到上一个页面
