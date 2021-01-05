@@ -49,11 +49,10 @@ export default function () {
                             validator: function (rule, value, cb) {
                                 console.log(record, '---', value);
                                 if (mode === 'edit' && record.gender === 0 && value === '渡边早季') {
-                                    cb('早季是女孩子的名字');
+                                    cb(new Error('早季是女孩子的名字'));
                                 } else if (value.length < 2) {
-                                    cb([
-                                        new Error('姓名最少两个字符'),
-                                    ]);
+                                    console.log('name called');
+                                    cb(new Error('姓名最少两个字符'));
                                 } else {
                                     cb();
                                 }

@@ -45,7 +45,6 @@ export default {
                 SingletonDialogEditors,
                 {
                     ...this.$attrs,
-                    visible: true,
                     fields: this.fields,
                     editableFields: this.editableFields,
                     record: this.record,
@@ -54,6 +53,7 @@ export default {
                 },
                 this.$root
             );
+            this.singletonDialogEditors.show();
         },
         getEditFields () {
             this.getEditInfo(this.data).then(({
@@ -78,7 +78,7 @@ export default {
             }
             this.isUpdating = true;
             this.doEditRequest(this.transformData(data)).then(() => {
-                this.singletonDialogEditors.visible = false;
+                this.singletonDialogEditors.hide();
                 this.$emit('update');
             }).catch(logError).finally(() => {
                 this.isUpdating = false;

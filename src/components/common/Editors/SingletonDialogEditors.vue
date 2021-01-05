@@ -40,10 +40,6 @@ export default {
     ],
     inheritAttrs: false,
     props: {
-        visible: {
-            type: Boolean,
-            default: false,
-        },
         dialogConfig: {
             type: Object,
             default () {
@@ -66,9 +62,19 @@ export default {
             type: Function,
             required: true,
         },
-
+    },
+    data () {
+        return {
+            visible: false,
+        };
     },
     methods: {
+        show () {
+            this.visible = true;
+        },
+        hide () {
+            this.visible = false;
+        },
         doConfirm () {
             this.$refs.editors.validate()
                 .then(this.handleConfirm)

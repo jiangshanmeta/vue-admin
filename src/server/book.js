@@ -1,5 +1,5 @@
-function getStore (cb) {
-    cb([
+function getStore (fn) {
+    fn([
         {
             _id: 3,
             storename: '北京店',
@@ -123,8 +123,8 @@ function createBook (cb, data) {
     cb();
 }
 
-function getBookList (cb) {
-    cb({
+function getBookList (fn) {
+    fn({
         data: JSON.parse(JSON.stringify(bookTable)),
         fieldList: [
             'customername', 'totalprice', 'address', 'nameAddress',

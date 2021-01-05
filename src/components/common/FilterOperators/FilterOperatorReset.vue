@@ -11,6 +11,9 @@
 <script>
 export default {
     name: 'FilterOperatorReset',
+    inject: [
+        'filtersComponent',
+    ],
     props: {
         type: {
             type: String,
@@ -25,9 +28,6 @@ export default {
             default: '重置',
         },
     },
-    inject: [
-        'filtersComponent',
-    ],
     methods: {
         handleClick () {
             this.filtersComponent.resetValue();

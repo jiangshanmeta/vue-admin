@@ -6,7 +6,7 @@
         v-bind="$attrs"
         v-on="listenersWithoutInput"
     >
-        <template>
+        <template #default>
             <slot />
         </template>
     </EditorEnumSelect>

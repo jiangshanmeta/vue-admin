@@ -206,9 +206,9 @@ export default {
         handleChange () {
             console.log('change');
         },
-        getLabelByValue (cb, value) {
+        getLabelByValue (fn, value) {
             console.log(value);
-            cb('sixsixsix');
+            fn('sixsixsix');
         },
         fetchSuggestions (cb, queryString) {
             setTimeout(() => {

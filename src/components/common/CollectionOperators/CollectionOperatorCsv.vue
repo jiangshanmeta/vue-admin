@@ -47,7 +47,7 @@ export default {
             this.$refs.input.click();
         },
         handleChange (ev) {
-            var reader = new FileReader();
+            const reader = new FileReader();
             reader.onload = function (e) {
                 new Promise((resolve, reject) => {
                     this.handleData(resolve, csvjs.parse(e.target.result));

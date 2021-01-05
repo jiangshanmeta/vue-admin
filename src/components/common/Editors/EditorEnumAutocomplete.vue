@@ -23,9 +23,11 @@ export default {
         fetchSuggestions: {
             type: Function,
             default (cb, queryString) {
-                const data = queryString ? this.candidate.filter((item) => {
-                    return item[this.labelfield].includes(queryString);
-                }) : this.candidate;
+                const data = queryString
+                    ? this.candidate.filter((item) => {
+                        return item[this.labelfield].includes(queryString);
+                    })
+                    : this.candidate;
                 cb(data);
             },
         },

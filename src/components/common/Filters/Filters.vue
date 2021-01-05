@@ -12,8 +12,8 @@
             <component
                 :is="item.filterComponent.name"
                 :ref="item.field"
-                v-model="filtersValueMap[item.field]"
                 v-bind="generateFilterProp(item)"
+                v-model="filtersValueMap[item.field]"
             />
             <p
                 v-if="validators[item.field] && validators[item.field]['hasErr']"
@@ -85,6 +85,11 @@ export default {
             return this.needInjectFilterComponentsList.length > 0;
         },
         hasValidateListener: false,
+    },
+    provide () {
+        return {
+            filtersComponent: this,
+        };
     },
     props: {
         filters: {
@@ -296,11 +301,6 @@ export default {
             });
         },
 
-    },
-    provide () {
-        return {
-            filtersComponent: this,
-        };
     },
 };
 </script>

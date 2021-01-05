@@ -22,8 +22,8 @@
                     <component
                         :is="fields[field].editor.name"
                         :ref="field"
-                        v-model="localRecord[field]"
                         v-bind="generateEditorProp(field)"
+                        v-model="localRecord[field]"
                     />
 
                     <div
@@ -160,6 +160,7 @@ export default {
             immediate: true,
             handler () {
                 this.localRecord = klona(this.record);
+                this.clearWatches();
                 this.resetValidate();
                 this.resetRelates();
             },
@@ -186,11 +187,13 @@ export default {
             this.injectLabelComponents();
             this.injectEditorComponents();
         },
-        resetRelates () {
+        clearWatches () {
             this.recordUnwatchs.forEach((unwatch) => {
                 unwatch && unwatch();
             });
             this.recordUnwatchs = [];
+        },
+        resetRelates () {
             this.relatesDataByField = {};
             this.recordUnwatchs.push(...this.recordWatch(this.localRecord));
 
@@ -302,6 +305,7 @@ export default {
                 }
                 let autoValidate = this.autoValidate;
                 const autoValidateConfig = this.fields[field].autoValidate;
+
                 if (autoValidateConfig !== undefined) {
                     if (typeof autoValidateConfig === 'function') {
                         autoValidate = autoValidateConfig(this.mode);
@@ -333,16 +337,15 @@ export default {
         },
         validate () {
             const keys = Object.keys(this.validators);
+
+            keys.forEach((field) => {
+                this.validators[field].autoValidate = true;
+            });
+            this.addValidateInputListener();
+
             const promises = keys.map((field) => {
                 return this.validateField(field, this.localRecord[field]);
             });
-
-            if (!this.hasValidateListener) {
-                keys.forEach((field) => {
-                    this.validators[field].autoValidate = true;
-                });
-                this.addValidateInputListener();
-            }
 
             return Promise.all(promises).then(() => {
                 return klona(this.localRecord);

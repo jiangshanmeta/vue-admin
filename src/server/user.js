@@ -182,14 +182,14 @@ function createUser (cb, data) {
     cb();
 }
 
-function getUserList (cb, params) {
+function getUserList (fn, params) {
     const data = JSON.parse(JSON.stringify(userTable));
     const fieldList = [
         'name', 'gender', 'typ', 'password',
     ];
     const total = data.length;
 
-    cb({
+    fn({
         data,
         fieldList,
         total,
@@ -208,12 +208,12 @@ const detailFields = [
     ],
 ];
 
-function getUserDetail (cb, data) {
+function getUserDetail (fn, data) {
     const id = +data.id;
 
     for (const item of userTable) {
         if (item.id === id) {
-            cb({
+            fn({
                 fieldLayoutList: detailFields,
                 record: JSON.parse(JSON.stringify(item)),
             });
@@ -231,11 +231,11 @@ const editFields = [
     'desc',
 ];
 
-function getEditUserInfo (cb, data) {
+function getEditUserInfo (fn, data) {
     const id = +data.id;
     for (const item of userTable) {
         if (item.id === id) {
-            cb({
+            fn({
                 editableFields: JSON.parse(JSON.stringify(editFields)),
                 record: JSON.parse(JSON.stringify(item)),
             });

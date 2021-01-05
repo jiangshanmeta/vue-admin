@@ -45,9 +45,11 @@ export default {
 
             const isJoinField = join && (typeof join === 'object');
             if (isJoinField) {
-                const obj = hasOwnProperty(props.record, props.field) ? {
-                    [props.field]: info,
-                } : {};
+                const obj = hasOwnProperty(props.record, props.field)
+                    ? {
+                        [props.field]: info,
+                    }
+                    : {};
                 if (Array.isArray(join)) {
                     info = join.reduce((obj, field) => {
                         obj[field] = props.record[field];

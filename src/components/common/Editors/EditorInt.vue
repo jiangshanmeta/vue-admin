@@ -1,8 +1,8 @@
 <template>
     <EditorNumber
         ref="EditorNumber"
-        v-model="model"
         v-bind="$attrs"
+        v-model="model"
         v-on="listenersWithoutInput"
     />
 </template>

@@ -1,8 +1,8 @@
 <template>
     <component
         :is="layoutComponentName"
-        v-if="!hasInjectComponent || componentsInjected"
         v-bind="$attrs"
+        v-if="!hasInjectComponent || componentsInjected"
     >
         <template
             #label="scope"

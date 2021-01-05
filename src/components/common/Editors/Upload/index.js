@@ -98,9 +98,11 @@ export default {
                 if (Array.isArray(this.value)) {
                     return this.value;
                 }
-                return this.value ? [
-                    this.value,
-                ] : [];
+                return this.value
+                    ? [
+                        this.value,
+                    ]
+                    : [];
             },
             set (val) {
                 const emitVal = Array.isArray(this.value) ? val : (val[0] ? val[0] : '');
@@ -175,7 +177,8 @@ export default {
                             {...{
                                 props: this.uploadComponentProp,
                             }}
-                        >{this.$slots.default}</Upload> : ''
+                        >{this.$slots.default}</Upload>
+                        : ''
 
                 }
             </div>
