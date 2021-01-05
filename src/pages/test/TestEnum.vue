@@ -41,6 +41,7 @@
                             :candidate="field_enum_candidate"
                             valuefield="valuefield"
                             :handle-invalid-value="handleInvalidValue"
+                            :render-item="renderItem"
                             @blur="handleBlur"
                         />
                     </td>
@@ -166,7 +167,7 @@ const getCandidate = fields.reduce((obj, field) => {
         });
     };
     return obj;
-}, {});
+}, {}); ;
 
 export default {
     components: {
@@ -214,6 +215,9 @@ export default {
             setTimeout(() => {
                 cb(field_enum_candidate);
             }, 1000);
+        },
+        renderItem (item, index) {
+            return `${index + 1} ${item.label}`;
         },
     },
 };

@@ -36,8 +36,9 @@ export default function () {
                 },
                 view: {
                     handler (data, config) {
-                        // console.log(this);
-                        return config.prefix + data;
+                        return (
+                            <div>{config.prefix} {data}</div>
+                        );
                     },
                     config: {
                         prefix: '用户名',
