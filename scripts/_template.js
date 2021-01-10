@@ -1,8 +1,13 @@
 export default {
     fields: {},
-    collectionOperators: [],
-    filters: [],
-    filterOperators: [],
-    listConfig: {},
-    documentOperators: [],
+    pages: {
+        list: {
+            collectionOperators: [],
+            filters: [],
+            filterOperators: [],
+            listConfig: {},
+            documentOperators: [],
+        },
+    },
+
 };

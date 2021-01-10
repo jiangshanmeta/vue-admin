@@ -15,7 +15,7 @@ function resolve (...args) {
 }
 
 function initModel () {
-    var fileName = process.argv[2] || 'template';
+    let fileName = process.argv[2] || 'template';
     if (!fileName.endsWith('Model')) {
         fileName += 'Model';
     }
