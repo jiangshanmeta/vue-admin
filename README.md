@@ -1,6 +1,8 @@
 # vue-admin
 
-本项目提供了一种配置式生成后台页面的方案。
+本项目提供了一个针对后台admin应用的low code解决方案。
+
+热烈庆祝本项目被[awesome-lowcode](https://github.com/taowen/awesome-lowcode)收录
 
 ## model
 
