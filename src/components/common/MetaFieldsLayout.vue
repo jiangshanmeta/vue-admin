@@ -1,6 +1,6 @@
 <template>
     <component
-        :is="layoutComponentName"
+        :is="injectedLayoutComponents[layoutComponentName]"
         v-bind="$attrs"
         v-if="!hasInjectComponent || componentsInjected"
     >
@@ -21,6 +21,10 @@
 <script>
 import injectComponents from '@/components/common/injectHelper/injectComponents';
 import MetaTable from '@/components/common/FieldsLayout/MetaTable';
+
+const defaultLayouts = {
+    MetaTable,
+};
 
 export default {
     name: 'MetaFieldsLayout',
@@ -49,6 +53,7 @@ export default {
     watch: {
         layoutComponent: {
             handler () {
+                this.injectedLayoutComponents = Object.create(defaultLayouts);
                 if (!this.layoutComponent) {
                     this.hasInjectComponent = false;
                     return;
@@ -61,7 +66,7 @@ export default {
                         name: this.layoutComponentName,
                         component: this.layoutComponent,
                     },
-                ], this).then(() => {
+                ], this.injectedLayoutComponents).then(() => {
                     this.componentsInjected = true;
                 });
             },

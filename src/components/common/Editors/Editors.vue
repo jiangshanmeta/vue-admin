@@ -20,7 +20,7 @@
                     :error="genError(field)"
                 >
                     <component
-                        :is="fields[field].editor.name"
+                        :is="injectedEditorComponents[fields[field].editor.name]"
                         :ref="field"
                         v-bind="generateEditorProp(field)"
                         v-model="localRecord[field]"
@@ -60,52 +60,55 @@ const validatorOption = {
     first: true,
 };
 
+const defaultEditors = {
+    EditorString: () => import('./EditorString'),
+    EditorText: () => import('./EditorText'),
+    EditorPwd: () => import('./EditorPwd'),
+    EditorNumber: () => import('./EditorNumber'),
+    EditorInt: () => import('./EditorInt'),
+    EditorTextrich: () => import('./EditorTextrich'),
+
+    EditorEnumRadio: () => import('./EditorEnumRadio'),
+    EditorEnumSelect: () => import('./EditorEnumSelect'),
+    EditorEnumAutocomplete: () => import('./EditorEnumAutocomplete'),
+    EditorEnumRemoteAutocomplete: () => import('./EditorEnumRemoteAutocomplete'),
+    EditorEnumAsyncRadio: () => import('./EditorEnumAsyncRadio'),
+    EditorEnumAsyncSelect: () => import('./EditorEnumAsyncSelect'),
+    EditorEnumAsyncAutocomplete: () => import('./EditorEnumAsyncAutocomplete'),
+    EditorEnumRelatesRadio: () => import('./EditorEnumRelatesRadio'),
+    EditorEnumRelatesSelect: () => import('./EditorEnumRelatesSelect'),
+    EditorEnumRelatesAutocomplete: () => import('./EditorEnumRelatesAutocomplete'),
+    EditorBool: () => import('./EditorBool'),
+    EditorGender: () => import('./EditorGender'),
+
+    EditorArrayCheckbox: () => import('./EditorArrayCheckbox'),
+    EditorArrayAutocomplete: () => import('./EditorArrayAutocomplete'),
+    EditorArrayAsyncCheckbox: () => import('./EditorArrayAsyncCheckbox'),
+    EditorArrayAsyncAutocomplete: () => import('./EditorArrayAsyncAutocomplete'),
+    EditorArrayRelatesCheckbox: () => import('./EditorArrayRelatesCheckbox'),
+    EditorArrayRelatesAutocomplete: () => import('./EditorArrayRelatesAutocomplete'),
+
+    EditorArrayJSONCheckbox: () => import('./EditorArrayJSONCheckbox'),
+    EditorArrayJSONAutocomplete: () => import('./EditorArrayJSONAutocomplete'),
+    EditorArrayJSONAsyncCheckbox: () => import('./EditorArrayJSONAsyncCheckbox'),
+    EditorArrayJSONAsyncAutocomplete: () => import('./EditorArrayJSONAsyncAutocomplete'),
+    EditorArrayJSONRelatesCheckbox: () => import('./EditorArrayJSONRelatesCheckbox'),
+    EditorArrayJSONRelatesAutocomplete: () => import('./EditorArrayJSONRelatesAutocomplete'),
+
+    EditorFile: () => import('./EditorFile'),
+    EditorArrayFile: () => import('./EditorArrayFile'),
+    EditorArrayJSONFile: () => import('./EditorArrayJSONFile'),
+    EditorImage: () => import('./EditorImage'),
+    EditorArrayImage: () => import('./EditorArrayImage'),
+    EditorArrayJSONImage: () => import('./EditorArrayJSONImage'),
+};
+
 export default {
     name: 'Editors',
     components: {
         Labels,
         MetaFieldsLayout: () => import('@/components/common/MetaFieldsLayout'),
 
-        EditorString: () => import('./EditorString'),
-        EditorText: () => import('./EditorText'),
-        EditorPwd: () => import('./EditorPwd'),
-        EditorNumber: () => import('./EditorNumber'),
-        EditorInt: () => import('./EditorInt'),
-        EditorTextrich: () => import('./EditorTextrich'),
-
-        EditorEnumRadio: () => import('./EditorEnumRadio'),
-        EditorEnumSelect: () => import('./EditorEnumSelect'),
-        EditorEnumAutocomplete: () => import('./EditorEnumAutocomplete'),
-        EditorEnumRemoteAutocomplete: () => import('./EditorEnumRemoteAutocomplete'),
-        EditorEnumAsyncRadio: () => import('./EditorEnumAsyncRadio'),
-        EditorEnumAsyncSelect: () => import('./EditorEnumAsyncSelect'),
-        EditorEnumAsyncAutocomplete: () => import('./EditorEnumAsyncAutocomplete'),
-        EditorEnumRelatesRadio: () => import('./EditorEnumRelatesRadio'),
-        EditorEnumRelatesSelect: () => import('./EditorEnumRelatesSelect'),
-        EditorEnumRelatesAutocomplete: () => import('./EditorEnumRelatesAutocomplete'),
-        EditorBool: () => import('./EditorBool'),
-        EditorGender: () => import('./EditorGender'),
-
-        EditorArrayCheckbox: () => import('./EditorArrayCheckbox'),
-        EditorArrayAutocomplete: () => import('./EditorArrayAutocomplete'),
-        EditorArrayAsyncCheckbox: () => import('./EditorArrayAsyncCheckbox'),
-        EditorArrayAsyncAutocomplete: () => import('./EditorArrayAsyncAutocomplete'),
-        EditorArrayRelatesCheckbox: () => import('./EditorArrayRelatesCheckbox'),
-        EditorArrayRelatesAutocomplete: () => import('./EditorArrayRelatesAutocomplete'),
-
-        EditorArrayJSONCheckbox: () => import('./EditorArrayJSONCheckbox'),
-        EditorArrayJSONAutocomplete: () => import('./EditorArrayJSONAutocomplete'),
-        EditorArrayJSONAsyncCheckbox: () => import('./EditorArrayJSONAsyncCheckbox'),
-        EditorArrayJSONAsyncAutocomplete: () => import('./EditorArrayJSONAsyncAutocomplete'),
-        EditorArrayJSONRelatesCheckbox: () => import('./EditorArrayJSONRelatesCheckbox'),
-        EditorArrayJSONRelatesAutocomplete: () => import('./EditorArrayJSONRelatesAutocomplete'),
-
-        EditorFile: () => import('./EditorFile'),
-        EditorArrayFile: () => import('./EditorArrayFile'),
-        EditorArrayJSONFile: () => import('./EditorArrayJSONFile'),
-        EditorImage: () => import('./EditorImage'),
-        EditorArrayImage: () => import('./EditorArrayImage'),
-        EditorArrayJSONImage: () => import('./EditorArrayJSONImage'),
     },
     mixins: [
         _editor_form_prop_mixin,
@@ -286,11 +289,12 @@ export default {
             });
         },
         injectEditorComponents () {
+            this.injectedEditorComponents = Object.create(defaultEditors);
             if (!this.hasInjectEditorComponents) {
                 this.editorComponentsInjected = true;
                 return;
             }
-            injectComponents(this.needInjectEditorComponentsList, this).then(() => {
+            injectComponents(this.needInjectEditorComponentsList, this.injectedEditorComponents).then(() => {
                 this.editorComponentsInjected = true;
             });
         },

@@ -10,7 +10,7 @@
             :label="item.label"
         >
             <component
-                :is="item.filterComponent.name"
+                :is="injectedFilterComponents[item.filterComponent.name]"
                 :ref="item.field"
                 v-bind="generateFilterProp(item)"
                 v-model="filtersValueMap[item.field]"
@@ -58,24 +58,27 @@ const validatorOption = {
     first: true,
 };
 
+const defaultFilters = {
+    FilterEnumSelect: () => import('./FilterEnumSelect'),
+    FilterEnumAsyncSelect: () => import('./FilterEnumAsyncSelect'),
+    FilterEnumRelatesSelect: () => import('./FilterEnumRelatesSelect'),
+    FilterEnumAutocomplete: () => import('./FilterEnumAutocomplete'),
+    FilterEnumAsyncAutocomplete: () => import('./FilterEnumAsyncAutocomplete'),
+    FilterEnumRelatesAutocomplete: () => import('./FilterEnumRelatesAutocomplete'),
+
+    EditorEnumSelect: () => import('../Editors/EditorEnumSelect'),
+    EditorEnumAsyncSelect: () => import('../Editors/EditorEnumAsyncSelect'),
+    EditorEnumRelatesSelect: () => import('../Editors/EditorEnumRelatesSelect'),
+    EditorEnumAutocomplete: () => import('../Editors/EditorEnumAutocomplete'),
+    EditorEnumAsyncAutocomplete: () => import('../Editors/EditorEnumAsyncAutocomplete'),
+    EditorEnumRelatesAutocomplete: () => import('../Editors/EditorEnumRelatesAutocomplete'),
+    EditorString: () => import('../Editors/EditorString'),
+    EditorNumber: () => import('../Editors/EditorNumber'),
+};
+
 export default {
     name: 'Filters',
     components: {
-        FilterEnumSelect: () => import('./FilterEnumSelect'),
-        FilterEnumAsyncSelect: () => import('./FilterEnumAsyncSelect'),
-        FilterEnumRelatesSelect: () => import('./FilterEnumRelatesSelect'),
-        FilterEnumAutocomplete: () => import('./FilterEnumAutocomplete'),
-        FilterEnumAsyncAutocomplete: () => import('./FilterEnumAsyncAutocomplete'),
-        FilterEnumRelatesAutocomplete: () => import('./FilterEnumRelatesAutocomplete'),
-
-        EditorEnumSelect: () => import('../Editors/EditorEnumSelect'),
-        EditorEnumAsyncSelect: () => import('../Editors/EditorEnumAsyncSelect'),
-        EditorEnumRelatesSelect: () => import('../Editors/EditorEnumRelatesSelect'),
-        EditorEnumAutocomplete: () => import('../Editors/EditorEnumAutocomplete'),
-        EditorEnumAsyncAutocomplete: () => import('../Editors/EditorEnumAsyncAutocomplete'),
-        EditorEnumRelatesAutocomplete: () => import('../Editors/EditorEnumRelatesAutocomplete'),
-        EditorString: () => import('../Editors/EditorString'),
-        EditorNumber: () => import('../Editors/EditorNumber'),
 
         Operators: () => import('@/components/common/Operators'),
     },
@@ -163,10 +166,11 @@ export default {
             }).catch(() => {});
         },
         injectFilterComponents () {
+            this.injectedFilterComponents = Object.create(defaultFilters);
             if (!this.hasInjectFilterComponents) {
                 return;
             }
-            injectComponents(this.needInjectFilterComponentsList, this).then(() => {
+            injectComponents(this.needInjectFilterComponentsList, this.injectedFilterComponents).then(() => {
                 this.componentsInjected = true;
             });
         },

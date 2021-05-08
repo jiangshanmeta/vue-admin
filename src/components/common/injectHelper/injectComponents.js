@@ -1,10 +1,4 @@
-import Vue from 'vue';
-
 export default function injectComponents (components, target) {
-    if (target instanceof Vue) {
-        target = target.$options.components;
-    }
-
     if (!Array.isArray(components)) {
         components = Object.keys(components).map((field) => {
             return {

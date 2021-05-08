@@ -6,7 +6,7 @@
     >
         <template v-for="(item,index) in finalOperators">
             <component
-                :is="item.name"
+                :is="injectedOperatorComponents[item.name]"
                 v-if="item.component"
                 :key="index"
                 :data="data"
@@ -40,6 +40,7 @@ export default {
         get hasInjectOperatorComponents () {
             return this.needInjectOperatorComponentsList.length > 0;
         },
+        injectedOperatorComponents: {},
     },
     props: {
         operators: {
@@ -78,7 +79,7 @@ export default {
     methods: {
         injectOperatorComponents () {
             if (this.hasInjectOperatorComponents) {
-                injectComponents(this.needInjectOperatorComponentsList, this).then(() => {
+                injectComponents(this.needInjectOperatorComponentsList, this.injectedOperatorComponents).then(() => {
                     this.componentsInjected = true;
                     this.notifytWidth();
                 });
