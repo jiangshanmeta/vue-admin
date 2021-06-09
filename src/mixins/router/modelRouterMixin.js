@@ -13,18 +13,17 @@ function genRouterMixin (pageKey) {
         beforeRouteEnter (to, from, next) {
             next((vm) => {
                 vm.modelLoaded = false;
-                if (to.meta && to.meta.model) {
-                    import('@/models/' + to.meta.model).then(({
-                        default: defaultModel,
-                    }) => {
-                        const model = typeof defaultModel === 'function' ? defaultModel.call(vm) : defaultModel;
-                        vm.model = deepFreeze({
-                            fields: model.fields,
-                            ...model.pages[pageKey],
-                        });
-                        vm.modelLoaded = true;
+
+                to.meta?.model?.().then(({
+                    default: defaultModel,
+                }) => {
+                    const model = typeof defaultModel === 'function' ? defaultModel.call(vm) : defaultModel;
+                    vm.model = deepFreeze({
+                        fields: model.fields,
+                        ...model.pages[pageKey],
                     });
-                }
+                    vm.modelLoaded = true;
+                });
             });
         },
 

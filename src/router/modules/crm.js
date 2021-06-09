@@ -1,3 +1,5 @@
+const importUserModel = () => import('@/models/userModel');
+
 export default {
     label: '客户',
     icon: 'el-icon-share',
@@ -8,7 +10,7 @@ export default {
             component: () => import('@/pages/common/MetaPageList'),
             label: '客户列表',
             meta: {
-                model: 'userModel',
+                model: importUserModel,
                 title: '客户列表',
             },
         },
@@ -17,7 +19,7 @@ export default {
             component: () => import('@/pages/common/MetaPageInfo'),
             menuHide: true,
             meta: {
-                model: 'userModel',
+                model: importUserModel,
                 title: '客户详情',
             },
         },
@@ -26,7 +28,7 @@ export default {
             component: () => import('@/pages/common/MetaPageEdit'),
             menuHide: true,
             meta: {
-                model: 'userModel',
+                model: importUserModel,
                 title: '客户编辑',
             },
         },

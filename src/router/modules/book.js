@@ -1,3 +1,5 @@
+const importBookModel = () => import('@/models/bookModel');
+
 export default {
     label: '订单',
     icon: 'el-icon-setting',
@@ -8,7 +10,7 @@ export default {
             label: '订单列表',
             component: () => import('@/pages/common/MetaPageList'),
             meta: {
-                model: 'bookModel',
+                model: importBookModel,
                 title: '订单列表',
             },
         },
@@ -17,7 +19,7 @@ export default {
             label: '订单创建',
             component: () => import('@/pages/common/MetaPageCreate'),
             meta: {
-                model: 'bookModel',
+                model: importBookModel,
                 title: '订单创建',
             },
         },
