@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0e9070"],{"8c7f":function(n,e,t){"use strict";t.r(e);var c=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("section",[n._v(" 简单验证一下匹配失败自动路由到404页 ")])},u=[],l={},s=l,o=t("2877"),r=Object(o["a"])(s,c,u,!1,null,null,null);e["default"]=r.exports}}]);

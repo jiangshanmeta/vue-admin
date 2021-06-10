@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0c08a2"],{"41e4":function(n,r,e){"use strict";e.r(r),r["default"]={name:"ViewTransform",functional:!0,props:{value:{},transform:{type:Function,default:function(n){return n}}},render:function(n,r){var e=r.props,a=e.value,o=e.transform;return n("span",[o(a)])}}}}]);
