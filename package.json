@@ -15,7 +15,7 @@
   "main": "src/main.js",
   "dependencies": {
     "async-validator": "^3.5.1",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "core-js": "^3.8.2",
     "csv-js": "^1.0.0",
     "element-ui": "^2.14.1",
