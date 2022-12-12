@@ -22,7 +22,7 @@
     "file-saver": "^2.0.5",
     "klona": "^2.0.4",
     "normalize.css": "^8.0.1",
-    "qs": "^6.9.4",
+    "qs": "^6.9.7",
     "vue": "^2.6.12",
     "vue-configs": "^1.0.4",
     "vue-localstorage": "^0.6.2",
