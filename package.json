@@ -23,7 +23,7 @@
     "klona": "^2.0.4",
     "normalize.css": "^8.0.1",
     "qs": "^6.9.7",
-    "vue": "^2.6.12",
+    "vue": "^3.0.0",
     "vue-configs": "^1.0.4",
     "vue-localstorage": "^0.6.2",
     "vue-markdown": "^2.2.4",
